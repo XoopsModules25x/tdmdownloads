@@ -36,8 +36,8 @@ function xoops_module_update_tdmdownloads() {
     $db->query($sql);
     $sql = "CREATE TABLE `" . $db->prefix('tdmdownloads_downlimit') . "` (downlimit_id int(11) unsigned NOT NULL auto_increment, downlimit_lid int(11) unsigned NOT NULL default '0',
            downlimit_uid int(11) NOT NULL default '0', downlimit_hostname varchar(60) NOT NULL default '', downlimit_date int(10) NOT NULL default '0', PRIMARY KEY  (downlimit_id)
-           ) ENGINE=MyISAM";    
+           ) ENGINE=MyISAM";
     $db->query($sql);
+
     return true;
 }
-?>

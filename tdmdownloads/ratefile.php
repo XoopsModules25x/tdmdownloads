@@ -29,7 +29,6 @@ if ($perm_vote == false) {
     exit();
 }
 
-
 $view_downloads = $downloads_Handler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activé
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
@@ -43,7 +42,6 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
     exit();
 }
-
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {

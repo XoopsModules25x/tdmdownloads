@@ -621,5 +621,3 @@ $modversion['notification']['event'][8]['caption'] = _MI_TDMDOWNLOADS_FILE_APPRO
 $modversion['notification']['event'][8]['description'] = _MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYDSC;
 $modversion['notification']['event'][8]['mail_template'] = 'file_approve_notify';
 $modversion['notification']['event'][8]['mail_subject'] = _MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ;
-
-?>

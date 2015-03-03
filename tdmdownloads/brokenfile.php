@@ -29,7 +29,6 @@ if ($perm_vote == false) {
     exit();
 }
 
-
 $view_downloads = $downloads_Handler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activé
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {

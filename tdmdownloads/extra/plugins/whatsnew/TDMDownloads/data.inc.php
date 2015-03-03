@@ -63,6 +63,7 @@ function tdmdownloads_num()
     $array = $xoopsDB->fetchRow( $xoopsDB->query($sql) );
     $num   = $array[0];
     if (empty($num)) $num = 0;
+
     return $num;
 }
 

@@ -282,4 +282,3 @@ $keywords = substr($keywords, 0, -1);
 $xoTheme->addMeta('meta', 'keywords', strip_tags($keywords));
 
 include XOOPS_ROOT_PATH . '/footer.php';
-?>

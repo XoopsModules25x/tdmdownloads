@@ -66,4 +66,3 @@ if (TDMDownloads_checkModuleAdmin()){
     echo $index_admin->renderIndex();
 }
 xoops_cp_footer();
-?>

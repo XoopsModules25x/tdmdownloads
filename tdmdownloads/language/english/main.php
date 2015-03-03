@@ -116,7 +116,7 @@ define('_MD_TDMDOWNLOADS_NOPERMISETOLINK', "This file does not belong to the web
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', "You have to choose a category!");
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', "File size must be a number");
-//Bookmarks 
+//Bookmarks
 define('_MD_TDMDOWNLOADS_BOOKMARK_ME', "Bookmark Me");
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BLINKLIST', "Bookmark to Blinklist");
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DELICIOUS', "Bookmark to del.icio.us");

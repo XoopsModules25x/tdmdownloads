@@ -42,6 +42,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     if ($category == 'global') {
         $item['name'] = '';
         $item['url'] = '';
+
         return $item;
     }
 
@@ -53,6 +54,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $result_array = $xoopsDB->fetchArray($result);
         $item['name'] = $result_array['title'];
         $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/viewcat.php?cid=' . $item_id;
+
         return $item;
     }
 
@@ -63,7 +65,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $result_array = $xoopsDB->fetchArray($result);
         $item['name'] = $result_array['title'];
         $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;
+
         return $item;
     }
 }
-?>

@@ -57,7 +57,6 @@ function xoops_module_install_tdmdownloads() {
     $obj->setVar('status_def', 1);
     $downloadsfield_Handler->insert($obj);
 
-
     //Creation du fichier ".$namemodule."/
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."";
     if(!is_dir($dir))
@@ -114,6 +113,6 @@ function xoops_module_install_tdmdownloads() {
     copy(XOOPS_ROOT_PATH."/modules/".$namemodule."/images/icon/version.png", XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/field/version.png");
     copy(XOOPS_ROOT_PATH."/modules/".$namemodule."/images/icon/size.png", XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/field/size.png");
     copy(XOOPS_ROOT_PATH."/modules/".$namemodule."/images/icon/platform.png", XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/field/platform.png");
+
     return true;
 }
-?>

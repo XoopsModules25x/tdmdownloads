@@ -262,7 +262,6 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         $keywords .= $downloads_arr[$i]->getVar('title') . ',';
     }
 
-
     if ($numrows == 0) {
         $bl_affichage = 0;
     }

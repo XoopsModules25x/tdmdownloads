@@ -102,7 +102,6 @@ $xoopsTpl->assign('nb_comments', sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_COMMENTS,$v
 $xoopsTpl->assign('show_bookmark' , $xoopsModuleConfig['show_bookmark']);
 $xoopsTpl->assign('show_social' , $xoopsModuleConfig['show_social']);
 
-
 //paypal
 if ( $view_downloads->getVar('paypal') != '' && $xoopsModuleConfig['use_paypal'] == true) {
     $paypal = '<form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
