@@ -23,7 +23,7 @@ class TDMDownloads_votedata extends XoopsObject
 // constructor
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar("ratingid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("ratinguser",XOBJ_DTYPE_INT,null,false,11);

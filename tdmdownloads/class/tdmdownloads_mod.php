@@ -23,7 +23,7 @@ class TDMDownloads_mod extends XoopsObject
 // constructor
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar("requestid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("cid",XOBJ_DTYPE_INT,null,false,5);

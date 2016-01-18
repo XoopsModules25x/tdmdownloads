@@ -22,7 +22,7 @@ class TDMDownloads_cat extends XoopsObject
 // constructor
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar("cat_cid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("cat_pid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("cat_title",XOBJ_DTYPE_TXTBOX, null, false);

@@ -23,7 +23,7 @@ class TDMDownloads_broken extends XoopsObject
 // constructor
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar("reportid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("sender",XOBJ_DTYPE_INT,null,false,11);

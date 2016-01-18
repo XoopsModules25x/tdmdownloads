@@ -23,7 +23,7 @@ class TDMDownloads_downlimit extends XoopsObject
 // constructor
     function __construct()
     {
-        $this->XoopsObject();
+        parent::__construct();
         $this->initVar("downlimit_id",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("downlimit_lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("downlimit_uid",XOBJ_DTYPE_INT,null,false,11);
