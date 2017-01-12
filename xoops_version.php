@@ -19,7 +19,7 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']                = _MI_TDMDOWNLOADS_NAME;
-$modversion['version']             = '1.63';
+$modversion['version']             = '1.65';
 $modversion['description']         = _MI_TDMDOWNLOADS_DESC;
 $modversion['credits']             = 'G. Mage';
 $modversion['author']              = 'G. Mage';
@@ -31,8 +31,8 @@ $modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']            = 1;
 $modversion['image']               = 'images/tdmdownloads_logo.png';
 $modversion['dirname']             = 'TDMDownloads';
-$modversion['module_status']       = 'Beta 2';
-$modversion['release_date']        = '2013/08/24';
+$modversion['module_status']       = 'Beta 1';
+$modversion['release_date']        = '2017/12/01';
 $modversion['sqlfile']['mysql']    = 'sql/mysql.sql';
 $modversion['onInstall']           = 'include/install.php';
 $modversion['onUpdate']            = 'include/update.php';
