@@ -67,14 +67,14 @@ switch ($op) {
         //description
         $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $view_downloads->getVar('title') . ')'));
         //Affichage du formulaire de notation des téléchargements
-        $obj =& $downloadsvotedata_Handler->create();
+        $obj = $downloadsvotedata_Handler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
 
     // save
     case "save":
-        $obj =& $downloadsvotedata_Handler->create();
+        $obj = $downloadsvotedata_Handler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
@@ -146,7 +146,7 @@ switch ($op) {
                     $total_rating += $downloadsvotes_arr[$i]->getVar('rating');
                 }
                 $rating = $total_rating / $total_vote;
-                $objdownloads =& $downloads_Handler->get($lid);
+                $objdownloads = $downloads_Handler->get($lid);
                 $objdownloads->setVar('rating', number_format($rating, 1));
                 $objdownloads->setVar('votes', $total_vote);
                 if ($downloads_Handler->insert($objdownloads)) {
@@ -157,7 +157,7 @@ switch ($op) {
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements
-        $form =& $obj->getForm($lid);
+        $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
 
     break;

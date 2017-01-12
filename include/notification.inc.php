@@ -30,13 +30,13 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
     $item_id = intval($item_id);
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'TDMDownloads') {
-        $module_handler =& xoops_gethandler('module');
-        $module =& $module_handler->getByDirname('TDMDownloads');
-        $config_handler =& xoops_gethandler('config');
-        $config =& $config_handler->getConfigsByCat(0,$module->getVar('mid'));
+        $module_handler = xoops_gethandler('module');
+        $module = $module_handler->getByDirname('TDMDownloads');
+        $config_handler = xoops_gethandler('config');
+        $config = $config_handler->getConfigsByCat(0,$module->getVar('mid'));
     } else {
-        $module =& $xoopsModule;
-        $config =& $xoopsModuleConfig;
+        $module = $xoopsModule;
+        $config = $xoopsModuleConfig;
     }
 
     if ($category == 'global') {

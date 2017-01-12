@@ -57,7 +57,7 @@ $mytree           = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid')
 $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cat', 'cat_title', '--', $cat, true)));
 
 //recherche champ sup.
-$downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('search', 1));
 $criteria->add(new Criteria('status', 1));

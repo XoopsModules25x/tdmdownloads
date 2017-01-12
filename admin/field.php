@@ -73,7 +73,7 @@ switch ($op) {
     break;
 
     case "update_status":
-        $obj =& $downloadsfield_Handler->get($_REQUEST['fid']);
+        $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
 
         $obj->setVar('status', $_REQUEST["aff"]);
         if ($downloadsfield_Handler->insert($obj)) {
@@ -83,7 +83,7 @@ switch ($op) {
     break;
 
     case "update_search":
-        $obj =& $downloadsfield_Handler->get($_REQUEST['fid']);
+        $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
 
         $obj->setVar('search', $_REQUEST["aff"]);
         if ($downloadsfield_Handler->insert($obj)) {
@@ -104,7 +104,7 @@ switch ($op) {
             echo $field_admin->renderButton();
         }
         //Affichage du formulaire de création des champs
-        $obj =& $downloadsfield_Handler->create();
+        $obj = $downloadsfield_Handler->create();
         $form = $obj->getForm();
         $form->display();
     break;
@@ -129,7 +129,7 @@ switch ($op) {
     // Pour supprimer un champ
     case "del_field":
         global $xoopsModule;
-        $obj =& $downloadsfield_Handler->get($_REQUEST['fid']);
+        $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -140,7 +140,7 @@ switch ($op) {
             $downloads_arr = $downloadsfielddata_Handler->getall( $criteria );
             foreach (array_keys($downloads_arr) as $i) {
                 // supression de l'entrée
-                $objdownloadsfielddata =& $downloadsfielddata_Handler->get($downloads_arr[$i]->getVar('iddata'));
+                $objdownloadsfielddata = $downloadsfielddata_Handler->get($downloads_arr[$i]->getVar('iddata'));
                 $downloadsfielddata_Handler->delete($objdownloadsfielddata) or $objdownloads->getHtmlErrors();
             }
             if ($downloadsfield_Handler->delete($obj)) {
@@ -182,9 +182,9 @@ switch ($op) {
            redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($_REQUEST['fid'])) {
-           $obj =& $downloadsfield_Handler->get($_REQUEST['fid']);
+           $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
         } else {
-           $obj =& $downloadsfield_Handler->create();
+           $obj = $downloadsfield_Handler->create();
         }
         $erreur = false;
         $message_erreur = '';
@@ -223,7 +223,7 @@ switch ($op) {
             }
             echo $obj->getHtmlErrors();
         }
-        $form =& $obj->getForm();
+        $form = $obj->getForm();
         $form->display();
     break;
 }

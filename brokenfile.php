@@ -67,13 +67,13 @@ switch ($op) {
         //description
         $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' (' . $view_downloads->getVar('title') . ')'));
         //Affichage du formulaire de fichier brisé*/
-        $obj =& $downloadsbroken_Handler->create();
+        $obj = $downloadsbroken_Handler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case "save":
-        $obj =& $downloadsbroken_Handler->create();
+        $obj = $downloadsbroken_Handler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
@@ -119,14 +119,14 @@ switch ($op) {
             if ($downloadsbroken_Handler->insert($obj)) {
                 $tags = array();
                 $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/broken.php';
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $notification_handler->triggerEvent('global', 0, 'file_broken', $tags);
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_THANKSFORINFO);
             }
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements
-        $form =& $obj->getForm($lid);
+        $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
 
     break;

@@ -18,7 +18,7 @@ function b_tdmdownloads_top_show($options)
 {
     require_once XOOPS_ROOT_PATH."/modules/TDMDownloads/include/functions.php";
     //appel de la class
-    $downloads_Handler =& xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+    $downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
     $block = array();
     $type_block = $options[0];
     $nb_entree = $options[1];
@@ -110,7 +110,7 @@ function b_tdmdownloads_top_show($options)
 function b_tdmdownloads_top_edit($options)
 {
     //appel de la class
-    $downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+    $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
     $criteria = new CriteriaCompo();
     $criteria = new CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
