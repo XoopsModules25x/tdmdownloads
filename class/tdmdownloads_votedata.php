@@ -21,9 +21,8 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_votedata extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("ratingid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("ratinguser",XOBJ_DTYPE_INT,null,false,11);
@@ -31,12 +30,12 @@ class TDMDownloads_votedata extends XoopsObject
         $this->initVar("ratinghostname",XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar("ratingtimestamp",XOBJ_DTYPE_INT,null,false,10);
     }
-    function TDMDownloads_votedata()
+    public function TDMDownloads_votedata()
     {
         $this->__construct();
     }
 
-    function getForm($lid, $action = false)
+    public function getForm($lid, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if ($action === false) {
@@ -67,7 +66,7 @@ class TDMDownloads_votedata extends XoopsObject
 
 class TDMDownloadstdmdownloads_votedataHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_votedata", 'tdmdownloads_votedata', 'ratingid', 'lid');
     }
