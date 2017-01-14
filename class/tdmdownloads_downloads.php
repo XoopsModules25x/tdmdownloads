@@ -302,9 +302,9 @@ class TDMDownloads_downloads extends XoopsObject
                 $form->addElement($status);
                 //permissions pour télécharger
                 if ($xoopsModuleConfig['permission_download'] == 2) {
-                    $member_handler = & xoops_gethandler('member');
-                    $group_list = &$member_handler->getGroupList();
-                    $gperm_handler = &xoops_gethandler('groupperm');
+                    $member_handler =  xoops_gethandler('member');
+                    $group_list = $member_handler->getGroupList();
+                    $gperm_handler = xoops_gethandler('groupperm');
                     $full_list = array_keys($group_list);
                     global $xoopsModule;
                     if (!$this->isNew()) {
