@@ -27,7 +27,6 @@ if ($perm_submit == false) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
-
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
@@ -110,7 +109,7 @@ switch ($op) {
             }
         }
         // erreur si le captcha est faux
-        xoops_load("captcha");
+		xoops_load('xoopscaptcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if ( !$xoopsCaptcha->verify() ) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
