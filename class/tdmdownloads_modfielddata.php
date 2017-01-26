@@ -20,16 +20,15 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_modfielddata extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("modiddata",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("fid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("moddata",XOBJ_DTYPE_TXTAREA, null, false);
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
     }
-    function TDMDownloads_modfielddata()
+    public function TDMDownloads_modfielddata()
     {
         $this->__construct();
     }
@@ -37,7 +36,7 @@ class TDMDownloads_modfielddata extends XoopsObject
 
 class TDMDownloadstdmdownloads_modfielddataHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_modfielddata", 'tdmdownloads_modfielddata', 'modiddata', 'moddata');
     }

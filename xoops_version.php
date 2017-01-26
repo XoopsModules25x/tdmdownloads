@@ -19,26 +19,26 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']                = _MI_TDMDOWNLOADS_NAME;
-$modversion['version']             = '1.63';
+$modversion['version']             = '1.65';
 $modversion['description']         = _MI_TDMDOWNLOADS_DESC;
 $modversion['credits']             = 'G. Mage';
 $modversion['author']              = 'G. Mage';
 $modversion['nickname']            = 'Mage';
-$modversion['module_website_url']  = 'www.xoops.org';
+$modversion['module_website_url']  = 'www.github.com/GregMage/TDMDownloads';
 $modversion['module_website_name'] = 'Support site';
 $modversion['license']             = 'GNU GPL';
 $modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']            = 1;
 $modversion['image']               = 'images/tdmdownloads_logo.png';
 $modversion['dirname']             = 'TDMDownloads';
-$modversion['module_status']       = 'Beta 2';
-$modversion['release_date']        = '2013/08/24';
+$modversion['module_status']       = 'RC 1';
+$modversion['release_date']        = '2017/26/01';
 $modversion['sqlfile']['mysql']    = 'sql/mysql.sql';
 $modversion['onInstall']           = 'include/install.php';
 $modversion['onUpdate']            = 'include/update.php';
 $modversion['help']                = 'page=help';
-$modversion['min_php']             = '5.2';
-$modversion['min_xoops']           = '2.5';
+$modversion['min_php']             = '5.5';
+$modversion['min_xoops']           = '2.5.8';
 $modversion['min_admin']='1.1';
 $modversion['min_db']= array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 

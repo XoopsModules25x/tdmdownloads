@@ -18,7 +18,7 @@ function tdmdownloads_new($limit=0, $offset=0)
 {
     global $xoopsDB;
 
-    $myts =& MyTextSanitizer::getInstance();
+    $myts = MyTextSanitizer::getInstance();
 
     $URL_MOD = XOOPS_URL."/modules/TDMDownloads";
     $sql = "SELECT lid, title, date, cid, submitter, hits, description FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY date";

@@ -21,9 +21,8 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_mod extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("requestid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("cid",XOBJ_DTYPE_INT,null,false,5);
@@ -40,29 +39,29 @@ class TDMDownloads_mod extends XoopsObject
         $this->initVar("modifysubmitter",XOBJ_DTYPE_INT,null,false,11);
     }
 
-    function TDMDownloads_mod($lid)
+    public function TDMDownloads_mod($lid)
     {
         $this->__construct();
     }
-    function get_new_enreg()
+    public function get_new_enreg()
     {
         global $xoopsDB;
         $new_enreg = $xoopsDB->getInsertId();
 
         return $new_enreg;
     }
-    function getForm($lid, $erreur, $donnee = array(), $action = false)
+    public function getForm($lid, $erreur, $donnee = array(), $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $gperm_handler =& xoops_gethandler('groupperm');
+        $gperm_handler = xoops_gethandler('groupperm');
         $perm_upload = ($gperm_handler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
         //appel des class
-        $downloads_Handler =& xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-        $downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+        $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
 
         $view_downloads = $downloads_Handler->get($lid);
         include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
@@ -105,7 +104,7 @@ class TDMDownloads_mod extends XoopsObject
         $form->addElement($fichier);
 
         //catégorie
-        $downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_submit', 'TDMDownloads');
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -125,7 +124,7 @@ class TDMDownloads_mod extends XoopsObject
         $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cid', 'cat_title','--', $d_cid,true)), true);
 
         //affichage des champs
-        $downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+        $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
@@ -195,7 +194,7 @@ class TDMDownloads_mod extends XoopsObject
             } else {
                 $contenu = '';
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                $downloadsfielddata_Handler =& xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+                $downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $view_downloads->getVar('lid')));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -262,7 +261,7 @@ class TDMDownloads_mod extends XoopsObject
 
 class TDMDownloadstdmdownloads_modHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_mod", 'tdmdownloads_mod', 'requestid', 'lid');
     }

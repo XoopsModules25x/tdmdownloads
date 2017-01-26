@@ -15,25 +15,24 @@
  */
 
 class TDMObjectTree extends XoopsObjectTree {
-
-    function __constrcut(){
-    }
-    function _makeArrayTreeOptions( $fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '' ) {
-        if ( $key > 0 ) {
-            $value = $this->_tree[$key]['obj']->getVar( $this->_myId );
-            $ret[$value] = $prefix_curr . $this->_tree[$key]['obj']->getVar( $fieldName );
+	
+	protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
+    {
+        if ($key > 0) {
+            $value = $this->tree[$key]['obj']->getVar($this->myId);
+            $ret[$value] = $prefix_curr . $this->tree[$key]['obj']->getVar($fieldName);
             $prefix_curr .= $prefix_orig;
-
         }
-        if ( isset( $this->_tree[$key]['child'] ) && !empty( $this->_tree[$key]['child'] ) ) {
-            foreach ( $this->_tree[$key]['child'] as $childkey ) {
-                $this->_makeArrayTreeOptions( $fieldName, $childkey, $ret, $prefix_orig, $prefix_curr );
+        if (isset($this->tree[$key]['child']) && !empty($this->tree[$key]['child'])) {
+            foreach ($this->tree[$key]['child'] as $childKey) {
+                $this->makeArrayTreeOptions($fieldName, $childKey, $ret, $prefix_orig, $prefix_curr);
             }
         }
     }
-    function makeArrayTree( $fieldName, $prefix = '-', $key = 0) {
-        $ret = array();
-        $this->_makeArrayTreeOptions( $fieldName, $key, $ret, $prefix );
+	
+	public function makeArrayTree($fieldName, $prefix = '-', $key = 0) {
+		$ret = array();
+        $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;
     }

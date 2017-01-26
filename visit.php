@@ -80,7 +80,7 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
         }
     }
 
-    $obj =& $downloadslimit_Handler->create();
+    $obj = $downloadslimit_Handler->create();
     $obj->setVar('downlimit_lid', $lid);
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
     $obj->setVar('downlimit_hostname', getenv("REMOTE_ADDR"));

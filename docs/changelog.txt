@@ -1,4 +1,15 @@
 -------------------------------------------------
+Version: 1.65 RC 1
+Date:    2017/26/01
+-------------------------------------------------
+
+- fix error with tree.php (Mage)
+- fix error by ref (Mage)
+- update class method (Mage)
+- fix error with search.php
+- fix error xoops load
+
+-------------------------------------------------
 Version: 1.63 Beta 2
 Date:    2013/08/24
 -------------------------------------------------

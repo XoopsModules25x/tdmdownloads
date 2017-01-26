@@ -29,7 +29,7 @@
 
 function tdmdownloads_com_update($download_id, $total_num)
 {
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     $sql = 'UPDATE '.$db->prefix('tdmdownloads_downloads').' SET comments = '.$total_num.' WHERE lid = '.$download_id;
     $db->query($sql);
 }

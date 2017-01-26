@@ -67,7 +67,7 @@ switch ($op) {
                 $class = ($class == 'even') ? 'odd' : 'even';
                 $downloads_lid = $downloadsmod_arr[$i]->getVar('lid');
                 $downloads_requestid = $downloadsmod_arr[$i]->getVar('requestid');
-                $downloads =& $downloads_Handler->get($downloadsmod_arr[$i]->getVar('lid'));
+                $downloads = $downloads_Handler->get($downloadsmod_arr[$i]->getVar('lid'));
                 // pour savoir si le fichier est nouveau
                 $downloads_url = $downloads->getVar('url');
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
@@ -260,7 +260,7 @@ switch ($op) {
 
     // permet de suprimmer le téléchargment modifié
     case "del_moddownloads":
-        $obj =& $downloadsmod_Handler->get($_REQUEST['mod_id']);
+        $obj = $downloadsmod_Handler->get($_REQUEST['mod_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -280,7 +280,7 @@ switch ($op) {
             $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
             $downloads_fielddata = $downloadsfieldmoddata_Handler->getall( $criteria );
             foreach (array_keys($downloads_fielddata) as $i) {
-                $objfielddata =& $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
+                $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
                 $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
             }
             if ($downloadsmod_Handler->delete($obj)) {
@@ -303,7 +303,7 @@ switch ($op) {
     case "approve":
         // choix du téléchargement:
         $view_moddownloads = $downloadsmod_Handler->get($_REQUEST['mod_id']);
-        $obj =& $downloads_Handler->get($view_moddownloads->getVar('lid'));
+        $obj = $downloads_Handler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
         if ($_REQUEST['new_file']==true) {
             $urlfile = substr_replace($obj->getVar('url'),'',0,strlen($uploadurl_downloads));
@@ -351,25 +351,25 @@ switch ($op) {
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
                 if ($iddata == 0) {
-                    $objdata =& $downloadsfielddata_Handler->create();
+                    $objdata = $downloadsfielddata_Handler->create();
                     $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                     $objdata->setVar('lid', $view_moddownloads->getVar('lid'));
                 } else {
-                    $objdata =& $downloadsfielddata_Handler->get($iddata);
+                    $objdata = $downloadsfielddata_Handler->get($iddata);
                 }
                 $objdata->setVar('data', $contenu);
                 $downloadsfielddata_Handler->insert($objdata) or $objdata->getHtmlErrors();
             }
         }
         // supression du rapport de modification
-        $objmod =& $downloadsmod_Handler->get($_REQUEST['mod_id']);
+        $objmod = $downloadsmod_Handler->get($_REQUEST['mod_id']);
         $downloadsmod_Handler->delete($objmod);
         // supression des data des champs sup
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
         $downloads_fielddata = $downloadsfieldmoddata_Handler->getall( $criteria );
         foreach (array_keys($downloads_fielddata) as $i) {
-            $objfielddata =& $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
+            $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
             $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
         }
         // enregistrement

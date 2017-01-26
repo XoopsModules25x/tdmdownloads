@@ -27,7 +27,6 @@ if ($perm_submit == false) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
-
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
@@ -44,14 +43,14 @@ switch ($op) {
         $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj =& $downloads_Handler->create();
+        $obj = $downloads_Handler->create();
         $form = $obj->getForm($donnee = array(), false);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case "save_downloads":
         include_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $obj =& $downloads_Handler->create();
+        $obj = $downloads_Handler->create();
         $erreur = false;
         $message_erreur = '';
         $donnee = array();
@@ -110,7 +109,7 @@ switch ($op) {
             }
         }
         // erreur si le captcha est faux
-        xoops_load("captcha");
+		xoops_load('xoopscaptcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if ( !$xoopsCaptcha->verify() ) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
@@ -184,7 +183,7 @@ switch ($op) {
                 $downloads_field = $downloadsfield_Handler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if ($downloads_field[$i]->getVar('status_def') == 0) {
-                        $objdata =& $downloadsfielddata_Handler->create();
+                        $objdata = $downloadsfielddata_Handler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('data', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
@@ -196,7 +195,7 @@ switch ($op) {
                     if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) {
                         //permission pour télécharger
                         if ($xoopsModuleConfig['permission_download'] == 1) {
-                            $gperm_handler = &xoops_gethandler('groupperm');
+                            $gperm_handler = xoops_gethandler('groupperm');
                             $criteria = new CriteriaCompo();
                             $criteria->add(new Criteria('gperm_itemid', $lid_dowwnloads, '='));
                             $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'),'='));
@@ -210,7 +209,7 @@ switch ($op) {
                         }
                     }
                 }
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $tags = array();
                 $tags['FILE_NAME'] = $donnee['title'];
                 $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lid_dowwnloads;
@@ -233,7 +232,7 @@ switch ($op) {
             }
             echo $obj->getHtmlErrors();
         }
-        $form =& $obj->getForm($donnee, true);
+        $form = $obj->getForm($donnee, true);
         $xoopsTpl->assign('themeForm', $form->render());
 
     break;

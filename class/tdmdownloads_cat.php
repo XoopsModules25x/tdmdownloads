@@ -19,10 +19,12 @@ if (!defined("XOOPS_ROOT_PATH")) {
 }
 class TDMDownloads_cat extends XoopsObject
 {
-// constructor
-    function __construct()
+    // constructor
+    /**
+     * TDMDownloads_cat constructor.
+     */
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("cat_cid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("cat_pid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("cat_title",XOBJ_DTYPE_TXTBOX, null, false);
@@ -32,18 +34,23 @@ class TDMDownloads_cat extends XoopsObject
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
         $this->initVar("cat_weight",XOBJ_DTYPE_INT,0,false,11);
     }
-    function TDMDownloads_cat()
-    {
-        $this->__construct();
-    }
-    function get_new_enreg()
+	
+    /**
+     * @return mixed
+     */
+    public function get_new_enreg()
     {
         global $xoopsDB;
         $new_enreg = $xoopsDB->getInsertId();
 
         return $new_enreg;
     }
-    function getForm($action = false)
+	
+	/**
+     * @param bool $action
+     * @return XoopsThemeForm
+     */
+    public function getForm($action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if ($action === false) {
@@ -88,7 +95,7 @@ class TDMDownloads_cat extends XoopsObject
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         // Pour faire une sous-catégorie
-        $downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
@@ -99,9 +106,9 @@ class TDMDownloads_cat extends XoopsObject
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);
 
         //permissions
-        $member_handler = & xoops_gethandler('member');
-        $group_list = &$member_handler->getGroupList();
-        $gperm_handler = &xoops_gethandler('groupperm');
+        $member_handler =  xoops_gethandler('member');
+        $group_list = $member_handler->getGroupList();
+        $gperm_handler = xoops_gethandler('groupperm');
         $full_list = array_keys($group_list);
         global $xoopsModule;
         if (!$this->isNew()) {
@@ -147,7 +154,11 @@ class TDMDownloads_cat extends XoopsObject
 
 class TDMDownloadstdmdownloads_catHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+	/**
+     * TDMDownloadstdmdownloads_catHandler constructor.
+     * @param null|XoopsDatabase $db
+     */
+	public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_cat", 'tdmdownloads_cat', 'cat_cid', 'cat_title');
     }
