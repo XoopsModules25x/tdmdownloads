@@ -114,7 +114,11 @@ class TDMDownloads_downloads extends XoopsObject
             redirect_header('index.php', 2,  _NOPERM);
         }
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-        $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cid', 'cat_title','--',$this->getVar('cid'),true)), true);
+        // xoops 2.5.8
+        //$form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cid', 'cat_title','--',$this->getVar('cid'),true)), true);
+
+        // xoops >2.5.9
+        $form->addElement($mytree->makeSelectElement('cid', 'cat_title','--',$this->getVar('cid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
         //affichage des champs
         $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
