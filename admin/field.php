@@ -216,6 +216,8 @@ switch ($op) {
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if ($erreur==true) {
+            //Affichage de la partie haute de l'administration de Xoops
+            xoops_cp_header();
             echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';
         } else {
             if ($downloadsfield_Handler->insert($obj)) {
