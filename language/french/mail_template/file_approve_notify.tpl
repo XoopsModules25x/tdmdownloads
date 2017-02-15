@@ -1,15 +1,15 @@
-<p>Bonjour {X_UNAME},
+Bonjour {X_UNAME},
 
-Le fichier proposé "{FILE_NAME}" a été approuvé sur {X_SITENAME}.
+Le fichier envoyé "{FILE_NAME}" a été approuvé sur {X_SITENAME}.
 
-Vous pouvez voir ce fichier ici :
+Vous pouvez consulter ce fichier ici :
 {FILE_URL}
 
 -----------
 
-Vous recevez ce message parce que vous avez choisi d'être notifié quand ce fichier aura été approuvé.
+Vous recevez ce message car vous avez choisi d'être notifié lors de l'approbation de ce fichier.
 
-Si c'est une erreur ou si vous ne voulez plus recevoir de tels avis, mettez s'il vous plaît à jour vos souscriptions en visitant le lien ci-dessous :
+S'il s'agit d'une erreur ou si vous souhaitez ne plus recevoir ces notifications, veuillez mettre à jour vos abonnements en visitant le lien ci-dessous :
 {X_UNSUBSCRIBE_URL}
 
 Merci de ne pas répondre à ce message.
@@ -17,5 +17,5 @@ Merci de ne pas répondre à ce message.
 -----------
 
 {X_SITENAME} ({X_SITEURL}) 
-Le Webmestre
-{X_ADMINMAIL}</p>
+L' Administrateur
+{X_ADMINMAIL}

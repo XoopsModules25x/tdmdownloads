@@ -39,15 +39,15 @@ define('_MD_TDMDOWNLOADS_CAT_POPULARITY', "Popularité");
 define('_MD_TDMDOWNLOADS_CAT_POPULARITYLTOM', "Popularité (des moins aux plus téléchargés)");
 define('_MD_TDMDOWNLOADS_CAT_POPULARITYMTOL', "Popularité (des plus aux moins téléchargés)");
 define('_MD_TDMDOWNLOADS_CAT_RATING', "Cotes");
-define('_MD_TDMDOWNLOADS_CAT_RATINGLTOH', "Cote (score de moins à plus élevé)");
-define('_MD_TDMDOWNLOADS_CAT_RATINGHTOL', "Cote (score de plus à moins élevé)");
+define('_MD_TDMDOWNLOADS_CAT_RATINGLTOH', "Cote (score du plus bas au plus haut)");
+define('_MD_TDMDOWNLOADS_CAT_RATINGHTOL', "Cote (score du plus haut au plus bas)");
 define('_MD_TDMDOWNLOADS_CAT_SORTBY', "Triés par :");
 define('_MD_TDMDOWNLOADS_CAT_SUMMARY', "Résumé");
 define('_MD_TDMDOWNLOADS_CAT_THEREARE', "Il y a <strong>%s</strong> fichier(s) dans cette catégorie");
 define('_MD_TDMDOWNLOADS_CAT_TITLE', "Titre");
 define('_MD_TDMDOWNLOADS_CAT_TITLEATOZ', "Titre (de A à Z)");
 define('_MD_TDMDOWNLOADS_CAT_TITLEZTOA', "Titre (de Z à A)");
-define('_MD_TDMDOWNLOADS_CAT_VOTE', "Votes");
+define('_MD_TDMDOWNLOADS_CAT_VOTE', "Vote");
 // singlefile.php:
 define('_MD_TDMDOWNLOADS_SINGLEFILE_AUTHOR', "Soumis par :");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_COMMENTS', "(%s) Commentaires");
@@ -74,7 +74,7 @@ define('_MD_TDMDOWNLOADS_RATEFILE_DONOTVOTE', "Ne votez pas pour vos propres fic
 define('_MD_TDMDOWNLOADS_RATEFILE_NORATING', "Le vote doit être comprise entre 0 et 10");
 define('_MD_TDMDOWNLOADS_RATEFILE_RATE', "Notez-le !");
 define('_MD_TDMDOWNLOADS_RATEFILE_RATINGSCALE', "L'échelle est de 1 à 10, avec 1 étant faible et 10 étant excellent.");
-define('_MD_TDMDOWNLOADS_RATEFILE_VOTE', "Votes");
+define('_MD_TDMDOWNLOADS_RATEFILE_VOTE', "Vote");
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTEOK', "Votre vote est apprécié.<br /> Merci d'avoir pris le temps de voter ici");
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTEONCE', "Veuillez ne pas voter pour la même ressource plus d'une fois.");
 // brokenfile.php
@@ -102,7 +102,7 @@ define('_MD_TDMDOWNLOADS_SEARCH_CATEGORIES', "Catégories");
 define('_MD_TDMDOWNLOADS_SEARCH_DATE', "Date");
 define('_MD_TDMDOWNLOADS_SEARCH_DOWNLOAD', "Télécharger ");
 define('_MD_TDMDOWNLOADS_SEARCH_HITS', "Visites");
-define('_MD_TDMDOWNLOADS_SEARCH_NOTE', "Votes");
+define('_MD_TDMDOWNLOADS_SEARCH_NOTE', "Note");
 define('_MD_TDMDOWNLOADS_SEARCH_PAGETITLE', "Liste des fichiers");
 define('_MD_TDMDOWNLOADS_SEARCH_THEREARE', "Il y a <strong>%s</strong> fichier(s)");
 define('_MD_TDMDOWNLOADS_SEARCH_TITLE', "Nom");
@@ -116,7 +116,7 @@ define('_MD_TDMDOWNLOADS_NOPERMISETOLINK', "Ce fichier n'appartient pas au site 
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', "Vous devez choisir une catégorie !");
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', "La taille du fichier doit être un nombre");
-//Bookmarks 
+//Bookmarks
 define('_MD_TDMDOWNLOADS_BOOKMARK_ME', "Recommandez-moi");
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BLINKLIST', "Recommander sur Blinklist");
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DELICIOUS', "Recommander sur del.icio.us");
