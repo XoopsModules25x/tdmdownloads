@@ -1,18 +1,18 @@
-<p>Bonjour {X_UNAME},
+Bonjour {X_UNAME},
 
-Une nouvelle catégorie de fichiers "{CATEGORY_NAME}" a été créée sur {X_SITENAME}.
+Une nouvelle catégorie "{CATEGORY_NAME}" a été créée sur {X_SITENAME}.
 
-Suivez ce lien pour voir cette catégorie de fichiers :
+Suivez ce lien pour consulter cette catégorie de fichiers :
 {CATEGORY_URL}
 
-Suivez ce lien pour voir l'index des catégories :
+Suivez ce lien pour consulter l'index de la catégorie :
 {X_MODULE_URL}
 
 -----------
 
-Vous recevez ce message parce que vous avez choisi d'être notifié quand de nouvelles catégories de fichiers sont ajoutées à notre site.
+Vous recevez ce message car vous avez choisi d'être notifié lors de l'ajout de nouvelles catégories de fichiers sur notre site.
 
-Si c'est une erreur ou si vous ne voulez plus recevoir de tels avis, mettez s'il vous plaît à jour vos souscriptions en visitant le lien ci-dessous :
+S'il s'agit d'une erreur ou si vous souhaitez ne plus recevoir ces notifications, veuillez mettre à jour vos abonnements en visitant le lien ci-dessous :
 {X_UNSUBSCRIBE_URL}
 
 Merci de ne pas répondre à ce message.
@@ -20,5 +20,5 @@ Merci de ne pas répondre à ce message.
 -----------
 
 {X_SITENAME} ({X_SITEURL}) 
-Le Webmestre
-{X_ADMINMAIL}</p>
+L' Administrateur
+{X_ADMINMAIL}

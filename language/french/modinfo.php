@@ -52,7 +52,7 @@ define('_MI_TDMDOWNLOADS_IMGFLOAT_LEFT', "Gauche");
 define('_MI_TDMDOWNLOADS_IMGFLOAT_RIGHT', "Droite");
 define('_MI_TDMDOWNLOADS_SHOTWIDTH', "Hauteur du logo");
 define('_MI_TDMDOWNLOADS_PLATEFORM', "Plateformes");
-define('_MI_TDMDOWNLOADS_PLATEFORM_DSC', "Entrez les plateformes autorisés, séparées par un |");
+define('_MI_TDMDOWNLOADS_PLATEFORM_DSC', "Entrez les plateformes autorisées, séparées par un |");
 define('_MI_TDMDOWNLOADS_USETELLAFRIEND', "Utiliser le module « Tellafriend » avec le lien dites-le à un ami ?");
 define('_MI_TDMDOWNLOADS_USETELLAFRIENDDSC', "Vous devez installer le module « Tellafriend » afin d'utiliser cette option");
 define('_MI_TDMDOWNLOADS_USETAG', "Utiliser le module « TAG » pour générer des étiquettes");
@@ -127,7 +127,7 @@ define('_MI_TDMDOWNLOADS_GLOBAL_NOTIFYDSC', "Options de notification globales po
 define('_MI_TDMDOWNLOADS_CATEGORY_NOTIFY', "Catégorie");
 define('_MI_TDMDOWNLOADS_CATEGORY_NOTIFYDSC', "Options de notification qui s'appliquent à la catégorie du fichier actuel.");
 define('_MI_TDMDOWNLOADS_FILE_NOTIFY', "Fichier");
-define('_MI_TDMDOWNLOADS_FILE_NOTIFYDSC', "Options de notification qui s'applique au fichier en cours.");
+define('_MI_TDMDOWNLOADS_FILE_NOTIFYDSC', "Options de notification qui s'appliquent au fichier en cours.");
 define('_MI_TDMDOWNLOADS_GLOBAL_NEWCATEGORY_NOTIFY', "Nouvelle catégorie");
 define('_MI_TDMDOWNLOADS_GLOBAL_NEWCATEGORY_NOTIFYCAP', "M'avertir quand une nouvelle catégorie de fichiers est créée.");
 define('_MI_TDMDOWNLOADS_GLOBAL_NEWCATEGORY_NOTIFYDSC', "Recevoir une notification lorsqu'une nouvelle catégorie de fichiers est créée.");
