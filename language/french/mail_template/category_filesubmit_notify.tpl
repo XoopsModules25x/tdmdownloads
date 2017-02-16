@@ -1,18 +1,15 @@
-<p>Bonjour {X_UNAME},
+Bonjour {X_UNAME},
 
-Un nouveau fichier "{FILE_NAME}" a été ajouté dans la catégorie "{CATEGORY_NAME}" sur {X_SITENAME}.
+Un nouveau fichier "{FILE_NAME}" a été proposé dans la catégorie "{CATEGORY_NAME}" sur {X_SITENAME} et est en attente d'approbation.
 
-Vous pouvez voir ce fichier ici :
-{FILE_URL}
-
-Vous pouvez voir la catégorie entière ici :
-{CATEGORY_URL}
+Vous pouvez voir cette soumission de fichier ici (notez que cette page montre les fichiers en attente dans toutes les catégories) :
+{WAITINGFILES_URL}
 
 -----------
 
-Vous recevez ce message parce que vous avez choisi d'être notifié quand de nouveaux fichiers sont ajoutés dans cette catégorie.
+Vous recevez ce message parce que vous avez choisi d'être notifié quand de nouveaux fichiers sont proposés dans cette catégorie.
 
-Si c'est une erreur ou si vous ne voulez plus recevoir de tels avis, mettez s'il vous plaît à jour vos souscriptions en visitant le lien ci-dessous :
+S'il s'agit d'une erreur ou si vous souhaitez ne plus recevoir ces notifications, veuillez mettre à jour vos abonnements en visitant le lien ci-dessous :
 {X_UNSUBSCRIBE_URL}
 
 Merci de ne pas répondre à ce message.
@@ -20,5 +17,5 @@ Merci de ne pas répondre à ce message.
 -----------
 
 {X_SITENAME} ({X_SITEURL}) 
-Le Webmestre
-{X_ADMINMAIL}</p>
+L' Administrateur
+{X_ADMINMAIL}

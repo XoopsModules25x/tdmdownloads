@@ -1,15 +1,15 @@
-<p>Bonjour {X_UNAME},
+Bonjour {X_UNAME},
 
-Un rapport de fichier brisé a été proposé et est en attente d'être approuvé.
+Un rapport de fichier défectueux a été envoyé et est en attente d'approbation.
 
-Vous pouvez voir cette demande ici :
+Vous pouvez consulter cette demande ici :
 {BROKENREPORTS_URL}
 
 -----------
 
-Vous recevez ce message parce que vous avez choisi d'être notifié quand un rapport de fichier brisé est proposé.
+Vous recevez ce message car vous avez choisi d'être notifié lors de l'envoi de rapports de fichiers défectueux.
 
-Si c'est une erreur ou si vous ne voulez plus recevoir de tels avis, mettez s'il vous plaît à jour vos souscriptions en visitant le lien ci-dessous :
+S'il s'agit d'une erreur ou si vous souhaitez ne plus recevoir ces notifications, veuillez mettre à jour vos abonnements en visitant le lien ci-dessous :
 {X_UNSUBSCRIBE_URL}
 
 Merci de ne pas répondre à ce message.
@@ -17,5 +17,5 @@ Merci de ne pas répondre à ce message.
 -----------
 
 {X_SITENAME} ({X_SITEURL}) 
-Le Webmestre
-{X_ADMINMAIL}</p>
+L' Administrateur
+{X_ADMINMAIL}
