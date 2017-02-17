@@ -193,7 +193,7 @@ class TDMDownloads_downloads extends XoopsObject
                 $contenu = '';
                 $contenu_iddata = '';
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                $downloadsfielddata_Handler =& xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+                $downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $this->getVar('lid')));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
