@@ -115,7 +115,7 @@ function Import_wfdownloads($shots='', $catimg='')
                 $img = $donnees['imgurl'];
                 @copy($catimg . $img, XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/cats/" . $img);
             }
-            $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_cat")." (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('".$donnees['cid']."', '".$donnees['pid']."', '".$donnees['title']."', '".$img."', '".addcslashes($donnees['description'],"'")."', '".$donnees['weight']."')");
+            $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_cat")." (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('".$donnees['cid']."', '".$donnees['pid']."', '".addcslashes($donnees['title'],"'")."', '".$img."', '".addcslashes($donnees['description'],"'")."', '".$donnees['weight']."')");
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
@@ -133,7 +133,7 @@ function Import_wfdownloads($shots='', $catimg='')
             }
             $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_downloads")." (
             lid, cid, title, url, homepage, version, size, platform, description, logourl, submitter, status, date, hits, rating, votes, comments, top) VALUES
-            ('".$donnees['lid']."', '".$donnees['cid']."', '".$donnees['title']."', '".$newurl."', '".$donnees['homepage']."', '".$donnees['version']."', '".$donnees['size']."', '".$donnees['platform']."', '".addcslashes($donnees['description'],"'")."',  '".$donnees['screenshot']."', '".$donnees['submitter']."', '".$donnees['status']."', '".$donnees['date']."', '".$donnees['hits']."', '".$donnees['rating']."', '".$donnees['votes']."', '0', '0' )");
+            ('".$donnees['lid']."', '".$donnees['cid']."', '".addcslashes($donnees['title'],"'")."', '".$newurl."', '".$donnees['homepage']."', '".$donnees['version']."', '".$donnees['size']."', '".$donnees['platform']."', '".addcslashes($donnees['description'],"'")."',  '".$donnees['screenshot']."', '".$donnees['submitter']."', '".$donnees['status']."', '".$donnees['date']."', '".$donnees['hits']."', '".$donnees['rating']."', '".$donnees['votes']."', '0', '0' )");
 
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
