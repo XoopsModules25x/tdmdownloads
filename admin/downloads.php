@@ -156,7 +156,7 @@ switch ($op) {
                 echo '<td align="center">';
                 echo '<a href="../visit.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank"><img src="../images/icon/download.png" alt="Download ' . $downloads_arr[$i]->getVar('title') . '" title="Download ' . $downloads_arr[$i]->getVar('title') . '"></a>';
                 echo '</td>';
-                echo '<td align="left">' . $downloads_arr[$i]->getVar('title') . '</td>';
+                echo '<td align="left"><a href="../singlefile.php?.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank">' . $downloads_arr[$i]->getVar('title') . '</a></td>';
                 echo '<td align="left">' . $category . '</td>';
                 echo '<td align="center">' . $downloads_arr[$i]->getVar('hits') . '</td>';
                 echo '<td align="center">' . number_format($downloads_arr[$i]->getVar('rating'), 1) . '</td>';
