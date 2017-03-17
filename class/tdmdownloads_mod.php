@@ -121,7 +121,7 @@ class TDMDownloads_mod extends XoopsObject
             redirect_header('index.php', 2,  _NOPERM);
         }
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-        $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cid', 'cat_title','--', $d_cid,true)), true);
+		$form->addElement($mytree->makeSelectElement('cid', 'cat_title', '--', $d_cid, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
         //affichage des champs
         $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');

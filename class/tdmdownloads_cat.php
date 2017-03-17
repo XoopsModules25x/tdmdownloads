@@ -101,7 +101,7 @@ class TDMDownloads_cat extends XoopsObject
         $criteria->setOrder('ASC');
         $downloadscat_arr = $downloadscat_Handler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-        $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cat_pid', 'cat_title','--',$this->getVar('cat_pid'),true)));
+        $form->addElement($mytree->makeSelectElement('cat_pid', 'cat_title', '--', $this->getVar('cat_pid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
         //poids de la catégorie
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);
 
