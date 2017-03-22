@@ -79,9 +79,9 @@ function b_tdmdownloads_top_show($options)
             $description = $downloads_arr[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
             if (strpos($description,'[pagebreak]')==false) {
-                $description_short = mb_substr($description,0,400,'utf-8') . ' ...';
+                $description_short = substr($description, 0, 400) . ' ...';
             } else {
-                $description_short = mb_substr($description,0,strpos($description,'[pagebreak]'),'utf-8') . ' ...';
+                $description_short = substr($description, 0, strpos($description,'[pagebreak]')) . ' ...';
             }
         }
         $block[$i]['description'] = $description_short;
