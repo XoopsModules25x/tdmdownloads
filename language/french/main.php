@@ -61,7 +61,7 @@ define('_MD_TDMDOWNLOADS_SINGLEFILE_NBTELECH', "Téléchargé : %s fois");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT', "Ce téléchargement n'existe pas dans notre base de données");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD', "Vous n'avez pas le droit de télécharger ce fichier");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_RATING', "Note :");
-define('_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE', "Noter cette image");
+define('_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE', "Noter ce logiciel");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN', "Signaler un fichier brisé");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND', "Envoyer à un ami");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_VOTES', " (%s votes)");
