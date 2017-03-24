@@ -68,7 +68,7 @@ $modversion['blocks'][1]['name']        = _MI_TDMDOWNLOADS_BNAME1;
 $modversion['blocks'][1]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC1;
 $modversion['blocks'][1]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][1]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][1]['options']     = 'date|10|19|1|1|1|left|90|0';
+$modversion['blocks'][1]['options']     = 'date|10|19|1|1|1|left|90|400|0';
 $modversion['blocks'][1]['template']    = 'tdmdownloads_block_new.html';
 
 $modversion['blocks'][2]['file']        = 'tdmdownloads_top.php';
@@ -76,7 +76,7 @@ $modversion['blocks'][2]['name']        = _MI_TDMDOWNLOADS_BNAME2;
 $modversion['blocks'][2]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC2;
 $modversion['blocks'][2]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][2]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][2]['options']     = 'hits|10|19|1|1|1|left|90|0';
+$modversion['blocks'][2]['options']     = 'hits|10|19|1|1|1|left|90|400|0';
 $modversion['blocks'][2]['template']    = 'tdmdownloads_block_top.html';
 
 $modversion['blocks'][3]['file']        = 'tdmdownloads_top.php';
@@ -84,7 +84,7 @@ $modversion['blocks'][3]['name']        = _MI_TDMDOWNLOADS_BNAME3;
 $modversion['blocks'][3]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC3;
 $modversion['blocks'][3]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][3]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][3]['options']     = 'rating|10|19|1|1|1|left|90|0';
+$modversion['blocks'][3]['options']     = 'rating|10|19|1|1|1|left|90|400|0';
 $modversion['blocks'][3]['template']    = 'tdmdownloads_block_rating.html';
 
 $modversion['blocks'][4]['file']        = 'tdmdownloads_top.php';
@@ -92,7 +92,7 @@ $modversion['blocks'][4]['name']        = _MI_TDMDOWNLOADS_BNAME4;
 $modversion['blocks'][4]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC4;
 $modversion['blocks'][4]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][4]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][4]['options']     = 'random|10|19|1|1|1|left|90|0';
+$modversion['blocks'][4]['options']     = 'random|10|19|1|1|1|left|90|400|0';
 $modversion['blocks'][4]['template']    = 'tdmdownloads_block_random.html';
 
 $modversion['blocks'][5]['file']        = 'tdmdownloads_search.php';

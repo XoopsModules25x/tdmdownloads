@@ -28,7 +28,9 @@ function b_tdmdownloads_top_show($options)
     $show_inforation = $options[5];
     $logo_float = $options[6];
     $logo_white = $options[7];
+    $lenght_description = $options[8];
 
+    array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
@@ -79,7 +81,7 @@ function b_tdmdownloads_top_show($options)
             $description = $downloads_arr[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
             if (strpos($description,'[pagebreak]')==false) {
-                $description_short = substr($description, 0, 400) . ' ...';
+                $description_short = substr($description, 0, $lenght_description) . ' ...';
             } else {
                 $description_short = substr($description, 0, strpos($description,'[pagebreak]')) . ' ...';
             }
@@ -148,10 +150,12 @@ function b_tdmdownloads_top_edit($options)
     $form .= _MB_TDMDOWNLOADS_INFORMATIONS . " : <input name=\"options[5]\" value=\"1\" type=\"radio\" " . $checked_yes . "/>" . _YES . "&nbsp;\n";
     $form .= "<input name=\"options[5]\" value=\"0\" type=\"radio\" " . $checked_no . "/>" . _NO . "<br /><br />\n";
     $floatelect = new XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]',$options[6]);
-     $floatelect->addOption("left", _MB_TDMDOWNLOADS_FLOAT_LEFT);
-     $floatelect->addOption("right", _MB_TDMDOWNLOADS_FLOAT_RIGHT);
-     $form .= _MB_TDMDOWNLOADS_FLOAT." : ".$floatelect->render().'<br />';
+    $floatelect->addOption("left", _MB_TDMDOWNLOADS_FLOAT_LEFT);
+    $floatelect->addOption("right", _MB_TDMDOWNLOADS_FLOAT_RIGHT);
+    $form .= _MB_TDMDOWNLOADS_FLOAT." : ".$floatelect->render().'<br />';
     $form .= _MB_TDMDOWNLOADS_WHITE . " : <input name=\"options[7]\" size=\"5\" maxlength=\"255\" value=\"" . $options[7] . "\" type=\"text\" /><br />\n";
+    $form .= _MB_TDMDOWNLOADS_CHARSDSC . " : <input name=\"options[8]\" size=\"5\" maxlength=\"255\" value=\"" . $options[8] . "\" type=\"text\" /><br />\n";
+    array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);

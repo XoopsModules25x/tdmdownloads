@@ -16,6 +16,7 @@
 define('_MB_TDMDOWNLOADS_ALLCAT', "All Categories");
 define('_MB_TDMDOWNLOADS_CATTODISPLAY', "Select Displayed Categories");
 define('_MB_TDMDOWNLOADS_CHARS', "Title Length");
+define('_MB_TDMDOWNLOADS_CHARSDSC', "Description Length");
 define('_MB_TDMDOWNLOADS_DESCRIPTION', "Use description?");
 define('_MB_TDMDOWNLOADS_DISP', "Display");
 define('_MB_TDMDOWNLOADS_FILES', "Files");
