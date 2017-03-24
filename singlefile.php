@@ -76,7 +76,7 @@ if ($view_downloads->getVar('logourl') == 'blank.gif') {
 }
 // Défini si la personne est un admin
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
 } else {
     $adminlink = '';
 }
