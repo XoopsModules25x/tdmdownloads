@@ -179,7 +179,7 @@
       <!-- Start new link loop -->
       <{section name=i loop=$file}>
 	      <td class="col_width<{$nb_dowcol}> top center">
-	      <{include file="db:tdmdownloads_download.html" down=$file[i]}>
+	      <{include file="db:tdmdownloads_download.tpl" down=$file[i]}>
 	      </td>
       <{if $file[i].count is div by $nb_dowcol}>
       </tr>

@@ -43,7 +43,7 @@ $criteria->setSort('date');
 $criteria->setOrder('DESC');
 $downloads_arr = $downloads_Handler->getall($criteria);
 
-if (!$tpl->is_cached('db:tdmdownloads_rss.html', $cid)) {
+if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
     $tpl->assign('channel_link', XOOPS_URL.'/');
     $tpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
@@ -88,4 +88,4 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.html', $cid)) {
     }
 }
 header("Content-Type:text/xml; charset=" . _CHARSET);
-$tpl->display('db:tdmdownloads_rss.html', $cid);
+$tpl->display('db:tdmdownloads_rss.tpl', $cid);
