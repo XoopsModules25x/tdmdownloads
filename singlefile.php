@@ -241,6 +241,8 @@ if (strpos($description,'[pagebreak]')==false) {
 }
 $xoTheme->addMeta( 'meta', 'description', strip_tags($description_short));
 //keywords
+$keywords = \Xmf\Metagen::generateKeywords($view_downloads->getVar('description'), 10);    
+$xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 /*$keywords = substr($keywords,0,-1);
 $xoTheme->addMeta( 'meta', 'keywords', $keywords);*/
 include XOOPS_ROOT_PATH.'/include/comment_view.php';
