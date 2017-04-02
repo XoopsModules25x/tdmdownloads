@@ -90,7 +90,7 @@
 
     <{if $tags}>
     <!-- Tag bar-->
-    <div class="tdmdownloads-tag"><{include file="db:tag_bar.html"}></div>
+    <div class="tdmdownloads-tag"><{include file="db:tag_bar.tpl"}></div>
     <{/if}>
 
     <{if $show_social}>
@@ -153,12 +153,12 @@
     </div>
     <div style="margin:3px; padding: 3px;">
         <{if $comment_mode == "flat"}>
-        <{include file="db:system_comments_flat.html"}>
+        <{include file="db:system_comments_flat.tpl"}>
         <{elseif $comment_mode == "thread"}>
-        <{include file="db:system_comments_thread.html"}>
+        <{include file="db:system_comments_thread.tpl"}>
         <{elseif $comment_mode == "nest"}>
-        <{include file="db:system_comments_nest.html"}>
+        <{include file="db:system_comments_nest.tpl"}>
         <{/if}>
     </div>
-    <{include file="db:system_notification_select.html"}>
+    <{include file="db:system_notification_select.tpl"}>
 </div>

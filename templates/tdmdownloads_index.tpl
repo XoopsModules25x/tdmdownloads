@@ -140,5 +140,5 @@
     <!-- End check if Show new files in index -->
     <{/if}>
 
-    <{include file="db:system_notification_select.html"}>
+    <{include file="db:system_notification_select.tpl"}>
 </div>
