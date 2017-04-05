@@ -236,8 +236,8 @@ class TDMDownloads_downloads extends XoopsObject
             if ($erreur == true) {
                 $tagId = $donnee['TAG'];
             }
-            require_once XOOPS_ROOT_PATH.'/modules/tag/include/formtag.php';
-            $form->addElement(new XoopsFormTag('tag', 60, 255, $tagId, 0));
+            require_once XOOPS_ROOT_PATH.'/modules/tag/class/formtag.php';
+            $form->addElement(new TagFormTag('tag', 60, 255, $tagId, 0));
         }
 
         //image
