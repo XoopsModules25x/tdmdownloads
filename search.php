@@ -16,7 +16,7 @@
 
 include_once 'header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_liste.html';
+$xoopsOption['template_main'] = 'tdmdownloads_liste.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 
@@ -54,10 +54,10 @@ $cat_select->addOptionArray($downloadscat_Handler->getList($criteria ));
 $form->addElement($cat_select);*/
 $downloadscat_arr = $downloadscat_Handler->getall($criteria);
 $mytree           = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-$form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cat', 'cat_title', '--', $cat, true)));
+$form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
-$downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('search', 1));
 $criteria->add(new Criteria('status', 1));
@@ -73,8 +73,7 @@ foreach (array_keys($downloads_field) as $i) {
     $nom_champ   = 'champ' . $downloads_field[$i]->getVar('fid');
     $criteria    = new CriteriaCompo();
     if (isset($_REQUEST[$nom_champ])) {
-        $_REQUEST[$nom_champ]
-            != 999 ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
+        $_REQUEST[$nom_champ] != 999 ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         $arguments .= $nom_champ . '=' . $_REQUEST[$nom_champ] . '&amp;';
     } else {
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
@@ -108,9 +107,7 @@ foreach (array_keys($downloads_field) as $i) {
                 $contenu_arr[$platform] = $platform;
             }
             if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != 999) {
-                $criteria_2->add(
-                    new Criteria('platform', '%' . $champ_contenu[$downloads_field[$i]->getVar('fid')] . '%', 'LIKE')
-                );
+                $criteria_2->add(new Criteria('platform', '%' . $champ_contenu[$downloads_field[$i]->getVar('fid')] . '%', 'LIKE'));
             }
         } else {
             $criteria->setOrder('ASC');
@@ -240,7 +237,6 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
             }
             if ($downloads_field[$j]->getVar('fid') == 3) {
                 //taille du fichier
-                //mb $contenu = trans_size($tdmdownloads_arr[$i]->getVar('size'));
                 $contenu = $tdmdownloads_arr[$i]->getVar('size');
             }
             if ($downloads_field[$j]->getVar('fid') == 4) {
@@ -264,12 +260,10 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
         unset($contenu);
 
     }
-    $xoopsTpl->clear_assign('downloads');
     $xoopsTpl->append('downloads', $tdmdownloads_tab);
-
+	
     $keywords .= $tdmdownloads_arr[$i]->getVar('title') . ',';
 }
-
 $xoopsTpl->assign('searchForm', $form->render());
 // référencement
 // titre de la page

@@ -26,6 +26,6 @@ if (TDMDownloads_checkModuleAdmin()) {
     $about_admin->addInfoBox(_AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION);
     $about_admin->addInfoBoxLine(_AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION, $file_protection, '', '', 'information');
     echo $about_admin->addNavigation('about.php');
-    echo $about_admin->renderabout('9MYQB7GUK5MCS', true);
+    echo $about_admin->renderabout('gregory.mage@gmail.com', true);
 }
 xoops_cp_footer();

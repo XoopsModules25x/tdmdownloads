@@ -16,7 +16,7 @@
 
 include_once 'header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_singlefile.html';
+$xoopsOption['template_main'] = 'tdmdownloads_singlefile.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
 
@@ -76,7 +76,7 @@ if ($view_downloads->getVar('logourl') == 'blank.gif') {
 }
 // Défini si la personne est un admin
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
 } else {
     $adminlink = '';
 }
@@ -241,6 +241,8 @@ if (strpos($description,'[pagebreak]')==false) {
 }
 $xoTheme->addMeta( 'meta', 'description', strip_tags($description_short));
 //keywords
+$keywords = \Xmf\Metagen::generateKeywords($view_downloads->getVar('description'), 10);    
+$xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 /*$keywords = substr($keywords,0,-1);
 $xoTheme->addMeta( 'meta', 'keywords', $keywords);*/
 include XOOPS_ROOT_PATH.'/include/comment_view.php';

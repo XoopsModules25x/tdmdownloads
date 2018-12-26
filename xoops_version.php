@@ -19,26 +19,26 @@ if (!defined('XOOPS_ROOT_PATH')) {
 }
 
 $modversion['name']                = _MI_TDMDOWNLOADS_NAME;
-$modversion['version']             = '1.63';
+$modversion['version']             = '1.66';
 $modversion['description']         = _MI_TDMDOWNLOADS_DESC;
 $modversion['credits']             = 'G. Mage';
 $modversion['author']              = 'G. Mage';
 $modversion['nickname']            = 'Mage';
-$modversion['module_website_url']  = 'www.xoops.org';
+$modversion['module_website_url']  = 'www.github.com/GregMage/TDMDownloads';
 $modversion['module_website_name'] = 'Support site';
 $modversion['license']             = 'GNU GPL';
 $modversion['license_url']         = 'www.gnu.org/licenses/gpl-2.0.html/';
 $modversion['official']            = 1;
 $modversion['image']               = 'images/tdmdownloads_logo.png';
 $modversion['dirname']             = 'TDMDownloads';
-$modversion['module_status']       = 'Beta 2';
-$modversion['release_date']        = '2013/08/24';
+$modversion['module_status']       = 'Beta 1';
+$modversion['release_date']        = '2017/03/07';
 $modversion['sqlfile']['mysql']    = 'sql/mysql.sql';
 $modversion['onInstall']           = 'include/install.php';
 $modversion['onUpdate']            = 'include/update.php';
 $modversion['help']                = 'page=help';
-$modversion['min_php']             = '5.2';
-$modversion['min_xoops']           = '2.5';
+$modversion['min_php']             = '5.5';
+$modversion['min_xoops']           = '2.5.9';
 $modversion['min_admin']='1.1';
 $modversion['min_db']= array('mysql'=>'5.0.7', 'mysqli'=>'5.0.7');
 
@@ -68,32 +68,32 @@ $modversion['blocks'][1]['name']        = _MI_TDMDOWNLOADS_BNAME1;
 $modversion['blocks'][1]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC1;
 $modversion['blocks'][1]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][1]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][1]['options']     = 'date|10|19|1|1|1|left|90|0';
-$modversion['blocks'][1]['template']    = 'tdmdownloads_block_new.html';
+$modversion['blocks'][1]['options']     = 'date|10|19|1|1|1|left|90|400|0';
+$modversion['blocks'][1]['template']    = 'tdmdownloads_block_new.tpl';
 
 $modversion['blocks'][2]['file']        = 'tdmdownloads_top.php';
 $modversion['blocks'][2]['name']        = _MI_TDMDOWNLOADS_BNAME2;
 $modversion['blocks'][2]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC2;
 $modversion['blocks'][2]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][2]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][2]['options']     = 'hits|10|19|1|1|1|left|90|0';
-$modversion['blocks'][2]['template']    = 'tdmdownloads_block_top.html';
+$modversion['blocks'][2]['options']     = 'hits|10|19|1|1|1|left|90|400|0';
+$modversion['blocks'][2]['template']    = 'tdmdownloads_block_top.tpl';
 
 $modversion['blocks'][3]['file']        = 'tdmdownloads_top.php';
 $modversion['blocks'][3]['name']        = _MI_TDMDOWNLOADS_BNAME3;
 $modversion['blocks'][3]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC3;
 $modversion['blocks'][3]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][3]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][3]['options']     = 'rating|10|19|1|1|1|left|90|0';
-$modversion['blocks'][3]['template']    = 'tdmdownloads_block_rating.html';
+$modversion['blocks'][3]['options']     = 'rating|10|19|1|1|1|left|90|400|0';
+$modversion['blocks'][3]['template']    = 'tdmdownloads_block_rating.tpl';
 
 $modversion['blocks'][4]['file']        = 'tdmdownloads_top.php';
 $modversion['blocks'][4]['name']        = _MI_TDMDOWNLOADS_BNAME4;
 $modversion['blocks'][4]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC4;
 $modversion['blocks'][4]['show_func']   = 'b_tdmdownloads_top_show';
 $modversion['blocks'][4]['edit_func']   = 'b_tdmdownloads_top_edit';
-$modversion['blocks'][4]['options']     = 'random|10|19|1|1|1|left|90|0';
-$modversion['blocks'][4]['template']    = 'tdmdownloads_block_random.html';
+$modversion['blocks'][4]['options']     = 'random|10|19|1|1|1|left|90|400|0';
+$modversion['blocks'][4]['template']    = 'tdmdownloads_block_random.tpl';
 
 $modversion['blocks'][5]['file']        = 'tdmdownloads_search.php';
 $modversion['blocks'][5]['name']        = _MI_TDMDOWNLOADS_BNAME5;
@@ -101,7 +101,7 @@ $modversion['blocks'][5]['description'] = _MI_TDMDOWNLOADS_BNAMEDSC5;
 $modversion['blocks'][5]['show_func']   = 'b_tdmdownloads_search_show';
 $modversion['blocks'][5]['edit_func']   = '';
 $modversion['blocks'][5]['options']     = '';
-$modversion['blocks'][5]['template']    = 'tdmdownloads_block_search.html';
+$modversion['blocks'][5]['template']    = 'tdmdownloads_block_search.tpl';
 
 // Menu
 $modversion['hasMain'] = 1;
@@ -125,25 +125,25 @@ $modversion['comments']['callback']['approve'] = 'tdmdownloads_com_approve';
 $modversion['comments']['callback']['update']  = 'tdmdownloads_com_update';
 
 // Templates
-$modversion['templates'][1]['file'] = 'tdmdownloads_brokenfile.html';
+$modversion['templates'][1]['file'] = 'tdmdownloads_brokenfile.tpl';
 $modversion['templates'][1]['description'] = '';
-$modversion['templates'][2]['file'] = 'tdmdownloads_download.html';
+$modversion['templates'][2]['file'] = 'tdmdownloads_download.tpl';
 $modversion['templates'][2]['description'] = '';
-$modversion['templates'][3]['file'] = 'tdmdownloads_index.html';
+$modversion['templates'][3]['file'] = 'tdmdownloads_index.tpl';
 $modversion['templates'][3]['description'] = '';
-$modversion['templates'][4]['file'] = 'tdmdownloads_modfile.html';
+$modversion['templates'][4]['file'] = 'tdmdownloads_modfile.tpl';
 $modversion['templates'][4]['description'] = '';
-$modversion['templates'][5]['file'] = 'tdmdownloads_ratefile.html';
+$modversion['templates'][5]['file'] = 'tdmdownloads_ratefile.tpl';
 $modversion['templates'][5]['description'] = '';
-$modversion['templates'][6]['file'] = 'tdmdownloads_singlefile.html';
+$modversion['templates'][6]['file'] = 'tdmdownloads_singlefile.tpl';
 $modversion['templates'][6]['description'] = '';
-$modversion['templates'][7]['file'] = 'tdmdownloads_submit.html';
+$modversion['templates'][7]['file'] = 'tdmdownloads_submit.tpl';
 $modversion['templates'][7]['description'] = '';
-$modversion['templates'][8]['file'] = 'tdmdownloads_viewcat.html';
+$modversion['templates'][8]['file'] = 'tdmdownloads_viewcat.tpl';
 $modversion['templates'][8]['description'] = '';
-$modversion['templates'][9]['file'] = 'tdmdownloads_liste.html';
+$modversion['templates'][9]['file'] = 'tdmdownloads_liste.tpl';
 $modversion['templates'][9]['description'] = '';
-$modversion['templates'][10]['file'] = 'tdmdownloads_rss.html';
+$modversion['templates'][10]['file'] = 'tdmdownloads_rss.tpl';
 $modversion['templates'][10]['description'] = '';
 
 // Préférences

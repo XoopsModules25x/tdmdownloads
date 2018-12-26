@@ -16,7 +16,7 @@
 
 include_once 'header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_viewcat.html';
+$xoopsOption['template_main'] = 'tdmdownloads_viewcat.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
 $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');

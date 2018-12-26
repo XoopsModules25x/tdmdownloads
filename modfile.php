@@ -16,7 +16,7 @@
 
 include_once 'header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_modfile.html';
+$xoopsOption['template_main'] = 'tdmdownloads_modfile.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
 //On recupere la valeur de l'argument op dans l'URL$
@@ -71,14 +71,14 @@ switch ($op) {
         $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $view_downloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj =& $downloadsmod_Handler->create();
+        $obj = $downloadsmod_Handler->create();
         $form = $obj->getForm($lid, false, $donnee = array());
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case "save":
         include_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $obj =& $downloadsmod_Handler->create();
+        $obj = $downloadsmod_Handler->create();
         $erreur = false;
         $message_erreur = '';
         $donnee = array();
@@ -186,7 +186,7 @@ switch ($op) {
                 $downloads_field = $downloadsfield_Handler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if ($downloads_field[$i]->getVar('status_def') == 0) {
-                        $objdata =& $downloadsfieldmoddata_Handler->create();
+                        $objdata = $downloadsfieldmoddata_Handler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('moddata', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
@@ -196,14 +196,14 @@ switch ($op) {
                 }
                 $tags = array();
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/modified.php';
-                $notification_handler =& xoops_gethandler('notification');
+                $notification_handler = xoops_gethandler('notification');
                 $notification_handler->triggerEvent('global', 0, 'file_modify', $tags);
                 redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
             }
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements
-        $form =& $obj->getForm(intval($_REQUEST['lid']), true, $donnee);
+        $form = $obj->getForm(intval($_REQUEST['lid']), true, $donnee);
         $xoopsTpl->assign('themeForm', $form->render());
 
     break;
