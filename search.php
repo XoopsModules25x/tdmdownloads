@@ -39,7 +39,7 @@ $criteria_2->add(new Criteria('status', 0, '!='));
 $criteria_2->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 // ------
 //formulaire de recherche
-$form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", "search.php", 'post');
+$form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", "search.php", 'post', true);
 $form->setExtra('enctype="multipart/form-data"');
 //recherche par titre
 $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, $title));

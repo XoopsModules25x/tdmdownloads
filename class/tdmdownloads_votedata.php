@@ -47,7 +47,7 @@ class TDMDownloads_votedata extends XoopsObject
         } else {
             $rating = $this->getVar('rating');
         }
-        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE, 'rateform', 'ratefile.php', 'post');
+        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE, 'rateform', 'ratefile.php', 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         $rating = new XoopsFormSelect(_MD_TDMDOWNLOADS_RATEFILE_VOTE, 'rating', $rating);
         $options = array('11' => '--', '10' => '10', '9' => '9','8' => '8','7' => '7','6' => '6','5' => '5','4' => '4','3' => '3','2' => '2','1' => '1','0' => '0');

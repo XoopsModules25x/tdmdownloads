@@ -43,7 +43,7 @@ class TDMDownloads_broken extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
 
-        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post');
+        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         $form->addElement(new XoopsFormCaptcha(), true);
         $form->addElement(new XoopsFormHidden('op', 'save'));

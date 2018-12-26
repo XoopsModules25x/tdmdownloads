@@ -33,7 +33,7 @@ function b_tdmdownloads_search_show()
     $block = array();
 
     //formulaire de recherche
-    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", XOOPS_URL . '/modules/TDMDownloads/search.php', 'post');
+    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", XOOPS_URL . '/modules/TDMDownloads/search.php', 'post', true);
     $form->setExtra('enctype="multipart/form-data"');
     //recherche par titre
     $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, ''));
