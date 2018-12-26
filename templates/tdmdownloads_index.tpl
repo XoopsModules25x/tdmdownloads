@@ -1,0 +1,144 @@
+<div class="tdmdownloads">
+
+    <!-- Download logo-->
+    <div class="tdmdownloads-logo center marg10">
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/TDMDownloads/index.php"><img src="<{$xoops_url}>/modules/TDMDownloads/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"/></a>
+    </div>
+
+    <{if count($categories) gt 0}>
+    <!-- Start Show categories information -->
+    <div class="tdmdownloads-categories">
+        <table>
+            <tr>
+                <{foreach item=category from=$categories}>
+                <td>
+                    <div class="tdmdownloads-data">
+                        <div class="tdmdownloads-title">
+                            <div class="floatleft title"><h2>
+                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a>
+                            </h2></div>
+                            <div class="floatright total xo-pagact">
+                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a>
+                            </div>
+                            <div class="endline"></div>
+                        </div>
+                        <div class="tdmdownloads-body justify">
+                            <{if $category.image != ""}>
+                            <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"/></a>
+                            <{/if}>
+                            <{$category.description_main}>
+                            <div class="endline"></div>
+                        </div>
+                        <{if $category.subcategories != ""}>
+                        <div class="tdmdownloads-subtitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SCAT}>
+                            <ul><{$category.subcategories}></ul>
+                        </div>
+                        <{/if}>
+                    </div>
+                </td>
+                <{if $category.count is div by $nb_catcol}>
+            </tr>
+            <tr>
+                <{/if}>
+                <{/foreach}>
+            </tr>
+        </table>
+    </div>
+    <!-- End Show categories information -->
+
+    <!-- RSS logo -->
+    <div class="tdmdownloads-rss">
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/TDMDownloads/rss.php?cid=0"><img src="images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"/></a>
+    </div>
+
+    <{if $bl_affichage==1}>
+    <!-- Start Summary informations -->
+    <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLNAME}></div>
+    <table class="mrag2 pad2 tdmdownloads-summary">
+        <tr>
+            <{if $bl_date != ""}>
+            <td class="width33 top">
+                <div class="bold mrag2 pad2">
+                    <img src="<{$xoops_url}>/modules/TDMDownloads/images/icon/date.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>"/><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>
+                </div>
+                <div class="mrag2 pad2">
+                    <ul>
+                        <{foreach item=bl_date from=$bl_date}>
+                        <li>
+                            <a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
+                            (<{$bl_date.date}>)
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+            </td>
+            <{/if}>
+            <{if $bl_pop != ""}>
+            <td class="width33 top">
+                <div class="bold mrag2 pad2">
+                    <img src="<{$xoops_url}>/modules/TDMDownloads/images/icon/hits.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>"/><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>
+                </div>
+                <div class="mrag2 pad2">
+                    <ul>
+                        <{foreach item=bl_pop from=$bl_pop}>
+                        <li>
+                            <a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
+                            (<{$bl_pop.hits}>)
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+            </td>
+            <{/if}>
+            <{if $bl_rating != ""}>
+            <td class="width33 top">
+                <div class="bold mrag2 pad2">
+                    <img src="<{$xoops_url}>/modules/TDMDownloads/images/icon/votes.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>"/><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>
+                </div>
+                <div class="mrag2 pad2">
+                    <ul>
+                        <{foreach item=bl_rating from=$bl_rating}>
+                        <li>
+                            <a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
+                            (<{$bl_rating.rating}>)
+                        </li>
+                        <{/foreach}>
+                    </ul>
+                </div>
+            </td>
+            <{/if}>
+        </tr>
+    </table>
+    <!-- End Summary informations -->
+    <{/if}>
+
+    <div class="tdmdownloads-thereare"><{$lang_thereare}></div>
+    <{/if}>
+
+    <{if $show_latest_files}>
+    <!-- check if Show new files in index -->
+    <{if $file != ""}>
+    <!-- Start Show new files in index -->
+    <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_LATESTLIST}></div>
+    <table>
+        <tr>
+            <!-- Start new link loop -->
+            <{section name=i loop=$file}>
+            <td class="col_width<{$nb_dowcol}> top">
+                <{include file="db:tdmdownloads_download.tpl" down=$file[i]}>
+            </td>
+            <{if $file[i].count is div by $nb_dowcol}>
+        </tr>
+        <tr>
+            <{/if}>
+            <{/section}>
+            <!-- End new link loop -->
+        </tr>
+    </table>
+    <!-- End Show new files in index -->
+    <{/if}>
+    <!-- End check if Show new files in index -->
+    <{/if}>
+
+    <{include file="db:system_notification_select.tpl"}>
+</div>

@@ -21,9 +21,8 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_downlimit extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("downlimit_id",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("downlimit_lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("downlimit_uid",XOBJ_DTYPE_INT,null,false,11);
@@ -38,7 +37,7 @@ class TDMDownloads_downlimit extends XoopsObject
 
 class TDMDownloadstdmdownloads_downlimitHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_downlimit", 'tdmdownloads_downlimit', 'downlimit_id', 'downlimit_lid');
     }

@@ -21,7 +21,7 @@ include_once XOOPS_ROOT_PATH."/class/tree.php";
 include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar("dirname").'/include/functions.php';
 //permission
-$gperm_handler =& xoops_gethandler('groupperm');
+$gperm_handler = xoops_gethandler('groupperm');
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 } else {
@@ -51,12 +51,12 @@ $uploadurl_field = XOOPS_URL . '/uploads/TDMDownloads/images/field/';
 /////////////
 
 //appel des class
-$downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloads_Handler =& xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$downloadsvotedata_Handler =& xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$downloadsmod_Handler =& xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$downloadsbroken_Handler =& xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$downloadsfielddata_Handler =& xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$downloadsfieldmoddata_Handler =& xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
-$downloadslimit_Handler =& xoops_getModuleHandler('tdmdownloads_downlimit', 'TDMDownloads');
+$downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+$downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+$downloadsvotedata_Handler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
+$downloadsmod_Handler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
+$downloadsbroken_Handler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
+$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+$downloadsfieldmoddata_Handler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
+$downloadslimit_Handler = xoops_getModuleHandler('tdmdownloads_downlimit', 'TDMDownloads');

@@ -1,4 +1,16 @@
 -------------------------------------------------
+Version: 1.65 Final
+Date:    2017/02/02
+-------------------------------------------------
+
+- fix error with tree.php (Mage)
+- fix error by ref (Mage)
+- update class method (Mage)
+- fix error with search.php (Mage)
+- fix error xoops load (Mage)
+- fix makeSelBox() is deprecated (Mage)
+
+-------------------------------------------------
 Version: 1.63 Beta 2
 Date:    2013/08/24
 -------------------------------------------------

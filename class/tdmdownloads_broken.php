@@ -21,9 +21,8 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_broken extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("reportid",XOBJ_DTYPE_INT,null,false,5);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("sender",XOBJ_DTYPE_INT,null,false,11);
@@ -32,18 +31,18 @@ class TDMDownloads_broken extends XoopsObject
         $this->initVar("title",XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar("cid",XOBJ_DTYPE_INT,null,false,5);
     }
-    function TDMDownloads_broken()
+    public function TDMDownloads_broken()
     {
         $this->__construct();
     }
-    function getForm($lid, $action = false)
+    public function getForm($lid, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
 
-        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post', true);
+        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post');
         $form->setExtra('enctype="multipart/form-data"');
         $form->addElement(new XoopsFormCaptcha(), true);
         $form->addElement(new XoopsFormHidden('op', 'save'));
@@ -59,7 +58,7 @@ class TDMDownloads_broken extends XoopsObject
 
 class TDMDownloadstdmdownloads_brokenHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_broken", 'tdmdownloads_broken', 'reportid', 'lid');
     }

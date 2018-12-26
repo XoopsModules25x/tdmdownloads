@@ -15,7 +15,7 @@
  */
 
 function xoops_module_update_tdmdownloads() {
-    $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    $db = XoopsDatabaseFactory::getDatabaseConnection();
     $sql = "ALTER TABLE `" . $db->prefix('tdmdownloads_cat') . "` CHANGE `cid` `cat_cid` INT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ;";
     $db->query($sql);
     $sql = "ALTER TABLE `" . $db->prefix('tdmdownloads_cat') . "` CHANGE `pid` `cat_pid` INT( 5 ) UNSIGNED NOT NULL DEFAULT '0' ;";

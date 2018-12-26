@@ -20,10 +20,10 @@ function b_tdmdownloads_search_show()
     include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
     include_once XOOPS_ROOT_PATH."/class/tree.php";
     //appel des class
-    $downloadscat_Handler =& xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-    $downloads_Handler =& xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-    $downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-    $downloadsfielddata_Handler =& xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+    $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+    $downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+    $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+    $downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
     //appel des fichiers de langues
     xoops_loadLanguage('main', 'TDMDownloads');
     xoops_loadLanguage('admin', 'TDMDownloads');
@@ -33,7 +33,7 @@ function b_tdmdownloads_search_show()
     $block = array();
 
     //formulaire de recherche
-    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", XOOPS_URL . '/modules/TDMDownloads/search.php', 'post', true);
+    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", XOOPS_URL . '/modules/TDMDownloads/search.php', 'post');
     $form->setExtra('enctype="multipart/form-data"');
     //recherche par titre
     $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, ''));
@@ -44,9 +44,9 @@ function b_tdmdownloads_search_show()
     $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
     $downloadscat_arr = $downloadscat_Handler->getall($criteria);
     $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-    $form->addElement(new XoopsFormLabel(_AM_TDMDOWNLOADS_FORMINCAT, $mytree->makeSelBox('cat', 'cat_title','--','', true)));
+	$form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
-    $downloadsfield_Handler =& xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+    $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('search', 1));
     $criteria->add(new Criteria('status', 1));

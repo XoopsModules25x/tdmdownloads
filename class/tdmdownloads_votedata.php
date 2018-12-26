@@ -21,9 +21,8 @@ if (!defined("XOOPS_ROOT_PATH")) {
 class TDMDownloads_votedata extends XoopsObject
 {
 // constructor
-    function __construct()
+    public function __construct()
     {
-        parent::__construct();
         $this->initVar("ratingid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
         $this->initVar("ratinguser",XOBJ_DTYPE_INT,null,false,11);
@@ -31,12 +30,12 @@ class TDMDownloads_votedata extends XoopsObject
         $this->initVar("ratinghostname",XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar("ratingtimestamp",XOBJ_DTYPE_INT,null,false,10);
     }
-    function TDMDownloads_votedata()
+    public function TDMDownloads_votedata()
     {
         $this->__construct();
     }
 
-    function getForm($lid, $action = false)
+    public function getForm($lid, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if ($action === false) {
@@ -47,7 +46,7 @@ class TDMDownloads_votedata extends XoopsObject
         } else {
             $rating = $this->getVar('rating');
         }
-        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE, 'rateform', 'ratefile.php', 'post', true);
+        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE, 'rateform', 'ratefile.php', 'post');
         $form->setExtra('enctype="multipart/form-data"');
         $rating = new XoopsFormSelect(_MD_TDMDOWNLOADS_RATEFILE_VOTE, 'rating', $rating);
         $options = array('11' => '--', '10' => '10', '9' => '9','8' => '8','7' => '7','6' => '6','5' => '5','4' => '4','3' => '3','2' => '2','1' => '1','0' => '0');
@@ -67,7 +66,7 @@ class TDMDownloads_votedata extends XoopsObject
 
 class TDMDownloadstdmdownloads_votedataHandler extends XoopsPersistableObjectHandler
 {
-    function __construct(&$db)
+    public function __construct(&$db)
     {
         parent::__construct($db, "tdmdownloads_votedata", 'tdmdownloads_votedata', 'ratingid', 'lid');
     }

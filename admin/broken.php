@@ -97,7 +97,7 @@ switch ($op) {
 
     // permet de suprimmer le rapport de téléchargment brisé
     case "del_brokendownloads":
-        $obj =& $downloadsbroken_Handler->get($_REQUEST['broken_id']);
+        $obj = $downloadsbroken_Handler->get($_REQUEST['broken_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
