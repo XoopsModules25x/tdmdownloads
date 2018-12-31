@@ -12,6 +12,9 @@
  * @copyright   Gregory Mage (Aka Mage)
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
+ * @param int $limit
+ * @param int $offset
+ * @return array
  */
 
 function tdmdownloads_new($limit=0, $offset=0)

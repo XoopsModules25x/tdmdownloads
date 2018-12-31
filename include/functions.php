@@ -49,8 +49,13 @@ function TDMDownloads_MygetItemIds($permtype, $dirname)
 }
 
 /**
-* retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
-**/
+ * retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
+ * @param $mytree
+ * @param $categories
+ * @param $entries
+ * @param $cid
+ * @return int
+ */
 
 function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries, $cid)
 {
@@ -74,8 +79,11 @@ function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries, $cid)
 }
 
 /**
-* retourne une image "nouveau" ou "mise à jour"
-**/
+ * retourne une image "nouveau" ou "mise à jour"
+ * @param $time
+ * @param $status
+ * @return string
+ */
 
 function TDMDownloads_Thumbnail($time, $status)
 {
@@ -111,8 +119,10 @@ function TDMDownloads_Thumbnail($time, $status)
 }
 
 /**
-* retourne une image "populaire"
-**/
+ * retourne une image "populaire"
+ * @param $hits
+ * @return string
+ */
 
 function TDMDownloads_Popular($hits)
 {
