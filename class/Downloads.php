@@ -81,12 +81,12 @@ class Downloads extends \XoopsObject
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($xoopsUser) {
             if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
-                $perm_upload = ($gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
+                $perm_upload = $gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false ;
             } else {
                 $perm_upload = true;
             }
         } else {
-            $perm_upload = ($gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
+            $perm_upload = $gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false ;
         }
         //nom du formulaire selon l'action (editer ou ajouter):
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);

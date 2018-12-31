@@ -88,7 +88,7 @@ if (1 == $xoopsModuleConfig['downlimit']) {
     $downloadslimitHandler->insert($obj) or $obj->getHtmlErrors();
     // purge
     $criteria = new \CriteriaCompo();
-    $criteria->add(new \Criteria('downlimit_date', (time() - 172800), '<'));
+    $criteria->add(new \Criteria('downlimit_date', time() - 172800, '<'));
     $numrows = $downloadslimitHandler->getCount($criteria);
     echo 'a détruire: ' . $numrows . '<br>';
     $downloadslimitHandler->deleteAll($criteria);

@@ -270,7 +270,7 @@ switch ($op) {
                 // supression des commentaires
                 xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_lid);
                 //supression des tags
-                if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
+                if ((1 == $xoopsModuleConfig['usetag']) && is_dir('../../tag')) {
                     $tagHandler = xoops_getModuleHandler('link', 'tag');
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));

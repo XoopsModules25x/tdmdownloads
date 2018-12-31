@@ -77,7 +77,7 @@ function b_tdmdownloads_top_show($options)
     $downloads_arr = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
-        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title)) . '...' : $downloads_arr[$i]->getVar('title');
+        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloads_arr[$i]->getVar('title');
         $description_short = '';
         if (true === $use_description) {
             $description = $downloads_arr[$i]->getVar('description');

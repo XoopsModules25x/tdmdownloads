@@ -53,11 +53,11 @@ if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl))
     $xoopsTpl = new XoopsTpl();
 }
 
-$perm_submit = ($gpermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_modif = ($gpermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_vote = ($gpermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_upload = ($gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_autoapprove = ($gpermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
+$perm_submit = $gpermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid')) ? true : false ;
+$perm_modif = $gpermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid')) ? true : false ;
+$perm_vote = $gpermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid')) ? true : false ;
+$perm_upload = $gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false ;
+$perm_autoapprove = $gpermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid')) ? true : false ;
 
 //paramètres:
 // pour les images des catégories:

@@ -77,7 +77,7 @@ if (1 == $xoopsModuleConfig['bldate']) {
     foreach (array_keys($downloads_arr_date) as $i) {
         $title = $downloads_arr_date[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
+            $title = substr($title, 0, $xoopsModuleConfig['longbl']) . '...';
         }
         $date = formatTimestamp($downloads_arr_date[$i]->getVar('date'), 's');
         $xoopsTpl->append('bl_date', ['id' => $downloads_arr_date[$i]->getVar('lid'), 'cid' => $downloads_arr_date[$i]->getVar('cid'), 'date' => $date, 'title' => $title]);
@@ -95,7 +95,7 @@ if (1 == $xoopsModuleConfig['blpop']) {
     foreach (array_keys($downloads_arr_hits) as $i) {
         $title = $downloads_arr_hits[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
+            $title = substr($title, 0, $xoopsModuleConfig['longbl']) . '...';
         }
         $xoopsTpl->append('bl_pop', ['id' => $downloads_arr_hits[$i]->getVar('lid'), 'cid' => $downloads_arr_hits[$i]->getVar('cid'), 'hits' => $downloads_arr_hits[$i]->getVar('hits'), 'title' => $title]);
     }
@@ -112,7 +112,7 @@ if (1 == $xoopsModuleConfig['blrating']) {
     foreach (array_keys($downloads_arr_rating) as $i) {
         $title = $downloads_arr_rating[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
+            $title = substr($title, 0, $xoopsModuleConfig['longbl']) . '...';
         }
         $rating = number_format($downloads_arr_rating[$i]->getVar('rating'), 1);
         $xoopsTpl->append('bl_rating', ['id' => $downloads_arr_rating[$i]->getVar('lid'), 'cid' => $downloads_arr_rating[$i]->getVar('cid'), 'rating' => $rating, 'title' => $title]);

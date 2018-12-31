@@ -127,7 +127,7 @@ switch ($op) {
             }
         }
         // enregistrement temporaire des tags
-        if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
+        if ((1 == $xoopsModuleConfig['usetag']) && is_dir('../tag')) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true == $erreur) {
@@ -172,7 +172,7 @@ switch ($op) {
             if ($downloadsHandler->insert($obj)) {
                 $lid_dowwnloads = $obj->get_new_enreg();
                 //tags
-                if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
+                if ((1 == $xoopsModuleConfig['usetag']) && is_dir('../tag')) {
                     $tagHandler = xoops_getModuleHandler('tag', 'tag');
                     $tagHandler->updateByItem($_POST['tag'], $lid_dowwnloads, $xoopsModule->getVar('dirname'), 0);
                 }

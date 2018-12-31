@@ -201,7 +201,7 @@ if (1 == $xoopsModuleConfig['permission_download']) {
 }
 
 // pour utiliser tellafriend.
-if ((1 == $xoopsModuleConfig['usetellafriend']) and (is_dir('../tellafriend'))) {
+if ((1 == $xoopsModuleConfig['usetellafriend']) and is_dir('../tellafriend')) {
     $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'].':  '.XOOPS_URL.'/modules/tdmdownloads/singlefile.php?lid=' . $_REQUEST['lid']);
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (false !== strpos($subject, '%')) {
@@ -223,7 +223,7 @@ $xoopsTpl->assign('tellafriend_texte', $tellafriend_texte);
 
 // référencement
 // tags
-if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
+if ((1 == $xoopsModuleConfig['usetag']) && is_dir('../tag')) {
     require_once XOOPS_ROOT_PATH.'/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tags', true);
     $xoopsTpl->assign('tagbar', tagBar($_REQUEST['lid'], 0));

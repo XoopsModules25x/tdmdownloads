@@ -183,10 +183,10 @@ function TDMDownloads_CleanVars(&$global, $key, $default = '', $type = 'int')
 {
     switch ($type) {
         case 'string':
-            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
+            $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
             break;
         case 'int': default:
-            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
+            $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
             break;
     }
     if (false === $ret) {

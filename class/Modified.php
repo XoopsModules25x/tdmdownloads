@@ -68,13 +68,13 @@ class Modified extends \XoopsObject
         }
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         $gpermHandler = xoops_getHandler('groupperm');
-        $perm_upload = ($gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
+        $perm_upload = $gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false ;
         //appel des class
         $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
         $view_downloads = $downloadsHandler->get($lid);
-        include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
+        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
         // affectation des variables
         if (true === $erreur) {
