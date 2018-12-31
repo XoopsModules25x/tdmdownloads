@@ -1,5 +1,5 @@
 <div class="tdmdownloads-block">
-	<{foreachq item=downloads from=$block}>
+	<{foreach item=downloads from=$block}>
 	<div class="item tdmdownloads-blockitem">
 		<div class="itemHead">
 			<span class="itemTitle">
