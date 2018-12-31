@@ -29,7 +29,7 @@ switch ($op) {
             $modified_admin = \Xmf\Module\Admin::getInstance();
             echo $modified_admin->displayNavigation('modified.php');
         }
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
             $criteria->setLimit($_REQUEST['limit']);
             $limit = $_REQUEST['limit'];
@@ -49,7 +49,7 @@ switch ($op) {
         $downloadsmod_arr = $downloadsmodHandler->getall($criteria);
         $numrows = $downloadsmodHandler->getCount($criteria);
         if ($numrows > $limit) {
-            $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
+            $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
         } else {
             $pagenav = '';
@@ -141,10 +141,10 @@ switch ($op) {
         echo '</tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br>' . $downloads_url . '</small></td></tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_categorie == $moddownloads_categorie ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMCAT . '</span>: ' . $downloads_categorie . '</small></td></tr>';
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('status', 1));
+        $criteria->add(new \Criteria('status', 1));
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
@@ -167,18 +167,18 @@ switch ($op) {
             } else {
                 //original
                 $contenu = '';
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $_REQUEST['downloads_lid']));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
                 //proposé
                 $mod_contenu = '';
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
@@ -198,10 +198,10 @@ switch ($op) {
         echo '</tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br>' . $moddownloads_url . '</small></td></tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_categorie == $moddownloads_categorie ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMCAT . '</span>: ' . $moddownloads_categorie . '</small></td></tr>';
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('status', 1));
+        $criteria->add(new \Criteria('status', 1));
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
@@ -224,18 +224,18 @@ switch ($op) {
             } else {
                 //original
                 $contenu = '';
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $_REQUEST['downloads_lid']));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
                 //proposé
                 $mod_contenu = '';
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
@@ -276,8 +276,8 @@ switch ($op) {
                 }
             }
             // supression des data des champs sup
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
             $downloads_fielddata = $downloadsfieldmoddataHandler->getall($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
                 $objfielddata = $downloadsfieldmoddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
@@ -328,7 +328,7 @@ switch ($op) {
         $obj->setVar('date', time());
         $obj->setVar('status', 2);
         // Récupération des champs supplémentaires:
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
@@ -336,16 +336,16 @@ switch ($op) {
             $contenu = '';
             $iddata = 0;
             if (0 == $downloads_field[$i]->getVar('status_def')) {
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $view_moddownloads->getVar('requestid')));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $view_moddownloads->getVar('requestid')));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $view_moddownloads->getVar('lid')));
-                $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $view_moddownloads->getVar('lid')));
+                $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
@@ -365,8 +365,8 @@ switch ($op) {
         $objmod = $downloadsmodHandler->get($_REQUEST['mod_id']);
         $downloadsmodHandler->delete($objmod);
         // supression des data des champs sup
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
         $downloads_fielddata = $downloadsfieldmoddataHandler->getall($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             $objfielddata = $downloadsfieldmoddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));

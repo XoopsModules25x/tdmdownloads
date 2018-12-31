@@ -28,6 +28,10 @@ if (isset($_REQUEST['op'])) {
 }
 
 // import depuis mydownloads
+/**
+ * @param string $path
+ * @param string $imgurl
+ */
 function Import_mydownloads($path='', $imgurl='')
 {
     $ok =  isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
@@ -96,6 +100,10 @@ function Import_mydownloads($path='', $imgurl='')
 }
 
 // import depuis WF-Downloads
+/**
+ * @param string $shots
+ * @param string $catimg
+ */
 function Import_wfdownloads($shots='', $catimg='')
 {
     $ok =  isset($_POST['ok']) ? (int)$_POST['ok'] : 0;

@@ -27,6 +27,10 @@
 
 // comment callback functions
 
+/**
+ * @param $download_id
+ * @param $total_num
+ */
 function tdmdownloads_com_update($download_id, $total_num)
 {
     $db = XoopsDatabaseFactory::getDatabaseConnection();
@@ -34,6 +38,9 @@ function tdmdownloads_com_update($download_id, $total_num)
     $db->query($sql);
 }
 
+/**
+ * @param $comment
+ */
 function tdmdownloads_com_approve(&$comment)
 {
     // notification mail here

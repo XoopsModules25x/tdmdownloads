@@ -24,15 +24,15 @@ if (function_exists('mb_http_output')) {
 //header ('Content-Type:text/xml; charset=UTF-8');
 $xoopsModuleConfig['utf8'] = false;
 
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 $tpl->caching=2; //1 = Cache global, 2 = Cache individuel (par template)
 $tpl->xoops_setCacheTime($xoopsModuleConfig['timecacherss']*60); // Temps de cache en secondes
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('status', 0, '!='));
-$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('status', 0, '!='));
+$criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 if (0 != $cid) {
-    $criteria->add(new Criteria('cid', $cid));
+    $criteria->add(new \Criteria('cid', $cid));
     $cat = $downloadscatHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $cat->getVar('cat_title');
 } else {

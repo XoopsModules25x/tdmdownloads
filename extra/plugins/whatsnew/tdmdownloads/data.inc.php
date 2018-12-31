@@ -58,6 +58,9 @@ function tdmdownloads_new($limit=0, $offset=0)
     return $ret;
 }
 
+/**
+ * @return int
+ */
 function tdmdownloads_num()
 {
     global $xoopsDB;
@@ -72,6 +75,11 @@ function tdmdownloads_num()
     return $num;
 }
 
+/**
+ * @param int $limit
+ * @param int $offset
+ * @return array
+ */
 function tdmdownloads_data($limit=0, $offset=0)
 {
     global $xoopsDB;

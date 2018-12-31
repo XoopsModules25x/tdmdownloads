@@ -14,9 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 $modversion['name']                = _MI_TDMDOWNLOADS_NAME;
 $modversion['version']             = '1.66';

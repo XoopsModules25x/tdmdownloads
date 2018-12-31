@@ -8,6 +8,9 @@
 #                                                                        #
 # Last modified on 19.10.2009                                            #
 /*************************************************************************/
+/**
+ * @return array
+ */
 function b_waiting_tdmdownloads()
 {
     $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();

@@ -32,6 +32,11 @@ function TDMDownloads_checkModuleAdmin()
     }
 }
 
+/**
+ * @param $permtype
+ * @param $dirname
+ * @return mixed
+ */
 function TDMDownloads_MygetItemIds($permtype, $dirname)
 {
     global $xoopsUser;
@@ -145,6 +150,10 @@ function TDMDownloads_Popular($hits)
     return $pop;
 }
 
+/**
+ * @param $size
+ * @return string
+ */
 function trans_size($size)
 {
     if ($size>0) {
@@ -163,6 +172,13 @@ function trans_size($size)
     }
 }
 
+/**
+ * @param        $global
+ * @param        $key
+ * @param string $default
+ * @param string $type
+ * @return mixed|string
+ */
 function TDMDownloads_CleanVars(&$global, $key, $default = '', $type = 'int')
 {
     switch ($type) {
@@ -180,6 +196,14 @@ function TDMDownloads_CleanVars(&$global, $key, $default = '', $type = 'int')
     return $ret;
 }
 
+/**
+ * @param        $mytree
+ * @param        $key
+ * @param        $category_array
+ * @param        $title
+ * @param string $prefix
+ * @return string
+ */
 function TDMDownloads_PathTree($mytree, $key, $category_array, $title, $prefix = '')
 {
     $category_parent = $mytree->getAllParent($key);
@@ -198,6 +222,17 @@ function TDMDownloads_PathTree($mytree, $key, $category_array, $title, $prefix =
     return $Path;
 }
 
+/**
+ * @param        $mytree
+ * @param        $key
+ * @param        $category_array
+ * @param        $title
+ * @param string $prefix
+ * @param bool   $link
+ * @param string $order
+ * @param bool   $lasturl
+ * @return string
+ */
 function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
 {
     global $xoopsModule;

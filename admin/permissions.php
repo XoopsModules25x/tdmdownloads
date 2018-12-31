@@ -78,7 +78,7 @@ switch ($permission) {
         break;
 }
 
-$permissionsForm = new XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
+$permissionsForm = new \XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
 if (4 == $permission) {
     foreach ($global_perms_array as $perm_id => $permissionName) {
         $permissionsForm->addItem($perm_id, $permissionName) ;

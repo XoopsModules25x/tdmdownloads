@@ -51,14 +51,14 @@ if (1 == $xoopsModuleConfig['downlimit']) {
     $limitglobal = $xoopsModuleConfig['limitglobal'];
     $yesterday = strtotime(formatTimestamp(time()-86400));
     if ($limitlid > 0) {
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if ($xoopsUser) {
-            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
+            $criteria->add(new \Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
-            $criteria->add(new Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
+            $criteria->add(new \Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
         }
-        $criteria->add(new Criteria('downlimit_lid', $lid, '='));
-        $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
+        $criteria->add(new \Criteria('downlimit_lid', $lid, '='));
+        $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitlid) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
@@ -66,13 +66,13 @@ if (1 == $xoopsModuleConfig['downlimit']) {
         }
     }
     if ($limitglobal > 0) {
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if ($xoopsUser) {
-            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
+            $criteria->add(new \Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
-            $criteria->add(new Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
+            $criteria->add(new \Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
         }
-        $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
+        $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitglobal) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
@@ -87,8 +87,8 @@ if (1 == $xoopsModuleConfig['downlimit']) {
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
     $downloadslimitHandler->insert($obj) or $obj->getHtmlErrors();
     // purge
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('downlimit_date', (time() - 172800), '<'));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('downlimit_date', (time() - 172800), '<'));
     $numrows = $downloadslimitHandler->getCount($criteria);
     echo 'a détruire: ' . $numrows . '<br>';
     $downloadslimitHandler->deleteAll($criteria);

@@ -116,7 +116,7 @@ switch ($op) {
             $erreur=true;
         }
         // pour enregistrer temporairement les valeur des champs sup
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
@@ -136,7 +136,7 @@ switch ($op) {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
-                $uploader = new XoopsMediaUploader($uploaddir_downloads, explode('|', $xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader = new \XoopsMediaUploader($uploaddir_downloads, explode('|', $xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($xoopsModuleConfig['newnamedownload']) {
                         $uploader->setPrefix($xoopsModuleConfig['prefixdownloads']) ;
@@ -154,7 +154,7 @@ switch ($op) {
             }
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
-                $uploader_2 = new XoopsMediaUploader($uploaddir_shots, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader_2->fetchMedia($_POST['xoops_upload_file'][1])) {
                     $uploader_2->setPrefix('downloads_') ;
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
@@ -177,7 +177,7 @@ switch ($op) {
                     $tagHandler->updateByItem($_POST['tag'], $lid_dowwnloads, $xoopsModule->getVar('dirname'), 0);
                 }
                 // Récupération des champs supplémentaires:
-                $criteria = new CriteriaCompo();
+                $criteria = new \CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
                 $downloads_field = $downloadsfieldHandler->getall($criteria);
@@ -196,10 +196,10 @@ switch ($op) {
                         //permission pour télécharger
                         if (1 == $xoopsModuleConfig['permission_download']) {
                             $gpermHandler = xoops_getHandler('groupperm');
-                            $criteria = new CriteriaCompo();
-                            $criteria->add(new Criteria('gperm_itemid', $lid_dowwnloads, '='));
-                            $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
-                            $criteria->add(new Criteria('gperm_name', 'tdmdownloads_download_item', '='));
+                            $criteria = new \CriteriaCompo();
+                            $criteria->add(new \Criteria('gperm_itemid', $lid_dowwnloads, '='));
+                            $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
+                            $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download_item', '='));
                             $gpermHandler->deleteAll($criteria);
                             if (isset($_POST['item_download'])) {
                                 foreach ($_POST['item_download'] as $onegroup_id) {

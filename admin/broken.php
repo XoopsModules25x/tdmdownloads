@@ -29,7 +29,7 @@ switch ($op) {
             $broken_admin = \Xmf\Module\Admin::getInstance();
             echo $broken_admin->displayNavigation('broken.php');
         }
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
             $criteria->setLimit($_REQUEST['limit']);
             $limit = $_REQUEST['limit'];
@@ -53,7 +53,7 @@ switch ($op) {
         $downloadsbroken_arr = $downloadsbrokenHandler->getByLink($criteria);
         $numrows = $downloadsbrokenHandler->getCount($criteria);
         if ($numrows > $limit) {
-            $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
+            $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
         } else {
             $pagenav = '';

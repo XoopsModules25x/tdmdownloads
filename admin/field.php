@@ -31,7 +31,7 @@ switch ($op) {
             $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
             echo $field_admin->displayButton();
         }
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
@@ -135,8 +135,8 @@ switch ($op) {
                 redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             // supression des entrée du champ
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('fid', $_REQUEST['fid']));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
             $downloads_arr = $downloadsfielddataHandler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 // supression de l'entrée
@@ -154,8 +154,8 @@ switch ($op) {
                 redirect_header('field.php', 2, _AM_TDMDOWNLOADS_REDIRECT_NODELFIELD);
             }
             $message = '';
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('fid', $_REQUEST['fid']));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
             $downloads_arr = $downloadsfielddataHandler->getall($criteria);
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDATA .'<br>';
@@ -191,7 +191,7 @@ switch ($op) {
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $uploader = new XoopsMediaUploader($uploaddir_field, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], 16, null);
+        $uploader = new \XoopsMediaUploader($uploaddir_field, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], 16, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_') ;
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);

@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Tdmdownloads;
+
 /**
  * TDMDownload
  *
@@ -14,10 +15,13 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
-class TDMDownloads_field extends XoopsObject
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
+/**
+ * Class Field
+ * @package XoopsModules\Tdmdownloads
+ */
+class Field extends \XoopsObject
 {
     // constructor
     public function __construct()
@@ -33,10 +37,10 @@ class TDMDownloads_field extends XoopsObject
         //pour les jointures
         $this->initVar('data', XOBJ_DTYPE_TXTAREA, null, false);
     }
-    public function TDMDownloads_field()
-    {
-        $this->__construct();
-    }
+
+    /**
+     * @return int
+     */
     public function get_new_enreg()
     {
         global $xoopsDB;
@@ -44,6 +48,11 @@ class TDMDownloads_field extends XoopsObject
 
         return $new_enreg;
     }
+
+    /**
+     * @param bool $action
+     * @return \XoopsThemeForm
+     */
     public function getForm($action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
@@ -56,61 +65,53 @@ class TDMDownloads_field extends XoopsObject
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
 
         //création du formulaire
-        $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
+        $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         //titre
         if (1 == $this->getVar('status_def')) {
             $form->addElement(new xoopsFormLabel(_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
-            $form->addElement(new XoopsFormHidden('title', $this->getVar('title')));
+            $form->addElement(new \XoopsFormHidden('title', $this->getVar('title')));
         } else {
-            $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
+            $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
         }
         //image
         $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
         $uploadirectory='/uploads/tdmdownloads/images/field';
-        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
+        $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
+        $imageselect= new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
         $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
-        $fileseltray= new XoopsFormElementTray('', '<br>');
-        $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
-        $fileseltray->addElement(new XoopsFormLabel(''), false);
+        $imgtray -> addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
+        $fileseltray= new \XoopsFormElementTray('', '<br>');
+        $fileseltray->addElement(new \XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+        $fileseltray->addElement(new \XoopsFormLabel(''), false);
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         //poids du champ
-        $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'weight', 5, 5, $this->getVar('weight', 'e')), false);
+        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'weight', 5, 5, $this->getVar('weight', 'e')), false);
         // affiché?
         $status = $this->getVar('status') ?: 0;
-        $form->addElement(new XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHE, 'status', $status));
+        $form->addElement(new \XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHE, 'status', $status));
         // affiché dans le champ de recherche?
         $search = $this->getVar('search') ?: 0;
-        $form->addElement(new XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHESEARCH, 'search', $search));
+        $form->addElement(new \XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHESEARCH, 'search', $search));
         // pour passer "fid" si on modifie le champ
         if (!$this->isNew()) {
-            $form->addElement(new XoopsFormHidden('fid', $this->getVar('fid')));
-            $form->addElement(new XoopsFormHidden('status_def', $this->getVar('status_def')));
+            $form->addElement(new \XoopsFormHidden('fid', $this->getVar('fid')));
+            $form->addElement(new \XoopsFormHidden('status_def', $this->getVar('status_def')));
         } else {
-            $form->addElement(new XoopsFormHidden('status_def', 0));
+            $form->addElement(new \XoopsFormHidden('status_def', 0));
         }
         //pour enregistrer le formulaire
-        $form->addElement(new XoopsFormHidden('op', 'save_field'));
+        $form->addElement(new \XoopsFormHidden('op', 'save_field'));
         //boutton d'envoi du formulaire
-        $form->addElement(new XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
 
         return $form;
-    }
-}
-
-class TDMDownloadstdmdownloads_fieldHandler extends XoopsPersistableObjectHandler
-{
-    public function __construct(\XoopsDatabase $db)
-    {
-        parent::__construct($db, 'tdmdownloads_field', 'tdmdownloads_field', 'fid', 'title');
     }
 }

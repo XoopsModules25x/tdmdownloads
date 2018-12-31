@@ -30,7 +30,7 @@ function TDMDownloads_tag_iteminfo(&$items)
     }
 
     $itemHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-    $items_obj = $itemHandler->getObjects(new Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
+    $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
@@ -50,6 +50,9 @@ function TDMDownloads_tag_iteminfo(&$items)
     unset($items_obj);
 }
 
+/**
+ * @param $mid
+ */
 function TDMDownloads_tag_synchronization($mid)
 {
     $itemHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');

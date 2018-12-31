@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Tdmdownloads;
+
 /**
  * TDMDownload
  *
@@ -14,11 +15,13 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-class TDMDownloads_broken extends XoopsObject
+/**
+ * Class Broken
+ * @package XoopsModules\Tdmdownloads
+ */
+class Broken extends \XoopsObject
 {
     // constructor
     public function __construct()
@@ -31,10 +34,12 @@ class TDMDownloads_broken extends XoopsObject
         $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('cid', XOBJ_DTYPE_INT, null, false, 5);
     }
-    public function TDMDownloads_broken()
-    {
-        $this->__construct();
-    }
+
+    /**
+     * @param      $lid
+     * @param bool $action
+     * @return \XoopsThemeForm
+     */
     public function getForm($lid, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
@@ -42,24 +47,16 @@ class TDMDownloads_broken extends XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
 
-        $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post');
+        $form = new \XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post');
         $form->setExtra('enctype="multipart/form-data"');
-        $form->addElement(new XoopsFormCaptcha(), true);
-        $form->addElement(new XoopsFormHidden('op', 'save'));
-        $form->addElement(new XoopsFormHidden('lid', $lid));
+        $form->addElement(new \XoopsFormCaptcha(), true);
+        $form->addElement(new \XoopsFormHidden('op', 'save'));
+        $form->addElement(new \XoopsFormHidden('lid', $lid));
         // Submit button
-        $button_tray = new XoopsFormElementTray(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, '', '');
-        $button_tray->addElement(new XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'submit'));
+        $button_tray = new \XoopsFormElementTray(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, '', '');
+        $button_tray->addElement(new \XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'submit'));
         $form->addElement($button_tray);
 
         return $form;
-    }
-}
-
-class TDMDownloadstdmdownloads_brokenHandler extends XoopsPersistableObjectHandler
-{
-    public function __construct(\XoopsDatabase $db)
-    {
-        parent::__construct($db, 'tdmdownloads_broken', 'tdmdownloads_broken', 'reportid', 'lid');
     }
 }

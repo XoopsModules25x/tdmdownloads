@@ -48,12 +48,12 @@ switch ($op) {
     // Vue liste
     case 'liste':
         //tableau des catégories
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
+        $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscat_arr = $downloadscatHandler->getall($criteria);
-        $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
         $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
@@ -81,8 +81,8 @@ switch ($op) {
         }
         if (0 != $ratinguser) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
             $downloadsbroken_arr = $downloadsbrokenHandler->getall($criteria);
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
@@ -92,10 +92,10 @@ switch ($op) {
             }
         } else {
             // si c'est un utilisateur anonyme on vérifie qu'il n'envoie pas 2 fois un rapport
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
-            $criteria->add(new Criteria('sender', 0));
-            $criteria->add(new Criteria('ip', getenv('REMOTE_ADDR')));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
+            $criteria->add(new \Criteria('sender', 0));
+            $criteria->add(new \Criteria('ip', getenv('REMOTE_ADDR')));
             if ($downloadsbrokenHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 exit();

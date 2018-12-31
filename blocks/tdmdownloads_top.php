@@ -47,12 +47,12 @@ function b_tdmdownloads_top_show($options)
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/tdmdownloads/css/blocks.css', null);
 
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
     if (!(1 == count($options) && 0 == $options[0])) {
-        $criteria->add(new Criteria('cid', '(' . implode(',', $options) . ')', 'IN'));
+        $criteria->add(new \Criteria('cid', '(' . implode(',', $options) . ')', 'IN'));
     }
-    $criteria->add(new Criteria('status', 0, '!='));
+    $criteria->add(new \Criteria('status', 0, '!='));
     switch ($type_block) {    // pour le bloc: dernier fichier
         case 'date':
             $criteria->setSort('date');
@@ -110,12 +110,16 @@ function b_tdmdownloads_top_show($options)
     return $block;
 }
 
+/**
+ * @param $options
+ * @return string
+ */
 function b_tdmdownloads_top_edit($options)
 {
     //appel de la class
     $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-    $criteria = new CriteriaCompo();
-    $criteria = new CriteriaCompo();
+    $criteria = new \CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
     $downloadscat_arr = $downloadscatHandler->getall($criteria);
@@ -150,7 +154,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_INFORMATIONS . ' : <input name="options[5]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form .= '<input name="options[5]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br><br>\n";
-    $floatelect = new XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]', $options[6]);
+    $floatelect = new \XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]', $options[6]);
     $floatelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
     $floatelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
     $form .= _MB_TDMDOWNLOADS_FLOAT . ' : ' . $floatelect->render() . '<br>';

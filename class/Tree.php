@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Tdmdownloads;
+
 /**
  * TDMDownload
  *
@@ -14,8 +15,15 @@
  * @author      Gregory Mage (Aka Mage)
  */
 // xoops >2.5.9
-class TDMObjectTree extends XoopsObjectTree
+class Tree extends \XoopsObjectTree
 {
+    /**
+     * @param        $fieldName
+     * @param        $key
+     * @param        $ret
+     * @param        $prefix_orig
+     * @param string $prefix_curr
+     */
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
@@ -29,7 +37,13 @@ class TDMObjectTree extends XoopsObjectTree
             }
         }
     }
-    
+
+    /**
+     * @param        $fieldName
+     * @param string $prefix
+     * @param int    $key
+     * @return array
+     */
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0)
     {
         $ret = [];
@@ -39,7 +53,7 @@ class TDMObjectTree extends XoopsObjectTree
     }
 }
 /* xoops 2.5.8
-class TDMObjectTree extends XoopsObjectTree {
+class Tree extends XoopsObjectTree {
 
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {

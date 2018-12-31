@@ -39,12 +39,12 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
 }
 
 //tableau des catégories
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
-$criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
+$criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscat_arr = $downloadscatHandler->getall($criteria);
-$mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+$mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //navigation
 $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -117,10 +117,10 @@ if ('' != $view_downloads->getVar('paypal') && true === $xoopsModuleConfig['use_
 $xoopsTpl->assign('paypal', $paypal);
 
 // pour les champs supplémentaires
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
-$criteria->add(new Criteria('status', 1));
+$criteria->add(new \Criteria('status', 1));
 $downloads_field = $downloadsfieldHandler->getall($criteria);
 $nb_champ = count($downloads_field);
 $champ_sup ='';
@@ -158,9 +158,9 @@ foreach (array_keys($downloads_field) as $i) {
         }
     } else {
         $view_data = $downloadsfielddataHandler->get();
-        $criteria = new CriteriaCompo();
-        $criteria->add(new Criteria('lid', $_REQUEST['lid']));
-        $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
+        $criteria = new \CriteriaCompo();
+        $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
+        $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
         $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
         $contenu = '';
         foreach (array_keys($downloadsfielddata) as $j) {

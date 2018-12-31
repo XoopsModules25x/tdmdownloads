@@ -25,8 +25,8 @@ $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 
 // redirection si la catégorie n'existe pas
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('cat_cid', $cid));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('cat_cid', $cid));
 if (0 == $downloadscatHandler->getCount($criteria) || 0 == $cid) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
     exit();
@@ -38,17 +38,17 @@ if (!in_array((int)$cid, $categories)) {
 }
 
 //tableau des catégories
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
-$criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
+$criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscat_arr = $downloadscatHandler->getall($criteria);
-$mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+$mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //tableau des téléchargements
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('status', 0, '!='));
-$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('status', 0, '!='));
+$criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloads_arr = $downloadsHandler->getall($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloads_arr)));
 
@@ -91,10 +91,10 @@ foreach (array_keys($downloadscat_arr) as $i) {
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 //téléchargements récents
 if (1 == $xoopsModuleConfig['bldate']) {
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('status', 0, '!='));
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-    $criteria->add(new Criteria('cid', (int)$_REQUEST['cid']));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('status', 0, '!='));
+    $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+    $criteria->add(new \Criteria('cid', (int)$_REQUEST['cid']));
     $criteria->setSort('date');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
@@ -110,10 +110,10 @@ if (1 == $xoopsModuleConfig['bldate']) {
 }
 //plus téléchargés
 if (1 == $xoopsModuleConfig['blpop']) {
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('status', 0, '!='));
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-    $criteria->add(new Criteria('cid', (int)$_REQUEST['cid']));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('status', 0, '!='));
+    $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+    $criteria->add(new \Criteria('cid', (int)$_REQUEST['cid']));
     $criteria->setSort('hits');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
@@ -128,10 +128,10 @@ if (1 == $xoopsModuleConfig['blpop']) {
 }
 //mieux notés
 if (1 == $xoopsModuleConfig['blrating']) {
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('status', 0, '!='));
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-    $criteria->add(new Criteria('cid', (int)$_REQUEST['cid']));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('status', 0, '!='));
+    $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+    $criteria->add(new \Criteria('cid', (int)$_REQUEST['cid']));
     $criteria->setSort('rating');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
@@ -162,10 +162,10 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('img_float', $xoopsModuleConfig['img_float']);
     }
-    $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('status', 0, '!='));
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-    $criteria->add(new Criteria('cid', (int)$_REQUEST['cid']));
+    $criteria = new \CriteriaCompo();
+    $criteria->add(new \Criteria('status', 0, '!='));
+    $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+    $criteria->add(new \Criteria('cid', (int)$_REQUEST['cid']));
     $numrows = $downloadsHandler->getCount($criteria);
     $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_CAT_THEREARE, $numrows));
 
@@ -201,7 +201,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
 
     $downloads_arr = $downloadsHandler->getall($criteria);
     if ($numrows > $limit) {
-        $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'limit=' . $limit . '&cid=' . (int)$_REQUEST['cid'] . '&sort=' . $sort . '&order=' . $order);
+        $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'limit=' . $limit . '&cid=' . (int)$_REQUEST['cid'] . '&sort=' . $sort . '&order=' . $order);
         $pagenav = $pagenav->renderNav(4);
     } else {
         $pagenav = '';

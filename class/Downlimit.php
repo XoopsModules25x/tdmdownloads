@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Tdmdownloads;
+
 /**
  * TDMDownload
  *
@@ -14,11 +15,13 @@
  * @author      Gregory Mage (Aka Mage) and Hossein Azizabadi (Aka voltan)
  */
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    die('XOOPS root path not defined');
-}
+defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
-class TDMDownloads_downlimit extends XoopsObject
+/**
+ * Class Downlimit
+ * @package XoopsModules\Tdmdownloads
+ */
+class Downlimit extends \XoopsObject
 {
     // constructor
     public function __construct()
@@ -29,16 +32,5 @@ class TDMDownloads_downlimit extends XoopsObject
         $this->initVar('downlimit_hostname', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('downlimit_date', XOBJ_DTYPE_INT, null, false, 10);
     }
-    public function TDMDownloads_downlimit()
-    {
-        $this->__construct();
-    }
-}
 
-class TDMDownloadstdmdownloads_downlimitHandler extends XoopsPersistableObjectHandler
-{
-    public function __construct(\XoopsDatabase $db)
-    {
-        parent::__construct($db, 'tdmdownloads_downlimit', 'tdmdownloads_downlimit', 'downlimit_id', 'downlimit_lid');
-    }
 }

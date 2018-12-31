@@ -17,15 +17,15 @@
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 // compte le nombre de catégories
-$criteria = new CriteriaCompo();
+$criteria = new \CriteriaCompo();
 $nb_categories = $downloadscatHandler->getCount($criteria);
 // compte le nombre de téléchargements
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('status', 0, '!='));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('status', 0, '!='));
 $nb_downloads = $downloadsHandler->getCount($criteria);
 // compte le nombre de téléchargements en attente de validation
-$criteria = new CriteriaCompo();
-$criteria->add(new Criteria('status', 0));
+$criteria = new \CriteriaCompo();
+$criteria->add(new \Criteria('status', 0));
 $nb_downloads_waiting = $downloadsHandler->getCount($criteria);
 // compte le nombre de rapport de téléchargements brisés
 $nb_broken = $downloadsbrokenHandler->getCount();

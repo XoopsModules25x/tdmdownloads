@@ -48,12 +48,12 @@ switch ($op) {
     // Vue liste
     case 'liste':
         //tableau des catégories
-        $criteria = new CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
+        $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscat_arr = $downloadscatHandler->getall($criteria);
-        $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
         $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
@@ -82,8 +82,8 @@ switch ($op) {
         }
         // si c'est un membre on vérifie qu'il ne vote pas pour son fichier
         if (0 != $ratinguser) {
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
             $downloads_arr = $downloadsHandler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 if ($downloads_arr[$i]->getVar('submitter') == $ratinguser) {
@@ -92,8 +92,8 @@ switch ($op) {
                 }
             }
             // si c'est un membre on vérifie qu'il ne vote pas 2 fois
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
             $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
             foreach (array_keys($downloadsvotes_arr) as $i) {
                 if ($downloadsvotes_arr[$i]->getVar('ratinguser') == $ratinguser) {
@@ -104,11 +104,11 @@ switch ($op) {
         } else {
             // si c'est un utilisateur anonyme on vérifie qu'il ne vote pas 2 fois par jour
             $yesterday = (time()-86400);
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
-            $criteria->add(new Criteria('ratinguser', 0));
-            $criteria->add(new Criteria('ratinghostname', getenv('REMOTE_ADDR')));
-            $criteria->add(new Criteria('ratingtimestamp', $yesterday, '>'));
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
+            $criteria->add(new \Criteria('ratinguser', 0));
+            $criteria->add(new \Criteria('ratinghostname', getenv('REMOTE_ADDR')));
+            $criteria->add(new \Criteria('ratingtimestamp', $yesterday, '>'));
             if ($downloadsvotedataHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 exit();
@@ -137,8 +137,8 @@ switch ($op) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
             if ($downloadsvotedataHandler->insert($obj)) {
-                $criteria = new CriteriaCompo();
-                $criteria->add(new Criteria('lid', $lid));
+                $criteria = new \CriteriaCompo();
+                $criteria->add(new \Criteria('lid', $lid));
                 $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
                 $total_vote = $downloadsvotedataHandler->getCount($criteria);
                 $total_rating = 0;
