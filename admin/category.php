@@ -250,7 +250,7 @@ switch ($op) {
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {
-                    $message .= '<span style="color : Red">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
+                    $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
                 }
             }
             $downloadscat_arr = $downloadscatHandler->getall();
@@ -259,14 +259,14 @@ switch ($op) {
             if (count($downloads_childcat) > 0) {
                 $message .=_AM_TDMDOWNLOADS_DELSOUSCAT . ' <br><br>';
                 foreach (array_keys($downloads_childcat) as $i) {
-                    $message .= '<b><span style="color : Red">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
+                    $message .= '<b><span style="color : #ff0000">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
                     $downloads_arr = $downloadsHandler->getall($criteria);
                     if (count($downloads_arr) > 0) {
                         $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                         foreach (array_keys($downloads_arr) as $i) {
-                            $message .= '<span style="color : Red">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
+                            $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
                         }
                     }
                 }

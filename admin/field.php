@@ -160,7 +160,7 @@ switch ($op) {
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDATA .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {
-                    $message .= '<span style="color : Red">' . $downloads_arr[$i]->getVar('data') . '</span><br>';
+                    $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('data') . '</span><br>';
                 }
             }
             //Affichage de la partie haute de l'administration de Xoops

@@ -122,7 +122,7 @@ define('_AM_TDMDOWNLOADS_FORMSIZE', "File size");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', "Download Status");
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', "Approved");
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', "Posted by");
-define('_AM_TDMDOWNLOADS_FORMSUREDEL', "Are you sure you want to delete: <strong><span style='color:red'> %s </span></strong>");
+define('_AM_TDMDOWNLOADS_FORMSUREDEL', "Are you sure you want to delete: <strong><span style='color:#ff0000'> %s </span></strong>");
 define('_AM_TDMDOWNLOADS_FORMTEXT', "Description");
 define('_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS', "Description: <br><br>Use the delimiter '<strong>[pagebreak]</strong>' to define the size of the short description. <br> The short description allows to reduce the text size in the home page of the module and categories.");
 define('_AM_TDMDOWNLOADS_FORMTITLE', "Title");

@@ -122,7 +122,7 @@ define('_AM_TDMDOWNLOADS_FORMSIZE', "Taille du fichier");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', "État du téléchargement");
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', "Approuvé");
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', "Posté par");
-define('_AM_TDMDOWNLOADS_FORMSUREDEL', "Êtes-vous sûr de vouloir supprimer : <strong><span style='color:red'> %s </span></strong>");
+define('_AM_TDMDOWNLOADS_FORMSUREDEL', "Êtes-vous sûr de vouloir supprimer : <strong><span style='color:#ff0000'> %s </span></strong>");
 define('_AM_TDMDOWNLOADS_FORMTEXT', "Description");
 define('_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS', "Description :<br><br>utilisez le séparateur « <strong>[pagebreak]</strong> » pour définir la taille d'une courte description. <br>Cela permet de réduire la taille du texte dans la page d'accueil du module et des catégories.");
 define('_AM_TDMDOWNLOADS_FORMTITLE', "Titre");
