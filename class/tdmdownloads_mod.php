@@ -224,9 +224,9 @@ class TDMDownloads_mod extends XoopsObject
         $form->addElement(new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, "description", $editor_configs), true);
         //image
         if ($xoopsModuleConfig['useshots']) {
-            $uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots/' . $view_downloads->getVar('logourl');
+            $uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $view_downloads->getVar('logourl');
             $downloadscat_img = $view_downloads->getVar('logourl') ? $view_downloads->getVar('logourl') : 'blank.gif';
-            $uploadirectory='/uploads/TDMDownloads/images/shots';
+            $uploadirectory='/uploads/tdmdownloads/images/shots';
             if (!is_file($uploaddir)) {
                 $downloadscat_img = 'blank.gif';
             }

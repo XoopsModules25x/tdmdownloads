@@ -67,7 +67,7 @@ class TDMDownloads_field extends XoopsObject
         }
         //image
         $downloadsfield_img = $this->getVar('img') ? $this->getVar('img') : 'blank.gif';
-        $uploadirectory='/uploads/TDMDownloads/images/field';
+        $uploadirectory='/uploads/tdmdownloads/images/field';
         $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);

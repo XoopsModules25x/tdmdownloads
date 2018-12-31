@@ -78,7 +78,7 @@ class TDMDownloads_cat extends XoopsObject
         $form->addElement(new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXT, "cat_description_main", $editor_configs), false);
         //image
         $downloadscat_img = $this->getVar('cat_imgurl') ? $this->getVar('cat_imgurl') : 'blank.gif';
-        $uploadirectory='/uploads/TDMDownloads/images/cats';
+        $uploadirectory='/uploads/tdmdownloads/images/cats';
         $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);

@@ -47,7 +47,7 @@ function Import_mydownloads($path='', $imgurl='')
                 $img = "blank.gif";
             } else {
                 $img = substr_replace($donnees['imgurl'], '', 0, strlen($imgurl));
-                @copy($path . $img, XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/cats/" . $img);
+                @copy($path . $img, XOOPS_ROOT_PATH . "/uploads/tdmdownloads/images/cats/" . $img);
             }
 
             $title = $donnees['title'];
@@ -72,7 +72,7 @@ function Import_mydownloads($path='', $imgurl='')
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
-            @copy($path . $donnees['logourl'], XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/shots/" . $donnees['logourl']);
+            @copy($path . $donnees['logourl'], XOOPS_ROOT_PATH . "/uploads/tdmdownloads/images/shots/" . $donnees['logourl']);
         }
         echo '<br>';
         //Inserer les donnees des votes
@@ -113,7 +113,7 @@ function Import_wfdownloads($shots='', $catimg='')
                 $img = "blank.gif";
             } else {
                 $img = $donnees['imgurl'];
-                @copy($catimg . $img, XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/cats/" . $img);
+                @copy($catimg . $img, XOOPS_ROOT_PATH . "/uploads/tdmdownloads/images/cats/" . $img);
             }
             $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_cat")." (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('".$donnees['cid']."', '".$donnees['pid']."', '".addcslashes($donnees['title'], "'")."', '".$img."', '".addcslashes($donnees['description'], "'")."', '".$donnees['weight']."')");
             if (!$insert) {
@@ -139,7 +139,7 @@ function Import_wfdownloads($shots='', $catimg='')
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
-            @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/shots/" . $donnees['screenshot']);
+            @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . "/uploads/tdmdownloads/images/shots/" . $donnees['screenshot']);
         }
         echo '<br>';
 

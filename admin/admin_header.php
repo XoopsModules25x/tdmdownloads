@@ -47,17 +47,17 @@ $pathIcon32 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons32');
 
 //param�tres:
 // pour les images des cat�gories:
-$uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/cats/';
-$uploadurl = XOOPS_URL . '/uploads/TDMDownloads/images/cats/';
+$uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/cats/';
+$uploadurl = XOOPS_URL . '/uploads/tdmdownloads/images/cats/';
 // pour les fichiers
 $uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads/';
 $uploadurl_downloads = XOOPS_URL . '/uploads/TDMDownloads/downloads/';
 // pour les captures d'�cran fichiers
-$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots/';
-$uploadurl_shots = XOOPS_URL . '/uploads/TDMDownloads/images/shots/';
+$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/';
+$uploadurl_shots = XOOPS_URL . '/uploads/tdmdownloads/images/shots/';
 // pour les images des champs:
-$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/field/';
-$uploadurl_field = XOOPS_URL . '/uploads/TDMDownloads/images/field/';
+$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/field/';
+$uploadurl_field = XOOPS_URL . '/uploads/tdmdownloads/images/field/';
 /////////////
 
 //appel des class

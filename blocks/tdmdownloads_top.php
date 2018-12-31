@@ -92,7 +92,7 @@ function b_tdmdownloads_top_show($options)
             if ($downloads_arr[$i]->getVar('logourl') == 'blank.gif') {
                 $logourl = '';
             } else {
-                $logourl = XOOPS_URL . '/uploads/TDMDownloads/images/shots/'. $downloads_arr[$i]->getVar('logourl');
+                $logourl = XOOPS_URL . '/uploads/tdmdownloads/images/shots/'. $downloads_arr[$i]->getVar('logourl');
             }
         }
         $block[$i]['logourl'] = $logourl;

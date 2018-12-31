@@ -241,12 +241,12 @@ class TDMDownloads_downloads extends XoopsObject
 
         //image
         if ($xoopsModuleConfig['useshots']) {
-            $uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots/' . $this->getVar('logourl');
+            $uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $this->getVar('logourl');
             $downloadscat_img = $this->getVar('logourl') ? $this->getVar('logourl') : 'blank.gif';
             if (!is_file($uploaddir)) {
                 $downloadscat_img = 'blank.gif';
             }
-            $uploadirectory='/uploads/TDMDownloads/images/shots';
+            $uploadirectory='/uploads/tdmdownloads/images/shots';
             $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
             $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
             $imageselect= new XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);

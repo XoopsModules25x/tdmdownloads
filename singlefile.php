@@ -47,8 +47,8 @@ $downloadscat_arr = $downloadscatHandler->getall($criteria);
 $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //navigation
-$navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
-$navigation = $navigation . ' <img src="images/deco/arrow.gif" alt="arrow"> ' . $view_downloads->getVar('title');
+$navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+$navigation = $navigation . ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ' . $view_downloads->getVar('title');
 $xoopsTpl->assign('navigation', $navigation);
 
 // sortie des informations
@@ -76,7 +76,7 @@ if ($view_downloads->getVar('logourl') == 'blank.gif') {
 }
 // Défini si la personne est un admin
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/tdmdownloads/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
 } else {
     $adminlink = '';
 }

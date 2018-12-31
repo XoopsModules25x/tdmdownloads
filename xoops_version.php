@@ -520,7 +520,7 @@ $modversion['config'][$i]['title']       = '_MI_TDMDOWNLOADS_LOGORSS';
 $modversion['config'][$i]['description'] = '';
 $modversion['config'][$i]['formtype']    = 'textbox';
 $modversion['config'][$i]['valuetype']   = 'text';
-$modversion['config'][$i]['default']     = '/modules/TDMDownloads/images/mydl_slogo.png';
+$modversion['config'][$i]['default']     = '/modules/tdmdownloads/assets/images/mydl_slogo.png';
 $i++;
 $modversion['config'][$i]['name']        = 'break' . $i;
 $modversion['config'][$i]['title']       = '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI';
