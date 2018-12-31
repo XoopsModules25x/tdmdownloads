@@ -412,7 +412,7 @@ switch ($op) {
         echo '<td>' . $downloads_description . '</td>';
         echo '</tr>';
         // tags
-        if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
+        if ((1 == $xoopsModuleConfig['usetag']) && (is_dir('../../tag'))) {
             require_once XOOPS_ROOT_PATH.'/modules/tag/include/tagbar.php';
             $tags_array = tagBar($downloads_lid, 0);
             if (!empty($tags_array)) {
@@ -660,7 +660,7 @@ switch ($op) {
             }
         }
         // enregistrement temporaire des tags
-        if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
+        if ((1 == $xoopsModuleConfig['usetag']) && (is_dir('../../tag'))) {
             $donnee['TAG'] = $_POST['tag'];
         }
 
@@ -711,7 +711,7 @@ switch ($op) {
                     $lid_dowwnloads = $_REQUEST['lid'];
                 }
                 //tags
-                if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
+                if ((1 == $xoopsModuleConfig['usetag']) && (is_dir('../../tag'))) {
                     $tagHandler = xoops_getModuleHandler('tag', 'tag');
                     $tagHandler->updateByItem($_POST['tag'], $lid_dowwnloads, $xoopsModule->getVar('dirname'), 0);
                 }

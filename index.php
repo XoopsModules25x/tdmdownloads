@@ -118,7 +118,7 @@ if (1 == $xoopsModuleConfig['blrating']) {
         $xoopsTpl->append('bl_rating', ['id' => $downloads_arr_rating[$i]->getVar('lid'), 'cid' => $downloads_arr_rating[$i]->getVar('cid'), 'rating' => $rating, 'title' => $title]);
     }
 }
-if (0 == $xoopsModuleConfig['bldate'] and 0 == $xoopsModuleConfig['blpop'] and 0 == $xoopsModuleConfig['blrating']) {
+if (0 == $xoopsModuleConfig['bldate'] && 0 == $xoopsModuleConfig['blpop'] && 0 == $xoopsModuleConfig['blrating']) {
     $bl_affichage = 0;
 } else {
     $bl_affichage = 1;

@@ -146,7 +146,7 @@ if (1 == $xoopsModuleConfig['blrating']) {
     }
 }
 // affichage du résumé
-if (0 == $xoopsModuleConfig['bldate'] and 0 == $xoopsModuleConfig['blpop'] and 0 == $xoopsModuleConfig['blrating']) {
+if (0 == $xoopsModuleConfig['bldate'] && 0 == $xoopsModuleConfig['blpop'] && 0 == $xoopsModuleConfig['blrating']) {
     $bl_affichage = 0;
 } else {
     $bl_affichage = 1;

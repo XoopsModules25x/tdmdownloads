@@ -201,7 +201,7 @@ if (1 == $xoopsModuleConfig['permission_download']) {
 }
 
 // pour utiliser tellafriend.
-if ((1 == $xoopsModuleConfig['usetellafriend']) and is_dir('../tellafriend')) {
+if ((1 == $xoopsModuleConfig['usetellafriend']) && is_dir('../tellafriend')) {
     $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'].':  '.XOOPS_URL.'/modules/tdmdownloads/singlefile.php?lid=' . $_REQUEST['lid']);
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (false !== strpos($subject, '%')) {
