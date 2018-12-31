@@ -14,12 +14,28 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-require  dirname(dirname(__DIR__)) . '/mainfile.php';
-require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-require_once XOOPS_ROOT_PATH . '/class/tree.php';
-require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+use XoopsModules\Tdmdownloads;
+
+//require  dirname(dirname(__DIR__)) . '/mainfile.php';
+//require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+//require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+//require_once XOOPS_ROOT_PATH . '/class/tree.php';
+//require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+
+require  dirname(dirname(__DIR__)) .'/mainfile.php';
+require XOOPS_ROOT_PATH . '/header.php';
+
+$moduleDirName = basename(__DIR__);
+
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+
+$modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+require __DIR__ . '/include/config.php';
+$myts = \MyTextSanitizer::getInstance();
+
 require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname') . '/include/functions.php';
+
 //permission
 $gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
@@ -27,7 +43,15 @@ if (is_object($xoopsUser)) {
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-xoops_loadLanguage('admin', $xoopsModule->getVar('dirname', 'e'));
+
+// Load language files
+$helper->loadLanguage('main');
+$helper->loadLanguage('admin');
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new XoopsTpl();
+}
 
 $perm_submit = ($gpermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
 $perm_modif = ($gpermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
@@ -51,12 +75,11 @@ $uploadurl_field = XOOPS_URL . '/uploads/tdmdownloads/images/field/';
 /////////////
 
 //appel des class
-$categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$ratingHandler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$modifiedHandler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$brokenHandler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$fielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$modifieddataHandler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
-$downloadslimitHandler = xoops_getModuleHandler('tdmdownloads_downlimit', 'TDMDownloads');
+$categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+$downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+$ratingHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Rating');
+$fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+$fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+$brokenHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Broken');
+$modifiedHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modified');
+$modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modifiedfielddata');

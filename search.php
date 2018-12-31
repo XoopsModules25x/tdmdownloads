@@ -53,11 +53,11 @@ $cat_select->addOption(0,_MD_TDMDOWNLOADS_SEARCH_ALL2);
 $cat_select->addOptionArray($categoryHandler->getList($criteria ));
 $form->addElement($cat_select);*/
 $downloadscat_arr = $categoryHandler->getall($criteria);
-$mytree           = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+$mytree           = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
-$fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('search', 1));
 $criteria->add(new \Criteria('status', 1));

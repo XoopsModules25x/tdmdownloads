@@ -24,7 +24,7 @@ function xoops_module_install_tdmdownloads()
     } else {
         include_once(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php');
     }
-    $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
     $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMHOMEPAGE);
     $obj->setVar('img', 'homepage.png');
