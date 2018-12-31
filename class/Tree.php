@@ -14,6 +14,9 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+require_once $GLOBALS['xoops']->path('www/class/tree.php');
+
 // xoops >2.5.9
 class Tree extends \XoopsObjectTree
 {

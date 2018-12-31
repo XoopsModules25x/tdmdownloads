@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
@@ -47,7 +49,7 @@ switch ($op) {
             $class = 'odd';
 //            require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/class/tree.php';
             $mytree = new Tdmdownloads\Tree($downloads_cat, 'cat_cid', 'cat_pid');
-            $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../images/deco/arrow.gif">');
+            $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../assets/images/deco/arrow.gif">');
             foreach (array_keys($category_ArrayTree) as $i) {
                 echo '<tr class="'.$class.'">';
                 echo '<td align="left" ><a href="' . XOOPS_URL . '/modules/tdmdownloads/viewcat.php?cid=' . $i . '">' . $category_ArrayTree[$i] . '</a></td>';
@@ -57,8 +59,8 @@ switch ($op) {
                 echo '<td align="left">' . $downloads_cat[$i]->getVar('cat_description_main') . '</td>';
                 echo '<td align="center">' . $downloads_cat[$i]->getVar('cat_weight') . '</td>';
                 echo '<td align="center">';
-                echo '<a href="category.php?op=edit_cat&downloadscat_cid=' . $i . '"><img src="../images/icon/edit.png" alt="'._AM_TDMDOWNLOADS_FORMEDIT.'" title="'._AM_TDMDOWNLOADS_FORMEDIT.'"></a> ';
-                echo '<a href="category.php?op=del_cat&downloadscat_cid=' . $i . '"><img src="../images/icon/delete.png" alt="'._AM_TDMDOWNLOADS_FORMDEL.'" title="'._AM_TDMDOWNLOADS_FORMDEL.'"></a>';
+                echo '<a href="category.php?op=edit_cat&downloadscat_cid=' . $i . '"><img src="../assets/images/icon/edit.png" alt="'._AM_TDMDOWNLOADS_FORMEDIT.'" title="'._AM_TDMDOWNLOADS_FORMEDIT.'"></a> ';
+                echo '<a href="category.php?op=del_cat&downloadscat_cid=' . $i . '"><img src="../assets/images/icon/delete.png" alt="'._AM_TDMDOWNLOADS_FORMDEL.'" title="'._AM_TDMDOWNLOADS_FORMDEL.'"></a>';
                 echo '</td>';
                 echo '</tr>';
                 $class = ('even' === $class) ? 'odd' : 'even';
@@ -173,7 +175,7 @@ switch ($op) {
             }
             // supression des sous catégories avec leurs téléchargements
             $downloadscat_arr = $categoryHandler->getall();
-            $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             foreach (array_keys($downloads_childcat) as $i) {
                 // supression de la catégorie
@@ -254,7 +256,7 @@ switch ($op) {
                 }
             }
             $downloadscat_arr = $categoryHandler->getall();
-            $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             if (count($downloads_childcat) > 0) {
                 $message .=_AM_TDMDOWNLOADS_DELSOUSCAT . ' <br><br>';

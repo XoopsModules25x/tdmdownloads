@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
@@ -57,12 +59,12 @@ switch ($op) {
                 echo '</td>';
                 echo '<td align="center" width="10%">' . $downloads_field[$i]->getVar('weight') . '</td>';
 
-                echo '<td align="center" width="10%"><a href="field.php?op=update_status&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('status') ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
-                echo '<td align="center" width="10%"><a href="field.php?op=update_search&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('search') ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
+                echo '<td align="center" width="10%"><a href="field.php?op=update_status&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('status') ? '0"><img src="../assets/images/icon/on.png"></a>' : '1"><img src="../assets/images/icon/off.png"></a>') . '</td>';
+                echo '<td align="center" width="10%"><a href="field.php?op=update_search&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('search') ? '0"><img src="../assets/images/icon/on.png"></a>' : '1"><img src="../assets/images/icon/off.png"></a>') . '</td>';
                 echo '<td align="center" width="10%">';
-                echo '<a href="field.php?op=edit_field&fid=' . $downloadsfield_fid . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
+                echo '<a href="field.php?op=edit_field&fid=' . $downloadsfield_fid . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
                 if (0 == $downloads_field[$i]->getVar('status_def')) {
-                    echo '<a href="field.php?op=del_field&fid=' . $downloadsfield_fid . '"><img src="../images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
+                    echo '<a href="field.php?op=del_field&fid=' . $downloadsfield_fid . '"><img src="../assets/images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
                 }
                 echo '</td>';
                 echo '</tr>';

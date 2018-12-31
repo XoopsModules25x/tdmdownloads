@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 
 //On recupere la valeur de l'argument op dans l'URL$
@@ -149,14 +151,14 @@ switch ($op) {
             echo '<th align="center" width="5%">' . _AM_TDMDOWNLOADS_FORMRATING . '</th>';
             echo '<th align="center" width="15%">'._AM_TDMDOWNLOADS_FORMACTION.'</th>';
             echo '</tr>';
-            $mytree = new \XoopsObjectTree($category_arr, 'cat_cid', 'cat_pid');
+            $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
             $class = 'odd';
             foreach (array_keys($downloads_arr) as $i) {
                 $class = ('even' === $class) ? 'odd' : 'even';
-                $category = TDMDownloads_PathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../images/deco/arrow.gif"> ');
+                $category = TDMDownloads_PathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
                 echo '<tr class="'.$class.'">';
                 echo '<td align="center">';
-                echo '<a href="../visit.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank"><img src="../images/icon/download.png" alt="Download ' . $downloads_arr[$i]->getVar('title') . '" title="Download ' . $downloads_arr[$i]->getVar('title') . '"></a>';
+                echo '<a href="../visit.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank"><img src="../assets/images/icon/download.png" alt="Download ' . $downloads_arr[$i]->getVar('title') . '" title="Download ' . $downloads_arr[$i]->getVar('title') . '"></a>';
                 echo '</td>';
                 echo '<td align="left"><a href="../singlefile.php?.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank">' . $downloads_arr[$i]->getVar('title') . '</a></td>';
                 echo '<td align="left">' . $category . '</td>';
@@ -165,9 +167,9 @@ switch ($op) {
 
                 echo '<td align="center">';
                 echo(1 == $statut_display ? '<a href="downloads.php?op=lock_status&downloads_lid=' . $i . '"><img src="./../images/icon/on.png" border="0" alt="' . _AM_TDMDOWNLOADS_FORMLOCK . '" title="' . _AM_TDMDOWNLOADS_FORMLOCK . '"></a> ' : '<a href="downloads.php?op=update_status&downloads_lid=' . $i . '"><img src="./../images/icon/off.png" border="0" alt="' . _AM_TDMDOWNLOADS_FORMVALID . '" title="' . _AM_TDMDOWNLOADS_FORMVALID . '"></a> ');
-                echo '<a href="downloads.php?op=view_downloads&downloads_lid=' . $i . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY.'" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
-                echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $i . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT.'" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
-                echo '<a href="downloads.php?op=del_downloads&downloads_lid=' . $i . '"><img src="../images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL.'" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
+                echo '<a href="downloads.php?op=view_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY.'" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
+                echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT.'" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
+                echo '<a href="downloads.php?op=del_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL.'" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
                 echo '</td>';
             }
             echo '</table><br>';
@@ -322,14 +324,14 @@ switch ($op) {
         //catégorie
         //$view_categorie = $categoryHandler->get($view_downloads->getVar('cid'));
         $category_arr = $categoryHandler->getall();
-        $mytree = new \XoopsObjectTree($category_arr, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
         // sortie des informations
         $downloads_title = $view_downloads->getVar('title');
         $downloads_description = $view_downloads->getVar('description');
         //permet d'enlever [pagebreak] du texte
         $downloads_description = str_replace('[pagebreak]', '', $downloads_description);
 
-        $category = TDMDownloads_PathTree($mytree, $view_downloads->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../images/deco/arrow.gif"> ');
+        $category = TDMDownloads_PathTree($mytree, $view_downloads->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
         // affichages des informations du téléchargement
         echo '<table width="100%" cellspacing="1" class="outer">';
         echo '<tr>';
@@ -337,7 +339,7 @@ switch ($op) {
         echo '</tr>';
         echo '<tr class="even">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMFILE . ' </td>';
-        echo '<td><a href="../visit.php?cid=' . $view_downloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a></td>';
+        echo '<td><a href="../visit.php?cid=' . $view_downloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../assets/images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a></td>';
         echo '</tr>';
         echo '<tr class="odd">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMCAT . ' </td>';
@@ -465,16 +467,16 @@ switch ($op) {
         $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMCOMMENTS . ' </td>';
-        echo '<td>' . $view_downloads->getVar('comments') . ' <a href="../singlefile.php?cid=' . $view_downloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a></td>';
+        echo '<td>' . $view_downloads->getVar('comments') . ' <a href="../singlefile.php?cid=' . $view_downloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a></td>';
         echo '</tr>';
         $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMACTION . ' </td>';
         echo '<td>';
         echo(0 != $view_downloads->getVar('status') ? '' : '<a href="downloads.php?op=update_status&downloads_lid=' . $downloads_lid . '"><img src="./../images/icon/off.png" border="0" alt="' . _AM_TDMDOWNLOADS_FORMVALID . '" title="' . _AM_TDMDOWNLOADS_FORMVALID . '"></a> ');
-        echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT .
+        echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT .
         '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> <a href="downloads.php?op=del_downloads&downloads_lid=' . $downloads_lid . '">
-        <img src="../images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a></td>';
+        <img src="../assets/images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a></td>';
         echo '</tr>';
         echo '</table>';
         echo '<br>';

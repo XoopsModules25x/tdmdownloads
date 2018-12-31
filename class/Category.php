@@ -99,12 +99,12 @@ class Category extends \XoopsObject
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         // Pour faire une sous-catégorie
-        $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $downloadscat_arr = $categoryHandler->getall($criteria);
-        $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cat_pid', 'cat_title', '--', $this->getVar('cat_pid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
         //poids de la catégorie
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);

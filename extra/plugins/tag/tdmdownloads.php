@@ -29,7 +29,7 @@ function TDMDownloads_tag_iteminfo(&$items)
         }
     }
 
-    $itemHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
     $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
@@ -55,7 +55,7 @@ function TDMDownloads_tag_iteminfo(&$items)
  */
 function TDMDownloads_tag_synchronization($mid)
 {
-    $itemHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
     $linkHandler = xoops_getModuleHandler('link', 'tag');
 
     /* clear tag-item links */

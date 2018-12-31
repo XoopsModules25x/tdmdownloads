@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 
 //On recupere la valeur de l'argument op dans l'URL$
@@ -78,14 +80,14 @@ switch ($op) {
                 $downloads_poster_ip = $downloadsbroken_arr[$i]->getVar('ip');
                 echo '<tr class="'.$class.'">';
                 echo '<td align="center">';
-                echo '<a href="../visit.php?cid=' . $downloads_cid . '&lid=' . $downloads_lid . '" target="_blank"><img src="../images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a>';
+                echo '<a href="../visit.php?cid=' . $downloads_cid . '&lid=' . $downloads_lid . '" target="_blank"><img src="../assets/images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a>';
                 echo '</td>';
                 echo '<td align="center">' . $downloads_title . '</td>';
                 echo '<td align="center"><b>' . $downloads_poster . '</b> (' . $downloads_poster_ip . ')</td>';
                 echo '<td align="center" width="15%">';
-                echo '<a href="downloads.php?op=view_downloads&downloads_lid=' . $downloads_lid . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
-                echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
-                echo '<a href="broken.php?op=del_brokendownloads&broken_id=' . $downloads_reportid . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
+                echo '<a href="downloads.php?op=view_downloads&downloads_lid=' . $downloads_lid . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
+                echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
+                echo '<a href="broken.php?op=del_brokendownloads&broken_id=' . $downloads_reportid . '"><img src="../assets/images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
             }
             echo '</table><br>';

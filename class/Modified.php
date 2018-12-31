@@ -70,8 +70,8 @@ class Modified extends \XoopsObject
         $gpermHandler = xoops_getHandler('groupperm');
         $perm_upload = ($gpermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
         //appel des class
-        $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-        $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
         $view_downloads = $downloadsHandler->get($lid);
         include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
@@ -114,7 +114,7 @@ class Modified extends \XoopsObject
         $form->addElement($fichier);
 
         //catégorie
-        $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_submit', 'TDMDownloads');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -130,11 +130,11 @@ class Modified extends \XoopsObject
         if (0 == count($downloadscat_arr)) {
             redirect_header('index.php', 2, _NOPERM);
         }
-        $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cid', 'cat_title', '--', $d_cid, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
         //affichage des champs
-        $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+        $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
@@ -203,7 +203,7 @@ class Modified extends \XoopsObject
             } else {
                 $contenu = '';
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                $fielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+                $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $view_downloads->getVar('lid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));

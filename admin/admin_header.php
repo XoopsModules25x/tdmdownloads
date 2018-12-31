@@ -23,12 +23,14 @@ require_once dirname(__DIR__) . '/../../include/cp_header.php';
 
 include_once(XOOPS_ROOT_PATH . '/kernel/module.php');
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-require_once XOOPS_ROOT_PATH . '/class/tree.php';
-require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+//require_once XOOPS_ROOT_PATH . '/class/tree.php';
+//require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+//require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+//require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
 require_once dirname(__DIR__) . '/include/functions.php';
+
+require_once  dirname(__DIR__) . '/include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 
@@ -82,4 +84,4 @@ $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fi
 $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
 $brokenHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Broken');
 $modifiedHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modified');
-$modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modifieddata');
+$modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modifiedfielddata');

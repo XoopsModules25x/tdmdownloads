@@ -20,10 +20,10 @@ function b_tdmdownloads_search_show()
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
     //appel des class
-    $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-    $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-    $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-    $fielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+    $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+    $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+    $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
     //appel des fichiers de langues
     xoops_loadLanguage('main', 'TDMDownloads');
     xoops_loadLanguage('admin', 'TDMDownloads');
@@ -43,10 +43,10 @@ function b_tdmdownloads_search_show()
     $criteria->setOrder('ASC');
     $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
     $downloadscat_arr = $categoryHandler->getall($criteria);
-    $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+    $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
     $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
-    $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('search', 1));
     $criteria->add(new \Criteria('status', 1));

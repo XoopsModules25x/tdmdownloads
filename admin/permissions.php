@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();

@@ -14,6 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+
 require __DIR__ . '/admin_header.php';
 
 //On recupere la valeur de l'argument op dans l'URL$
@@ -76,8 +78,8 @@ switch ($op) {
                 echo '<td align="center">' . $downloads->getVar('title') . '</td>';
                 echo '<td align="center"><b>' . XoopsUser::getUnameFromId($downloadsmod_arr[$i]->getVar('modifysubmitter')) . '</b></td>';
                 echo '<td align="center" width="15%">';
-                echo '<a href="modified.php?op=view_downloads&downloads_lid=' . $downloads_lid . '&mod_id=' . $downloads_requestid . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
-                echo '<a href="modified.php?op=del_moddownloads&mod_id=' . $downloads_requestid . '&new_file=' . $new_file . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
+                echo '<a href="modified.php?op=view_downloads&downloads_lid=' . $downloads_lid . '&mod_id=' . $downloads_requestid . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
+                echo '<a href="modified.php?op=del_moddownloads&mod_id=' . $downloads_requestid . '&new_file=' . $new_file . '"><img src="../assets/images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
             }
             echo '</table><br>';
