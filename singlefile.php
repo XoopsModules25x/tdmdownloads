@@ -76,7 +76,7 @@ if ($view_downloads->getVar('logourl') == 'blank.gif') {
 }
 // Défini si la personne est un admin
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/tdmdownloads/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/tdmdownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/tdmdownloads/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
 } else {
     $adminlink = '';
 }
@@ -202,7 +202,7 @@ if ($xoopsModuleConfig['permission_download'] == 1) {
 
 // pour utiliser tellafriend.
 if (($xoopsModuleConfig['usetellafriend'] == 1) and (is_dir('../tellafriend'))) {
-    $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'].':  '.XOOPS_URL.'/modules/TDMDownloads/singlefile.php?lid=' . $_REQUEST['lid']);
+    $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'].':  '.XOOPS_URL.'/modules/tdmdownloads/singlefile.php?lid=' . $_REQUEST['lid']);
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (stristr($subject, '%')) {
         $subject = rawurldecode($subject) ;
@@ -217,7 +217,7 @@ if (($xoopsModuleConfig['usetellafriend'] == 1) and (is_dir('../tellafriend'))) 
     }
     $tellafriend_texte = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($target_uri) . '&amp;subject='.rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 } else {
-    $tellafriend_texte = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']).':  ' . XOOPS_URL.'/modules/TDMDownloads/singlefile.php?lid=' . $_REQUEST['lid']) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
+    $tellafriend_texte = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']).':  ' . XOOPS_URL.'/modules/tdmdownloads/singlefile.php?lid=' . $_REQUEST['lid']) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 }
 $xoopsTpl->assign('tellafriend_texte', $tellafriend_texte);
 

@@ -1,7 +1,7 @@
 <div class="item tdmdownloads-item">
     <div class="itemHead">
 		<span class="itemTitle">
-			<strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
+			<strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
 		</span>
         <br>
     </div>
@@ -32,7 +32,7 @@
     </div>
     <div class="itemFoot">
         <span class="itemAdminLink"><{$down.adminlink}></span>
-        <span class="itemPermaLink"><a title="<{$down.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$smarty.const._MD_TDMDOWNLOADS_MOREDETAILS}></a></span>
+        <span class="itemPermaLink"><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$smarty.const._MD_TDMDOWNLOADS_MOREDETAILS}></a></span>
 
         <div class="tdmdownloads-linetitle"></div>
     </div>

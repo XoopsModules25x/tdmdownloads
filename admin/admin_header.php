@@ -50,8 +50,8 @@ $pathIcon32 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons32');
 $uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/cats/';
 $uploadurl = XOOPS_URL . '/uploads/tdmdownloads/images/cats/';
 // pour les fichiers
-$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads/';
-$uploadurl_downloads = XOOPS_URL . '/uploads/TDMDownloads/downloads/';
+$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/downloads/';
+$uploadurl_downloads = XOOPS_URL . '/uploads/tdmdownloads/downloads/';
 // pour les captures d'�cran fichiers
 $uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/';
 $uploadurl_shots = XOOPS_URL . '/uploads/tdmdownloads/images/shots/';

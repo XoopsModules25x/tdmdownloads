@@ -81,8 +81,8 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
             $description_short = substr($description, 0, strpos($description, '[pagebreak]'));
         }
         $tpl->append('items', array('title' => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
-                                    'link' => XOOPS_URL . '/modules/TDMDownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
-                                    'guid' => XOOPS_URL . '/modules/TDMDownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
+                                    'link' => XOOPS_URL . '/modules/tdmdownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
+                                    'guid' => XOOPS_URL . '/modules/tdmdownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
                                     'pubdate' => formatTimestamp($downloads_arr[$i]->getVar('date'), 'rss'),
                                     'description' => htmlspecialchars($description_short, ENT_QUOTES)));
     }

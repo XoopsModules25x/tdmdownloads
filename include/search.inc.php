@@ -23,7 +23,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     if ($userid != 0) {
         $sql .= " AND submitter=".intval($userid)." ";
     }
-    require_once XOOPS_ROOT_PATH.'/modules/TDMDownloads/include/functions.php';
+    require_once XOOPS_ROOT_PATH.'/modules/tdmdownloads/include/functions.php';
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
     if (is_array($categories) && count($categories) > 0) {
         $sql .= ' AND cid IN ('.implode(',', $categories).') ';

@@ -107,7 +107,7 @@ if ($xoopsModuleConfig['check_host']) {
         }
     }
     if (!$goodhost) {
-        redirect_header(XOOPS_URL . "/modules/TDMDownloads/singlefile.php?cid=$cid&amp;lid=$lid", 30, _MD_TDMDOWNLOADS_NOPERMISETOLINK);
+        redirect_header(XOOPS_URL . "/modules/tdmdownloads/singlefile.php?cid=$cid&amp;lid=$lid", 30, _MD_TDMDOWNLOADS_NOPERMISETOLINK);
         exit();
     }
 }

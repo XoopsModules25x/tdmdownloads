@@ -3,7 +3,7 @@
 	<div class="item tdmdownloads-blockitem">
 		<div class="itemHead">
 			<span class="itemTitle">
-				<h2><a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory" ><{$downloads.title}></a></h2>
+				<h2><a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory" ><{$downloads.title}></a></h2>
 			</span>
 		</div>
 		<{if $downloads.inforation}>
@@ -23,7 +23,7 @@
 	         <{if $downloads.description != ""}>
                 <{$downloads.description}>
                 <span class="itemPermaLink">
-                    <a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory">--></a>
+                    <a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory">--></a>
                 </span>
 			 <{/if}>
 			</div>

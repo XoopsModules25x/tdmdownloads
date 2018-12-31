@@ -2,7 +2,7 @@
 
    <!-- Download logo-->
 	<div class="tdmdownloads-logo center marg10">
-		<a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/TDMDownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
+		<a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
 	</div>
 	
 	<!-- Category path -->
@@ -21,13 +21,13 @@
 			<td>
 			   <div class="tdmdownloads-data">
 			      <div class="tdmdownloads-title">
-			         <div class="floatleft title"><h2><a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a></h2></div>
-				      <div class="floatright total xo-pagact"><a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a></div>
+			         <div class="floatleft title"><h2><a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a></h2></div>
+				      <div class="floatright total xo-pagact"><a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a></div>
 				      <div class="endline"></div>
 			      </div>
 			      <div class="tdmdownloads-body justify">
 				      <{if $category.image != ""}>	      
-					      <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
+					      <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
 			         <{/if}>
 				      <{$category.description_main}>
 				      <div class="endline"></div>
@@ -49,7 +49,7 @@
    
    <!-- RSS logo -->
    <div class="tdmdownloads-rss">
-	   <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/TDMDownloads/rss.php?cid=<{$category_id}>"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
+	   <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=<{$category_id}>"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
    </div>
    
    <{if $bl_affichage==1}>
@@ -65,7 +65,7 @@
 			   <div class="mrag2 pad2">
 				   <ul>
 		            <{foreach item=bl_date from=$bl_date}>
-		            <li><a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a> (<{$bl_date.date}>)</li>
+		            <li><a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a> (<{$bl_date.date}>)</li>
 		            <{/foreach}>
 	            </ul>
             </div>
@@ -79,7 +79,7 @@
 			   <div class="mrag2 pad2">
 				   <ul>
 		            <{foreach item=bl_pop from=$bl_pop}>
-		            <li><a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a> (<{$bl_pop.hits}>)</li>
+		            <li><a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a> (<{$bl_pop.hits}>)</li>
 		            <{/foreach}>
 	            </ul>
             </div>
@@ -93,7 +93,7 @@
 			   <div class="mrag2 pad2">
 				   <ul>
 		            <{foreach item=bl_rating from=$bl_rating}>
-		            <li><a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a> (<{$bl_rating.rating}>)</li>
+		            <li><a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a> (<{$bl_rating.rating}>)</li>
 		            <{/foreach}>
 	            </ul>
             </div>
@@ -132,37 +132,37 @@
 			<span><{$smarty.const._MD_TDMDOWNLOADS_CAT_SORTBY}></span>
 			<span>
 				<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLE}> (
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLE}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=title&amp;order=ASC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLE}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=title&amp;order=ASC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/up.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLEATOZ}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLEATOZ}>">
 				</a>
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLE}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=title&amp;order=DESC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLE}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=title&amp;order=DESC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/down.gif" align="middle"  alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLEZTOA}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_TITLEZTOA}>">
 				</a>)
 			</span>
 			<span>
 				<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATE}>(
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATE}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=date&amp;order=ASC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATE}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=date&amp;order=ASC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/up.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATEOLD}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATEOLD}>">
 				</a>
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATE}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=date&amp;order=DESC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATE}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=date&amp;order=DESC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/down.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATENEW}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_DATENEW}>">
 				</a>)
 			</span>
 			<span>
 				<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATING}>(
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATING}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=rating&amp;order=ASC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATING}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=rating&amp;order=ASC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/up.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATINGLTOH}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATINGLTOH}>">
 				</a>
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATING}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=rating&amp;order=DESC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATING}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=rating&amp;order=DESC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/down.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATINGHTOL}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_RATINGHTOL}>">
 				</a>)
 			</span>
 			<span>
 				<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITY}>(
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITY}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=hits&amp;order=ASC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITY}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=hits&amp;order=ASC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/up.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITYLTOM}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITYLTOM}>">
 				</a>
-				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITY}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category_id}>&amp;sort=hits&amp;order=DESC">
+				<a title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITY}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category_id}>&amp;sort=hits&amp;order=DESC">
 					<img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/down.gif" align="middle" alt="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITYMTOL}>" title="<{$smarty.const._MD_TDMDOWNLOADS_CAT_POPULARITYMTOL}>">
 				</a>)
 			</span>

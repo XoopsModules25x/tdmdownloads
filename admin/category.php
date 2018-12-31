@@ -45,12 +45,12 @@ switch ($op) {
             echo '<th align="center" width="8%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
             echo '</tr>';
             $class = 'odd';
-            require_once XOOPS_ROOT_PATH."/modules/TDMDownloads/class/tree.php";
+            require_once XOOPS_ROOT_PATH."/modules/tdmdownloads/class/tree.php";
             $mytree = new TDMObjectTree($downloads_cat, 'cat_cid', 'cat_pid');
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../images/deco/arrow.gif">');
             foreach (array_keys($category_ArrayTree) as $i) {
                 echo '<tr class="'.$class.'">';
-                echo '<td align="left" ><a href="' . XOOPS_URL . '/modules/TDMDownloads/viewcat.php?cid=' . $i . '">' . $category_ArrayTree[$i] . '</a></td>';
+                echo '<td align="left" ><a href="' . XOOPS_URL . '/modules/tdmdownloads/viewcat.php?cid=' . $i . '">' . $category_ArrayTree[$i] . '</a></td>';
                 echo '<td align="center">';
                 echo '<img src="' . $uploadurl . $downloads_cat[$i]->getVar('cat_imgurl') . '" alt="" title="" height="60">';
                 echo '</td>';

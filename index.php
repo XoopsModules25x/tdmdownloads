@@ -51,10 +51,10 @@ foreach (array_keys($downloadscat_arr) as $i) {
         $keywords .= $downloadscat_arr[$i]->getVar('cat_title') . ',';
         foreach (array_keys($subcategories_arr) as $j) {
             if ($chcount>=$xoopsModuleConfig['nbsouscat']) {
-                $subcategories .= '<li>[<a href="' . XOOPS_URL . '/modules/TDMDownloads/viewcat.php?cid=' . $downloadscat_arr[$i]->getVar('cat_cid') . '">+</a>]</li>';
+                $subcategories .= '<li>[<a href="' . XOOPS_URL . '/modules/tdmdownloads/viewcat.php?cid=' . $downloadscat_arr[$i]->getVar('cat_cid') . '">+</a>]</li>';
                 break;
             }
-            $subcategories .= '<li><a href="' . XOOPS_URL . '/modules/TDMDownloads/viewcat.php?cid=' . $subcategories_arr[$j]->getVar('cat_cid') . '">' . $subcategories_arr[$j]->getVar('cat_title') . '</a></li>';
+            $subcategories .= '<li><a href="' . XOOPS_URL . '/modules/tdmdownloads/viewcat.php?cid=' . $subcategories_arr[$j]->getVar('cat_cid') . '">' . $subcategories_arr[$j]->getVar('cat_title') . '</a></li>';
             $keywords .= $downloadscat_arr[$i]->getVar('cat_title') . ',';
             $chcount++;
         }
@@ -189,7 +189,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
 
         // Défini si la personne est un admin
         if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-            $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $downloads_arr[$i]->getVar('lid') . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/tdmdownloads/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
+            $adminlink = '<a href="' . XOOPS_URL . '/modules/tdmdownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $downloads_arr[$i]->getVar('lid') . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/tdmdownloads/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
         } else {
             $adminlink = '';
         }

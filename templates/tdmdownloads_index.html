@@ -2,7 +2,7 @@
 
     <!-- Download logo-->
     <div class="tdmdownloads-logo center marg10">
-        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/TDMDownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
     </div>
 
     <{if count($categories) gt 0}>
@@ -15,16 +15,16 @@
                     <div class="tdmdownloads-data">
                         <div class="tdmdownloads-title">
                             <div class="floatleft title"><h2>
-                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a>
+                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a>
                             </h2></div>
                             <div class="floatright total xo-pagact">
-                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a>
+                                <a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a>
                             </div>
                             <div class="endline"></div>
                         </div>
                         <div class="tdmdownloads-body justify">
                             <{if $category.image != ""}>
-                            <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/TDMDownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
+                            <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
                             <{/if}>
                             <{$category.description_main}>
                             <div class="endline"></div>
@@ -48,7 +48,7 @@
 
     <!-- RSS logo -->
     <div class="tdmdownloads-rss">
-        <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/TDMDownloads/rss.php?cid=0"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=0"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
     </div>
 
     <{if $bl_affichage==1}>
@@ -65,7 +65,7 @@
                     <ul>
                         <{foreach item=bl_date from=$bl_date}>
                         <li>
-                            <a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
+                            <a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
                             (<{$bl_date.date}>)
                         </li>
                         <{/foreach}>
@@ -82,7 +82,7 @@
                     <ul>
                         <{foreach item=bl_pop from=$bl_pop}>
                         <li>
-                            <a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
+                            <a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
                             (<{$bl_pop.hits}>)
                         </li>
                         <{/foreach}>
@@ -99,7 +99,7 @@
                     <ul>
                         <{foreach item=bl_rating from=$bl_rating}>
                         <li>
-                            <a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
+                            <a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
                             (<{$bl_rating.rating}>)
                         </li>
                         <{/foreach}>

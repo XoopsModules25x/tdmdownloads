@@ -32,7 +32,7 @@ $nb_broken = $downloadsbrokenHandler->getCount();
 // compte le nombre de demande de modifications
 $nb_modified = $downloadsmodHandler->getCount();
 // dossier dans uploads
-$folder = array(XOOPS_ROOT_PATH . '/uploads/TDMDownloads/', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images',
+$folder = array(XOOPS_ROOT_PATH . '/uploads/tdmdownloads/', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/downloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images',
                XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/cats', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/field', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots');
 
 if (TDMDownloads_checkModuleAdmin()) {

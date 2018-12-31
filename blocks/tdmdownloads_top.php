@@ -16,7 +16,7 @@
 
 function b_tdmdownloads_top_show($options)
 {
-    require_once XOOPS_ROOT_PATH."/modules/TDMDownloads/include/functions.php";
+    require_once XOOPS_ROOT_PATH."/modules/tdmdownloads/include/functions.php";
     //appel de la class
     $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
     $block = array();
@@ -42,7 +42,7 @@ function b_tdmdownloads_top_show($options)
 
     // Add styles
     global $xoTheme;
-    $xoTheme->addStylesheet(XOOPS_URL . '/modules/TDMDownloads/css/blocks.css', null);
+    $xoTheme->addStylesheet(XOOPS_URL . '/modules/tdmdownloads/css/blocks.css', null);
 
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
     $criteria = new CriteriaCompo();
