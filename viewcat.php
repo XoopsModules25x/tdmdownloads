@@ -22,7 +22,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
 
 // pour les permissions
-$categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
+$categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'tdmdownloads');
 
 // redirection si la catégorie n'existe pas
 $criteria = new \CriteriaCompo();
