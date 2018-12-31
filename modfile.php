@@ -198,12 +198,12 @@ switch ($op) {
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/modified.php';
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);
-                redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
+                redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
             }
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements
-        $form = $obj->getForm(intval($_REQUEST['lid']), true, $donnee);
+        $form = $obj->getForm((int)$_REQUEST['lid'], true, $donnee);
         $xoopsTpl->assign('themeForm', $form->render());
 
     break;

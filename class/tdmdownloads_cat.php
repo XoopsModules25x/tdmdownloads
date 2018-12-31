@@ -84,7 +84,7 @@ class TDMDownloads_cat extends XoopsObject
         $imageselect= new XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
         $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
-            $imageselect->addOption("$image", $image);
+            $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadscat_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);

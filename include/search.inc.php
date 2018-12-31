@@ -27,7 +27,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     $sql = 'SELECT lid, cid, title, description, submitter, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status != 0';
 
     if (0 != $userid) {
-        $sql .= ' AND submitter=' . intval($userid) . ' ';
+        $sql .= ' AND submitter=' . (int)$userid . ' ';
     }
     require_once XOOPS_ROOT_PATH.'/modules/tdmdownloads/include/functions.php';
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');

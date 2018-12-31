@@ -28,7 +28,7 @@
 function tdmdownloads_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
-    $item_id = intval($item_id);
+    $item_id = (int)$item_id;
     if (empty($xoopsModule) || 'TDMDownloads' != $xoopsModule->getVar('dirname')) {
         $moduleHandler = xoops_getHandler('module');
         $module = $moduleHandler->getByDirname('TDMDownloads');

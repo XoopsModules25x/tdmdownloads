@@ -22,7 +22,7 @@ if (TDMDownloads_checkModuleAdmin()) {
     echo $permissions_admin->displayNavigation('permissions.php');
 }
 
-$permission = isset($_POST['permission']) ? intval($_POST['permission']) : 1;
+$permission = isset($_POST['permission']) ? (int)$_POST['permission'] : 1;
 $tab_perm = [1 => _AM_TDMDOWNLOADS_PERM_VIEW, 2 => _AM_TDMDOWNLOADS_PERM_SUBMIT, 3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD, 4 => _AM_TDMDOWNLOADS_PERM_AUTRES];
 echo "<form method='post' name='fselperm' action='permissions.php'>\n";
 echo "<table border='0'>\n<tr>\n<td>\n";

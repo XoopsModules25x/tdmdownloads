@@ -73,7 +73,7 @@ class TDMDownloads_field extends XoopsObject
         $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
         $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
-            $imageselect->addOption("$image", $image);
+            $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);

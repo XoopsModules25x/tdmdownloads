@@ -177,7 +177,7 @@ class TDMDownloads_downloads extends XoopsObject
                         $platformselect = new XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|', $this->getVar('platform')), 5, true);
                         $platform_array = explode('|', $xoopsModuleConfig['platform']);
                         foreach ($platform_array as $platform) {
-                            $platformselect->addOption("$platform", $platform);
+                            $platformselect->addOption((string)$platform, $platform);
                         }
                         $form->addElement($platformselect, false);
                     } else {
@@ -252,7 +252,7 @@ class TDMDownloads_downloads extends XoopsObject
             $imageselect          = new XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
             $topics_array         = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
-                $imageselect->addOption("$image", $image);
+                $imageselect->addOption((string)$image, $image);
             }
             $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
             $imgtray->addElement($imageselect, false);

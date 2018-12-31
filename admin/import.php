@@ -30,7 +30,7 @@ if (isset($_REQUEST['op'])) {
 // import depuis mydownloads
 function Import_mydownloads($path='', $imgurl='')
 {
-    $ok =  isset($_POST['ok']) ? intval($_POST['ok']) : 0;
+    $ok =  isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
     global $xoopsDB;
     if (1 == $ok) {
         //Vider les tables
@@ -98,7 +98,7 @@ function Import_mydownloads($path='', $imgurl='')
 // import depuis WF-Downloads
 function Import_wfdownloads($shots='', $catimg='')
 {
-    $ok =  isset($_POST['ok']) ? intval($_POST['ok']) : 0;
+    $ok =  isset($_POST['ok']) ? (int)$_POST['ok'] : 0;
     global $xoopsDB;
     if (1 == $ok) {
         //Vider les tables

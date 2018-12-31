@@ -87,7 +87,7 @@ switch ($op) {
             $downloads_arr = $downloadsHandler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 if ($downloads_arr[$i]->getVar('submitter') == $ratinguser) {
-                    redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
+                    redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
                     exit();
                 }
             }
@@ -97,7 +97,7 @@ switch ($op) {
             $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
             foreach (array_keys($downloadsvotes_arr) as $i) {
                 if ($downloadsvotes_arr[$i]->getVar('ratinguser') == $ratinguser) {
-                    redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
+                    redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                     exit();
                 }
             }
@@ -110,14 +110,14 @@ switch ($op) {
             $criteria->add(new Criteria('ratinghostname', getenv('REMOTE_ADDR')));
             $criteria->add(new Criteria('ratingtimestamp', $yesterday, '>'));
             if ($downloadsvotedataHandler->getCount($criteria) >= 1) {
-                redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
+                redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 exit();
             }
         }
         $erreur = false;
         $message_erreur = '';
         // Test avant la validation
-        $rating = intval($_POST['rating']);
+        $rating = (int)$_POST['rating'];
         if ($rating < 0 || $rating > 10) {
             $message_erreur.= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
             $erreur=true;

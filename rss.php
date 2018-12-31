@@ -17,7 +17,7 @@
 require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH.'/class/template.php';
 $items_count = $xoopsModuleConfig['perpagerss'];
-$cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
+$cid = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
