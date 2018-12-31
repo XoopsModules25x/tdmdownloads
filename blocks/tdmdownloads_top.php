@@ -16,7 +16,7 @@
 
 function b_tdmdownloads_top_show($options)
 {
-    require_once XOOPS_ROOT_PATH."/modules/tdmdownloads/include/functions.php";
+    require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/include/functions.php';
     //appel de la class
     $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
     $block = array();
@@ -52,22 +52,22 @@ function b_tdmdownloads_top_show($options)
     }
     $criteria->add(new Criteria('status', 0, '!='));
     switch ($type_block) {    // pour le bloc: dernier fichier
-        case "date":
+        case 'date':
             $criteria->setSort('date');
             $criteria->setOrder('DESC');
         break;
         // pour le bloc: plus téléchargé
-        case "hits":
+        case 'hits':
             $criteria->setSort('hits');
             $criteria->setOrder('DESC');
         break;
         // pour le bloc: mieux noté
-        case "rating":
+        case 'rating':
             $criteria->setSort('rating');
             $criteria->setOrder('DESC');
         break;
         // pour le bloc: aléatoire
-        case "random":
+        case 'random':
             $criteria->setSort('RAND()');
         break;
     }
@@ -75,7 +75,7 @@ function b_tdmdownloads_top_show($options)
     $downloads_arr = $downloadsHandler->getall($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
-        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
+        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title)) . '...' : $downloads_arr[$i]->getVar('title');
         $description_short = '';
         if ($use_description === true) {
             $description = $downloads_arr[$i]->getVar('description');
@@ -98,9 +98,9 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['logourl'] = $logourl;
         $block[$i]['logourl_class'] = $logo_float;
         $block[$i]['logourl_width'] = $logo_white;
-        $block[$i]['hits'] = $downloads_arr[$i]->getVar("hits");
-        $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar("rating"), 1);
-        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar("date"), "s");
+        $block[$i]['hits'] = $downloads_arr[$i]->getVar('hits');
+        $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar('rating'), 1);
+        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar('date'), 's');
         $block[$i]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $block[$i]['inforation'] = $show_inforation;
     }
@@ -118,9 +118,9 @@ function b_tdmdownloads_top_edit($options)
     $criteria->setOrder('ASC');
     $downloadscat_arr = $downloadscatHandler->getall($criteria);
     $form = _MB_TDMDOWNLOADS_DISP . "&nbsp;\n";
-    $form .= "<input type=\"hidden\" name=\"options[0]\" value=\"" . $options[0] . "\">\n";
-    $form .= "<input name=\"options[1]\" size=\"5\" maxlength=\"255\" value=\"" . $options[1] . "\" type=\"text\">&nbsp;" . _MB_TDMDOWNLOADS_FILES . "<br>\n";
-    $form .= _MB_TDMDOWNLOADS_CHARS . " : <input name=\"options[2]\" size=\"5\" maxlength=\"255\" value=\"" . $options[2] . "\" type=\"text\"><br>\n";
+    $form .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
+    $form .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";
+    $form .= _MB_TDMDOWNLOADS_CHARS . ' : <input name="options[2]" size="5" maxlength="255" value="' . $options[2] . "\" type=\"text\"><br>\n";
     if ($options[3] === false) {
         $checked_yes = '';
         $checked_no = 'checked';
@@ -128,8 +128,8 @@ function b_tdmdownloads_top_edit($options)
         $checked_yes = 'checked';
         $checked_no = '';
     }
-    $form .= _MB_TDMDOWNLOADS_LOGO . " : <input name=\"options[3]\" value=\"1\" type=\"radio\" " . $checked_yes . ">" . _YES . "&nbsp;\n";
-    $form .= "<input name=\"options[3]\" value=\"0\" type=\"radio\" " . $checked_no . ">" . _NO . "<br>\n";
+    $form .= _MB_TDMDOWNLOADS_LOGO . ' : <input name="options[3]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
+    $form .= '<input name="options[3]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
     if ($options[4] === false) {
         $checked_yes = '';
         $checked_no = 'checked';
@@ -137,8 +137,8 @@ function b_tdmdownloads_top_edit($options)
         $checked_yes = 'checked';
         $checked_no = '';
     }
-    $form .= _MB_TDMDOWNLOADS_DESCRIPTION . " : <input name=\"options[4]\" value=\"1\" type=\"radio\" " . $checked_yes . ">" . _YES . "&nbsp;\n";
-    $form .= "<input name=\"options[4]\" value=\"0\" type=\"radio\" " . $checked_no . ">" . _NO . "<br>\n";
+    $form .= _MB_TDMDOWNLOADS_DESCRIPTION . ' : <input name="options[4]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
+    $form .= '<input name="options[4]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
     if ($options[5] === false) {
         $checked_yes = '';
         $checked_no = 'checked';
@@ -146,14 +146,14 @@ function b_tdmdownloads_top_edit($options)
         $checked_yes = 'checked';
         $checked_no = '';
     }
-    $form .= _MB_TDMDOWNLOADS_INFORMATIONS . " : <input name=\"options[5]\" value=\"1\" type=\"radio\" " . $checked_yes . ">" . _YES . "&nbsp;\n";
-    $form .= "<input name=\"options[5]\" value=\"0\" type=\"radio\" " . $checked_no . ">" . _NO . "<br><br>\n";
+    $form .= _MB_TDMDOWNLOADS_INFORMATIONS . ' : <input name="options[5]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
+    $form .= '<input name="options[5]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br><br>\n";
     $floatelect = new XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]', $options[6]);
-    $floatelect->addOption("left", _MB_TDMDOWNLOADS_FLOAT_LEFT);
-    $floatelect->addOption("right", _MB_TDMDOWNLOADS_FLOAT_RIGHT);
-    $form .= _MB_TDMDOWNLOADS_FLOAT." : ".$floatelect->render().'<br>';
-    $form .= _MB_TDMDOWNLOADS_WHITE . " : <input name=\"options[7]\" size=\"5\" maxlength=\"255\" value=\"" . $options[7] . "\" type=\"text\"><br>\n";
-    $form .= _MB_TDMDOWNLOADS_CHARSDSC . " : <input name=\"options[8]\" size=\"5\" maxlength=\"255\" value=\"" . $options[8] . "\" type=\"text\"><br>\n";
+    $floatelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
+    $floatelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
+    $form .= _MB_TDMDOWNLOADS_FLOAT . ' : ' . $floatelect->render() . '<br>';
+    $form .= _MB_TDMDOWNLOADS_WHITE . ' : <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
+    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ' : <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
     array_shift($options);
     array_shift($options);
     array_shift($options);
@@ -164,9 +164,9 @@ function b_tdmdownloads_top_edit($options)
     array_shift($options);
     array_shift($options);
     $form .= _MB_TDMDOWNLOADS_CATTODISPLAY . "<br><select name=\"options[]\" multiple=\"multiple\" size=\"5\">\n";
-    $form .= "<option value=\"0\" " . (array_search(0, $options) === false ? '' : 'selected="selected"') . ">" . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
+    $form .= '<option value="0" ' . (array_search(0, $options) === false ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
     foreach (array_keys($downloadscat_arr) as $i) {
-        $form .= "<option value=\"" . $downloadscat_arr[$i]->getVar('cat_cid') . "\" " . (array_search($downloadscat_arr[$i]->getVar('cat_cid'), $options) === false ? '' : 'selected="selected"') . ">".$downloadscat_arr[$i]->getVar('cat_title')."</option>\n";
+        $form .= '<option value="' . $downloadscat_arr[$i]->getVar('cat_cid') . '" ' . (array_search($downloadscat_arr[$i]->getVar('cat_cid'), $options) === false ? '' : 'selected="selected"') . '>' . $downloadscat_arr[$i]->getVar('cat_title') . "</option>\n";
     }
     $form .= "</select>\n";
 

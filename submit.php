@@ -30,7 +30,7 @@ if ($perm_submit === false) {
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //navigation
         $navigation = _MD_TDMDOWNLOADS_SUBMIT_PROPOSER;
         $xoopsTpl->assign('navigation', $navigation);
@@ -48,7 +48,7 @@ switch ($op) {
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
-    case "save_downloads":
+    case 'save_downloads':
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
         $obj = $downloadsHandler->create();
         $erreur = false;
@@ -144,7 +144,7 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errors = $uploader->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
@@ -160,7 +160,7 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errors = $uploader_2->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }

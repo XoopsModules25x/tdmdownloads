@@ -14,8 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 
 class TDMDownloads_votedata extends XoopsObject
@@ -23,12 +23,12 @@ class TDMDownloads_votedata extends XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar("ratingid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("ratinguser", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("rating", XOBJ_DTYPE_OTHER, null, false, 3);
-        $this->initVar("ratinghostname", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("ratingtimestamp", XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar('ratingid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('ratinguser', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('rating', XOBJ_DTYPE_OTHER, null, false, 3);
+        $this->initVar('ratinghostname', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('ratingtimestamp', XOBJ_DTYPE_INT, null, false, 10);
     }
     public function TDMDownloads_votedata()
     {
@@ -68,6 +68,6 @@ class TDMDownloadstdmdownloads_votedataHandler extends XoopsPersistableObjectHan
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_votedata", 'tdmdownloads_votedata', 'ratingid', 'lid');
+        parent::__construct($db, 'tdmdownloads_votedata', 'tdmdownloads_votedata', 'ratingid', 'lid');
     }
 }

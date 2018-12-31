@@ -102,9 +102,9 @@ if ($xoopsModuleConfig['bldate']==1) {
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl']))."...";
+            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
-        $date = formatTimestamp($downloads_arr[$i]->getVar('date'), "s");
+        $date = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
         $xoopsTpl->append('bl_date', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'date' => $date,'title' => $title));
     }
 }
@@ -121,7 +121,7 @@ if ($xoopsModuleConfig['blpop']==1) {
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . "...";
+            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $xoopsTpl->append('bl_pop', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'hits' => $downloads_arr[$i]->getVar('hits'),'title' => $title));
     }
@@ -139,7 +139,7 @@ if ($xoopsModuleConfig['blrating']==1) {
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
-            $title = substr($title, 0, ($xoopsModuleConfig['longbl']))."...";
+            $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $rating = number_format($downloads_arr[$i]->getVar('rating'), 1);
         $xoopsTpl->append('bl_rating', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'rating' => $rating,'title' => $title));
@@ -282,28 +282,28 @@ if ($xoopsModuleConfig['perpage'] > 0) {
     if ($numrows>1) {
         $xoopsTpl->assign('navigation', true);
         $sortorder = $sort . $order;
-        if ($sortorder == "hitsASC") {
+        if ($sortorder == 'hitsASC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYLTOM;
         }
-        if ($sortorder == "hitsDESC") {
+        if ($sortorder == 'hitsDESC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYMTOL;
         }
-        if ($sortorder == "titleASC") {
+        if ($sortorder == 'titleASC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEATOZ;
         }
-        if ($sortorder == "titleDESC") {
+        if ($sortorder == 'titleDESC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEZTOA;
         }
-        if ($sortorder == "dateASC") {
+        if ($sortorder == 'dateASC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATEOLD;
         }
-        if ($sortorder == "dateDESC") {
+        if ($sortorder == 'dateDESC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATENEW;
         }
-        if ($sortorder == "ratingASC") {
+        if ($sortorder == 'ratingASC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGLTOH;
         }
-        if ($sortorder == "ratingDESC") {
+        if ($sortorder == 'ratingDESC') {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGHTOL;
         }
         $xoopsTpl->assign('affichage_tri', sprintf(_MD_TDMDOWNLOADS_CAT_CURSORTBY, $affichage_tri));

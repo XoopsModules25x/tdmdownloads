@@ -14,8 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 
 class TDMDownloads_broken extends XoopsObject
@@ -23,13 +23,13 @@ class TDMDownloads_broken extends XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar("reportid", XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("sender", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("ip", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('reportid', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('sender', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('ip', XOBJ_DTYPE_TXTBOX, null, false);
         //pour les jointures:
-        $this->initVar("title", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("cid", XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cid', XOBJ_DTYPE_INT, null, false, 5);
     }
     public function TDMDownloads_broken()
     {
@@ -60,6 +60,6 @@ class TDMDownloadstdmdownloads_brokenHandler extends XoopsPersistableObjectHandl
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_broken", 'tdmdownloads_broken', 'reportid', 'lid');
+        parent::__construct($db, 'tdmdownloads_broken', 'tdmdownloads_broken', 'reportid', 'lid');
     }
 }

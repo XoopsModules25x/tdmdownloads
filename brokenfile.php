@@ -46,7 +46,7 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "liste":
+    case 'liste':
         //tableau des catégories
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -72,7 +72,7 @@ switch ($op) {
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
-    case "save":
+    case 'save':
         $obj = $downloadsbrokenHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
@@ -95,7 +95,7 @@ switch ($op) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
             $criteria->add(new Criteria('sender', 0));
-            $criteria->add(new Criteria('ip', getenv("REMOTE_ADDR")));
+            $criteria->add(new Criteria('ip', getenv('REMOTE_ADDR')));
             if ($downloadsbrokenHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 exit();
@@ -104,7 +104,7 @@ switch ($op) {
         $erreur = false;
         $message_erreur = '';
         // Test avant la validation
-        xoops_load("captcha");
+        xoops_load('captcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur.=$xoopsCaptcha->getMessage().'<br>';
@@ -112,7 +112,7 @@ switch ($op) {
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('sender', $ratinguser);
-        $obj->setVar('ip', getenv("REMOTE_ADDR"));
+        $obj->setVar('ip', getenv('REMOTE_ADDR'));
         if ($erreur==true) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {

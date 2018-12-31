@@ -14,8 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 
 class TDMDownloads_mod extends XoopsObject
@@ -23,20 +23,20 @@ class TDMDownloads_mod extends XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar("requestid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("cid", XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar("title", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("url", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("homepage", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("version", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("size", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("platform", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("logourl", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("description", XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('requestid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('cid', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('url', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('homepage', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('version', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('size', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('platform', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('logourl', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('description', XOBJ_DTYPE_TXTAREA, null, false);
         // Pour autoriser le html
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
-        $this->initVar("modifysubmitter", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('modifysubmitter', XOBJ_DTYPE_INT, null, false, 11);
     }
 
     public function TDMDownloads_mod($lid)
@@ -64,7 +64,7 @@ class TDMDownloads_mod extends XoopsObject
         $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
 
         $view_downloads = $downloadsHandler->get($lid);
-        include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+        include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
 
         // affectation des variables
         if ($erreur === true) {
@@ -213,15 +213,15 @@ class TDMDownloads_mod extends XoopsObject
             }
         }
         //description
-        $editor_configs=array();
-        $editor_configs["name"] ="description";
-        $editor_configs["value"] = $d_description;
-        $editor_configs["rows"] = 20;
-        $editor_configs["cols"] = 60;
-        $editor_configs["width"] = "100%";
-        $editor_configs["height"] = "400px";
-        $editor_configs["editor"] = $xoopsModuleConfig['editor'];
-        $form->addElement(new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, "description", $editor_configs), true);
+        $editor_configs           =array();
+        $editor_configs['name']   = 'description';
+        $editor_configs['value']  = $d_description;
+        $editor_configs['rows']   = 20;
+        $editor_configs['cols']   = 60;
+        $editor_configs['width']  = '100%';
+        $editor_configs['height'] = '400px';
+        $editor_configs['editor'] = $xoopsModuleConfig['editor'];
+        $form->addElement(new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editor_configs), true);
         //image
         if ($xoopsModuleConfig['useshots']) {
             $uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $view_downloads->getVar('logourl');
@@ -237,9 +237,9 @@ class TDMDownloads_mod extends XoopsObject
             foreach ($topics_array as $image) {
                 $imageselect->addOption("$image", $image);
             }
-            $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+            $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
             $imgtray->addElement($imageselect, false);
-            $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
+            $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
             $fileseltray= new XoopsFormElementTray('', '<br>');
             if ($perm_upload === true) {
                 $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedimage', $xoopsModuleConfig['maxuploadsize']), false);
@@ -262,6 +262,6 @@ class TDMDownloadstdmdownloads_modHandler extends XoopsPersistableObjectHandler
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_mod", 'tdmdownloads_mod', 'requestid', 'lid');
+        parent::__construct($db, 'tdmdownloads_mod', 'tdmdownloads_mod', 'requestid', 'lid');
     }
 }

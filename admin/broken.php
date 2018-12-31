@@ -22,7 +22,7 @@ $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -47,9 +47,9 @@ switch ($op) {
         $criteria->setSort('reportid');
         $criteria->setOrder('ASC');
         //pour faire une jointure de table
-        $downloadsbrokenHandler->table_link = $downloadsbrokenHandler->db->prefix("tdmdownloads_downloads"); // Nom de la table en jointure
-        $downloadsbrokenHandler->field_link = "lid"; // champ de la table en jointure
-        $downloadsbrokenHandler->field_object = "lid"; // champ de la table courante
+        $downloadsbrokenHandler->table_link = $downloadsbrokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
+        $downloadsbrokenHandler->field_link = 'lid'; // champ de la table en jointure
+        $downloadsbrokenHandler->field_object = 'lid'; // champ de la table courante
         $downloadsbroken_arr = $downloadsbrokenHandler->getByLink($criteria);
         $numrows = $downloadsbrokenHandler->getCount($criteria);
         if ($numrows > $limit) {
@@ -96,7 +96,7 @@ switch ($op) {
     break;
 
     // permet de suprimmer le rapport de téléchargment brisé
-    case "del_brokendownloads":
+    case 'del_brokendownloads':
         $obj = $downloadsbrokenHandler->get($_REQUEST['broken_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {

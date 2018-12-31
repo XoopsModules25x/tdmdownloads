@@ -22,7 +22,7 @@ if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
-$xoopsModuleConfig["utf8"] = false;
+$xoopsModuleConfig['utf8'] = false;
 
 $tpl = new XoopsTpl();
 $tpl->caching=2; //1 = Cache global, 2 = Cache individuel (par template)
@@ -87,5 +87,5 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
                                     'description' => htmlspecialchars($description_short, ENT_QUOTES)));
     }
 }
-header("Content-Type:text/xml; charset=" . _CHARSET);
+header('Content-Type:text/xml; charset=' . _CHARSET);
 $tpl->display('db:tdmdownloads_rss.tpl', $cid);

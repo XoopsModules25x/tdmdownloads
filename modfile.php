@@ -42,7 +42,7 @@ if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //navigation
         $view_categorie = $downloadscatHandler->get($view_downloads->getVar('cid'));
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
@@ -76,7 +76,7 @@ switch ($op) {
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
-    case "save":
+    case 'save':
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
         $obj = $downloadsmodHandler->create();
         $erreur = false;
@@ -87,21 +87,21 @@ switch ($op) {
         $obj->setVar('cid', $_POST['cid']);
         $donnee['cid'] = $_POST['cid'];
         $obj->setVar('lid', $_POST['lid']);
-        $obj->setVar('homepage', formatURL($_POST["homepage"]));
-        $donnee['homepage'] = formatURL($_POST["homepage"]);
-        $obj->setVar('version', $_POST["version"]);
-        $donnee['version'] = $_POST["version"];
-        $obj->setVar('size', $_POST["size"]);
-        $donnee['size'] = $_POST["size"];
+        $obj->setVar('homepage', formatURL($_POST['homepage']));
+        $donnee['homepage'] = formatURL($_POST['homepage']);
+        $obj->setVar('version', $_POST['version']);
+        $donnee['version'] = $_POST['version'];
+        $obj->setVar('size', $_POST['size']);
+        $donnee['size'] = $_POST['size'];
         $donnee['type_size'] = $_POST['type_size'];
         if (isset($_POST['platform'])) {
             $obj->setVar('platform', implode('|', $_POST['platform']));
-            $donnee['platform'] = implode('|', $_POST["platform"]);
+            $donnee['platform'] = implode('|', $_POST['platform']);
         } else {
             $donnee['platform'] = '';
         }
-        $obj->setVar('description', $_POST["description"]);
-        $donnee['description'] = $_POST["description"];
+        $obj->setVar('description', $_POST['description']);
+        $donnee['description'] = $_POST['description'];
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 
         // erreur si la taille du fichier n'est pas un nombre
@@ -121,7 +121,7 @@ switch ($op) {
             }
         }
         // erreur si le captcha est faux
-        xoops_load("captcha");
+        xoops_load('captcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
@@ -152,7 +152,7 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errors = $uploader->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
@@ -168,7 +168,7 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errors = $uploader_2->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }

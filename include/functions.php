@@ -86,11 +86,11 @@ function TDMDownloads_Thumbnail($time, $status)
     if ($xoopsModuleConfig['showupdated'] == 1) {
         if ($startdate < $time) {
             $language = $GLOBALS['xoopsConfig']['language'];
-            if (!is_dir(XOOPS_ROOT_PATH . "/modules/tdmdownloads/language/" . $language . "/")) {
+            if (!is_dir(XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/')) {
                 $language = 'english';
             }
-            $img_path = XOOPS_ROOT_PATH . "/modules/tdmdownloads/language/" . $language . "/";
-            $img_url = XOOPS_URL . "/modules/tdmdownloads/language/" . $language . "/";
+            $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
+            $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
             if ($status==1) {
                 if (is_readable($img_path . 'new.png')) {
                     $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
@@ -120,11 +120,11 @@ function TDMDownloads_Popular($hits)
     $pop = '';
     if ($hits >= $xoopsModuleConfig['popular']) {
         $language = $GLOBALS['xoopsConfig']['language'];
-        if (!is_dir(XOOPS_ROOT_PATH . "/modules/tdmdownloads/language/" . $language . "/")) {
+        if (!is_dir(XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/')) {
             $language = 'english';
         }
-        $img_path = XOOPS_ROOT_PATH . "/modules/tdmdownloads/language/" . $language . "/";
-        $img_url = XOOPS_URL . "/modules/tdmdownloads/language/" . $language . "/";
+        $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
+        $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
         if (is_readable($img_path . 'popular.png')) {
             $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
         } else {
@@ -140,9 +140,9 @@ function trans_size($size)
     if ($size>0) {
         $mb = 1024*1024;
         if ($size > $mb) {
-            $mysize = sprintf("%01.2f", $size/$mb) . " MB";
+            $mysize = sprintf('%01.2f', $size / $mb) . ' MB';
         } elseif ($size >= 1024) {
-            $mysize = sprintf("%01.2f", $size/1024) . " KB";
+            $mysize = sprintf('%01.2f', $size / 1024) . ' KB';
         } else {
             $mysize = sprintf(_AM_TDMDOWNLOADS_NUMBYTES, $size);
         }

@@ -16,9 +16,9 @@
 
 function b_tdmdownloads_search_show()
 {
-    require_once XOOPS_ROOT_PATH."/modules/tdmdownloads/include/functions.php";
-    require_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
-    require_once XOOPS_ROOT_PATH."/class/tree.php";
+    require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/include/functions.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/tree.php';
     //appel des class
     $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
     $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
@@ -33,7 +33,7 @@ function b_tdmdownloads_search_show()
     $block = array();
 
     //formulaire de recherche
-    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", XOOPS_URL . '/modules/tdmdownloads/search.php', 'post');
+    $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, 'search', XOOPS_URL . '/modules/tdmdownloads/search.php', 'post');
     $form->setExtra('enctype="multipart/form-data"');
     //recherche par titre
     $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, ''));

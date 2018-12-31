@@ -46,7 +46,7 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "liste":
+    case 'liste':
         //tableau des catégories
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -73,7 +73,7 @@ switch ($op) {
     break;
 
     // save
-    case "save":
+    case 'save':
         $obj = $downloadsvotedataHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
@@ -107,7 +107,7 @@ switch ($op) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
             $criteria->add(new Criteria('ratinguser', 0));
-            $criteria->add(new Criteria('ratinghostname', getenv("REMOTE_ADDR")));
+            $criteria->add(new Criteria('ratinghostname', getenv('REMOTE_ADDR')));
             $criteria->add(new Criteria('ratingtimestamp', $yesterday, '>'));
             if ($downloadsvotedataHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
@@ -122,7 +122,7 @@ switch ($op) {
             $message_erreur.= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
             $erreur=true;
         }
-        xoops_load("captcha");
+        xoops_load('captcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur.=$xoopsCaptcha->getMessage() . '<br>';
@@ -131,7 +131,7 @@ switch ($op) {
         $obj->setVar('lid', $lid);
         $obj->setVar('ratinguser', $ratinguser);
         $obj->setVar('rating', $rating);
-        $obj->setVar('ratinghostname', getenv("REMOTE_ADDR"));
+        $obj->setVar('ratinghostname', getenv('REMOTE_ADDR'));
         $obj->setVar('ratingtimestamp', time());
         if ($erreur==true) {
             $xoopsTpl->assign('message_erreur', $message_erreur);

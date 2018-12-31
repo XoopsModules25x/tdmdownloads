@@ -55,7 +55,7 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
         if ($xoopsUser) {
             $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
-            $criteria->add(new Criteria('downlimit_hostname', getenv("REMOTE_ADDR"), '='));
+            $criteria->add(new Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
         }
         $criteria->add(new Criteria('downlimit_lid', $lid, '='));
         $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
@@ -70,7 +70,7 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
         if ($xoopsUser) {
             $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
-            $criteria->add(new Criteria('downlimit_hostname', getenv("REMOTE_ADDR"), '='));
+            $criteria->add(new Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
         }
         $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimitHandler->getCount($criteria);
@@ -83,7 +83,7 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
     $obj = $downloadslimitHandler->create();
     $obj->setVar('downlimit_lid', $lid);
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
-    $obj->setVar('downlimit_hostname', getenv("REMOTE_ADDR"));
+    $obj->setVar('downlimit_hostname', getenv('REMOTE_ADDR'));
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
     $downloadslimitHandler->insert($obj) or $obj->getHtmlErrors();
     // purge
@@ -101,8 +101,8 @@ if ($xoopsModuleConfig['check_host']) {
     $referer       = parse_url(xoops_getenv('HTTP_REFERER'));
     $referer_host  = $referer['host'];
     foreach ($xoopsModuleConfig['referers'] as $ref) {
-        if (!empty($ref) && preg_match("/".$ref."/i", $referer_host)) {
-            $goodhost = "1";
+        if (!empty($ref) && preg_match('/' . $ref . '/i', $referer_host)) {
+            $goodhost = '1';
             break;
         }
     }
@@ -113,12 +113,12 @@ if ($xoopsModuleConfig['check_host']) {
 }
 
 // ajout +1 pour les hits
-$sql = sprintf("UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0", $xoopsDB->prefix("tdmdownloads_downloads"), $lid);
+$sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoopsDB->prefix('tdmdownloads_downloads'), $lid);
 $xoopsDB->queryF($sql);
 
 $url = $view_downloads->getVar('url', 'n');
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
     Header("Location: $url");
 }
-echo "<html><head><meta http-equiv=\"Refresh\" content=\"0; URL=" . $url . "\"></meta></head><body></body></html>";
+echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $url . '"></meta></head><body></body></html>';
 exit();

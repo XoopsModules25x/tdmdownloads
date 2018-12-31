@@ -14,24 +14,24 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 class TDMDownloads_field extends XoopsObject
 {
     // constructor
     public function __construct()
     {
-        $this->initVar("fid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("title", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("img", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("weight", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("status", XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar("search", XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar("status_def", XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('img', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('weight', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('status', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('search', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('status_def', XOBJ_DTYPE_INT, null, false, 5);
 
         //pour les jointures
-        $this->initVar("data", XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('data', XOBJ_DTYPE_TXTAREA, null, false);
     }
     public function TDMDownloads_field()
     {
@@ -50,7 +50,7 @@ class TDMDownloads_field extends XoopsObject
         if ($action === false) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once(XOOPS_ROOT_PATH."/class/xoopsformloader.php");
+        include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
 
         //nom du formulaire selon l'action (editer ou ajouter):
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
@@ -75,9 +75,9 @@ class TDMDownloads_field extends XoopsObject
         foreach ($topics_array as $image) {
             $imageselect->addOption("$image", $image);
         }
-        $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
+        $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
         $fileseltray= new XoopsFormElementTray('', '<br>');
         $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
         $fileseltray->addElement(new XoopsFormLabel(''), false);
@@ -111,6 +111,6 @@ class TDMDownloadstdmdownloads_fieldHandler extends XoopsPersistableObjectHandle
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_field", 'tdmdownloads_field', 'fid', 'title');
+        parent::__construct($db, 'tdmdownloads_field', 'tdmdownloads_field', 'fid', 'title');
     }
 }

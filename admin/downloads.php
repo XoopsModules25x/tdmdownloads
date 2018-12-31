@@ -29,7 +29,7 @@ $statut_menu = TDMDownloads_CleanVars($_REQUEST, 'statut_display', 1, 'int');
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -112,9 +112,9 @@ switch ($op) {
         $criteria->setStart($start);
         $criteria->setLimit($limit);
         //pour faire une jointure de table
-        $downloadsHandler->table_link = $downloadsHandler->db->prefix("tdmdownloads_cat"); // Nom de la table en jointure
-        $downloadsHandler->field_link = "cat_cid"; // champ de la table en jointure
-        $downloadsHandler->field_object = "cid"; // champ de la table courante
+        $downloadsHandler->table_link = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
+        $downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
+        $downloadsHandler->field_object = 'cid'; // champ de la table courante
         $downloads_arr = $downloadsHandler->getByLink($criteria);
         $numrows = $downloadsHandler->getCount($criteria);
         if ($numrows > $limit) {
@@ -126,14 +126,16 @@ switch ($op) {
         //Affichage du tableau des téléchargements
         if ($numrows>0) {
             echo '<div align="right"><form id="form_document_tri" name="form_document_tri" method="get" action="document.php">';
-            echo _AM_TDMDOWNLOADS_TRIPAR . "<select name=\"document_tri\" id=\"document_tri\" onchange=\"location='".XOOPS_URL."/modules/".$xoopsModule->dirname()."/admin/downloads.php?statut_display=$statut_display&document_order=$document_order&document_tri='+this.options[this.selectedIndex].value\">";
+            echo _AM_TDMDOWNLOADS_TRIPAR . "<select name=\"document_tri\" id=\"document_tri\" onchange=\"location='".XOOPS_URL . '/modules/'
+                 . $xoopsModule->dirname() . "/admin/downloads.php?statut_display=$statut_display&document_order=$document_order&document_tri='+this.options[this.selectedIndex].value\">";
             echo '<option value="1"' . ($document_tri == 1 ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMDATE . '</option>';
             echo '<option value="2"' . ($document_tri == 2 ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMTITLE . '</option>';
             echo '<option value="3"' . ($document_tri == 3 ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMHITS . '</option>';
             echo '<option value="4"' . ($document_tri == 4 ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMRATING . '</option>';
             echo '<option value="5"' . ($document_tri == 5 ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMCAT . '</option>';
             echo '</select> ';
-            echo _AM_TDMDOWNLOADS_ORDER . "<select name=\"order_tri\" id=\"order_tri\" onchange=\"location='".XOOPS_URL."/modules/".$xoopsModule->dirname()."/admin/downloads.php?statut_display=$statut_display&document_tri=$document_tri&document_order='+this.options[this.selectedIndex].value\">";
+            echo _AM_TDMDOWNLOADS_ORDER . "<select name=\"order_tri\" id=\"order_tri\" onchange=\"location='".XOOPS_URL . '/modules/'
+                 . $xoopsModule->dirname() . "/admin/downloads.php?statut_display=$statut_display&document_tri=$document_tri&document_order='+this.options[this.selectedIndex].value\">";
             echo '<option value="1"' . ($document_order == 1 ? ' selected="selected"' : '') . '>DESC</option>';
             echo '<option value="2"' . ($document_order == 2 ? ' selected="selected"' : '') . '>ASC</option>';
             echo '</select> ';
@@ -177,7 +179,7 @@ switch ($op) {
     break;
 
     // vue création
-    case "new_downloads":
+    case 'new_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -198,7 +200,7 @@ switch ($op) {
     break;
 
     // Pour éditer un téléchargement
-    case "edit_downloads":
+    case 'edit_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -221,7 +223,7 @@ switch ($op) {
     break;
 
     // Pour supprimer un téléchargement
-    case "del_downloads":
+    case 'del_downloads':
         global $xoopsModule;
         $downloads_lid = TDMDownloads_CleanVars($_REQUEST, 'downloads_lid', 0, 'int');
         $obj = $downloadsHandler->get($downloads_lid);
@@ -299,7 +301,7 @@ switch ($op) {
     break;
 
     // Pour voir les détails du téléchargement
-    case "view_downloads":
+    case 'view_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -526,7 +528,7 @@ switch ($op) {
     break;
 
     // permet de suprimmer un vote et de recalculer la note
-    case "del_vote":
+    case 'del_vote':
         $objvotedata = $downloadsvotedataHandler->get($_REQUEST['rid']);
         if ($downloadsvotedataHandler->delete($objvotedata)) {
             $criteria = new CriteriaCompo();
@@ -558,7 +560,7 @@ switch ($op) {
     break;
 
     // Pour sauver un téléchargement
-    case "save_downloads":
+    case 'save_downloads':
         global $xoopsDB;
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -675,7 +677,7 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errors = $uploader->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
@@ -691,7 +693,7 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errors = $uploader_2->getErrors();
-                        redirect_header("javascript:history.go(-1)", 3, $errors);
+                        redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
@@ -770,7 +772,7 @@ switch ($op) {
     break;
 
     // permet de valider un téléchargement proposé
-    case "update_status":
+    case 'update_status':
         $obj = $downloadsHandler->get($_REQUEST['downloads_lid']);
         $obj->setVar('status', 1);
         if ($downloadsHandler->insert($obj)) {
@@ -780,7 +782,7 @@ switch ($op) {
     break;
 
     // permet de valider un téléchargement proposé
-    case "lock_status":
+    case 'lock_status':
         $obj = $downloadsHandler->get($_REQUEST['downloads_lid']);
         $obj->setVar('status', 0);
         if ($downloadsHandler->insert($obj)) {

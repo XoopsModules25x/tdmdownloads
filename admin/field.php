@@ -21,7 +21,7 @@ $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -72,20 +72,20 @@ switch ($op) {
         }
     break;
 
-    case "update_status":
+    case 'update_status':
         $obj = $downloadsfieldHandler->get($_REQUEST['fid']);
 
-        $obj->setVar('status', $_REQUEST["aff"]);
+        $obj->setVar('status', $_REQUEST['aff']);
         if ($downloadsfieldHandler->insert($obj)) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
         echo $obj->getHtmlErrors();
     break;
 
-    case "update_search":
+    case 'update_search':
         $obj = $downloadsfieldHandler->get($_REQUEST['fid']);
 
-        $obj->setVar('search', $_REQUEST["aff"]);
+        $obj->setVar('search', $_REQUEST['aff']);
         if ($downloadsfieldHandler->insert($obj)) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
@@ -94,7 +94,7 @@ switch ($op) {
     //
 
     // vue création
-    case "new_field":
+    case 'new_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -110,7 +110,7 @@ switch ($op) {
     break;
 
     // Pour éditer un champ
-    case "edit_field":
+    case 'edit_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -127,7 +127,7 @@ switch ($op) {
     break;
 
     // Pour supprimer un champ
-    case "del_field":
+    case 'del_field':
         global $xoopsModule;
         $obj = $downloadsfieldHandler->get($_REQUEST['fid']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
@@ -177,7 +177,7 @@ switch ($op) {
     break;
 
     // Pour sauver un champ
-    case "save_field":
+    case 'save_field':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
@@ -197,7 +197,7 @@ switch ($op) {
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header("javascript:history.go(-1)", 3, $errors);
+                redirect_header('javascript:history.go(-1)', 3, $errors);
             } else {
                 $obj->setVar('img', $uploader->getSavedFileName());
             }
@@ -206,10 +206,10 @@ switch ($op) {
         }
         // Pour les autres variables
         $obj->setVar('title', $_POST['title']);
-        $obj->setVar('weight', $_POST["weight"]);
-        $obj->setVar('status', $_POST["status"]);
-        $obj->setVar('search', $_POST["search"]);
-        $obj->setVar('status_def', $_POST["status_def"]);
+        $obj->setVar('weight', $_POST['weight']);
+        $obj->setVar('status', $_POST['status']);
+        $obj->setVar('search', $_POST['search']);
+        $obj->setVar('status_def', $_POST['status_def']);
 
         if (intval($_REQUEST['weight'])==0 && $_REQUEST['weight'] != '0') {
             $erreur=true;

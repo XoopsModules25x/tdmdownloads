@@ -22,7 +22,7 @@ $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -88,7 +88,7 @@ switch ($op) {
     break;
 
     // Affiche la comparaison de fichier
-    case "view_downloads":
+    case 'view_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -259,7 +259,7 @@ switch ($op) {
     break;
 
     // permet de suprimmer le téléchargment modifié
-    case "del_moddownloads":
+    case 'del_moddownloads':
         $obj = $downloadsmodHandler->get($_REQUEST['mod_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -300,7 +300,7 @@ switch ($op) {
     break;
 
     // permet d'accépter la modification
-    case "approve":
+    case 'approve':
         // choix du téléchargement:
         $view_moddownloads = $downloadsmodHandler->get($_REQUEST['mod_id']);
         $obj = $downloadsHandler->get($view_moddownloads->getVar('lid'));

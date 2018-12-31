@@ -17,23 +17,23 @@
 // Include xoops admin header
 require_once dirname(__DIR__) . '/../../include/cp_header.php';
 
-include_once(XOOPS_ROOT_PATH."/kernel/module.php");
-require_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-require_once XOOPS_ROOT_PATH."/class/tree.php";
-require_once XOOPS_ROOT_PATH."/class/xoopslists.php";
+include_once(XOOPS_ROOT_PATH . '/kernel/module.php');
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/tree.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
 require_once dirname(__DIR__) . '/include/functions.php';
 
 if ($xoopsUser) {
-    $xoopsModule = XoopsModule::getByDirname("TDMDownloads");
+    $xoopsModule = XoopsModule::getByDirname('TDMDownloads');
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
-        redirect_header(XOOPS_URL."/", 3, _NOPERM);
+        redirect_header(XOOPS_URL . '/', 3, _NOPERM);
         exit();
     }
 } else {
-    redirect_header(XOOPS_URL."/", 3, _NOPERM);
+    redirect_header(XOOPS_URL . '/', 3, _NOPERM);
     exit();
 }
 

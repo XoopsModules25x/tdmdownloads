@@ -16,10 +16,10 @@
 
 require  dirname(dirname(__DIR__)) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-require_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-require_once XOOPS_ROOT_PATH."/class/tree.php";
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/tree.php';
 require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
-require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar("dirname").'/include/functions.php';
+require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname') . '/include/functions.php';
 //permission
 $gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
@@ -27,7 +27,7 @@ if (is_object($xoopsUser)) {
 } else {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
-xoops_loadLanguage("admin", $xoopsModule->getVar("dirname", "e"));
+xoops_loadLanguage('admin', $xoopsModule->getVar('dirname', 'e'));
 
 $perm_submit = ($gpermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
 $perm_modif = ($gpermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'))) ? true : false ;

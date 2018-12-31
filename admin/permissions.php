@@ -33,7 +33,7 @@ foreach (array_keys($tab_perm) as $i) {
     } else {
         $selected = '';
     }
-    echo "<option value='" . $i . "'" . $selected . ">" . $tab_perm[$i] . "</option>";
+    echo "<option value='" . $i . "'" . $selected . '>' . $tab_perm[$i] . '</option>';
 }
 echo "</select>\n";
 echo "</td>\n</tr>\n<tr>\n<td>\n";
@@ -66,7 +66,7 @@ switch ($permission) {
         break;
     case 4:
         $formTitle = _AM_TDMDOWNLOADS_PERM_AUTRES;
-        $permissionName = "tdmdownloads_ac";
+        $permissionName = 'tdmdownloads_ac';
         $permissionDescription = _AM_TDMDOWNLOADS_PERM_AUTRES_DSC;
         $global_perms_array = array(
         '4' => _AM_TDMDOWNLOADS_PERMISSIONS_4 ,
@@ -85,7 +85,7 @@ if ($permission == 4) {
     }
 } else {
     if ($xoopsModuleConfig['permission_download'] == 2 && $permission == 3) {
-        $sql = "SELECT lid, cid, title FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." ORDER BY title";
+        $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
         $result = $xoopsDB->query($sql);
         if ($result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
@@ -106,7 +106,7 @@ if ($permission == 4) {
 if ($downloadscatHandler->getCount()) {
     echo $permissionsForm->render();
 } else {
-    redirect_header("category.php", 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);
+    redirect_header('category.php', 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);
 }
 
 echo "<br><br><br><br>\n";

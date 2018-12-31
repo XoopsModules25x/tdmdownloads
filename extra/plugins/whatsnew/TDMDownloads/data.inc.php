@@ -20,8 +20,8 @@ function tdmdownloads_new($limit=0, $offset=0)
 
     $myts = MyTextSanitizer::getInstance();
 
-    $URL_MOD = XOOPS_URL."/modules/TDMDownloads";
-    $sql = "SELECT lid, title, date, cid, submitter, hits, description FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY date";
+    $URL_MOD = XOOPS_URL . '/modules/TDMDownloads';
+    $sql = 'SELECT lid, title, date, cid, submitter, hits, description FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY date';
 
     $result = $xoopsDB->query($sql, $limit, $offset);
 
@@ -30,8 +30,8 @@ function tdmdownloads_new($limit=0, $offset=0)
 
     while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $lid = $row['lid'];
-        $ret[$i]['link']     = $URL_MOD."/singlefile.php?lid=".$lid;
-        $ret[$i]['cat_link'] = $URL_MOD."/viewcat.php?cid=".$row['cid'];
+        $ret[$i]['link']     = $URL_MOD . '/singlefile.php?lid=' . $lid;
+        $ret[$i]['cat_link'] = $URL_MOD . '/viewcat.php?cid=' . $row['cid'];
 
         $ret[$i]['title'] = $row['title'];
         $ret[$i]['time']  = $row['date'];
@@ -59,7 +59,7 @@ function tdmdownloads_num()
 {
     global $xoopsDB;
 
-    $sql = "SELECT count(*) FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY lid";
+    $sql = 'SELECT count(*) FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
     $array = $xoopsDB->fetchRow($xoopsDB->query($sql));
     $num   = $array[0];
     if (empty($num)) {
@@ -73,7 +73,7 @@ function tdmdownloads_data($limit=0, $offset=0)
 {
     global $xoopsDB;
 
-    $sql = "SELECT lid, title, date FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY lid";
+    $sql = 'SELECT lid, title, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
     $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i = 0;
@@ -82,7 +82,7 @@ function tdmdownloads_data($limit=0, $offset=0)
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $id = $myrow['lid'];
         $ret[$i]['id']   = $id;
-        $ret[$i]['link'] = XOOPS_URL."/modules/tdmdownloads/singlefile.php?lid=".$id."";
+        $ret[$i]['link'] = XOOPS_URL . '/modules/tdmdownloads/singlefile.php?lid=' . $id . '';
         $ret[$i]['title'] = $myrow['title'];
         $ret[$i]['time']  = $myrow['date'];
         $i++;

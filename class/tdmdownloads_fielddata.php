@@ -14,18 +14,18 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 class TDMDownloads_fielddata extends XoopsObject
 {
     // constructor
     public function __construct()
     {
-        $this->initVar("iddata", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("fid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("data", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('iddata', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('data', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
     }
     public function TDMDownloads_fielddata()
@@ -38,6 +38,6 @@ class TDMDownloadstdmdownloads_fielddataHandler extends XoopsPersistableObjectHa
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_fielddata", 'tdmdownloads_fielddata', 'iddata', 'data');
+        parent::__construct($db, 'tdmdownloads_fielddata', 'tdmdownloads_fielddata', 'iddata', 'data');
     }
 }

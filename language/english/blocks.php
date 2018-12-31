@@ -13,21 +13,21 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-define('_MB_TDMDOWNLOADS_ALLCAT', "All Categories");
-define('_MB_TDMDOWNLOADS_CATTODISPLAY', "Select Displayed Categories");
-define('_MB_TDMDOWNLOADS_CHARS', "Title Length");
-define('_MB_TDMDOWNLOADS_CHARSDSC', "Description Length");
-define('_MB_TDMDOWNLOADS_DESCRIPTION', "Use description?");
-define('_MB_TDMDOWNLOADS_DISP', "Display");
-define('_MB_TDMDOWNLOADS_FILES', "Files");
-define('_MB_TDMDOWNLOADS_LENGTH', "Characters");
-define('_MB_TDMDOWNLOADS_LOGO', "Use logo?");
-define('_MB_TDMDOWNLOADS_SUBMITDATE', "Submitted Date ");
-define('_MB_TDMDOWNLOADS_SUBMITTER', "Submitted by: ");
-define('_MB_TDMDOWNLOADS_INFORMATIONS', "Information?");
-define('_MB_TDMDOWNLOADS_REATING', "Rating: ");
-define('_MB_TDMDOWNLOADS_HITS', "Hits: ");
-define('_MB_TDMDOWNLOADS_FLOAT', "Image float: ");
-define('_MB_TDMDOWNLOADS_FLOAT_LEFT', "Left");
-define('_MB_TDMDOWNLOADS_FLOAT_RIGHT', "Right");
-define('_MB_TDMDOWNLOADS_WHITE', "Image white");
+define('_MB_TDMDOWNLOADS_ALLCAT', 'All Categories');
+define('_MB_TDMDOWNLOADS_CATTODISPLAY', 'Select Displayed Categories');
+define('_MB_TDMDOWNLOADS_CHARS', 'Title Length');
+define('_MB_TDMDOWNLOADS_CHARSDSC', 'Description Length');
+define('_MB_TDMDOWNLOADS_DESCRIPTION', 'Use description?');
+define('_MB_TDMDOWNLOADS_DISP', 'Display');
+define('_MB_TDMDOWNLOADS_FILES', 'Files');
+define('_MB_TDMDOWNLOADS_LENGTH', 'Characters');
+define('_MB_TDMDOWNLOADS_LOGO', 'Use logo?');
+define('_MB_TDMDOWNLOADS_SUBMITDATE', 'Submitted Date ');
+define('_MB_TDMDOWNLOADS_SUBMITTER', 'Submitted by: ');
+define('_MB_TDMDOWNLOADS_INFORMATIONS', 'Information?');
+define('_MB_TDMDOWNLOADS_REATING', 'Rating: ');
+define('_MB_TDMDOWNLOADS_HITS', 'Hits: ');
+define('_MB_TDMDOWNLOADS_FLOAT', 'Image float: ');
+define('_MB_TDMDOWNLOADS_FLOAT_LEFT', 'Left');
+define('_MB_TDMDOWNLOADS_FLOAT_RIGHT', 'Right');
+define('_MB_TDMDOWNLOADS_WHITE', 'Image white');

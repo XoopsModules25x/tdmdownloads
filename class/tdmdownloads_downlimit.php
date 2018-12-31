@@ -14,8 +14,8 @@
  * @author      Gregory Mage (Aka Mage) and Hossein Azizabadi (Aka voltan)
  */
 
-if (!defined("XOOPS_ROOT_PATH")) {
-    die("XOOPS root path not defined");
+if (!defined('XOOPS_ROOT_PATH')) {
+    die('XOOPS root path not defined');
 }
 
 class TDMDownloads_downlimit extends XoopsObject
@@ -23,11 +23,11 @@ class TDMDownloads_downlimit extends XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar("downlimit_id", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("downlimit_lid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("downlimit_uid", XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar("downlimit_hostname", XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("downlimit_date", XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar('downlimit_id', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_lid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_uid', XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_hostname', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('downlimit_date', XOBJ_DTYPE_INT, null, false, 10);
     }
     public function TDMDownloads_downlimit()
     {
@@ -39,6 +39,6 @@ class TDMDownloadstdmdownloads_downlimitHandler extends XoopsPersistableObjectHa
 {
     public function __construct(\XoopsDatabase $db)
     {
-        parent::__construct($db, "tdmdownloads_downlimit", 'tdmdownloads_downlimit', 'downlimit_id', 'downlimit_lid');
+        parent::__construct($db, 'tdmdownloads_downlimit', 'tdmdownloads_downlimit', 'downlimit_id', 'downlimit_lid');
     }
 }

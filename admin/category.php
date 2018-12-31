@@ -21,7 +21,7 @@ $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "list":
+    case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -45,7 +45,7 @@ switch ($op) {
             echo '<th align="center" width="8%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
             echo '</tr>';
             $class = 'odd';
-            require_once XOOPS_ROOT_PATH."/modules/tdmdownloads/class/tree.php";
+            require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/class/tree.php';
             $mytree = new TDMObjectTree($downloads_cat, 'cat_cid', 'cat_pid');
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../images/deco/arrow.gif">');
             foreach (array_keys($category_ArrayTree) as $i) {
@@ -68,7 +68,7 @@ switch ($op) {
     break;
 
     // vue création
-    case "new_cat":
+    case 'new_cat':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -84,7 +84,7 @@ switch ($op) {
     break;
 
     // Pour éditer une catégorie
-    case "edit_cat":
+    case 'edit_cat':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
@@ -102,7 +102,7 @@ switch ($op) {
     break;
 
     // Pour supprimer une catégorie
-    case "del_cat":
+    case 'del_cat':
         global $xoopsModule;
         $downloadscat_cid = TDMDownloads_CleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
         $obj = $downloadscatHandler->get($downloadscat_cid);
@@ -287,7 +287,7 @@ switch ($op) {
     break;
 
     // Pour sauver une catégorie
-    case "save_cat":
+    case 'save_cat':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
@@ -308,7 +308,7 @@ switch ($op) {
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header("javascript:history.go(-1)", 3, $errors);
+                redirect_header('javascript:history.go(-1)', 3, $errors);
             } else {
                 $obj->setVar('cat_imgurl', $uploader->getSavedFileName());
             }
@@ -319,7 +319,7 @@ switch ($op) {
         $obj->setVar('cat_pid', $_POST['cat_pid']);
         $obj->setVar('cat_title', $_POST['cat_title']);
         $obj->setVar('cat_description_main', $_POST['cat_description_main']);
-        $obj->setVar('cat_weight', $_POST["cat_weight"]);
+        $obj->setVar('cat_weight', $_POST['cat_weight']);
         if (intval($_REQUEST['cat_weight'])==0 && $_REQUEST['cat_weight'] != '0') {
             $erreur=true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
