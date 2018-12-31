@@ -53,7 +53,7 @@ function Import_mydownloads($path='', $imgurl='')
             $title = $donnees['title'];
             $insert = $xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix('tdmdownloads_cat') . " (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('" . $donnees['cid'] . "', '" . $donnees['pid'] . "', '" . $title . "', '" . $img . "', '', '0')");
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
         }
@@ -70,7 +70,7 @@ function Import_mydownloads($path='', $imgurl='')
             lid, cid, title, url, homepage, version, size, platform, description, logourl, submitter, status, date, hits, rating, votes, comments, top) VALUES
             ('" .$donnees['lid'] . "', '" .$donnees['cid'] . "', '" .$donnees['title'] . "', '" .$donnees['url'] . "', '" .$donnees['homepage'] . "', '" .$donnees['version'] . "', '" .$donnees['size'] . "', '" .$donnees['platform'] . "', '" . $description . "',  '" .$donnees['logourl'] . "', '" .$donnees['submitter'] . "', '" .$donnees['status'] . "', '" .$donnees['date'] . "', '" .$donnees['hits'] . "', '" .$donnees['rating'] . "', '" .$donnees['votes'] . "', '0', '0' )");
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
             @copy($path . $donnees['logourl'], XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $donnees['logourl']);
@@ -82,7 +82,7 @@ function Import_mydownloads($path='', $imgurl='')
             $insert = $xoopsDB->queryF('INSERT INTO '
                                        . $xoopsDB->prefix('tdmdownloads_votedata') . " (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp ) VALUES ('" . $donnees['ratingid'] . "', '" . $donnees['lid'] . "', '" . $donnees['ratinguser'] . "', '" . $donnees['rating'] . "', '" . $donnees['ratinghostname'] . "', '" . $donnees['ratingtimestamp'] . "')");
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['ratingid'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['ratingid'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
         }
@@ -120,7 +120,7 @@ function Import_wfdownloads($shots='', $catimg='')
             $insert = $xoopsDB->queryF('INSERT INTO '
                                        . $xoopsDB->prefix('tdmdownloads_cat') . " (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('" . $donnees['cid'] . "', '" . $donnees['pid'] . "', '" . addcslashes($donnees['title'], "'") . "', '" . $img . "', '" . addcslashes($donnees['description'], "'") . "', '" . $donnees['weight'] . "')");
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
         }
@@ -141,7 +141,7 @@ function Import_wfdownloads($shots='', $catimg='')
             ('" .$donnees['lid'] . "', '" .$donnees['cid'] . "', '" . addcslashes($donnees['title'], "'") . "', '" . $newurl . "', '" .$donnees['homepage'] . "', '" .$donnees['version'] . "', '" .$donnees['size'] . "', '" .$donnees['platform'] . "', '" . addcslashes($donnees['description'], "'") . "',  '" .$donnees['screenshot'] . "', '" .$donnees['submitter'] . "', '" .$donnees['status'] . "', '" .$donnees['date'] . "', '" .$donnees['hits'] . "', '" .$donnees['rating'] . "', '" .$donnees['votes'] . "', '0', '0' )");
 
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
             @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $donnees['screenshot']);
@@ -154,7 +154,7 @@ function Import_wfdownloads($shots='', $catimg='')
             $insert = $xoopsDB->queryF('INSERT INTO '
                                        . $xoopsDB->prefix('tdmdownloads_votedata') . " (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp ) VALUES ('" . $donnees['ratingid'] . "', '" . $donnees['lid'] . "', '" . $donnees['ratinguser'] . "', '" . $donnees['rating'] . "', '" . $donnees['ratinghostname'] . "', '" . $donnees['ratingtimestamp'] . "')");
             if (!$insert) {
-                echo '<span style="color: red; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['ratingid'] . '<br>';
+                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['ratingid'] . '<br>';
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
         }
