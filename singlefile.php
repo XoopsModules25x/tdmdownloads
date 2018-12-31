@@ -43,7 +43,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $categoryHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getAll($criteria);
 $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //navigation
@@ -121,7 +121,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('status', 1));
-$downloads_field = $fieldHandler->getall($criteria);
+$downloads_field = $fieldHandler->getAll($criteria);
 $nb_champ = count($downloads_field);
 $champ_sup ='';
 $champ_sup_vide = 0;
@@ -161,7 +161,7 @@ foreach (array_keys($downloads_field) as $i) {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
         $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-        $downloadsfielddata = $fielddataHandler->getall($criteria);
+        $downloadsfielddata = $fielddataHandler->getAll($criteria);
         $contenu = '';
         foreach (array_keys($downloadsfielddata) as $j) {
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');

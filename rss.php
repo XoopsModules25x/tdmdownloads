@@ -41,7 +41,7 @@ if (0 != $cid) {
 $criteria->setLimit($xoopsModuleConfig['perpagerss']);
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
-$downloads_arr = $downloadsHandler->getall($criteria);
+$downloads_arr = $downloadsHandler->getAll($criteria);
 
 if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));

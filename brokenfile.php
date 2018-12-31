@@ -52,7 +52,7 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $categoryHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getAll($criteria);
         $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -83,7 +83,7 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsbroken_arr = $brokenHandler->getall($criteria);
+            $downloadsbroken_arr = $brokenHandler->getAll($criteria);
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);

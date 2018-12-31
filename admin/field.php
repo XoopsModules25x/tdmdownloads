@@ -36,7 +36,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         $numrows = count($downloads_field);
         //Affichage du tableau
         if ($numrows>0) {
@@ -139,7 +139,7 @@ switch ($op) {
             // supression des entrée du champ
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
-            $downloads_arr = $fielddataHandler->getall($criteria);
+            $downloads_arr = $fielddataHandler->getAll($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 // supression de l'entrée
                 $objdownloadsfielddata = $fielddataHandler->get($downloads_arr[$i]->getVar('iddata'));
@@ -158,7 +158,7 @@ switch ($op) {
             $message = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
-            $downloads_arr = $fielddataHandler->getall($criteria);
+            $downloads_arr = $fielddataHandler->getAll($criteria);
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDATA .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {

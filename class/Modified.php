@@ -126,7 +126,7 @@ class Modified extends \XoopsObject
         } else {
             $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
-        $downloadscat_arr = $categoryHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getAll($criteria);
         if (0 == count($downloadscat_arr)) {
             redirect_header('index.php', 2, _NOPERM);
         }
@@ -138,7 +138,7 @@ class Modified extends \XoopsObject
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -207,7 +207,7 @@ class Modified extends \XoopsObject
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $view_downloads->getVar('lid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $fielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     if (true === $erreur) {
                         $contenu = $donnee[$nom_champ];

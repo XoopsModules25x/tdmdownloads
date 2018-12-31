@@ -35,7 +35,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $downloads_cat = $categoryHandler->getall($criteria);
+        $downloads_cat = $categoryHandler->getAll($criteria);
         //Affichage du tableau
         if (count($downloads_cat)>0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
@@ -115,12 +115,12 @@ switch ($op) {
             // supression des téléchargements de la catégorie
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('cid', $downloadscat_cid));
-            $downloads_arr = $downloadsHandler->getall($criteria);
+            $downloads_arr = $downloadsHandler->getAll($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 // supression des votes
                 $criteria_1 = new \CriteriaCompo();
                 $criteria_1->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_votedata = $ratingHandler->getall($criteria_1);
+                $downloads_votedata = $ratingHandler->getAll($criteria_1);
                 foreach (array_keys($downloads_votedata) as $j) {
                     $objvotedata = $ratingHandler->get($downloads_votedata[$j]->getVar('ratingid'));
                     $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
@@ -128,7 +128,7 @@ switch ($op) {
                 // supression des rapports de fichier brisé
                 $criteria_2 = new \CriteriaCompo();
                 $criteria_2->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_broken = $brokenHandler->getall($criteria_2);
+                $downloads_broken = $brokenHandler->getAll($criteria_2);
                 foreach (array_keys($downloads_broken) as $j) {
                     $objbroken = $brokenHandler->get($downloads_broken[$j]->getVar('reportid'));
                     $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
@@ -136,7 +136,7 @@ switch ($op) {
                 // supression des data des champs sup.
                 $criteria_3 = new \CriteriaCompo();
                 $criteria_3->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_fielddata = $fielddataHandler->getall($criteria_3);
+                $downloads_fielddata = $fielddataHandler->getAll($criteria_3);
                 if ($fielddataHandler->getCount($criteria_3) > 0) {
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $fielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
@@ -174,7 +174,7 @@ switch ($op) {
                 $downloadsHandler->delete($objdownloads) or $objdownloads->getHtmlErrors();
             }
             // supression des sous catégories avec leurs téléchargements
-            $downloadscat_arr = $categoryHandler->getall();
+            $downloadscat_arr = $categoryHandler->getAll();
             $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             foreach (array_keys($downloads_childcat) as $i) {
@@ -184,12 +184,12 @@ switch ($op) {
                 // supression des téléchargements associés
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                $downloads_arr = $downloadsHandler->getall($criteria);
+                $downloads_arr = $downloadsHandler->getAll($criteria);
                 foreach (array_keys($downloads_arr) as $i) {
                     // supression des votes
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_votedata = $ratingHandler->getall($criteria);
+                    $downloads_votedata = $ratingHandler->getAll($criteria);
                     foreach (array_keys($downloads_votedata) as $j) {
                         $objvotedata = $ratingHandler->get($downloads_votedata[$j]->getVar('ratingid'));
                         $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
@@ -197,7 +197,7 @@ switch ($op) {
                     // supression des rapports de fichier brisé
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_broken = $brokenHandler->getall($criteria);
+                    $downloads_broken = $brokenHandler->getAll($criteria);
                     foreach (array_keys($downloads_broken) as $j) {
                         $objbroken = $brokenHandler->get($downloads_broken[$j]->getVar('reportid'));
                         $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
@@ -205,7 +205,7 @@ switch ($op) {
                     // supression des data des champs sup.
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_fielddata = $fielddataHandler->getall($criteria);
+                    $downloads_fielddata = $fielddataHandler->getAll($criteria);
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $fielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
                         $fielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -248,14 +248,14 @@ switch ($op) {
             $message = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('cid', $downloadscat_cid));
-            $downloads_arr = $downloadsHandler->getall($criteria);
+            $downloads_arr = $downloadsHandler->getAll($criteria);
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {
                     $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
                 }
             }
-            $downloadscat_arr = $categoryHandler->getall();
+            $downloadscat_arr = $categoryHandler->getAll();
             $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             if (count($downloads_childcat) > 0) {
@@ -264,7 +264,7 @@ switch ($op) {
                     $message .= '<b><span style="color : #ff0000">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                    $downloads_arr = $downloadsHandler->getall($criteria);
+                    $downloads_arr = $downloadsHandler->getAll($criteria);
                     if (count($downloads_arr) > 0) {
                         $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                         foreach (array_keys($downloads_arr) as $i) {

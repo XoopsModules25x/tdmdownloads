@@ -52,7 +52,7 @@ switch ($op) {
         }
         //nombre de téléchargement par page
         $limit = $xoopsModuleConfig['perpageadmin'];
-        $category_arr = $categoryHandler->getall();
+        $category_arr = $categoryHandler->getAll();
         $numrowscat = count($category_arr);
         // redirection si il n'y a pas de catégories
         if (0 == $numrowscat) {
@@ -246,7 +246,7 @@ switch ($op) {
                 // supression des votes
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
-                $downloads_votedata = $ratingHandler->getall($criteria);
+                $downloads_votedata = $ratingHandler->getAll($criteria);
                 foreach (array_keys($downloads_votedata) as $i) {
                     $objvotedata = $ratingHandler->get($downloads_votedata[$i]->getVar('ratingid'));
                     $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
@@ -254,7 +254,7 @@ switch ($op) {
                 // supression des rapports de fichier brisé
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
-                $downloads_broken = $brokenHandler->getall($criteria);
+                $downloads_broken = $brokenHandler->getAll($criteria);
                 foreach (array_keys($downloads_broken) as $i) {
                     $objbroken = $brokenHandler->get($downloads_broken[$i]->getVar('reportid'));
                     $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
@@ -262,7 +262,7 @@ switch ($op) {
                 // supression des data des champs sup.
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
-                $downloads_fielddata = $fielddataHandler->getall($criteria);
+                $downloads_fielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloads_fielddata) as $i) {
                     $objfielddata = $fielddataHandler->get($downloads_fielddata[$i]->getVar('iddata'));
                     $fielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -323,7 +323,7 @@ switch ($op) {
         $view_downloads = $downloadsHandler->get($downloads_lid);
         //catégorie
         //$view_categorie = $categoryHandler->get($view_downloads->getVar('cid'));
-        $category_arr = $categoryHandler->getall();
+        $category_arr = $categoryHandler->getAll();
         $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
         // sortie des informations
         $downloads_title = $view_downloads->getVar('title');
@@ -349,7 +349,7 @@ switch ($op) {
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         $class = 'odd';
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
@@ -394,7 +394,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $fielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
@@ -487,7 +487,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0, '!='));
-        $downloadsvotedata_arr = $ratingHandler->getall($criteria);
+        $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
         $total_vote = count($downloadsvotedata_arr);
         echo '<table width="100%">';
         echo '<tr><td colspan="5"><b>';
@@ -510,7 +510,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0));
-        $downloadsvotedata_arr = $ratingHandler->getall($criteria);
+        $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
         $total_vote = count($downloadsvotedata_arr);
         echo '<tr><td colspan="5"><br><b>';
         printf(_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME, $total_vote);
@@ -535,7 +535,7 @@ switch ($op) {
         if ($ratingHandler->delete($objvotedata)) {
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
-            $downloadsvotedata_arr = $ratingHandler->getall($criteria);
+            $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
             $total_vote = $ratingHandler->getCount($criteria);
             $obj = $downloadsHandler->get($_REQUEST['lid']);
             if (0 == $total_vote) {
@@ -652,7 +652,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
@@ -719,7 +719,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
-                $downloads_field = $fieldHandler->getall($criteria);
+                $downloads_field = $fieldHandler->getAll($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 == $downloads_field[$i]->getVar('status_def')) {
                         $iddata = 'iddata' . $downloads_field[$i]->getVar('fid');

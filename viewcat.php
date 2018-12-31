@@ -42,14 +42,14 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $categoryHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getAll($criteria);
 $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //tableau des téléchargements
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloads_arr = $downloadsHandler->getall($criteria);
+$downloads_arr = $downloadsHandler->getAll($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloads_arr)));
 
 //navigation
@@ -98,7 +98,7 @@ if (1 == $xoopsModuleConfig['bldate']) {
     $criteria->setSort('date');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -117,7 +117,7 @@ if (1 == $xoopsModuleConfig['blpop']) {
     $criteria->setSort('hits');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -135,7 +135,7 @@ if (1 == $xoopsModuleConfig['blrating']) {
     $criteria->setSort('rating');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $title = $downloads_arr[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -199,7 +199,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         $order = 'DESC';
     }
 
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     if ($numrows > $limit) {
         $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'limit=' . $limit . '&cid=' . (int)$_REQUEST['cid'] . '&sort=' . $sort . '&order=' . $order);
         $pagenav = $pagenav->renderNav(4);

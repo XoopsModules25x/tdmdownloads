@@ -48,7 +48,7 @@ switch ($op) {
         }
         $criteria->setSort('requestid');
         $criteria->setOrder('ASC');
-        $downloadsmod_arr = $modifiedHandler->getall($criteria);
+        $downloadsmod_arr = $modifiedHandler->getAll($criteria);
         $numrows = $modifiedHandler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
@@ -147,7 +147,7 @@ switch ($op) {
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -172,7 +172,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $fielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
@@ -181,7 +181,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $modifieddataHandler->getall($criteria);
+                $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
@@ -204,7 +204,7 @@ switch ($op) {
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -229,7 +229,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $fielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
@@ -238,7 +238,7 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $modifieddataHandler->getall($criteria);
+                $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
@@ -280,7 +280,7 @@ switch ($op) {
             // supression des data des champs sup
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
-            $downloads_fielddata = $modifieddataHandler->getall($criteria);
+            $downloads_fielddata = $modifieddataHandler->getAll($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
                 $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
                 $modifieddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -333,7 +333,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $fieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             $contenu = '';
             $iddata = 0;
@@ -341,14 +341,14 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $view_moddownloads->getVar('requestid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $modifieddataHandler->getall($criteria);
+                $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $view_moddownloads->getVar('lid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $fielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
@@ -369,7 +369,7 @@ switch ($op) {
         // supression des data des champs sup
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
-        $downloads_fielddata = $modifieddataHandler->getall($criteria);
+        $downloads_fielddata = $modifieddataHandler->getAll($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
             $modifieddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();

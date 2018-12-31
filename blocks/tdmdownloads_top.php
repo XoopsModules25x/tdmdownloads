@@ -74,7 +74,7 @@ function b_tdmdownloads_top_show($options)
         break;
     }
     $criteria->setLimit($nb_entree);
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
         $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title)) . '...' : $downloads_arr[$i]->getVar('title');
@@ -122,7 +122,7 @@ function b_tdmdownloads_top_edit($options)
     $criteria = new \CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
-    $downloadscat_arr = $categoryHandler->getall($criteria);
+    $downloadscat_arr = $categoryHandler->getAll($criteria);
     $form = _MB_TDMDOWNLOADS_DISP . "&nbsp;\n";
     $form .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
     $form .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";

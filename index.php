@@ -26,7 +26,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloads_arr = $downloadsHandler->getall($criteria);
+$downloads_arr = $downloadsHandler->getAll($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloads_arr)));
 
 //tableau des catégories
@@ -34,7 +34,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $categoryHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getAll($criteria);
 $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //affichage des catégories
@@ -73,7 +73,7 @@ if (1 == $xoopsModuleConfig['bldate']) {
     $criteria->setSort('date');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_date = $downloadsHandler->getall($criteria);
+    $downloads_arr_date = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_date) as $i) {
         $title = $downloads_arr_date[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -91,7 +91,7 @@ if (1 == $xoopsModuleConfig['blpop']) {
     $criteria->setSort('hits');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_hits = $downloadsHandler->getall($criteria);
+    $downloads_arr_hits = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_hits) as $i) {
         $title = $downloads_arr_hits[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -108,7 +108,7 @@ if (1 == $xoopsModuleConfig['blrating']) {
     $criteria->setSort('rating');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_rating = $downloadsHandler->getall($criteria);
+    $downloads_arr_rating = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_rating) as $i) {
         $title = $downloads_arr_rating[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -163,7 +163,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $order = isset($xoopsModuleConfig['toporder']) ? $xoopsModuleConfig['toporder'] : 1;
     $criteria->setSort($tblsort[$sort]);
     $criteria->setOrder($tblorder[$order]);
-    $downloads_arr = $downloadsHandler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getAll($criteria);
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     $count = 1;
