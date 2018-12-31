@@ -18,6 +18,11 @@
 require_once $GLOBALS['xoops']->path('www/class/tree.php');
 
 // xoops >2.5.9
+
+/**
+ * Class Tree
+ * @package XoopsModules\Tdmdownloads
+ */
 class Tree extends \XoopsObjectTree
 {
     /**
