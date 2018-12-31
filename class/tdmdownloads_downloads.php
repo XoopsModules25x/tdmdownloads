@@ -242,7 +242,7 @@ class TDMDownloads_downloads extends XoopsObject
         //image
         if ($xoopsModuleConfig['useshots']) {
             $uploaddir = XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots/' . $this->getVar('logourl');
-            $downloadscat_img = $this->getVar('logourl') ? $this->getVar('logourl') : 'blank.gif';
+            $downloadscat_img = $this->getVar('logourl') ?: 'blank.gif';
             if (!is_file($uploaddir)) {
                 $downloadscat_img = 'blank.gif';
             }

@@ -66,7 +66,7 @@ class TDMDownloads_field extends XoopsObject
             $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
         }
         //image
-        $downloadsfield_img = $this->getVar('img') ? $this->getVar('img') : 'blank.gif';
+        $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
         $uploadirectory='/uploads/tdmdownloads/images/field';
         $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
@@ -86,10 +86,10 @@ class TDMDownloads_field extends XoopsObject
         //poids du champ
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'weight', 5, 5, $this->getVar('weight', 'e')), false);
         // affiché?
-        $status = $this->getVar('status') ? $this->getVar('status') : 0;
+        $status = $this->getVar('status') ?: 0;
         $form->addElement(new XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHE, 'status', $status));
         // affiché dans le champ de recherche?
-        $search = $this->getVar('search') ? $this->getVar('search') : 0;
+        $search = $this->getVar('search') ?: 0;
         $form->addElement(new XoopsFormRadioYN(_AM_TDMDOWNLOADS_FORMAFFICHESEARCH, 'search', $search));
         // pour passer "fid" si on modifie le champ
         if (!$this->isNew()) {
