@@ -24,39 +24,39 @@ function xoops_module_install_tdmdownloads()
     } else {
         include_once(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php');
     }
-    $downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-    $obj = $downloadsfieldHandler->create();
+    $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+    $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMHOMEPAGE);
     $obj->setVar('img', 'homepage.png');
     $obj->setVar('weight', 1);
     $obj->setVar('search', 0);
     $obj->setVar('status', 1);
     $obj->setVar('status_def', 1);
-    $downloadsfieldHandler->insert($obj);
-    $obj = $downloadsfieldHandler->create();
+    $fieldHandler->insert($obj);
+    $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMVERSION);
     $obj->setVar('img', 'version.png');
     $obj->setVar('weight', 2);
     $obj->setVar('search', 0);
     $obj->setVar('status', 1);
     $obj->setVar('status_def', 1);
-    $downloadsfieldHandler->insert($obj);
-    $obj = $downloadsfieldHandler->create();
+    $fieldHandler->insert($obj);
+    $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMSIZE);
     $obj->setVar('img', 'size.png');
     $obj->setVar('weight', 3);
     $obj->setVar('search', 0);
     $obj->setVar('status', 1);
     $obj->setVar('status_def', 1);
-    $downloadsfieldHandler->insert($obj);
-    $obj = $downloadsfieldHandler->create();
+    $fieldHandler->insert($obj);
+    $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMPLATFORM);
     $obj->setVar('img', 'platform.png');
     $obj->setVar('weight', 4);
     $obj->setVar('search', 0);
     $obj->setVar('status', 1);
     $obj->setVar('status_def', 1);
-    $downloadsfieldHandler->insert($obj);
+    $fieldHandler->insert($obj);
 
     //Creation du fichier ".$namemodule."/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';

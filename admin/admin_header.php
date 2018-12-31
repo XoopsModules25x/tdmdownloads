@@ -14,6 +14,10 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use Xmf\Request;
+use XoopsModules\Tdmdownloads\Tree;
+use XoopsModules\Tdmdownloads;
+
 // Include xoops admin header
 require_once dirname(__DIR__) . '/../../include/cp_header.php';
 
@@ -26,8 +30,16 @@ require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
 require_once dirname(__DIR__) . '/include/functions.php';
 
+$moduleDirName = basename(dirname(__DIR__));
+
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+
+/** @var \Xmf\Module\Admin $adminObject */
+$adminObject = \Xmf\Module\Admin::getInstance();
+
 if ($xoopsUser) {
-    $xoopsModule = XoopsModule::getByDirname('TDMDownloads');
+    $xoopsModule = \XoopsModule::getByDirname('TDMDownloads');
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
         redirect_header(XOOPS_URL . '/', 3, _NOPERM);
         exit();
@@ -39,8 +51,10 @@ if ($xoopsUser) {
 
 // Include language file
 xoops_loadLanguage('admin', 'system');
-xoops_loadLanguage('admin', $xoopsModule->getVar('dirname', 'e'));
-xoops_loadLanguage('modinfo', $xoopsModule->getVar('dirname', 'e'));
+// Load language files
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
 
 $pathIcon16 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons16');
 $pathIcon32 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons32');
@@ -61,11 +75,11 @@ $uploadurl_field = XOOPS_URL . '/uploads/tdmdownloads/images/field/';
 /////////////
 
 //appel des class
-$downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$downloadsvotedataHandler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$downloadsfielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$downloadsbrokenHandler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$downloadsmodHandler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$downloadsfieldmoddataHandler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
+$categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+$downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+$ratingHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Rating');
+$fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+$fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+$brokenHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Broken');
+$modifiedHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modified');
+$modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modifieddata');

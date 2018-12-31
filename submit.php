@@ -110,7 +110,7 @@ switch ($op) {
         }
         // erreur si le captcha est faux
         xoops_load('xoopscaptcha');
-        $xoopsCaptcha = XoopsCaptcha::getInstance();
+        $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
             $erreur=true;
@@ -119,7 +119,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $downloadsfieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
@@ -180,15 +180,15 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
-                $downloads_field = $downloadsfieldHandler->getall($criteria);
+                $downloads_field = $fieldHandler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 == $downloads_field[$i]->getVar('status_def')) {
-                        $objdata = $downloadsfielddataHandler->create();
+                        $objdata = $fielddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('data', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $downloadsfielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                        $fielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
                     }
                 }
                 if ($xoopsUser) {
@@ -213,7 +213,7 @@ switch ($op) {
                 $tags = [];
                 $tags['FILE_NAME'] = $donnee['title'];
                 $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lid_dowwnloads;
-                $downloadscat_cat = $downloadscatHandler->get($donnee['cid']);
+                $downloadscat_cat = $categoryHandler->get($donnee['cid']);
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
                 $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $donnee['cid'];
 

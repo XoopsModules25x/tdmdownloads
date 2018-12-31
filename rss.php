@@ -33,7 +33,7 @@ $criteria->add(new \Criteria('status', 0, '!='));
 $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 if (0 != $cid) {
     $criteria->add(new \Criteria('cid', $cid));
-    $cat = $downloadscatHandler->get($cid);
+    $cat = $categoryHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $cat->getVar('cat_title');
 } else {
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name');

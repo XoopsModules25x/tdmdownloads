@@ -44,7 +44,7 @@ switch ($op) {
     // Vue liste
     case 'list':
         //navigation
-        $view_categorie = $downloadscatHandler->get($view_downloads->getVar('cid'));
+        $view_categorie = $categoryHandler->get($view_downloads->getVar('cid'));
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
         if (!in_array($view_downloads->getVar('cid'), $categories)) {
             redirect_header('index.php', 2, _NOPERM);
@@ -55,7 +55,7 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $downloadscatHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getall($criteria);
         $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -71,14 +71,14 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $view_downloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj = $downloadsmodHandler->create();
+        $obj = $modifiedHandler->create();
         $form = $obj->getForm($lid, false, $donnee = []);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case 'save':
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $obj = $downloadsmodHandler->create();
+        $obj = $modifiedHandler->create();
         $erreur = false;
         $message_erreur = '';
         $donnee = [];
@@ -131,7 +131,7 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $downloadsfieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
@@ -177,21 +177,21 @@ switch ($op) {
                 }
             }
 
-            if ($downloadsmodHandler->insert($obj)) {
+            if ($modifiedHandler->insert($obj)) {
                 $lid_dowwnloads = $obj->get_new_enreg();
                 // Récupération des champs supplémentaires:
                 $criteria = new \CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
-                $downloads_field = $downloadsfieldHandler->getall($criteria);
+                $downloads_field = $fieldHandler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 == $downloads_field[$i]->getVar('status_def')) {
-                        $objdata = $downloadsfieldmoddataHandler->create();
+                        $objdata = $modifieddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('moddata', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $downloadsfieldmoddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                        $modifieddataHandler->insert($objdata) or $objdata->getHtmlErrors();
                     }
                 }
                 $tags = [];

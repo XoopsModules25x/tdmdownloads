@@ -50,20 +50,20 @@ $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 /*$cat_select = new \XoopsFormSelect(_MD_TDMDOWNLOADS_SEARCH_CATEGORIES . ' ', 'cat', $cat);
 $cat_select->addOption(0,_MD_TDMDOWNLOADS_SEARCH_ALL2);
-$cat_select->addOptionArray($downloadscatHandler->getList($criteria ));
+$cat_select->addOptionArray($categoryHandler->getList($criteria ));
 $form->addElement($cat_select);*/
-$downloadscat_arr = $downloadscatHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getall($criteria);
 $mytree           = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
-$downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('search', 1));
 $criteria->add(new \Criteria('status', 1));
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
-$downloads_field = $downloadsfieldHandler->getall($criteria);
+$downloads_field = $fieldHandler->getall($criteria);
 
 $arguments = '';
 foreach (array_keys($downloads_field) as $i) {
@@ -124,14 +124,14 @@ foreach (array_keys($downloads_field) as $i) {
         $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
         $criteria->setSort('data');
         $criteria->setOrder('ASC');
-        $tdmdownloads_arr = $downloadsfielddataHandler->getall($criteria);
+        $tdmdownloads_arr = $fielddataHandler->getall($criteria);
         foreach (array_keys($tdmdownloads_arr) as $j) {
             $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');
         }
         if ('' != $champ_contenu[$downloads_field[$i]->getVar('fid')]) {
             $criteria_1 = new \CriteriaCompo();
             $criteria_1->add(new \Criteria('data', $champ_contenu[$downloads_field[$i]->getVar('fid')]));
-            $data_arr = $downloadsfielddataHandler->getall($criteria_1);
+            $data_arr = $fielddataHandler->getall($criteria_1);
             foreach (array_keys($data_arr) as $k) {
                 $lid_arr[] = $data_arr[$k]->getVar('lid');
             }
@@ -245,7 +245,7 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $tdmdownloads_arr[$i]->getVar('lid')));
             $criteria->add(new \Criteria('fid', $downloads_field[$j]->getVar('fid')));
-            $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
+            $downloadsfielddata = $fielddataHandler->getall($criteria);
             if (count($downloadsfielddata) > 0) {
                 foreach (array_keys($downloadsfielddata) as $k) {
                     $contenu = $downloadsfielddata[$k]->getVar('data', 'n');

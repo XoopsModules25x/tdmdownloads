@@ -27,7 +27,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 // redirection si la catégorie n'existe pas
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('cat_cid', $cid));
-if (0 == $downloadscatHandler->getCount($criteria) || 0 == $cid) {
+if (0 == $categoryHandler->getCount($criteria) || 0 == $cid) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
     exit();
 }
@@ -42,7 +42,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $downloadscatHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getall($criteria);
 $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //tableau des téléchargements
@@ -58,7 +58,7 @@ $xoopsTpl->assign('category_path', $nav_category);
 
 // info catégorie
 $xoopsTpl->assign('category_id', $cid);
-$cat_info = $downloadscatHandler->get($cid);
+$cat_info = $categoryHandler->get($cid);
 $xoopsTpl->assign('cat_description', $cat_info->getVar('cat_description_main'));
 
 //affichage des catégories
@@ -219,7 +219,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
             $logourl = $uploadurl_shots . $logourl;
         }
         $datetime = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $submitter = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
+        $submitter = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false == strpos($description, '[pagebreak]')) {

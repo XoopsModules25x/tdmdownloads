@@ -80,7 +80,7 @@ class Field extends \XoopsObject
         $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
-        $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $topics_array = \XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }

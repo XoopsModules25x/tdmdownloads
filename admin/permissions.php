@@ -103,7 +103,7 @@ if (4 == $permission) {
     }
 }
 
-if ($downloadscatHandler->getCount()) {
+if ($categoryHandler->getCount()) {
     echo $permissionsForm->render();
 } else {
     redirect_header('category.php', 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);

@@ -52,7 +52,7 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $downloadscatHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getall($criteria);
         $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -67,13 +67,13 @@ switch ($op) {
         //description
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' (' . $view_downloads->getVar('title') . ')'));
         //Affichage du formulaire de fichier brisé*/
-        $obj = $downloadsbrokenHandler->create();
+        $obj = $brokenHandler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case 'save':
-        $obj = $downloadsbrokenHandler->create();
+        $obj = $brokenHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
@@ -83,7 +83,7 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsbroken_arr = $downloadsbrokenHandler->getall($criteria);
+            $downloadsbroken_arr = $brokenHandler->getall($criteria);
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
@@ -96,7 +96,7 @@ switch ($op) {
             $criteria->add(new \Criteria('lid', $lid));
             $criteria->add(new \Criteria('sender', 0));
             $criteria->add(new \Criteria('ip', getenv('REMOTE_ADDR')));
-            if ($downloadsbrokenHandler->getCount($criteria) >= 1) {
+            if ($brokenHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 exit();
             }
@@ -105,7 +105,7 @@ switch ($op) {
         $message_erreur = '';
         // Test avant la validation
         xoops_load('captcha');
-        $xoopsCaptcha = XoopsCaptcha::getInstance();
+        $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur.=$xoopsCaptcha->getMessage().'<br>';
             $erreur=true;
@@ -116,7 +116,7 @@ switch ($op) {
         if (true == $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
-            if ($downloadsbrokenHandler->insert($obj)) {
+            if ($brokenHandler->insert($obj)) {
                 $tags = [];
                 $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/broken.php';
                 $notificationHandler = xoops_getHandler('notification');

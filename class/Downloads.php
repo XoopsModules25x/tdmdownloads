@@ -107,7 +107,7 @@ class Downloads extends \XoopsObject
         $form->addElement($fichier);
 
         //catégorie
-        $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_submit', 'TDMDownloads');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -119,7 +119,7 @@ class Downloads extends \XoopsObject
         } else {
             $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
-        $downloadscat_arr = $downloadscatHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getall($criteria);
         if (0 == count($downloadscat_arr)) {
             redirect_header('index.php', 2, _NOPERM);
         }
@@ -127,11 +127,11 @@ class Downloads extends \XoopsObject
         $form->addElement($mytree->makeSelectElement('cid', 'cat_title', '--', $this->getVar('cid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
         //affichage des champs
-        $downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+        $fieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $downloadsfieldHandler->getall($criteria);
+        $downloads_field = $fieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -198,11 +198,11 @@ class Downloads extends \XoopsObject
                 $contenu = '';
                 $contenu_iddata = '';
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                $downloadsfielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+                $fielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $this->getVar('lid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
+                $downloadsfielddata = $fielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     if (true === $erreur) {
                         $contenu = $donnee[$nom_champ];
@@ -240,13 +240,13 @@ class Downloads extends \XoopsObject
         } else {
             $dir_tag_ok = false;
         }
-        if ((1 == $xoopsModuleConfig['usetag']) and $dir_tag_ok) {
+        if ((1 == $xoopsModuleConfig['usetag']) && $dir_tag_ok) {
             $tagId = $this->isNew() ? 0 : $this->getVar('lid');
             if (true === $erreur) {
                 $tagId = $donnee['TAG'];
             }
-            require_once XOOPS_ROOT_PATH.'/modules/tag/class/formtag.php';
-            $form->addElement(new TagFormTag('tag', 60, 255, $tagId, 0));
+//            require_once XOOPS_ROOT_PATH.'/modules/tag/class/formtag.php';
+            $form->addElement(new \XoopsModules\Tag\FormTag('tag', 60, 255, $tagId, 0));
         }
 
         //image
@@ -260,7 +260,7 @@ class Downloads extends \XoopsObject
             $imgtray              = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
             $imgpath              =sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
             $imageselect          = new \XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
-            $topics_array         = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+            $topics_array         = \XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
                 $imageselect->addOption((string)$image, $image);
             }

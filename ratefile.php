@@ -52,7 +52,7 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $downloadscatHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getall($criteria);
         $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -67,14 +67,14 @@ switch ($op) {
         //description
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $view_downloads->getVar('title') . ')'));
         //Affichage du formulaire de notation des téléchargements
-        $obj = $downloadsvotedataHandler->create();
+        $obj = $ratingHandler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
 
     // save
     case 'save':
-        $obj = $downloadsvotedataHandler->create();
+        $obj = $ratingHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
@@ -94,7 +94,7 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il ne vote pas 2 fois
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
+            $downloadsvotes_arr = $ratingHandler->getall($criteria);
             foreach (array_keys($downloadsvotes_arr) as $i) {
                 if ($downloadsvotes_arr[$i]->getVar('ratinguser') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
@@ -109,7 +109,7 @@ switch ($op) {
             $criteria->add(new \Criteria('ratinguser', 0));
             $criteria->add(new \Criteria('ratinghostname', getenv('REMOTE_ADDR')));
             $criteria->add(new \Criteria('ratingtimestamp', $yesterday, '>'));
-            if ($downloadsvotedataHandler->getCount($criteria) >= 1) {
+            if ($ratingHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . (int)$_REQUEST['lid'], 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 exit();
             }
@@ -123,7 +123,7 @@ switch ($op) {
             $erreur=true;
         }
         xoops_load('captcha');
-        $xoopsCaptcha = XoopsCaptcha::getInstance();
+        $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur.=$xoopsCaptcha->getMessage() . '<br>';
             $erreur=true;
@@ -136,11 +136,11 @@ switch ($op) {
         if (true == $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
-            if ($downloadsvotedataHandler->insert($obj)) {
+            if ($ratingHandler->insert($obj)) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $lid));
-                $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
-                $total_vote = $downloadsvotedataHandler->getCount($criteria);
+                $downloadsvotes_arr = $ratingHandler->getall($criteria);
+                $total_vote = $ratingHandler->getCount($criteria);
                 $total_rating = 0;
                 foreach (array_keys($downloadsvotes_arr) as $i) {
                     $total_rating += $downloadsvotes_arr[$i]->getVar('rating');

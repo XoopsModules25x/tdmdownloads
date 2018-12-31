@@ -103,7 +103,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['hits'] = $downloads_arr[$i]->getVar('hits');
         $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar('rating'), 1);
         $block[$i]['date'] = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $block[$i]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
+        $block[$i]['submitter'] = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $block[$i]['inforation'] = $show_inforation;
     }
 
@@ -117,12 +117,12 @@ function b_tdmdownloads_top_show($options)
 function b_tdmdownloads_top_edit($options)
 {
     //appel de la class
-    $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+    $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
     $criteria = new \CriteriaCompo();
     $criteria = new \CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
-    $downloadscat_arr = $downloadscatHandler->getall($criteria);
+    $downloadscat_arr = $categoryHandler->getall($criteria);
     $form = _MB_TDMDOWNLOADS_DISP . "&nbsp;\n";
     $form .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
     $form .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";

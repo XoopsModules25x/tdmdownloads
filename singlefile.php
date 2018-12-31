@@ -43,7 +43,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $downloadscatHandler->getall($criteria);
+$downloadscat_arr = $categoryHandler->getall($criteria);
 $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //navigation
@@ -121,7 +121,7 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('status', 1));
-$downloads_field = $downloadsfieldHandler->getall($criteria);
+$downloads_field = $fieldHandler->getall($criteria);
 $nb_champ = count($downloads_field);
 $champ_sup ='';
 $champ_sup_vide = 0;
@@ -157,11 +157,11 @@ foreach (array_keys($downloads_field) as $i) {
             }
         }
     } else {
-        $view_data = $downloadsfielddataHandler->get();
+        $view_data = $fielddataHandler->get();
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
         $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
-        $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
+        $downloadsfielddata = $fielddataHandler->getall($criteria);
         $contenu = '';
         foreach (array_keys($downloadsfielddata) as $j) {
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');

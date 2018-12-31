@@ -86,7 +86,7 @@ class Category extends \XoopsObject
         $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new \XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
-        $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $topics_array = \XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }
@@ -99,11 +99,11 @@ class Category extends \XoopsObject
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         // Pour faire une sous-catégorie
-        $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $categoryHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $downloadscat_arr = $downloadscatHandler->getall($criteria);
+        $downloadscat_arr = $categoryHandler->getall($criteria);
         $mytree = new \XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cat_pid', 'cat_title', '--', $this->getVar('cat_pid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
         //poids de la catégorie

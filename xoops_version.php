@@ -225,7 +225,7 @@ $modversion['config'][$i]['formtype'] = 'select';
 $modversion['config'][$i]['valuetype'] = 'text';
 $modversion['config'][$i]['default'] = 'dhtmltextarea';
 xoops_load('xoopseditorhandler');
-$editorHandler = XoopsEditorHandler::getInstance();
+$editorHandler = \XoopsEditorHandler::getInstance();
 $modversion['config'][$i]['options'] = array_flip($editorHandler->getList());
 
 $i++;
