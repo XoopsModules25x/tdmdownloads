@@ -219,7 +219,7 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
     $tdmdownloads_tab['title']  = $tdmdownloads_arr[$i]->getVar('title');
     $tdmdownloads_tab['cat']    = $tdmdownloads_arr[$i]->getVar('cat_title');
     $tdmdownloads_tab['imgurl'] = $uploadurl . $tdmdownloads_arr[$i]->getVar('cat_imgurl');
-    $tdmdownloads_tab['date']   = formatTimeStamp($tdmdownloads_arr[$i]->getVar('date'), 'd/m/Y');
+    $tdmdownloads_tab['date']   = formatTimestamp($tdmdownloads_arr[$i]->getVar('date'), 'd/m/Y');
     $tdmdownloads_tab['rating'] = number_format($tdmdownloads_arr[$i]->getVar('rating'), 0);
     $tdmdownloads_tab['hits']   = $tdmdownloads_arr[$i]->getVar('hits');
     $contenu                    = '';

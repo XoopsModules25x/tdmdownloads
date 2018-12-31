@@ -100,7 +100,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['logourl_width'] = $logo_white;
         $block[$i]['hits'] = $downloads_arr[$i]->getVar('hits');
         $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar('rating'), 1);
-        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar('date'), 's');
+        $block[$i]['date'] = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
         $block[$i]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $block[$i]['inforation'] = $show_inforation;
     }

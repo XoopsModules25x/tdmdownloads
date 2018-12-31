@@ -118,7 +118,7 @@ $xoopsDB->queryF($sql);
 
 $url = $view_downloads->getVar('url', 'n');
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
-    Header("Location: $url");
+    header("Location: $url");
 }
 echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $url . '"></meta></head><body></body></html>';
 exit();
