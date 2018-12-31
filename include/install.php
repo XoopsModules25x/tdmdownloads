@@ -61,42 +61,54 @@ function xoops_module_install_tdmdownloads()
     //Creation du fichier ".$namemodule."/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/cat
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/shots
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/field
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/downloads
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads';
     if (!is_dir($dir)) {
-        mkdir($dir, 0777);
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
+            throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
+        }
     }
     chmod($dir, 0777);
 
