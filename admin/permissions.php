@@ -28,7 +28,7 @@ $permission = isset($_POST['permission']) ? (int)$_POST['permission'] : 1;
 $tab_perm = [1 => _AM_TDMDOWNLOADS_PERM_VIEW, 2 => _AM_TDMDOWNLOADS_PERM_SUBMIT, 3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD, 4 => _AM_TDMDOWNLOADS_PERM_AUTRES];
 echo "<form method='post' name='fselperm' action='permissions.php'>\n";
 echo "<table border='0'>\n<tr>\n<td>\n";
-echo "<select name='permission' onChange='javascript: document.fselperm.submit()'>\n";
+echo "<select name='permission' onChange='document.fselperm.submit()'>\n";
 foreach (array_keys($tab_perm) as $i) {
     if ($permission == $i) {
         $selected = ' selected';
