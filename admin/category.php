@@ -320,7 +320,7 @@ switch ($op) {
         $obj->setVar('cat_title', $_POST['cat_title']);
         $obj->setVar('cat_description_main', $_POST['cat_description_main']);
         $obj->setVar('cat_weight', $_POST['cat_weight']);
-        if (0 == intval($_REQUEST['cat_weight']) && '0' != $_REQUEST['cat_weight']) {
+        if (0 == (int)$_REQUEST['cat_weight'] && '0' != $_REQUEST['cat_weight']) {
             $erreur=true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }

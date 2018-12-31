@@ -93,7 +93,7 @@ switch ($op) {
         }
         $donnee['date_update'] = 0;
         // erreur si la taille du fichier n'est pas un nombre
-        if (0 == intval($_REQUEST['size'])) {
+        if (0 == (int)$_REQUEST['size']) {
             if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
                 $erreur = false;
             } else {

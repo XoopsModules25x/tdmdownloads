@@ -211,7 +211,7 @@ switch ($op) {
         $obj->setVar('search', $_POST['search']);
         $obj->setVar('status_def', $_POST['status_def']);
 
-        if (0 == intval($_REQUEST['weight']) && '0' != $_REQUEST['weight']) {
+        if (0 == (int)$_REQUEST['weight'] && '0' != $_REQUEST['weight']) {
             $erreur=true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
