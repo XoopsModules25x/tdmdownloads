@@ -86,7 +86,7 @@ if (4 == $permission) {
         $permissionsForm->addItem($perm_id, $permissionName) ;
     }
 } else {
-    if (2 == $xoopsModuleConfig['permission_download'] && 3 == $permission) {
+    if (3 == $permission && 2 == $xoopsModuleConfig['permission_download']) {
         $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
         $result = $xoopsDB->query($sql);
         if ($result) {

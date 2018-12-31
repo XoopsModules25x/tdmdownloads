@@ -240,7 +240,7 @@ class Downloads extends \XoopsObject
         } else {
             $dir_tag_ok = false;
         }
-        if ((1 == $xoopsModuleConfig['usetag']) && $dir_tag_ok) {
+        if ($dir_tag_ok && (1 == $xoopsModuleConfig['usetag'])) {
             $tagId = $this->isNew() ? 0 : $this->getVar('lid');
             if (true === $erreur) {
                 $tagId = $donnee['TAG'];

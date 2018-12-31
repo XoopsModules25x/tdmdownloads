@@ -103,7 +103,7 @@ $xoopsTpl->assign('show_bookmark', $xoopsModuleConfig['show_bookmark']);
 $xoopsTpl->assign('show_social', $xoopsModuleConfig['show_social']);
 
 //paypal
-if ('' != $view_downloads->getVar('paypal') && true === $xoopsModuleConfig['use_paypal']) {
+if (true === $xoopsModuleConfig['use_paypal'] && '' != $view_downloads->getVar('paypal')) {
     $paypal = '<form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="'.$view_downloads->getVar('paypal').'">

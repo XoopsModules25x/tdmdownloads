@@ -27,7 +27,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 // redirection si la catégorie n'existe pas
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('cat_cid', $cid));
-if (0 == $categoryHandler->getCount($criteria) || 0 == $cid) {
+if (0 == $cid || 0 == $categoryHandler->getCount($criteria)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
     exit();
 }

@@ -457,7 +457,7 @@ switch ($op) {
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMRATING . ' </td>';
         echo '<td>' . number_format($view_downloads->getVar('rating'), 1) . ' (' . $view_downloads->getVar('votes') . ' ' . _AM_TDMDOWNLOADS_FORMVOTE . ')</td>';
         echo '</tr>';
-        if ('' != $view_downloads->getVar('paypal') && true === $xoopsModuleConfig['use_paypal']) {
+        if (true === $xoopsModuleConfig['use_paypal'] && '' != $view_downloads->getVar('paypal')) {
             $class = ('even' === $class) ? 'odd' : 'even';
             echo '<tr class="' . $class . '">';
             echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPAYPAL . ' </td>';
