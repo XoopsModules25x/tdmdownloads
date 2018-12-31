@@ -14,11 +14,12 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-function xoops_module_install_tdmdownloads() {
+function xoops_module_install_tdmdownloads()
+{
     global $xoopsModule, $xoopsConfig, $xoopsDB;
 
     $namemodule = "TDMDownloads";
-    if( file_exists(XOOPS_ROOT_PATH."/modules/".$namemodule."/language/".$xoopsConfig['language']."/admin.php") ) {
+    if (file_exists(XOOPS_ROOT_PATH."/modules/".$namemodule."/language/".$xoopsConfig['language']."/admin.php")) {
         include_once(XOOPS_ROOT_PATH."/modules/".$namemodule."/language/".$xoopsConfig['language']."/admin.php");
     } else {
         include_once(XOOPS_ROOT_PATH."/modules/".$namemodule."/language/english/admin.php");
@@ -59,39 +60,45 @@ function xoops_module_install_tdmdownloads() {
 
     //Creation du fichier ".$namemodule."/
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."/images";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/cat
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/cats";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/shots
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/shots";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/images/field
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."/images/field";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Creation du fichier ".$namemodule."/downloads
     $dir = XOOPS_ROOT_PATH."/uploads/".$namemodule."/downloads";
-    if(!is_dir($dir))
+    if (!is_dir($dir)) {
         mkdir($dir, 0777);
-        chmod($dir, 0777);
+    }
+    chmod($dir, 0777);
 
     //Copie des index.html
     $indexFile = XOOPS_ROOT_PATH."/modules/".$namemodule."/include/index.html";

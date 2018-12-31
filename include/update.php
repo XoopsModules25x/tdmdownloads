@@ -14,7 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-function xoops_module_update_tdmdownloads() {
+function xoops_module_update_tdmdownloads()
+{
     $db = XoopsDatabaseFactory::getDatabaseConnection();
     $sql = "ALTER TABLE `" . $db->prefix('tdmdownloads_cat') . "` CHANGE `cid` `cat_cid` INT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ;";
     $db->query($sql);

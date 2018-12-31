@@ -28,12 +28,12 @@ include_once '../include/functions.php';
 
 if ($xoopsUser) {
     $xoopsModule = XoopsModule::getByDirname("TDMDownloads");
-    if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-        redirect_header(XOOPS_URL."/",3,_NOPERM);
+    if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
+        redirect_header(XOOPS_URL."/", 3, _NOPERM);
         exit();
     }
 } else {
-    redirect_header(XOOPS_URL."/",3,_NOPERM);
+    redirect_header(XOOPS_URL."/", 3, _NOPERM);
     exit();
 }
 

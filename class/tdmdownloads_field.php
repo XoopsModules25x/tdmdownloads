@@ -19,19 +19,19 @@ if (!defined("XOOPS_ROOT_PATH")) {
 }
 class TDMDownloads_field extends XoopsObject
 {
-// constructor
+    // constructor
     public function __construct()
     {
-        $this->initVar("fid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("title",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("img",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("weight",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("status",XOBJ_DTYPE_INT,null,false,5);
-        $this->initVar("search",XOBJ_DTYPE_INT,null,false,5);
-        $this->initVar("status_def",XOBJ_DTYPE_INT,null,false,5);
+        $this->initVar("fid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("title", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("img", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("weight", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("status", XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar("search", XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar("status_def", XOBJ_DTYPE_INT, null, false, 5);
 
         //pour les jointures
-        $this->initVar("data",XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar("data", XOBJ_DTYPE_TXTAREA, null, false);
     }
     public function TDMDownloads_field()
     {
@@ -60,7 +60,7 @@ class TDMDownloads_field extends XoopsObject
         $form->setExtra('enctype="multipart/form-data"');
         //titre
         if ($this->getVar('status_def') == 1) {
-            $form->addElement(new xoopsFormLabel (_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
+            $form->addElement(new xoopsFormLabel(_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
             $form->addElement(new XoopsFormHidden('title', $this->getVar('title')));
         } else {
             $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
@@ -68,19 +68,19 @@ class TDMDownloads_field extends XoopsObject
         //image
         $downloadsfield_img = $this->getVar('img') ? $this->getVar('img') : 'blank.gif';
         $uploadirectory='/uploads/TDMDownloads/images/field';
-        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE,'<br />');
-        $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory );
-        $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img',$downloadsfield_img);
-           $topics_array = XoopsLists :: getImgListAsArray( XOOPS_ROOT_PATH . $uploadirectory );
+        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br />');
+        $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
+        $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
-               $imageselect->addOption("$image", $image);
+            $imageselect->addOption("$image", $image);
         }
-        $imageselect->setExtra( "onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'" );
-        $imgtray->addElement($imageselect,false);
-        $imgtray -> addElement( new XoopsFormLabel( '', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadsfield_img . "' name='image3' id='image3' alt='' /><br />" ) );
-        $fileseltray= new XoopsFormElementTray('','<br />');
-        $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD , 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
-        $fileseltray->addElement(new XoopsFormLabel('' ), false);
+        $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+        $imgtray->addElement($imageselect, false);
+        $imgtray -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadsfield_img . "' name='image3' id='image3' alt='' /><br />"));
+        $fileseltray= new XoopsFormElementTray('', '<br />');
+        $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+        $fileseltray->addElement(new XoopsFormLabel(''), false);
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         //poids du champ

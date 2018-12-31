@@ -18,7 +18,7 @@ include_once 'header.php';
 // template d'affichage
 $xoopsOption['template_main'] = 'tdmdownloads_ratefile.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
-$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'liste', 'string');
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
@@ -30,7 +30,7 @@ if ($perm_vote == false) {
 }
 
 $view_downloads = $downloads_Handler->get($lid);
-// redirection si le téléchargement n'existe pas ou n'est pas activé
+// redirection si le tÃ©lÃ©chargement n'existe pas ou n'est pas activÃ©
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
@@ -47,11 +47,11 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
 switch ($op) {
     // Vue liste
     case "liste":
-        //tableau des catégories
+        //tableau des catÃ©gories
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
+        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscat_arr = $downloadscat_Handler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
@@ -59,14 +59,14 @@ switch ($op) {
         $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
         $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> ' . _MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE;
         $xoopsTpl->assign('navigation', $navigation);
-        // référencement
+        // rÃ©fÃ©rencement
         // titre de la page
         $pagetitle = _MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' - ' . $view_downloads->getVar('title') . ' - ';
         $pagetitle .= TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' - ', false, 'DESC', true);
         $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
         //description
-        $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $view_downloads->getVar('title') . ')'));
-        //Affichage du formulaire de notation des téléchargements
+        $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $view_downloads->getVar('title') . ')'));
+        //Affichage du formulaire de notation des tÃ©lÃ©chargements
         $obj = $downloadsvotedata_Handler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
@@ -80,7 +80,7 @@ switch ($op) {
         } else {
             $ratinguser = $xoopsUser->getVar('uid');
         }
-        // si c'est un membre on vérifie qu'il ne vote pas pour son fichier
+        // si c'est un membre on vÃ©rifie qu'il ne vote pas pour son fichier
         if ($ratinguser != 0) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
@@ -91,7 +91,7 @@ switch ($op) {
                     exit();
                 }
             }
-            // si c'est un membre on vérifie qu'il ne vote pas 2 fois
+            // si c'est un membre on vÃ©rifie qu'il ne vote pas 2 fois
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
             $downloadsvotes_arr = $downloadsvotedata_Handler->getall($criteria);
@@ -102,7 +102,7 @@ switch ($op) {
                 }
             }
         } else {
-            // si c'est un utilisateur anonyme on vérifie qu'il ne vote pas 2 fois par jour
+            // si c'est un utilisateur anonyme on vÃ©rifie qu'il ne vote pas 2 fois par jour
             $yesterday = (time()-86400);
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
@@ -124,7 +124,7 @@ switch ($op) {
         }
         xoops_load("captcha");
         $xoopsCaptcha = XoopsCaptcha::getInstance();
-        if ( !$xoopsCaptcha->verify() ) {
+        if (!$xoopsCaptcha->verify()) {
             $message_erreur.=$xoopsCaptcha->getMessage() . '<br>';
             $erreur=true;
         }
@@ -156,7 +156,7 @@ switch ($op) {
             }
             echo $obj->getHtmlErrors();
         }
-        //Affichage du formulaire de notation des téléchargements
+        //Affichage du formulaire de notation des tÃ©lÃ©chargements
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
 

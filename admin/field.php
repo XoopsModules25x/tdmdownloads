@@ -137,7 +137,7 @@ switch ($op) {
             // supression des entrée du champ
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('fid', $_REQUEST['fid']));
-            $downloads_arr = $downloadsfielddata_Handler->getall( $criteria );
+            $downloads_arr = $downloadsfielddata_Handler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 // supression de l'entrée
                 $objdownloadsfielddata = $downloadsfielddata_Handler->get($downloads_arr[$i]->getVar('iddata'));
@@ -179,12 +179,12 @@ switch ($op) {
     // Pour sauver un champ
     case "save_field":
         if (!$GLOBALS['xoopsSecurity']->check()) {
-           redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         if (isset($_REQUEST['fid'])) {
-           $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
+            $obj = $downloadsfield_Handler->get($_REQUEST['fid']);
         } else {
-           $obj = $downloadsfield_Handler->create();
+            $obj = $downloadsfield_Handler->create();
         }
         $erreur = false;
         $message_erreur = '';
@@ -197,7 +197,7 @@ switch ($op) {
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header("javascript:history.go(-1)",3, $errors);
+                redirect_header("javascript:history.go(-1)", 3, $errors);
             } else {
                 $obj->setVar('img', $uploader->getSavedFileName());
             }
@@ -209,7 +209,7 @@ switch ($op) {
         $obj->setVar('weight', $_POST["weight"]);
         $obj->setVar('status', $_POST["status"]);
         $obj->setVar('search', $_POST["search"]);
-        $obj->setVar('status_def',  $_POST["status_def"]);
+        $obj->setVar('status_def', $_POST["status_def"]);
 
         if (intval($_REQUEST['weight'])==0 && $_REQUEST['weight'] != '0') {
             $erreur=true;

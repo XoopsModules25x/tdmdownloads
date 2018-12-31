@@ -31,29 +31,29 @@ switch ($op) {
         }
         $criteria = new CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
-             $criteria->setLimit($_REQUEST['limit']);
-             $limit = $_REQUEST['limit'];
-         } else {
-             $criteria->setLimit($xoopsModuleConfig['perpageadmin']);
-             $limit = $xoopsModuleConfig['perpageadmin'];
-         }
+            $criteria->setLimit($_REQUEST['limit']);
+            $limit = $_REQUEST['limit'];
+        } else {
+            $criteria->setLimit($xoopsModuleConfig['perpageadmin']);
+            $limit = $xoopsModuleConfig['perpageadmin'];
+        }
         if (isset($_REQUEST['start'])) {
             $criteria->setStart($_REQUEST['start']);
             $start = $_REQUEST['start'];
         } else {
             $criteria->setStart(0);
-             $start = 0;
-         }
+            $start = 0;
+        }
         $criteria->setSort('requestid');
         $criteria->setOrder('ASC');
         $downloadsmod_arr = $downloadsmod_Handler->getall($criteria);
         $numrows = $downloadsmod_Handler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
-             $pagenav = $pagenav->renderNav(4);
-         } else {
-             $pagenav = '';
-         }
+            $pagenav = $pagenav->renderNav(4);
+        } else {
+            $pagenav = '';
+        }
         //Affichage du tableau des téléchargements modifiés
         if ($numrows > 0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
@@ -72,16 +72,16 @@ switch ($op) {
                 $downloads_url = $downloads->getVar('url');
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
                 $new_file = ($downloads_url == $moddownloads_url ? false : true);
-                 echo '<tr class="' . $class . '">';
+                echo '<tr class="' . $class . '">';
                 echo '<td align="center">' . $downloads->getVar('title') . '</td>';
                 echo '<td align="center"><b>' . XoopsUser::getUnameFromId($downloadsmod_arr[$i]->getVar('modifysubmitter')) . '</b></td>';
                 echo '<td align="center" width="15%">';
                 echo '<a href="modified.php?op=view_downloads&downloads_lid=' . $downloads_lid . '&mod_id=' . $downloads_requestid . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
                 echo '<a href="modified.php?op=del_moddownloads&mod_id=' . $downloads_requestid . '&new_file=' . $new_file . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
-             }
-             echo '</table><br />';
-             echo '<br /><div align=right>' . $pagenav . '</div><br />';
+            }
+            echo '</table><br />';
+            echo '<br /><div align=right>' . $pagenav . '</div><br />';
         } else {
             echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS . '</div>';
         }
@@ -250,7 +250,7 @@ switch ($op) {
         //permet de savoir si le fichier est nouveau
         $new_file = ($downloads_url == $moddownloads_url ? false : true);
         echo '<table><tr><td>';
-        echo myTextForm('modified.php?op=approve&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file , _AM_TDMDOWNLOADS_FORMAPPROVE);
+        echo myTextForm('modified.php?op=approve&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMAPPROVE);
         echo '</td><td>';
         echo myTextForm('downloads.php?op=edit_downloads&downloads_lid=' . $_REQUEST['downloads_lid'], _AM_TDMDOWNLOADS_FORMEDIT);
         echo '</td><td>';
@@ -266,7 +266,7 @@ switch ($op) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
             if ($_REQUEST['new_file']==true) {
-                $urlfile = substr_replace($obj->getVar('url'),'',0,strlen($uploadurl_downloads));
+                $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
                 // permet de donner le chemin du fichier
                 $urlfile = $uploaddir_downloads . $urlfile;
                 // si le fichier est sur le serveur il es détruit
@@ -278,7 +278,7 @@ switch ($op) {
             // supression des data des champs sup
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-            $downloads_fielddata = $downloadsfieldmoddata_Handler->getall( $criteria );
+            $downloads_fielddata = $downloadsfieldmoddata_Handler->getall($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
                 $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
                 $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -306,7 +306,7 @@ switch ($op) {
         $obj = $downloads_Handler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
         if ($_REQUEST['new_file']==true) {
-            $urlfile = substr_replace($obj->getVar('url'),'',0,strlen($uploadurl_downloads));
+            $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
             // permet de donner le chemin du fichier
             $urlfile = $uploaddir_downloads . $urlfile;
             // si le fichier est sur le serveur il es détruit
@@ -367,7 +367,7 @@ switch ($op) {
         // supression des data des champs sup
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-        $downloads_fielddata = $downloadsfieldmoddata_Handler->getall( $criteria );
+        $downloads_fielddata = $downloadsfieldmoddata_Handler->getall($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
             $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();

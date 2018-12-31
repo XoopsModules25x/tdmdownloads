@@ -46,9 +46,9 @@ function b_tdmdownloads_top_show($options)
 
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
     $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')','IN'));
+    $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
     if (!(count($options) == 1 && $options[0] == 0)) {
-        $criteria->add(new Criteria('cid', '(' . implode(',', $options) . ')','IN'));
+        $criteria->add(new Criteria('cid', '(' . implode(',', $options) . ')', 'IN'));
     }
     $criteria->add(new Criteria('status', 0, '!='));
     switch ($type_block) {    // pour le bloc: dernier fichier
@@ -56,17 +56,17 @@ function b_tdmdownloads_top_show($options)
             $criteria->setSort('date');
             $criteria->setOrder('DESC');
         break;
-        // pour le bloc: plus téléchargé
+        // pour le bloc: plus tÃ©lÃ©chargÃ©
         case "hits":
             $criteria->setSort('hits');
             $criteria->setOrder('DESC');
         break;
-        // pour le bloc: mieux noté
+        // pour le bloc: mieux notÃ©
         case "rating":
             $criteria->setSort('rating');
             $criteria->setOrder('DESC');
         break;
-        // pour le bloc: aléatoire
+        // pour le bloc: alÃ©atoire
         case "random":
             $criteria->setSort('RAND()');
         break;
@@ -75,15 +75,15 @@ function b_tdmdownloads_top_show($options)
     $downloads_arr = $downloads_Handler->getall($criteria);
     foreach (array_keys($downloads_arr) as $i) {
         $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
-        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'),0,($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
+        $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title))."..." : $downloads_arr[$i]->getVar('title');
         $description_short = '';
         if ($use_description == true) {
             $description = $downloads_arr[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
-            if (strpos($description,'[pagebreak]')==false) {
+            if (strpos($description, '[pagebreak]')==false) {
                 $description_short = substr($description, 0, $lenght_description) . ' ...';
             } else {
-                $description_short = substr($description, 0, strpos($description,'[pagebreak]')) . ' ...';
+                $description_short = substr($description, 0, strpos($description, '[pagebreak]')) . ' ...';
             }
         }
         $block[$i]['description'] = $description_short;
@@ -99,11 +99,10 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['logourl_class'] = $logo_float;
         $block[$i]['logourl_width'] = $logo_white;
         $block[$i]['hits'] = $downloads_arr[$i]->getVar("hits");
-        $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar("rating"),1);
-        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar("date"),"s");
+        $block[$i]['rating'] = number_format($downloads_arr[$i]->getVar("rating"), 1);
+        $block[$i]['date'] = formatTimeStamp($downloads_arr[$i]->getVar("date"), "s");
         $block[$i]['submitter'] = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $block[$i]['inforation'] = $show_inforation;
-
     }
 
     return $block;
@@ -149,7 +148,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_INFORMATIONS . " : <input name=\"options[5]\" value=\"1\" type=\"radio\" " . $checked_yes . "/>" . _YES . "&nbsp;\n";
     $form .= "<input name=\"options[5]\" value=\"0\" type=\"radio\" " . $checked_no . "/>" . _NO . "<br /><br />\n";
-    $floatelect = new XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]',$options[6]);
+    $floatelect = new XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]', $options[6]);
     $floatelect->addOption("left", _MB_TDMDOWNLOADS_FLOAT_LEFT);
     $floatelect->addOption("right", _MB_TDMDOWNLOADS_FLOAT_RIGHT);
     $form .= _MB_TDMDOWNLOADS_FLOAT." : ".$floatelect->render().'<br />';

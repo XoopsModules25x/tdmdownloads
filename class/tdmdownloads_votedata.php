@@ -20,15 +20,15 @@ if (!defined("XOOPS_ROOT_PATH")) {
 
 class TDMDownloads_votedata extends XoopsObject
 {
-// constructor
+    // constructor
     public function __construct()
     {
-        $this->initVar("ratingid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("ratinguser",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("rating",XOBJ_DTYPE_OTHER,null,false,3);
-        $this->initVar("ratinghostname",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("ratingtimestamp",XOBJ_DTYPE_INT,null,false,10);
+        $this->initVar("ratingid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("ratinguser", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("rating", XOBJ_DTYPE_OTHER, null, false, 3);
+        $this->initVar("ratinghostname", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("ratingtimestamp", XOBJ_DTYPE_INT, null, false, 10);
     }
     public function TDMDownloads_votedata()
     {
@@ -56,7 +56,7 @@ class TDMDownloads_votedata extends XoopsObject
         $form->addElement(new XoopsFormHidden('op', 'save'));
         $form->addElement(new XoopsFormHidden('lid', $lid));
         // Submit button
-        $button_tray = new XoopsFormElementTray('' ,'');
+        $button_tray = new XoopsFormElementTray('', '');
         $button_tray->addElement(new XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_RATEFILE_RATE, 'submit'));
         $form->addElement($button_tray);
 

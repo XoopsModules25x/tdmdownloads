@@ -21,7 +21,7 @@
 //**********************************************************************************************************************
 function TDMDownloads_checkModuleAdmin()
 {
-    if ( file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))) {
+    if (file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))) {
         include_once $GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php');
 
         return true;
@@ -32,27 +32,27 @@ function TDMDownloads_checkModuleAdmin()
     }
 }
 
-function TDMDownloads_MygetItemIds($permtype,$dirname)
+function TDMDownloads_MygetItemIds($permtype, $dirname)
 {
     global $xoopsUser;
     static $permissions = array();
     if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
         return $permissions[$permtype];
     }
-       $module_handler = xoops_gethandler('module');
-       $tdmModule = $module_handler->getByDirname($dirname);
-       $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-       $gperm_handler = xoops_gethandler('groupperm');
-       $categories = $gperm_handler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
+    $module_handler = xoops_gethandler('module');
+    $tdmModule = $module_handler->getByDirname($dirname);
+    $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+    $gperm_handler = xoops_gethandler('groupperm');
+    $categories = $gperm_handler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
 
     return $categories;
 }
 
 /**
-* retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
+* retourne le nombre de tÃ©lÃ©chargements dans le catÃ©gories enfants d'une catÃ©gorie
 **/
 
-function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries,$cid)
+function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries, $cid)
 {
     $count = 0;
     $child_arr = array();
@@ -74,7 +74,7 @@ function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries,$cid)
 }
 
 /**
-* retourne une image "nouveau" ou "mise à jour"
+* retourne une image "nouveau" ou "mise Ã  jour"
 **/
 
 function TDMDownloads_Thumbnail($time, $status)
@@ -86,24 +86,23 @@ function TDMDownloads_Thumbnail($time, $status)
     if ($xoopsModuleConfig['showupdated'] == 1) {
         if ($startdate < $time) {
             $language = $GLOBALS['xoopsConfig']['language'];
-            if ( !is_dir( XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/" ) ) {
+            if (!is_dir(XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/")) {
                 $language = 'english';
             }
             $img_path = XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/";
             $img_url = XOOPS_URL . "/modules/TDMDownloads/language/" . $language . "/";
             if ($status==1) {
-                if ( is_readable( $img_path . 'new.png') ) {
+                if (is_readable($img_path . 'new.png')) {
                     $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '"/>';
                 } else {
                     $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '"/>';
                 }
             } elseif ($status==2) {
-                if ( is_readable( $img_path . 'updated.png') ) {
+                if (is_readable($img_path . 'updated.png')) {
                     $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '"/>';
                 } else {
                     $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '"/>';
                 }
-
             }
         }
     }
@@ -121,12 +120,12 @@ function TDMDownloads_Popular($hits)
     $pop = '';
     if ($hits >= $xoopsModuleConfig['popular']) {
         $language = $GLOBALS['xoopsConfig']['language'];
-        if ( !is_dir( XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/" ) ) {
+        if (!is_dir(XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/")) {
             $language = 'english';
         }
         $img_path = XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/";
         $img_url = XOOPS_URL . "/modules/TDMDownloads/language/" . $language . "/";
-        if ( is_readable( $img_path . 'popular.png') ) {
+        if (is_readable($img_path . 'popular.png')) {
             $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '"/>';
         } else {
             $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/TDMDownloads/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '"/>';
@@ -141,11 +140,11 @@ function trans_size($size)
     if ($size>0) {
         $mb = 1024*1024;
         if ($size > $mb) {
-            $mysize = sprintf ("%01.2f",$size/$mb) . " MB";
+            $mysize = sprintf("%01.2f", $size/$mb) . " MB";
         } elseif ($size >= 1024) {
-            $mysize = sprintf ("%01.2f",$size/1024) . " KB";
+            $mysize = sprintf("%01.2f", $size/1024) . " KB";
         } else {
-            $mysize = sprintf(_AM_TDMDOWNLOADS_NUMBYTES,$size);
+            $mysize = sprintf(_AM_TDMDOWNLOADS_NUMBYTES, $size);
         }
 
         return $mysize;
@@ -154,14 +153,14 @@ function trans_size($size)
     }
 }
 
-function TDMDownloads_CleanVars( &$global, $key, $default = '', $type = 'int' )
+function TDMDownloads_CleanVars(&$global, $key, $default = '', $type = 'int')
 {
     switch ($type) {
         case 'string':
-            $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_MAGIC_QUOTES ) : $default;
+            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
             break;
         case 'int': default:
-            $ret = ( isset( $global[$key] ) ) ? filter_var( $global[$key], FILTER_SANITIZE_NUMBER_INT ) : $default;
+            $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
             break;
     }
     if ($ret === false) {
@@ -171,7 +170,7 @@ function TDMDownloads_CleanVars( &$global, $key, $default = '', $type = 'int' )
     return $ret;
 }
 
-function TDMDownloads_PathTree($mytree, $key, $category_array, $title, $prefix = '' )
+function TDMDownloads_PathTree($mytree, $key, $category_array, $title, $prefix = '')
 {
     $category_parent = $mytree->getAllParent($key);
     $category_parent = array_reverse($category_parent);

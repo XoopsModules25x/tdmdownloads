@@ -18,7 +18,7 @@ include_once 'header.php';
 // template d'affichage
 $xoopsOption['template_main'] = 'tdmdownloads_modfile.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
-$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
@@ -54,7 +54,7 @@ switch ($op) {
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
+        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscat_arr = $downloadscat_Handler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
@@ -68,7 +68,7 @@ switch ($op) {
         $pagetitle .= TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' - ', false, 'DESC', true);
         $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
         //description
-        $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $view_downloads->getVar('title') . ')'));
+        $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $view_downloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
         $obj = $downloadsmod_Handler->create();
@@ -95,8 +95,8 @@ switch ($op) {
         $donnee['size'] = $_POST["size"];
         $donnee['type_size'] = $_POST['type_size'];
         if (isset($_POST['platform'])) {
-            $obj->setVar('platform', implode('|',$_POST['platform']));
-            $donnee['platform'] = implode('|',$_POST["platform"]);
+            $obj->setVar('platform', implode('|', $_POST['platform']));
+            $donnee['platform'] = implode('|', $_POST["platform"]);
         } else {
             $donnee['platform'] = '';
         }
@@ -123,7 +123,7 @@ switch ($op) {
         // erreur si le captcha est faux
         xoops_load("captcha");
         $xoopsCaptcha = XoopsCaptcha::getInstance();
-        if ( !$xoopsCaptcha->verify() ) {
+        if (!$xoopsCaptcha->verify()) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
             $erreur=true;
         }
@@ -144,7 +144,7 @@ switch ($op) {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
-                $uploader = new XoopsMediaUploader($uploaddir_downloads, explode('|',$xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader = new XoopsMediaUploader($uploaddir_downloads, explode('|', $xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($xoopsModuleConfig['newnamedownload']) {
                         $uploader->setPrefix($xoopsModuleConfig['prefixdownloads']) ;
@@ -152,7 +152,7 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errors = $uploader->getErrors();
-                        redirect_header("javascript:history.go(-1)",3, $errors);
+                        redirect_header("javascript:history.go(-1)", 3, $errors);
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
@@ -168,7 +168,7 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errors = $uploader_2->getErrors();
-                        redirect_header("javascript:history.go(-1)",3, $errors);
+                        redirect_header("javascript:history.go(-1)", 3, $errors);
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }

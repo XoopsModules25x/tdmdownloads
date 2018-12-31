@@ -20,34 +20,34 @@ if (!defined("XOOPS_ROOT_PATH")) {
 
 class TDMDownloads_downloads extends XoopsObject
 {
-// constructor
+    // constructor
     public function __construct()
     {
-        $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("cid",XOBJ_DTYPE_INT,null,false,5);
-        $this->initVar("title",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("url",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("homepage",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("version",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("size",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("platform",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("description",XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("cid", XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar("title", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("url", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("homepage", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("version", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("size", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("platform", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("description", XOBJ_DTYPE_TXTAREA, null, false);
         // Pour autoriser le html
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
-        $this->initVar("logourl",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("submitter",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("status",XOBJ_DTYPE_INT,null,false,2);
-        $this->initVar("date",XOBJ_DTYPE_INT,null,false,10);
-        $this->initVar("hits",XOBJ_DTYPE_INT,null,false,10);
-        $this->initVar("rating",XOBJ_DTYPE_OTHER,null,false,10);
-        $this->initVar("votes",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("comments",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("top",XOBJ_DTYPE_INT,null,false,2);
-        $this->initVar("paypal",XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("logourl", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("submitter", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("status", XOBJ_DTYPE_INT, null, false, 2);
+        $this->initVar("date", XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar("hits", XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar("rating", XOBJ_DTYPE_OTHER, null, false, 10);
+        $this->initVar("votes", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("comments", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("top", XOBJ_DTYPE_INT, null, false, 2);
+        $this->initVar("paypal", XOBJ_DTYPE_TXTBOX, null, false);
 
         //pour les jointures:
-        $this->initVar("cat_title",XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar("cat_imgurl",XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("cat_title", XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar("cat_imgurl", XOBJ_DTYPE_TXTBOX, null, false);
     }
     public function get_new_enreg()
     {
@@ -70,7 +70,7 @@ class TDMDownloads_downloads extends XoopsObject
         $gperm_handler = xoops_gethandler('groupperm');
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($xoopsUser) {
-            if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
+            if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
                 $perm_upload = ($gperm_handler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
             } else {
                 $perm_upload = true;
@@ -81,37 +81,37 @@ class TDMDownloads_downloads extends XoopsObject
         //nom du formulaire selon l'action (editer ou ajouter):
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
 
-        //création du formulaire
+        //crÃ©ation du formulaire
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         //titre
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
         // fichier
-        $fichier = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMFILE,'<br /><br />');
+        $fichier = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMFILE, '<br /><br />');
         $url = $this->isNew() ? 'http://' : $this->getVar('url');
         $formurl = new XoopsFormText(_AM_TDMDOWNLOADS_FORMURL, 'url', 75, 255, $url);
-        $fichier->addElement($formurl,false);
+        $fichier->addElement($formurl, false);
         if ($perm_upload == true) {
-            $fichier->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD , 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+            $fichier->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
         }
         $form->addElement($fichier);
 
-        //catégorie
+        //catÃ©gorie
         $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_submit', 'TDMDownloads');
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         if ($xoopsUser) {
-            if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-                $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
+            if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
+                $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
             }
         } else {
-            $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
+            $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
         $downloadscat_arr = $downloadscat_Handler->getall($criteria);
         if (count($downloadscat_arr) == 0) {
-            redirect_header('index.php', 2,  _NOPERM);
+            redirect_header('index.php', 2, _NOPERM);
         }
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cid', 'cat_title', '--', $this->getVar('cid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
@@ -159,14 +159,13 @@ class TDMDownloads_downloads extends XoopsObject
                                 $type_value = $donnee['type_size'];
                             }
                         }
-                        $aff_size = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE,'');
+                        $aff_size = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
                         $aff_size->addElement(new XoopsFormText('', 'size', 10, 255, $size_value));
                         $type = new XoopsFormSelect('', 'type_size', $type_value);
                         $type_arr = array(_AM_TDMDOWNLOADS_BYTES => '['._AM_TDMDOWNLOADS_BYTES.']', _AM_TDMDOWNLOADS_KBYTES => '['._AM_TDMDOWNLOADS_KBYTES.']', _AM_TDMDOWNLOADS_MBYTES => '['._AM_TDMDOWNLOADS_MBYTES.']', _AM_TDMDOWNLOADS_GBYTES => '['._AM_TDMDOWNLOADS_GBYTES.']', _AM_TDMDOWNLOADS_TBYTES => '['._AM_TDMDOWNLOADS_TBYTES.']');
                         $type->addOptionArray($type_arr);
                         $aff_size->addElement($type);
                         $form->addElement($aff_size);
-
                     } else {
                         $form->addElement(new XoopsFormHidden('size', ''));
                         $form->addElement(new XoopsFormHidden('type_size', ''));
@@ -175,8 +174,8 @@ class TDMDownloads_downloads extends XoopsObject
                 if ($downloads_field[$i]->getVar('fid') == 4) {
                     //plateforme
                     if ($downloads_field[$i]->getVar('status') == 1) {
-                        $platformselect = new XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|',$this->getVar('platform')), 5, true);
-                        $platform_array = explode('|',$xoopsModuleConfig['platform']);
+                        $platformselect = new XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|', $this->getVar('platform')), 5, true);
+                        $platform_array = explode('|', $xoopsModuleConfig['platform']);
                         foreach ($platform_array as $platform) {
                             $platformselect->addOption("$platform", $platform);
                         }
@@ -224,12 +223,12 @@ class TDMDownloads_downloads extends XoopsObject
         $editor_configs["width"] = "100%";
         $editor_configs["height"] = "400px";
         $editor_configs["editor"] = $xoopsModuleConfig['editor'];
-        $form->addElement( new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, "description", $editor_configs), true);
+        $form->addElement(new XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, "description", $editor_configs), true);
         //tag
         if (is_dir('../../tag') || is_dir('../tag')) {
-            $dir_tag_ok = True;
+            $dir_tag_ok = true;
         } else {
-           $dir_tag_ok = False;
+            $dir_tag_ok = false;
         }
         if (($xoopsModuleConfig['usetag'] == 1) and $dir_tag_ok) {
             $tagId = $this->isNew() ? 0 : $this->getVar('lid');
@@ -248,27 +247,27 @@ class TDMDownloads_downloads extends XoopsObject
                 $downloadscat_img = 'blank.gif';
             }
             $uploadirectory='/uploads/TDMDownloads/images/shots';
-            $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG,'<br />');
-            $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory );
-            $imageselect= new XoopsFormSelect($imgpath, 'logo_img',$downloadscat_img);
-            $topics_array = XoopsLists :: getImgListAsArray( XOOPS_ROOT_PATH . $uploadirectory );
+            $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br />');
+            $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+            $imageselect= new XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
+            $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
                 $imageselect->addOption("$image", $image);
             }
-            $imageselect->setExtra( "onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'" );
-            $imgtray->addElement($imageselect,false);
-            $imgtray -> addElement( new XoopsFormLabel( '', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadscat_img . "' name='image3' id='image3' alt='' />" ) );
-            $fileseltray= new XoopsFormElementTray('','<br />');
+            $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
+            $imgtray->addElement($imageselect, false);
+            $imgtray -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadscat_img . "' name='image3' id='image3' alt='' />"));
+            $fileseltray= new XoopsFormElementTray('', '<br />');
             if ($perm_upload == true) {
-                $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD , 'attachedimage', $xoopsModuleConfig['maxuploadsize']), false);
+                $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedimage', $xoopsModuleConfig['maxuploadsize']), false);
             }
             $imgtray->addElement($fileseltray);
             $form->addElement($imgtray);
         }
-        // pour changer de poster et pour ne pas mettre à jour la date:
+        // pour changer de poster et pour ne pas mettre Ã  jour la date:
 
         if ($xoopsUser) {
-            if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) {
+            if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 // auteur
                 if ($this->isNew()) {
                     $submitter = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
@@ -291,7 +290,7 @@ class TDMDownloads_downloads extends XoopsObject
                 if (!$this->isNew()) {
                     $selection_date = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMDATEUPDATE);
                     $date = new XoopsFormRadio('', 'date_update', $date_update);
-                    $options = array('N' =>_AM_TDMDOWNLOADS_FORMDATEUPDATE_NO . ' (' . formatTimestamp($v_date,'s') . ')', 'Y' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_YES);
+                    $options = array('N' =>_AM_TDMDOWNLOADS_FORMDATEUPDATE_NO . ' (' . formatTimestamp($v_date, 's') . ')', 'Y' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_YES);
                     $date->addOptionArray($options);
                     $selection_date->addElement($date);
                     $selection_date->addElement(new XoopsFormTextDateSelect('', 'date', '', time()));
@@ -300,7 +299,7 @@ class TDMDownloads_downloads extends XoopsObject
                 $status = new XoopsFormCheckBox(_AM_TDMDOWNLOADS_FORMSTATUS, 'status', $v_status);
                 $status->addOption(1, _AM_TDMDOWNLOADS_FORMSTATUS_OK);
                 $form->addElement($status);
-                //permissions pour télécharger
+                //permissions pour tÃ©lÃ©charger
                 if ($xoopsModuleConfig['permission_download'] == 2) {
                     $member_handler =  xoops_gethandler('member');
                     $group_list = $member_handler->getGroupList();
@@ -327,7 +326,7 @@ class TDMDownloads_downloads extends XoopsObject
         }
         // captcha
         $form->addElement(new XoopsFormCaptcha(), true);
-        // pour passer "lid" si on modifie la catégorie
+        // pour passer "lid" si on modifie la catÃ©gorie
         if (!$this->isNew()) {
             $form->addElement(new XoopsFormHidden('lid', $this->getVar('lid')));
             $form->addElement(new XoopsFormHidden('downloads_modified', true));

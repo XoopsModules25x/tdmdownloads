@@ -14,9 +14,9 @@
  * @author      Gregory Mage (Aka Mage)
  */
 // xoops >2.5.9
-class TDMObjectTree extends XoopsObjectTree {
-	
-	protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
+class TDMObjectTree extends XoopsObjectTree
+{
+    protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
             $value = $this->tree[$key]['obj']->getVar($this->myId);
@@ -29,9 +29,10 @@ class TDMObjectTree extends XoopsObjectTree {
             }
         }
     }
-	
-	public function makeArrayTree($fieldName, $prefix = '-', $key = 0) {
-		$ret = array();
+    
+    public function makeArrayTree($fieldName, $prefix = '-', $key = 0)
+    {
+        $ret = array();
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;
@@ -39,7 +40,7 @@ class TDMObjectTree extends XoopsObjectTree {
 }
 /* xoops 2.5.8
 class TDMObjectTree extends XoopsObjectTree {
-    
+
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
@@ -53,7 +54,7 @@ class TDMObjectTree extends XoopsObjectTree {
             }
         }
     }
-    
+
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0) {
         $ret = array();
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);

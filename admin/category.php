@@ -47,7 +47,7 @@ switch ($op) {
             $class = 'odd';
             include_once XOOPS_ROOT_PATH."/modules/TDMDownloads/class/tree.php";
             $mytree = new TDMObjectTree($downloads_cat, 'cat_cid', 'cat_pid');
-			$category_ArrayTree = $mytree->makeArrayTree('cat_title','<img src="../images/deco/arrow.gif">');
+            $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../images/deco/arrow.gif">');
             foreach (array_keys($category_ArrayTree) as $i) {
                 echo '<tr class="'.$class.'">';
                 echo '<td align="left" ><a href="' . XOOPS_URL . '/modules/TDMDownloads/viewcat.php?cid=' . $i . '">' . $category_ArrayTree[$i] . '</a></td>';
@@ -129,13 +129,13 @@ switch ($op) {
                 $downloads_broken = $downloadsbroken_Handler->getall($criteria_2);
                 foreach (array_keys($downloads_broken) as $j) {
                     $objbroken = $downloadsbroken_Handler->get($downloads_broken[$j]->getVar('reportid'));
-                    $downloadsbroken_Handler->delete($objbroken ) or $objbroken ->getHtmlErrors();
+                    $downloadsbroken_Handler->delete($objbroken) or $objbroken ->getHtmlErrors();
                 }
                 // supression des data des champs sup.
                 $criteria_3 = new CriteriaCompo();
                 $criteria_3->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
                 $downloads_fielddata = $downloadsfielddata_Handler->getall($criteria_3);
-                if ($downloadsfielddata_Handler->getCount( $criteria_3 ) > 0) {
+                if ($downloadsfielddata_Handler->getCount($criteria_3) > 0) {
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $downloadsfielddata_Handler->get($downloads_fielddata[$j]->getVar('iddata'));
                         $downloadsfielddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -150,7 +150,7 @@ switch ($op) {
                     $tag_handler = xoops_getmodulehandler('link', 'tag');
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_tags = $tag_handler->getall( $criteria );
+                    $downloads_tags = $tag_handler->getall($criteria);
                     if (count($downloads_tags) > 0) {
                         foreach (array_keys($downloads_tags) as $j) {
                             $objtags = $tag_handler->get($downloads_tags[$j]->getVar('tl_id'));
@@ -160,7 +160,7 @@ switch ($op) {
                 }
                 // supression du fichier
                 // pour extraire le nom du fichier
-                $urlfile = substr_replace($downloads_arr[$i]->getVar('url'),'',0,strlen($uploadurl_downloads));
+                $urlfile = substr_replace($downloads_arr[$i]->getVar('url'), '', 0, strlen($uploadurl_downloads));
                 // chemin du fichier
                 $urlfile = $uploaddir_downloads . $urlfile;
                 if (is_file($urlfile)) {
@@ -182,12 +182,12 @@ switch ($op) {
                 // supression des téléchargements associés
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                $downloads_arr = $downloads_Handler->getall( $criteria );
+                $downloads_arr = $downloads_Handler->getall($criteria);
                 foreach (array_keys($downloads_arr) as $i) {
                     // supression des votes
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_votedata = $downloadsvotedata_Handler->getall( $criteria );
+                    $downloads_votedata = $downloadsvotedata_Handler->getall($criteria);
                     foreach (array_keys($downloads_votedata) as $j) {
                         $objvotedata = $downloadsvotedata_Handler->get($downloads_votedata[$j]->getVar('ratingid'));
                         $downloadsvotedata_Handler->delete($objvotedata) or $objvotedata->getHtmlErrors();
@@ -195,15 +195,15 @@ switch ($op) {
                     // supression des rapports de fichier brisé
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_broken = $downloadsbroken_Handler->getall( $criteria );
+                    $downloads_broken = $downloadsbroken_Handler->getall($criteria);
                     foreach (array_keys($downloads_broken) as $j) {
                         $objbroken = $downloadsbroken_Handler->get($downloads_broken[$j]->getVar('reportid'));
-                        $downloadsbroken_Handler->delete($objbroken ) or $objbroken ->getHtmlErrors();
+                        $downloadsbroken_Handler->delete($objbroken) or $objbroken ->getHtmlErrors();
                     }
                     // supression des data des champs sup.
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_fielddata = $downloadsfielddata_Handler->getall( $criteria );
+                    $downloads_fielddata = $downloadsfielddata_Handler->getall($criteria);
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $downloadsfielddata_Handler->get($downloads_fielddata[$j]->getVar('iddata'));
                         $downloadsfielddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
@@ -217,7 +217,7 @@ switch ($op) {
                         $tag_handler = xoops_getmodulehandler('link', 'tag');
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
-                        $downloads_tags = $tag_handler->getall( $criteria );
+                        $downloads_tags = $tag_handler->getall($criteria);
                         if (count($downloads_tags) > 0) {
                             foreach (array_keys($downloads_tags) as $j) {
                                 $objtags = $tag_handler->get($downloads_tags[$j]->getVar('tl_id'));
@@ -226,7 +226,7 @@ switch ($op) {
                         }
                     }
                     // supression du fichier
-                    $urlfile = substr_replace($downloads_arr[$i]->getVar('url'),'',0,strlen($uploadurl_downloads)); // pour extraire le nom du fichier
+                    $urlfile = substr_replace($downloads_arr[$i]->getVar('url'), '', 0, strlen($uploadurl_downloads)); // pour extraire le nom du fichier
                     $urlfile = $uploaddir_downloads . $urlfile; // chemin du fichier
                     if (is_file($urlfile)) {
                         chmod($urlfile, 0777);
@@ -246,7 +246,7 @@ switch ($op) {
             $message = '';
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('cid', $downloadscat_cid));
-            $downloads_arr = $downloads_Handler->getall( $criteria );
+            $downloads_arr = $downloads_Handler->getall($criteria);
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {
@@ -262,7 +262,7 @@ switch ($op) {
                     $message .= '<b><span style="color : Red">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                    $downloads_arr = $downloads_Handler->getall( $criteria );
+                    $downloads_arr = $downloads_Handler->getall($criteria);
                     if (count($downloads_arr) > 0) {
                         $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                         foreach (array_keys($downloads_arr) as $i) {
@@ -289,13 +289,13 @@ switch ($op) {
     // Pour sauver une catégorie
     case "save_cat":
         if (!$GLOBALS['xoopsSecurity']->check()) {
-           redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
+            redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         $cat_cid = TDMDownloads_CleanVars($_REQUEST, 'cat_cid', 0, 'int');
         if (isset($_REQUEST['cat_cid'])) {
-           $obj = $downloadscat_Handler->get($cat_cid);
+            $obj = $downloadscat_Handler->get($cat_cid);
         } else {
-           $obj = $downloadscat_Handler->create();
+            $obj = $downloadscat_Handler->create();
         }
         $erreur = false;
         $message_erreur = '';
@@ -308,7 +308,7 @@ switch ($op) {
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
-                redirect_header("javascript:history.go(-1)",3, $errors);
+                redirect_header("javascript:history.go(-1)", 3, $errors);
             } else {
                 $obj->setVar('cat_imgurl', $uploader->getSavedFileName());
             }
@@ -340,7 +340,7 @@ switch ($op) {
                 $gperm_handler = xoops_gethandler('groupperm');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
-                $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'),'='));
+                $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new Criteria('gperm_name', 'tdmdownloads_view', '='));
                 $gperm_handler->deleteAll($criteria);
                 if (isset($_POST['groups_view'])) {
@@ -353,7 +353,7 @@ switch ($op) {
                 $gperm_handler = xoops_gethandler('groupperm');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
-                $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'),'='));
+                $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new Criteria('gperm_name', 'tdmdownloads_submit', '='));
                 $gperm_handler->deleteAll($criteria);
                 if (isset($_POST['groups_submit'])) {
@@ -367,7 +367,7 @@ switch ($op) {
                     $gperm_handler = xoops_gethandler('groupperm');
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
-                    $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'),'='));
+                    $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                     $criteria->add(new Criteria('gperm_name', 'tdmdownloads_download', '='));
                     $gperm_handler->deleteAll($criteria);
                     if (isset($_POST['groups_download'])) {

@@ -81,7 +81,7 @@ switch ($permission) {
 $permissionsForm = new XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
 if ($permission == 4) {
     foreach ($global_perms_array as $perm_id => $permissionName) {
-        $permissionsForm->addItem($perm_id , $permissionName) ;
+        $permissionsForm->addItem($perm_id, $permissionName) ;
     }
 } else {
     if ($xoopsModuleConfig['permission_download'] == 2 && $permission == 3) {
@@ -110,6 +110,6 @@ if ($downloadscat_Handler->getCount()) {
 }
 
 echo "<br /><br /><br /><br />\n";
-unset ($permissionsForm);
+unset($permissionsForm);
 
 xoops_cp_footer();

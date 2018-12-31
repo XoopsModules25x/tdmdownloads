@@ -43,7 +43,7 @@ $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, "search", "search.php", 'pos
 $form->setExtra('enctype="multipart/form-data"');
 //recherche par titre
 $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, $title));
-//recherche par catégorie
+//recherche par catÃ©gorie
 $criteria = new CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
@@ -119,7 +119,6 @@ foreach (array_keys($downloads_field) as $i) {
                 $criteria_2->add(new Criteria($nom_champ_base, $champ_contenu[$downloads_field[$i]->getVar('fid')]));
             }
         }
-
     } else {
         $title_sup = $downloads_field[$i]->getVar('title');
         $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -136,7 +135,6 @@ foreach (array_keys($downloads_field) as $i) {
             foreach (array_keys($data_arr) as $k) {
                 $lid_arr[] = $data_arr[$k]->getVar('lid');
             }
-
         }
         $form->addElement($select_sup);
     }
@@ -147,7 +145,7 @@ foreach (array_keys($downloads_field) as $i) {
     $select_sup->addOption(999, _MD_TDMDOWNLOADS_SEARCH_ALL1);
     $select_sup->addOptionArray($contenu_arr);
     $form->addElement($select_sup);
-    unset ($select_sup);
+    unset($select_sup);
     $xoopsTpl->append('field', $downloads_field[$i]->getVar('title'));
 }
 
@@ -258,14 +256,13 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
         }
         $tdmdownloads_tab['fielddata'][$j] = $contenu;
         unset($contenu);
-
     }
     $xoopsTpl->append('downloads', $tdmdownloads_tab);
-	
+    
     $keywords .= $tdmdownloads_arr[$i]->getVar('title') . ',';
 }
 $xoopsTpl->assign('searchForm', $form->render());
-// référencement
+// rÃ©fÃ©rencement
 // titre de la page
 $titre = _MD_TDMDOWNLOADS_SEARCH_PAGETITLE . ' - ' . $xoopsModule->name();
 $xoopsTpl->assign('xoops_pagetitle', $titre);

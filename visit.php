@@ -19,7 +19,7 @@ include 'header.php';
 
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
-// redirection si le téléchargement n'existe pas
+// redirection si le tÃ©lÃ©chargement n'existe pas
 $view_downloads = $downloads_Handler->get($lid);
 if (count($view_downloads) == 0) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
@@ -31,7 +31,7 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
     exit();
 }
-//redirection si pas de permission (télécharger)
+//redirection si pas de permission (tÃ©lÃ©charger)
 if ($xoopsModuleConfig['permission_download'] == 2) {
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     if (!in_array($view_downloads->getVar('lid'), $item)) {
@@ -53,12 +53,12 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
     if ($limitlid > 0) {
         $criteria = new CriteriaCompo();
         if ($xoopsUser) {
-            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid') , '='));
+            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
             $criteria->add(new Criteria('downlimit_hostname', getenv("REMOTE_ADDR"), '='));
         }
-        $criteria->add(new Criteria('downlimit_lid', $lid , '='));
-        $criteria->add(new Criteria('downlimit_date', $yesterday , '>'));
+        $criteria->add(new Criteria('downlimit_lid', $lid, '='));
+        $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimit_Handler->getCount($criteria);
         if ($numrows >= $limitlid) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
@@ -68,11 +68,11 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
     if ($limitglobal > 0) {
         $criteria = new CriteriaCompo();
         if ($xoopsUser) {
-            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid') , '='));
+            $criteria->add(new Criteria('downlimit_uid', $xoopsUser->getVar('uid'), '='));
         } else {
             $criteria->add(new Criteria('downlimit_hostname', getenv("REMOTE_ADDR"), '='));
         }
-        $criteria->add(new Criteria('downlimit_date', $yesterday , '>'));
+        $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimit_Handler->getCount($criteria);
         if ($numrows >= $limitglobal) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
@@ -88,9 +88,9 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
     $downloadslimit_Handler->insert($obj) or $obj->getHtmlErrors();
     // purge
     $criteria = new CriteriaCompo();
-    $criteria->add(new Criteria('downlimit_date', (time() - 172800) , '<'));
+    $criteria->add(new Criteria('downlimit_date', (time() - 172800), '<'));
     $numrows = $downloadslimit_Handler->getCount($criteria);
-    echo 'a détruire: ' . $numrows . '<br/>';
+    echo 'a dÃ©truire: ' . $numrows . '<br/>';
     $downloadslimit_Handler->deleteAll($criteria);
 }
 
@@ -101,7 +101,7 @@ if ($xoopsModuleConfig['check_host']) {
     $referer       = parse_url(xoops_getenv('HTTP_REFERER'));
     $referer_host  = $referer['host'];
     foreach ($xoopsModuleConfig['referers'] as $ref) {
-        if ( !empty($ref) && preg_match("/".$ref."/i", $referer_host) ) {
+        if (!empty($ref) && preg_match("/".$ref."/i", $referer_host)) {
             $goodhost = "1";
             break;
         }

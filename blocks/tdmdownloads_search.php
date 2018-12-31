@@ -37,14 +37,14 @@ function b_tdmdownloads_search_show()
     $form->setExtra('enctype="multipart/form-data"');
     //recherche par titre
     $form->addElement(new XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, ''));
-    //recherche par catégorie
+    //recherche par catÃ©gorie
     $criteria = new CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
-    $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
+    $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
     $downloadscat_arr = $downloadscat_Handler->getall($criteria);
     $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
-	$form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
+    $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
     $downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
     $criteria = new CriteriaCompo();
@@ -83,13 +83,13 @@ function b_tdmdownloads_search_show()
             if ($downloads_field[$i]->getVar('fid') == 4) {
                 //platform
                 $title_sup = _AM_TDMDOWNLOADS_FORMPLATFORM;
-                $platform_array = explode('|',xoops_getModuleOption('platform', 'TDMDownloads'));
+                $platform_array = explode('|', xoops_getModuleOption('platform', 'TDMDownloads'));
                 foreach ($platform_array as $platform) {
                     $contenu_arr[$platform] = $platform;
                 }
             } else {
                 $criteria->setOrder('ASC');
-                $tdmdownloads_arr = $downloads_Handler->getall( $criteria );
+                $tdmdownloads_arr = $downloads_Handler->getall($criteria);
                 foreach (array_keys($tdmdownloads_arr) as $j) {
                     $contenu_arr[$tdmdownloads_arr[$j]->getVar($nom_champ_base)] = $tdmdownloads_arr[$j]->getVar($nom_champ_base);
                 }
@@ -99,7 +99,7 @@ function b_tdmdownloads_search_show()
             $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
             $criteria->setSort('data');
             $criteria->setOrder('ASC');
-            $tdmdownloads_arr = $downloadsfielddata_Handler->getall( $criteria );
+            $tdmdownloads_arr = $downloadsfielddata_Handler->getall($criteria);
             foreach (array_keys($tdmdownloads_arr) as $j) {
                 $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');
             }
@@ -110,18 +110,17 @@ function b_tdmdownloads_search_show()
                 foreach (array_keys($data_arr) as $k) {
                     $lid_arr[] = $data_arr[$k]->getVar('lid');
                 }
-
             }
             $form->addElement($select_sup);
         }
         $select_sup = new XoopsFormSelect($title_sup, $nom_champ, $champ_contenu[$downloads_field[$i]->getVar('fid')]);
-        $select_sup->addOption(999,_MD_TDMDOWNLOADS_SEARCH_ALL1);
+        $select_sup->addOption(999, _MD_TDMDOWNLOADS_SEARCH_ALL1);
         $select_sup->addOptionArray($contenu_arr);
         $form->addElement($select_sup);
-        unset ($select_sup);
+        unset($select_sup);
     }
     //bouton validation
-    $button_tray = new XoopsFormElementTray('' ,'');
+    $button_tray = new XoopsFormElementTray('', '');
     $button_tray->addElement(new XoopsFormButton('', 'submit', _MD_TDMDOWNLOADS_SEARCH_BT, 'submit'));
     $form->addElement($button_tray);
     $block['form'] = $form->render();

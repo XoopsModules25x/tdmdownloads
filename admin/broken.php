@@ -31,19 +31,19 @@ switch ($op) {
         }
         $criteria = new CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
-             $criteria->setLimit($_REQUEST['limit']);
-             $limit = $_REQUEST['limit'];
-         } else {
-             $criteria->setLimit($xoopsModuleConfig['perpageadmin']);
-             $limit = $xoopsModuleConfig['perpageadmin'];
-         }
+            $criteria->setLimit($_REQUEST['limit']);
+            $limit = $_REQUEST['limit'];
+        } else {
+            $criteria->setLimit($xoopsModuleConfig['perpageadmin']);
+            $limit = $xoopsModuleConfig['perpageadmin'];
+        }
         if (isset($_REQUEST['start'])) {
             $criteria->setStart($_REQUEST['start']);
             $start = $_REQUEST['start'];
         } else {
             $criteria->setStart(0);
-             $start = 0;
-         }
+            $start = 0;
+        }
         $criteria->setSort('reportid');
         $criteria->setOrder('ASC');
         //pour faire une jointure de table
@@ -54,10 +54,10 @@ switch ($op) {
         $numrows = $downloadsbroken_Handler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
-             $pagenav = $pagenav->renderNav(4);
-         } else {
-             $pagenav = '';
-         }
+            $pagenav = $pagenav->renderNav(4);
+        } else {
+            $pagenav = '';
+        }
         //Affichage du tableau des téléchargements brisés
         if ($numrows > 0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
@@ -76,7 +76,7 @@ switch ($op) {
                 $downloads_cid = $downloadsbroken_arr[$i]->getVar('cid');
                 $downloads_poster = XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender'));
                 $downloads_poster_ip = $downloadsbroken_arr[$i]->getVar('ip');
-                 echo '<tr class="'.$class.'">';
+                echo '<tr class="'.$class.'">';
                 echo '<td align="center">';
                 echo '<a href="../visit.php?cid=' . $downloads_cid . '&lid=' . $downloads_lid . '" target="_blank"><img src="../images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a>';
                 echo '</td>';
@@ -87,9 +87,9 @@ switch ($op) {
                 echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
                 echo '<a href="broken.php?op=del_brokendownloads&broken_id=' . $downloads_reportid . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
-             }
-             echo '</table><br />';
-             echo '<br /><div align=right>' . $pagenav . '</div><br />';
+            }
+            echo '</table><br />';
+            echo '<br /><div align=right>' . $pagenav . '</div><br />';
         } else {
             echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS . '</div>';
         }

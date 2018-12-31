@@ -30,7 +30,7 @@ $tpl->xoops_setCacheTime($xoopsModuleConfig['timecacherss']*60); // Temps de cac
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 0, '!='));
-$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')','IN'));
+$criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 if ($cid != 0) {
     $criteria->add(new Criteria('cid', $cid));
     $cat = $downloadscat_Handler->get($cid);
@@ -75,10 +75,10 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     foreach (array_keys($downloads_arr) as $i) {
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (strpos($description,'[pagebreak]')==false) {
+        if (strpos($description, '[pagebreak]')==false) {
             $description_short = $description;
         } else {
-            $description_short = substr($description,0,strpos($description,'[pagebreak]'));
+            $description_short = substr($description, 0, strpos($description, '[pagebreak]'));
         }
         $tpl->append('items', array('title' => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
                                     'link' => XOOPS_URL . '/modules/TDMDownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),

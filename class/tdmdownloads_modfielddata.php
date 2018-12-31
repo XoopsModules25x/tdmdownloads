@@ -19,13 +19,13 @@ if (!defined("XOOPS_ROOT_PATH")) {
 }
 class TDMDownloads_modfielddata extends XoopsObject
 {
-// constructor
+    // constructor
     public function __construct()
     {
-        $this->initVar("modiddata",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("fid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("lid",XOBJ_DTYPE_INT,null,false,11);
-        $this->initVar("moddata",XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar("modiddata", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("fid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("lid", XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar("moddata", XOBJ_DTYPE_TXTAREA, null, false);
         $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
     }
     public function TDMDownloads_modfielddata()

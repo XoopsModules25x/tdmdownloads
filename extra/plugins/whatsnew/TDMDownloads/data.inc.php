@@ -28,25 +28,25 @@ function tdmdownloads_new($limit=0, $offset=0)
     $i = 0;
     $ret = array();
 
-     while ( $row = $xoopsDB->fetchArray($result) ) {
-         $lid = $row['lid'];
+    while ($row = $xoopsDB->fetchArray($result)) {
+        $lid = $row['lid'];
         $ret[$i]['link']     = $URL_MOD."/singlefile.php?lid=".$lid;
         $ret[$i]['cat_link'] = $URL_MOD."/viewcat.php?cid=".$row['cid'];
 
         $ret[$i]['title'] = $row['title'];
         $ret[$i]['time']  = $row['date'];
 
-// atom feed
+        // atom feed
         $ret[$i]['id'] = $lid;
-        $ret[$i]['description'] = $myts->displayTarea( $row['description'], 0 );    //no html
+        $ret[$i]['description'] = $myts->displayTarea($row['description'], 0);    //no html
 
-// category
+        // category
         //$ret[$i]['cat_name'] = $row['ctitle'];
 
-// counter
+        // counter
         $ret[$i]['hits'] = $row['hits'];
 
-// this module dont show user name
+        // this module dont show user name
         $ret[$i]['uid'] = $row['submitter'];
 
         $i++;
@@ -60,9 +60,11 @@ function tdmdownloads_num()
     global $xoopsDB;
 
     $sql = "SELECT count(*) FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY lid";
-    $array = $xoopsDB->fetchRow( $xoopsDB->query($sql) );
+    $array = $xoopsDB->fetchRow($xoopsDB->query($sql));
     $num   = $array[0];
-    if (empty($num)) $num = 0;
+    if (empty($num)) {
+        $num = 0;
+    }
 
     return $num;
 }
@@ -72,12 +74,12 @@ function tdmdownloads_data($limit=0, $offset=0)
     global $xoopsDB;
 
     $sql = "SELECT lid, title, date FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status>0 ORDER BY lid";
-    $result = $xoopsDB->query($sql,$limit,$offset);
+    $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i = 0;
     $ret = array();
 
-     while ($myrow = $xoopsDB->fetchArray($result)) {
+    while ($myrow = $xoopsDB->fetchArray($result)) {
         $id = $myrow['lid'];
         $ret[$i]['id']   = $id;
         $ret[$i]['link'] = XOOPS_URL."/modules/TDMDownloads/singlefile.php?lid=".$id."";

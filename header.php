@@ -35,8 +35,8 @@ $perm_vote = ($gperm_handler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsM
 $perm_upload = ($gperm_handler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
 $perm_autoapprove = ($gperm_handler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
 
-//paramètres:
-// pour les images des catégories:
+//paramÃ¨tres:
+// pour les images des catÃ©gories:
 $uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/cats/';
 $uploadurl = XOOPS_URL . '/uploads/TDMDownloads/images/cats/';
 // pour les fichiers

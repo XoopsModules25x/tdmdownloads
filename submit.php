@@ -18,7 +18,7 @@ include_once 'header.php';
 // template d'affichage
 $xoopsOption['template_main'] = 'tdmdownloads_submit.tpl';
 include_once XOOPS_ROOT_PATH.'/header.php';
-$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
@@ -34,15 +34,15 @@ switch ($op) {
         //navigation
         $navigation = _MD_TDMDOWNLOADS_SUBMIT_PROPOSER;
         $xoopsTpl->assign('navigation', $navigation);
-        // référencement
+        // rÃ©fÃ©rencement
         // titre de la page
         $titre = _MD_TDMDOWNLOADS_SUBMIT_PROPOSER . '&nbsp;-&nbsp;';
         $titre .= $xoopsModule->name();
         $xoopsTpl->assign('xoops_pagetitle', $titre);
         //description
-        $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
+        $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
 
-        //Affichage du formulaire de notation des téléchargements
+        //Affichage du formulaire de notation des tÃ©lÃ©chargements
         $obj = $downloads_Handler->create();
         $form = $obj->getForm($donnee = array(), false);
         $xoopsTpl->assign('themeForm', $form->render());
@@ -64,7 +64,7 @@ switch ($op) {
         $donnee['type_size'] = $_POST['type_size'];
         $obj->setVar('paypal', $_POST['paypal']);
         if (isset($_POST['platform'])) {
-            $obj->setVar('platform', implode('|',$_POST['platform']));
+            $obj->setVar('platform', implode('|', $_POST['platform']));
         }
         $obj->setVar('description', $_POST['description']);
         if (isset($_POST['submitter'])) {
@@ -81,7 +81,7 @@ switch ($op) {
             $obj->setVar('status', 0);
         }
         if ($xoopsUser) {
-            if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) {
+            if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 if (isset($_POST['status'])) {
                     $obj->setVar('status', $_POST['status']);
                     $donnee['status'] = $_POST['status'];
@@ -101,7 +101,7 @@ switch ($op) {
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
-        // erreur si la catégorie est vide
+        // erreur si la catÃ©gorie est vide
         if (isset($_REQUEST['cid'])) {
             if ($_REQUEST['cid'] == 0) {
                 $erreur=true;
@@ -109,9 +109,9 @@ switch ($op) {
             }
         }
         // erreur si le captcha est faux
-		xoops_load('xoopscaptcha');
+        xoops_load('xoopscaptcha');
         $xoopsCaptcha = XoopsCaptcha::getInstance();
-        if ( !$xoopsCaptcha->verify() ) {
+        if (!$xoopsCaptcha->verify()) {
             $message_erreur .=$xoopsCaptcha->getMessage().'<br>';
             $erreur=true;
         }
@@ -136,7 +136,7 @@ switch ($op) {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
-                $uploader = new XoopsMediaUploader($uploaddir_downloads, explode('|',$xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader = new XoopsMediaUploader($uploaddir_downloads, explode('|', $xoopsModuleConfig['mimetype']), $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($xoopsModuleConfig['newnamedownload']) {
                         $uploader->setPrefix($xoopsModuleConfig['prefixdownloads']) ;
@@ -144,7 +144,7 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errors = $uploader->getErrors();
-                        redirect_header("javascript:history.go(-1)",3, $errors);
+                        redirect_header("javascript:history.go(-1)", 3, $errors);
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
@@ -160,7 +160,7 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errors = $uploader_2->getErrors();
-                        redirect_header("javascript:history.go(-1)",3, $errors);
+                        redirect_header("javascript:history.go(-1)", 3, $errors);
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
@@ -176,7 +176,7 @@ switch ($op) {
                     $tag_handler = xoops_getmodulehandler('tag', 'tag');
                     $tag_handler->updateByItem($_POST['tag'], $lid_dowwnloads, $xoopsModule->getVar('dirname'), 0);
                 }
-                // Récupération des champs supplémentaires:
+                // RÃ©cupÃ©ration des champs supplÃ©mentaires:
                 $criteria = new CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
@@ -192,13 +192,13 @@ switch ($op) {
                     }
                 }
                 if ($xoopsUser) {
-                    if ( $xoopsUser->isAdmin($xoopsModule->mid()) ) {
-                        //permission pour télécharger
+                    if ($xoopsUser->isAdmin($xoopsModule->mid())) {
+                        //permission pour tÃ©lÃ©charger
                         if ($xoopsModuleConfig['permission_download'] == 1) {
                             $gperm_handler = xoops_gethandler('groupperm');
                             $criteria = new CriteriaCompo();
                             $criteria->add(new Criteria('gperm_itemid', $lid_dowwnloads, '='));
-                            $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'),'='));
+                            $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                             $criteria->add(new Criteria('gperm_name', 'tdmdownloads_download_item', '='));
                             $gperm_handler->deleteAll($criteria);
                             if (isset($_POST['item_download'])) {
@@ -220,13 +220,13 @@ switch ($op) {
                 if ($perm_autoapprove == true) {
                     $notification_handler->triggerEvent('global', 0, 'new_file', $tags);
                     $notification_handler->triggerEvent('category', $donnee['cid'], 'new_file', $tags);
-                    redirect_header('index.php',2,_MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br />' . _MD_TDMDOWNLOADS_SUBMIT_ISAPPROVED . '');
+                    redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br />' . _MD_TDMDOWNLOADS_SUBMIT_ISAPPROVED . '');
                     exit;
                 } else {
                     $tags['WAITINGFILES_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/index.php?op=listNewDownloads';
                     $notification_handler->triggerEvent('global', 0, 'file_submit', $tags);
                     $notification_handler->triggerEvent('category', $donnee['cid'], 'file_submit', $tags);
-                    redirect_header('index.php',2,_MD_TDMDOWNLOADS_SUBMIT_RECEIVED);
+                    redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED);
                     exit;
                 }
             }

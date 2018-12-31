@@ -20,23 +20,21 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
 
     $sql = "SELECT lid, cid, title, description, submitter, date FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." WHERE status != 0";
 
-    if ( $userid != 0 ) {
+    if ($userid != 0) {
         $sql .= " AND submitter=".intval($userid)." ";
     }
     require_once XOOPS_ROOT_PATH.'/modules/TDMDownloads/include/functions.php';
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
-    if(is_array($categories) && count($categories) > 0) {
+    if (is_array($categories) && count($categories) > 0) {
         $sql .= ' AND cid IN ('.implode(',', $categories).') ';
     } else {
         return null;
     }
 
-    if ( is_array($queryarray) && $count = count($queryarray) )
-    {
+    if (is_array($queryarray) && $count = count($queryarray)) {
         $sql .= " AND ((title LIKE '%$queryarray[0]%' OR description LIKE '%$queryarray[0]%')";
 
-        for($i=1;$i<$count;$i++)
-        {
+        for ($i=1;$i<$count;$i++) {
             $sql .= " $andor ";
             $sql .= "(title LIKE '%$queryarray[$i]%' OR description LIKE '%$queryarray[$i]%')";
         }
@@ -44,11 +42,10 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     }
 
     $sql .= " ORDER BY date DESC";
-    $result = $xoopsDB->query($sql,$limit,$offset);
+    $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = array();
     $i = 0;
-    while($myrow = $xoopsDB->fetchArray($result))
-    {
+    while ($myrow = $xoopsDB->fetchArray($result)) {
         $ret[$i]["image"] = "images/deco/tdmdownloads_search.png";
         $ret[$i]["link"] = "singlefile.php?cid=".$myrow["cid"]."&lid=".$myrow["lid"]."";
         $ret[$i]["title"] = $myrow["title"];

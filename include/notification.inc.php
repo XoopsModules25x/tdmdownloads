@@ -33,7 +33,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $module_handler = xoops_gethandler('module');
         $module = $module_handler->getByDirname('TDMDownloads');
         $config_handler = xoops_gethandler('config');
-        $config = $config_handler->getConfigsByCat(0,$module->getVar('mid'));
+        $config = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
         $module = $xoopsModule;
         $config = $xoopsModuleConfig;
