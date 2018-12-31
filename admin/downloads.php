@@ -249,7 +249,7 @@ switch ($op) {
                 $downloads_votedata = $ratingHandler->getAll($criteria);
                 foreach (array_keys($downloads_votedata) as $i) {
                     $objvotedata = $ratingHandler->get($downloads_votedata[$i]->getVar('ratingid'));
-                    $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
+                    $ratingHandler->delete($objvotedata) || $objvotedata->getHtmlErrors();
                 }
                 // supression des rapports de fichier brisé
                 $criteria = new \CriteriaCompo();
@@ -257,7 +257,7 @@ switch ($op) {
                 $downloads_broken = $brokenHandler->getAll($criteria);
                 foreach (array_keys($downloads_broken) as $i) {
                     $objbroken = $brokenHandler->get($downloads_broken[$i]->getVar('reportid'));
-                    $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
+                    $brokenHandler->delete($objbroken) || $objbroken ->getHtmlErrors();
                 }
                 // supression des data des champs sup.
                 $criteria = new \CriteriaCompo();
@@ -265,7 +265,7 @@ switch ($op) {
                 $downloads_fielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloads_fielddata) as $i) {
                     $objfielddata = $fielddataHandler->get($downloads_fielddata[$i]->getVar('iddata'));
-                    $fielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                    $fielddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
                 }
                 // supression des commentaires
                 xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_lid);
@@ -277,7 +277,7 @@ switch ($op) {
                     $downloads_tags = $tagHandler->getall($criteria);
                     foreach (array_keys($downloads_tags) as $i) {
                         $objtags = $tagHandler->get($downloads_tags[$i]->getVar('tl_id'));
-                        $tagHandler->delete($objtags) or $objtags->getHtmlErrors();
+                        $tagHandler->delete($objtags) || $objtags->getHtmlErrors();
                     }
                 }
                 redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
@@ -736,7 +736,7 @@ switch ($op) {
                         $objdata->setVar('data', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $fielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                        $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
                     }
                 }
                 //permission pour télécharger

@@ -123,7 +123,7 @@ switch ($op) {
                 $downloads_votedata = $ratingHandler->getAll($criteria_1);
                 foreach (array_keys($downloads_votedata) as $j) {
                     $objvotedata = $ratingHandler->get($downloads_votedata[$j]->getVar('ratingid'));
-                    $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
+                    $ratingHandler->delete($objvotedata) || $objvotedata->getHtmlErrors();
                 }
                 // supression des rapports de fichier brisé
                 $criteria_2 = new \CriteriaCompo();
@@ -131,7 +131,7 @@ switch ($op) {
                 $downloads_broken = $brokenHandler->getAll($criteria_2);
                 foreach (array_keys($downloads_broken) as $j) {
                     $objbroken = $brokenHandler->get($downloads_broken[$j]->getVar('reportid'));
-                    $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
+                    $brokenHandler->delete($objbroken) || $objbroken ->getHtmlErrors();
                 }
                 // supression des data des champs sup.
                 $criteria_3 = new \CriteriaCompo();
@@ -140,7 +140,7 @@ switch ($op) {
                 if ($fielddataHandler->getCount($criteria_3) > 0) {
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $fielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
-                        $fielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                        $fielddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
                     }
                 }
                 // supression des commentaires
@@ -156,7 +156,7 @@ switch ($op) {
                     if (count($downloads_tags) > 0) {
                         foreach (array_keys($downloads_tags) as $j) {
                             $objtags = $tagHandler->get($downloads_tags[$j]->getVar('tl_id'));
-                            $tagHandler->delete($objtags) or $objtags->getHtmlErrors();
+                            $tagHandler->delete($objtags) || $objtags->getHtmlErrors();
                         }
                     }
                 }
@@ -171,7 +171,7 @@ switch ($op) {
                 }
                 // supression du téléchargment
                 $objdownloads = $downloadsHandler->get($downloads_arr[$i]->getVar('lid'));
-                $downloadsHandler->delete($objdownloads) or $objdownloads->getHtmlErrors();
+                $downloadsHandler->delete($objdownloads) || $objdownloads->getHtmlErrors();
             }
             // supression des sous catégories avec leurs téléchargements
             $downloadscat_arr = $categoryHandler->getAll();
@@ -180,7 +180,7 @@ switch ($op) {
             foreach (array_keys($downloads_childcat) as $i) {
                 // supression de la catégorie
                 $objchild = $categoryHandler->get($downloads_childcat[$i]->getVar('cat_cid'));
-                $categoryHandler->delete($objchild) or $objchild->getHtmlErrors();
+                $categoryHandler->delete($objchild) || $objchild->getHtmlErrors();
                 // supression des téléchargements associés
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
@@ -192,7 +192,7 @@ switch ($op) {
                     $downloads_votedata = $ratingHandler->getAll($criteria);
                     foreach (array_keys($downloads_votedata) as $j) {
                         $objvotedata = $ratingHandler->get($downloads_votedata[$j]->getVar('ratingid'));
-                        $ratingHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
+                        $ratingHandler->delete($objvotedata) || $objvotedata->getHtmlErrors();
                     }
                     // supression des rapports de fichier brisé
                     $criteria = new \CriteriaCompo();
@@ -200,7 +200,7 @@ switch ($op) {
                     $downloads_broken = $brokenHandler->getAll($criteria);
                     foreach (array_keys($downloads_broken) as $j) {
                         $objbroken = $brokenHandler->get($downloads_broken[$j]->getVar('reportid'));
-                        $brokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
+                        $brokenHandler->delete($objbroken) || $objbroken ->getHtmlErrors();
                     }
                     // supression des data des champs sup.
                     $criteria = new \CriteriaCompo();
@@ -208,7 +208,7 @@ switch ($op) {
                     $downloads_fielddata = $fielddataHandler->getAll($criteria);
                     foreach (array_keys($downloads_fielddata) as $j) {
                         $objfielddata = $fielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
-                        $fielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                        $fielddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
                     }
                     // supression des commentaires
                     if ($downloads_arr[$i]->getVar('comments') > 0) {
@@ -223,7 +223,7 @@ switch ($op) {
                         if (count($downloads_tags) > 0) {
                             foreach (array_keys($downloads_tags) as $j) {
                                 $objtags = $tagHandler->get($downloads_tags[$j]->getVar('tl_id'));
-                                $tagHandler->delete($objtags) or $objtags->getHtmlErrors();
+                                $tagHandler->delete($objtags) || $objtags->getHtmlErrors();
                             }
                         }
                     }
@@ -236,7 +236,7 @@ switch ($op) {
                     }
                     // supression du téléchargment
                     $objdownloads = $downloadsHandler->get($downloads_arr[$i]->getVar('lid'));
-                    $downloadsHandler->delete($objdownloads) or $objdownloads->getHtmlErrors();
+                    $downloadsHandler->delete($objdownloads) || $objdownloads->getHtmlErrors();
                 }
             }
             if ($categoryHandler->delete($obj)) {

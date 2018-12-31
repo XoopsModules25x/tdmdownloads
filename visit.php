@@ -85,7 +85,7 @@ if (1 == $xoopsModuleConfig['downlimit']) {
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
     $obj->setVar('downlimit_hostname', getenv('REMOTE_ADDR'));
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
-    $downloadslimitHandler->insert($obj) or $obj->getHtmlErrors();
+    $downloadslimitHandler->insert($obj) || $obj->getHtmlErrors();
     // purge
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('downlimit_date', time() - 172800, '<'));

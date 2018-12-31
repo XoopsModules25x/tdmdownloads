@@ -283,7 +283,7 @@ switch ($op) {
             $downloads_fielddata = $modifieddataHandler->getAll($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
                 $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
-                $modifieddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
             }
             if ($modifiedHandler->delete($obj)) {
                 redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
@@ -360,7 +360,7 @@ switch ($op) {
                     $objdata = $fielddataHandler->get($iddata);
                 }
                 $objdata->setVar('data', $contenu);
-                $fielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
             }
         }
         // supression du rapport de modification
@@ -372,7 +372,7 @@ switch ($op) {
         $downloads_fielddata = $modifieddataHandler->getAll($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
-            $modifieddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+            $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
         }
         // enregistrement
         if ($downloadsHandler->insert($obj)) {

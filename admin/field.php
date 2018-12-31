@@ -143,7 +143,7 @@ switch ($op) {
             foreach (array_keys($downloads_arr) as $i) {
                 // supression de l'entrée
                 $objdownloadsfielddata = $fielddataHandler->get($downloads_arr[$i]->getVar('iddata'));
-                $fielddataHandler->delete($objdownloadsfielddata) or $objdownloads->getHtmlErrors();
+                $fielddataHandler->delete($objdownloadsfielddata) || $objdownloads->getHtmlErrors();
             }
             if ($fieldHandler->delete($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);

@@ -188,7 +188,7 @@ switch ($op) {
                         $objdata->setVar('data', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $fielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                        $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
                     }
                 }
                 if ($xoopsUser) {

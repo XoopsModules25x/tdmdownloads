@@ -191,7 +191,7 @@ switch ($op) {
                         $objdata->setVar('moddata', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $modifieddataHandler->insert($objdata) or $objdata->getHtmlErrors();
+                        $modifieddataHandler->insert($objdata) || $objdata->getHtmlErrors();
                     }
                 }
                 $tags = [];
