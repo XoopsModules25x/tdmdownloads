@@ -53,7 +53,7 @@ class TDMDownloads_cat extends XoopsObject
     public function getForm($action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
@@ -133,7 +133,7 @@ class TDMDownloads_cat extends XoopsObject
         $groups_news_can_submit_checkbox->addOptionArray($group_list);
         $form->addElement($groups_news_can_submit_checkbox);
         // pour télécharger
-        if ($xoopsModuleConfig['permission_download'] == 1) {
+        if (1 == $xoopsModuleConfig['permission_download']) {
             $groups_news_can_download_checkbox->addOptionArray($group_list);
             $form->addElement($groups_news_can_download_checkbox);
         }

@@ -60,27 +60,27 @@ function b_tdmdownloads_search_show()
         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
         $criteria = new CriteriaCompo();
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
-        if ($downloads_field[$i]->getVar('status_def') == 1) {
+        if (1 == $downloads_field[$i]->getVar('status_def')) {
             $criteria->add(new Criteria('status', 0, '!='));
-            if ($downloads_field[$i]->getVar('fid') == 1) {
+            if (1 == $downloads_field[$i]->getVar('fid')) {
                 //page d'accueil
                 $title_sup = _AM_TDMDOWNLOADS_FORMHOMEPAGE;
                 $criteria->setSort('homepage');
                 $nom_champ_base = 'homepage';
             }
-            if ($downloads_field[$i]->getVar('fid') == 2) {
+            if (2 == $downloads_field[$i]->getVar('fid')) {
                 //version
                 $title_sup = _AM_TDMDOWNLOADS_FORMVERSION;
                 $criteria->setSort('version');
                 $nom_champ_base = 'version';
             }
-            if ($downloads_field[$i]->getVar('fid') == 3) {
+            if (3 == $downloads_field[$i]->getVar('fid')) {
                 //taille du fichier
                 $title_sup = _AM_TDMDOWNLOADS_FORMSIZE;
                 $criteria->setSort('size');
                 $nom_champ_base = 'size';
             }
-            if ($downloads_field[$i]->getVar('fid') == 4) {
+            if (4 == $downloads_field[$i]->getVar('fid')) {
                 //platform
                 $title_sup = _AM_TDMDOWNLOADS_FORMPLATFORM;
                 $platform_array = explode('|', xoops_getModuleOption('platform', 'TDMDownloads'));
@@ -103,7 +103,7 @@ function b_tdmdownloads_search_show()
             foreach (array_keys($tdmdownloads_arr) as $j) {
                 $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');
             }
-            if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != '') {
+            if ('' != $champ_contenu[$downloads_field[$i]->getVar('fid')]) {
                 $criteria_1 = new CriteriaCompo();
                 $criteria_1->add(new Criteria('data', $champ_contenu[$downloads_field[$i]->getVar('fid')]));
                 $data_arr = $downloadsfielddataHandler->getall($criteria_1);

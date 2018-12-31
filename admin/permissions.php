@@ -56,7 +56,7 @@ switch ($permission) {
         break;
     case 3:    // Download Permission
         $formTitle = _AM_TDMDOWNLOADS_PERM_DOWNLOAD;
-        if ($xoopsModuleConfig['permission_download'] == 1) {
+        if (1 == $xoopsModuleConfig['permission_download']) {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC;
             $permissionName = 'tdmdownloads_download';
         } else {
@@ -79,12 +79,12 @@ switch ($permission) {
 }
 
 $permissionsForm = new XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
-if ($permission == 4) {
+if (4 == $permission) {
     foreach ($global_perms_array as $perm_id => $permissionName) {
         $permissionsForm->addItem($perm_id, $permissionName) ;
     }
 } else {
-    if ($xoopsModuleConfig['permission_download'] == 2 && $permission == 3) {
+    if (2 == $xoopsModuleConfig['permission_download'] && 3 == $permission) {
         $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
         $result = $xoopsDB->query($sql);
         if ($result) {

@@ -23,13 +23,13 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 
 if (isset($_REQUEST['title'])) {
-    $_REQUEST['title'] != '' ? $title = $_REQUEST['title'] : $title = '';
+    '' != $_REQUEST['title'] ? $title = $_REQUEST['title'] : $title = '';
 } else {
     $title = '';
 }
 
 if (isset($_REQUEST['cat'])) {
-    $_REQUEST['cat'] != 0 ? $cat = $_REQUEST['cat'] : $cat = 0;
+    0 != $_REQUEST['cat'] ? $cat = $_REQUEST['cat'] : $cat = 0;
 } else {
     $cat = 0;
 }
@@ -73,40 +73,40 @@ foreach (array_keys($downloads_field) as $i) {
     $nom_champ   = 'champ' . $downloads_field[$i]->getVar('fid');
     $criteria    = new CriteriaCompo();
     if (isset($_REQUEST[$nom_champ])) {
-        $_REQUEST[$nom_champ] != 999 ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
+        999 != $_REQUEST[$nom_champ] ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         $arguments .= $nom_champ . '=' . $_REQUEST[$nom_champ] . '&amp;';
     } else {
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         $arguments .= $nom_champ . '=&amp;';
     }
-    if ($downloads_field[$i]->getVar('status_def') == 1) {
+    if (1 == $downloads_field[$i]->getVar('status_def')) {
         $criteria->add(new Criteria('status', 0, '!='));
-        if ($downloads_field[$i]->getVar('fid') == 1) {
+        if (1 == $downloads_field[$i]->getVar('fid')) {
             //page d'accueil
             $title_sup = _AM_TDMDOWNLOADS_FORMHOMEPAGE;
             $criteria->setSort('homepage');
             $nom_champ_base = 'homepage';
         }
-        if ($downloads_field[$i]->getVar('fid') == 2) {
+        if (2 == $downloads_field[$i]->getVar('fid')) {
             //version
             $title_sup = _AM_TDMDOWNLOADS_FORMVERSION;
             $criteria->setSort('version');
             $nom_champ_base = 'version';
         }
-        if ($downloads_field[$i]->getVar('fid') == 3) {
+        if (3 == $downloads_field[$i]->getVar('fid')) {
             //taille du fichier
             $title_sup = _AM_TDMDOWNLOADS_FORMSIZE;
             $criteria->setSort('size');
             $nom_champ_base = 'size';
         }
-        if ($downloads_field[$i]->getVar('fid') == 4) {
+        if (4 == $downloads_field[$i]->getVar('fid')) {
             //platform
             $title_sup      = _AM_TDMDOWNLOADS_FORMPLATFORM;
             $platform_array = explode('|', $xoopsModuleConfig['plateform']);
             foreach ($platform_array as $platform) {
                 $contenu_arr[$platform] = $platform;
             }
-            if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != 999) {
+            if (999 != $champ_contenu[$downloads_field[$i]->getVar('fid')]) {
                 $criteria_2->add(new Criteria('platform', '%' . $champ_contenu[$downloads_field[$i]->getVar('fid')] . '%', 'LIKE'));
             }
         } else {
@@ -115,7 +115,7 @@ foreach (array_keys($downloads_field) as $i) {
             foreach (array_keys($tdmdownloads_arr) as $j) {
                 $contenu_arr[$tdmdownloads_arr[$j]->getVar($nom_champ_base)] = $tdmdownloads_arr[$j]->getVar($nom_champ_base);
             }
-            if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != 999) {
+            if (999 != $champ_contenu[$downloads_field[$i]->getVar('fid')]) {
                 $criteria_2->add(new Criteria($nom_champ_base, $champ_contenu[$downloads_field[$i]->getVar('fid')]));
             }
         }
@@ -128,7 +128,7 @@ foreach (array_keys($downloads_field) as $i) {
         foreach (array_keys($tdmdownloads_arr) as $j) {
             $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');
         }
-        if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != '') {
+        if ('' != $champ_contenu[$downloads_field[$i]->getVar('fid')]) {
             $criteria_1 = new CriteriaCompo();
             $criteria_1->add(new Criteria('data', $champ_contenu[$downloads_field[$i]->getVar('fid')]));
             $data_arr = $downloadsfielddataHandler->getall($criteria_1);
@@ -154,11 +154,11 @@ $button_tray = new XoopsFormElementTray('', '');
 $button_tray->addElement(new XoopsFormButton('', 'submit', _MD_TDMDOWNLOADS_SEARCH_BT, 'submit'));
 $form->addElement($button_tray);
 
-if ($title != '') {
+if ('' != $title) {
     $criteria_2->add(new Criteria('title', '%' . $title . '%', 'LIKE'));
     $arguments .= 'title=' . $title . '&amp;';
 }
-if ($cat != 0) {
+if (0 != $cat) {
     $criteria_2->add(new Criteria('cid', $cat));
     $arguments .= 'cat=' . $cat . '&amp;';
 }
@@ -224,20 +224,20 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
     $tdmdownloads_tab['hits']   = $tdmdownloads_arr[$i]->getVar('hits');
     $contenu                    = '';
     foreach (array_keys($downloads_field) as $j) {
-        if ($downloads_field[$j]->getVar('status_def') == 1) {
-            if ($downloads_field[$j]->getVar('fid') == 1) {
+        if (1 == $downloads_field[$j]->getVar('status_def')) {
+            if (1 == $downloads_field[$j]->getVar('fid')) {
                 //page d'accueil
                 $contenu = $tdmdownloads_arr[$i]->getVar('homepage');
             }
-            if ($downloads_field[$j]->getVar('fid') == 2) {
+            if (2 == $downloads_field[$j]->getVar('fid')) {
                 //version
                 $contenu = $tdmdownloads_arr[$i]->getVar('version');
             }
-            if ($downloads_field[$j]->getVar('fid') == 3) {
+            if (3 == $downloads_field[$j]->getVar('fid')) {
                 //taille du fichier
                 $contenu = $tdmdownloads_arr[$i]->getVar('size');
             }
-            if ($downloads_field[$j]->getVar('fid') == 4) {
+            if (4 == $downloads_field[$j]->getVar('fid')) {
                 //plateforme
                 $contenu = $tdmdownloads_arr[$i]->getVar('platform');
             }

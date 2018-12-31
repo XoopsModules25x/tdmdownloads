@@ -49,7 +49,7 @@ function b_tdmdownloads_top_show($options)
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-    if (!(count($options) == 1 && $options[0] == 0)) {
+    if (!(1 == count($options) && 0 == $options[0])) {
         $criteria->add(new Criteria('cid', '(' . implode(',', $options) . ')', 'IN'));
     }
     $criteria->add(new Criteria('status', 0, '!='));
@@ -79,10 +79,10 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['lid'] = $downloads_arr[$i]->getVar('lid');
         $block[$i]['title'] = strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? substr($downloads_arr[$i]->getVar('title'), 0, ($lenght_title)) . '...' : $downloads_arr[$i]->getVar('title');
         $description_short = '';
-        if ($use_description === true) {
+        if (true === $use_description) {
             $description = $downloads_arr[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
-            if (strpos($description, '[pagebreak]')==false) {
+            if (false == strpos($description, '[pagebreak]')) {
                 $description_short = substr($description, 0, $lenght_description) . ' ...';
             } else {
                 $description_short = substr($description, 0, strpos($description, '[pagebreak]')) . ' ...';
@@ -90,8 +90,8 @@ function b_tdmdownloads_top_show($options)
         }
         $block[$i]['description'] = $description_short;
         $logourl = '';
-        if ($use_logo === true) {
-            if ($downloads_arr[$i]->getVar('logourl') == 'blank.gif') {
+        if (true === $use_logo) {
+            if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
                 $logourl = '';
             } else {
                 $logourl = XOOPS_URL . '/uploads/tdmdownloads/images/shots/'. $downloads_arr[$i]->getVar('logourl');
@@ -123,7 +123,7 @@ function b_tdmdownloads_top_edit($options)
     $form .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
     $form .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";
     $form .= _MB_TDMDOWNLOADS_CHARS . ' : <input name="options[2]" size="5" maxlength="255" value="' . $options[2] . "\" type=\"text\"><br>\n";
-    if ($options[3] === false) {
+    if (false === $options[3]) {
         $checked_yes = '';
         $checked_no = 'checked';
     } else {
@@ -132,7 +132,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_LOGO . ' : <input name="options[3]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form .= '<input name="options[3]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
-    if ($options[4] === false) {
+    if (false === $options[4]) {
         $checked_yes = '';
         $checked_no = 'checked';
     } else {
@@ -141,7 +141,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_DESCRIPTION . ' : <input name="options[4]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form .= '<input name="options[4]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
-    if ($options[5] === false) {
+    if (false === $options[5]) {
         $checked_yes = '';
         $checked_no = 'checked';
     } else {
@@ -166,9 +166,9 @@ function b_tdmdownloads_top_edit($options)
     array_shift($options);
     array_shift($options);
     $form .= _MB_TDMDOWNLOADS_CATTODISPLAY . "<br><select name=\"options[]\" multiple=\"multiple\" size=\"5\">\n";
-    $form .= '<option value="0" ' . (array_search(0, $options) === false ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
+    $form .= '<option value="0" ' . (false === array_search(0, $options) ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
     foreach (array_keys($downloadscat_arr) as $i) {
-        $form .= '<option value="' . $downloadscat_arr[$i]->getVar('cat_cid') . '" ' . (array_search($downloadscat_arr[$i]->getVar('cat_cid'), $options) === false ? '' : 'selected="selected"') . '>' . $downloadscat_arr[$i]->getVar('cat_title') . "</option>\n";
+        $form .= '<option value="' . $downloadscat_arr[$i]->getVar('cat_cid') . '" ' . (false === array_search($downloadscat_arr[$i]->getVar('cat_cid'), $options) ? '' : 'selected="selected"') . '>' . $downloadscat_arr[$i]->getVar('cat_title') . "</option>\n";
     }
     $form .= "</select>\n";
 

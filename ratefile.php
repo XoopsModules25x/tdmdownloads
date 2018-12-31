@@ -24,14 +24,14 @@ $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'liste', 'string');
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 
 //redirection si pas de permission de vote
-if ($perm_vote === false) {
+if (false === $perm_vote) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
 
 $view_downloads = $downloadsHandler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activé
-if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
+if (0 == count($view_downloads) || 0 == $view_downloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
 }
@@ -81,7 +81,7 @@ switch ($op) {
             $ratinguser = $xoopsUser->getVar('uid');
         }
         // si c'est un membre on vérifie qu'il ne vote pas pour son fichier
-        if ($ratinguser != 0) {
+        if (0 != $ratinguser) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
             $downloads_arr = $downloadsHandler->getall($criteria);
@@ -133,7 +133,7 @@ switch ($op) {
         $obj->setVar('rating', $rating);
         $obj->setVar('ratinghostname', getenv('REMOTE_ADDR'));
         $obj->setVar('ratingtimestamp', time());
-        if ($erreur==true) {
+        if (true == $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
             if ($downloadsvotedataHandler->insert($obj)) {

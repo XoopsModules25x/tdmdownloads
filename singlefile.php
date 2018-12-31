@@ -26,7 +26,7 @@ $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 $view_downloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
-if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
+if (0 == count($view_downloads) || 0 == $view_downloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
 }
@@ -53,13 +53,13 @@ $xoopsTpl->assign('navigation', $navigation);
 
 // sortie des informations
 //Utilisation d'une copie d'écran avec la largeur selon les préférences
-if ($xoopsModuleConfig['useshots'] == 1) {
+if (1 == $xoopsModuleConfig['useshots']) {
     $xoopsTpl->assign('shotwidth', $xoopsModuleConfig['shotwidth']);
     $xoopsTpl->assign('show_screenshot', true);
     $xoopsTpl->assign('img_float', $xoopsModuleConfig['img_float']);
 }
 
-if ($xoopsModuleConfig['download_float'] == 'ltr') {
+if ('ltr' == $xoopsModuleConfig['download_float']) {
     $xoopsTpl->assign('textfloat', 'floatleft');
     $xoopsTpl->assign('infofloat', 'floatright');
 } else {
@@ -68,7 +68,7 @@ if ($xoopsModuleConfig['download_float'] == 'ltr') {
 }
 
 // sortie des informations
-if ($view_downloads->getVar('logourl') == 'blank.gif') {
+if ('blank.gif' == $view_downloads->getVar('logourl')) {
     $logourl = '';
 } else {
     $logourl = $view_downloads->getVar('logourl');
@@ -103,7 +103,7 @@ $xoopsTpl->assign('show_bookmark', $xoopsModuleConfig['show_bookmark']);
 $xoopsTpl->assign('show_social', $xoopsModuleConfig['show_social']);
 
 //paypal
-if ($view_downloads->getVar('paypal') != '' && $xoopsModuleConfig['use_paypal'] === true) {
+if ('' != $view_downloads->getVar('paypal') && true === $xoopsModuleConfig['use_paypal']) {
     $paypal = '<form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="'.$view_downloads->getVar('paypal').'">
@@ -126,32 +126,32 @@ $nb_champ = count($downloads_field);
 $champ_sup ='';
 $champ_sup_vide = 0;
 foreach (array_keys($downloads_field) as $i) {
-    if ($downloads_field[$i]->getVar('status_def') == 1) {
-        if ($downloads_field[$i]->getVar('fid') == 1) {
+    if (1 == $downloads_field[$i]->getVar('status_def')) {
+        if (1 == $downloads_field[$i]->getVar('fid')) {
             //page d'accueil
-            if ($view_downloads->getVar('homepage') != '') {
+            if ('' != $view_downloads->getVar('homepage')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . ':&nbsp;<a href="' . $view_downloads->getVar('homepage') . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_ICI . '</a>';
                 $champ_sup_vide++;
             }
         }
-        if ($downloads_field[$i]->getVar('fid') == 2) {
+        if (2 == $downloads_field[$i]->getVar('fid')) {
             //version
-            if ($view_downloads->getVar('version') != '') {
+            if ('' != $view_downloads->getVar('version')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMVERSION . ':&nbsp;' . $view_downloads->getVar('version');
                 $champ_sup_vide++;
             }
         }
-        if ($downloads_field[$i]->getVar('fid') == 3) {
+        if (3 == $downloads_field[$i]->getVar('fid')) {
             //taille du fichier
             $size_value_arr = explode(' ', $view_downloads->getVar('size'));
-            if ($size_value_arr[0] != '') {
+            if ('' != $size_value_arr[0]) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $view_downloads->getVar('size');
                 $champ_sup_vide++;
             }
         }
-        if ($downloads_field[$i]->getVar('fid') == 4) {
+        if (4 == $downloads_field[$i]->getVar('fid')) {
             //plateforme
-            if ($view_downloads->getVar('platform') != '') {
+            if ('' != $view_downloads->getVar('platform')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMPLATFORM . $view_downloads->getVar('platform');
                 $champ_sup_vide++;
             }
@@ -166,12 +166,12 @@ foreach (array_keys($downloads_field) as $i) {
         foreach (array_keys($downloadsfielddata) as $j) {
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');
         }
-        if ($contenu != '') {
+        if ('' != $contenu) {
             $champ_sup = '&nbsp;' . $downloads_field[$i]->getVar('title') . ':&nbsp;' . $contenu;
             $champ_sup_vide++;
         }
     }
-    if ($champ_sup != '') {
+    if ('' != $champ_sup) {
         $xoopsTpl->append('champ_sup', ['image' => $uploadurl_field . $downloads_field[$i]->getVar('img'), 'data' => $champ_sup]);
     }
     $champ_sup ='';
@@ -186,7 +186,7 @@ $xoopsTpl->assign('perm_vote', $perm_vote);
 $xoopsTpl->assign('perm_modif', $perm_modif);
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
 $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
-if ($xoopsModuleConfig['permission_download'] == 1) {
+if (1 == $xoopsModuleConfig['permission_download']) {
     if (!in_array($view_downloads->getVar('cid'), $categories)) {
         $xoopsTpl->assign('perm_download', false);
     } else {
@@ -201,7 +201,7 @@ if ($xoopsModuleConfig['permission_download'] == 1) {
 }
 
 // pour utiliser tellafriend.
-if (($xoopsModuleConfig['usetellafriend'] == 1) and (is_dir('../tellafriend'))) {
+if ((1 == $xoopsModuleConfig['usetellafriend']) and (is_dir('../tellafriend'))) {
     $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'].':  '.XOOPS_URL.'/modules/tdmdownloads/singlefile.php?lid=' . $_REQUEST['lid']);
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (stristr($subject, '%')) {
@@ -223,7 +223,7 @@ $xoopsTpl->assign('tellafriend_texte', $tellafriend_texte);
 
 // référencement
 // tags
-if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../tag'))) {
+if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
     require_once XOOPS_ROOT_PATH.'/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tags', true);
     $xoopsTpl->assign('tagbar', tagBar($_REQUEST['lid'], 0));
@@ -238,7 +238,7 @@ $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
 //version for title
 $xoopsTpl->assign('version', $view_downloads->getVar('version'));
 //description
-if (strpos($description, '[pagebreak]')==false) {
+if (false == strpos($description, '[pagebreak]')) {
     $description_short = substr($description, 0, 400);
 } else {
     $description_short = substr($description, 0, strpos($description, '[pagebreak]'));

@@ -57,16 +57,16 @@ switch ($op) {
                 echo '</td>';
                 echo '<td align="center" width="10%">' . $downloads_field[$i]->getVar('weight') . '</td>';
 
-                echo '<td align="center" width="10%"><a href="field.php?op=update_status&fid=' . $downloadsfield_fid . '&aff=' . ($downloads_field[$i]->getVar('status') == 1 ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
-                echo '<td align="center" width="10%"><a href="field.php?op=update_search&fid=' . $downloadsfield_fid . '&aff=' . ($downloads_field[$i]->getVar('search') == 1 ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
+                echo '<td align="center" width="10%"><a href="field.php?op=update_status&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('status') ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
+                echo '<td align="center" width="10%"><a href="field.php?op=update_search&fid=' . $downloadsfield_fid . '&aff=' . (1 == $downloads_field[$i]->getVar('search') ? '0"><img src="../images/icon/on.png"></a>' : '1"><img src="../images/icon/off.png"></a>') . '</td>';
                 echo '<td align="center" width="10%">';
                 echo '<a href="field.php?op=edit_field&fid=' . $downloadsfield_fid . '"><img src="../images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
-                if ($downloads_field[$i]->getVar('status_def') == 0) {
+                if (0 == $downloads_field[$i]->getVar('status_def')) {
                     echo '<a href="field.php?op=del_field&fid=' . $downloadsfield_fid . '"><img src="../images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
                 }
                 echo '</td>';
                 echo '</tr>';
-                $class = ($class == 'even') ? 'odd' : 'even';
+                $class = ('even' == $class) ? 'odd' : 'even';
             }
             echo '</table>';
         }
@@ -130,7 +130,7 @@ switch ($op) {
     case 'del_field':
         global $xoopsModule;
         $obj = $downloadsfieldHandler->get($_REQUEST['fid']);
-        if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -150,7 +150,7 @@ switch ($op) {
             }
         } else {
             $downloadsfield = $downloadsfieldHandler->get($_REQUEST['fid']);
-            if ($downloadsfield->getVar('status_def') == 1) {
+            if (1 == $downloadsfield->getVar('status_def')) {
                 redirect_header('field.php', 2, _AM_TDMDOWNLOADS_REDIRECT_NODELFIELD);
             }
             $message = '';
@@ -211,11 +211,11 @@ switch ($op) {
         $obj->setVar('search', $_POST['search']);
         $obj->setVar('status_def', $_POST['status_def']);
 
-        if (intval($_REQUEST['weight'])==0 && $_REQUEST['weight'] != '0') {
+        if (0 == intval($_REQUEST['weight']) && '0' != $_REQUEST['weight']) {
             $erreur=true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
-        if ($erreur==true) {
+        if (true == $erreur) {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
             echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';

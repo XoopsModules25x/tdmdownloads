@@ -91,7 +91,7 @@ function TDMDownloads_Thumbnail($time, $status)
     $count = 7;
     $new = '';
     $startdate = (time()-(86400 * $count));
-    if ($xoopsModuleConfig['showupdated'] == 1) {
+    if (1 == $xoopsModuleConfig['showupdated']) {
         if ($startdate < $time) {
             $language = $GLOBALS['xoopsConfig']['language'];
             if (!is_dir(XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/')) {
@@ -99,13 +99,13 @@ function TDMDownloads_Thumbnail($time, $status)
             }
             $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
             $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
-            if ($status==1) {
+            if (1 == $status) {
                 if (is_readable($img_path . 'new.png')) {
                     $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                 } else {
                     $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/tdmdownloads/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                 }
-            } elseif ($status==2) {
+            } elseif (2 == $status) {
                 if (is_readable($img_path . 'updated.png')) {
                     $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                 } else {
@@ -173,7 +173,7 @@ function TDMDownloads_CleanVars(&$global, $key, $default = '', $type = 'int')
             $ret = (isset($global[$key])) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
             break;
     }
-    if ($ret === false) {
+    if (false === $ret) {
         return $default;
     }
 
@@ -202,9 +202,9 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
 {
     global $xoopsModule;
     $category_parent = $mytree->getAllParent($key);
-    if ($order == 'ASC') {
+    if ('ASC' == $order) {
         $category_parent = array_reverse($category_parent);
-        if ($link === true) {
+        if (true === $link) {
             $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
         } else {
             $Path = $xoopsModule->name() . $prefix;
@@ -218,15 +218,15 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
         $Path = $first_category . $prefix;
     }
     foreach (array_keys($category_parent) as $j) {
-        if ($link === true) {
+        if (true === $link) {
             $Path .= '<a href="viewcat.php?cid=' . $category_parent[$j]->getVar('cat_cid') . '">' . $category_parent[$j]->getVar($title) . '</a>' . $prefix;
         } else {
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
         }
     }
-    if ($order == 'ASC') {
+    if ('ASC' == $order) {
         if (array_key_exists($key, $category_array)) {
-            if ($lasturl === true) {
+            if (true === $lasturl) {
                 $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
             } else {
                 $first_category = $category_array[$key]->getVar($title);
@@ -236,7 +236,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
         }
         $Path .= $first_category;
     } else {
-        if ($link === true) {
+        if (true === $link) {
             $Path .= '<a href="index.php">' . $xoopsModule->name() . '</a>';
         } else {
             $Path .= $xoopsModule->name();

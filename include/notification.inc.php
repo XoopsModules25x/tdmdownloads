@@ -29,7 +29,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
     $item_id = intval($item_id);
-    if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'TDMDownloads') {
+    if (empty($xoopsModule) || 'TDMDownloads' != $xoopsModule->getVar('dirname')) {
         $moduleHandler = xoops_getHandler('module');
         $module = $moduleHandler->getByDirname('TDMDownloads');
         $configHandler = xoops_getHandler('config');
@@ -39,7 +39,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $config = $xoopsModuleConfig;
     }
 
-    if ($category == 'global') {
+    if ('global' == $category) {
         $item['name'] = '';
         $item['url'] = '';
 
@@ -47,7 +47,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     }
 
     global $xoopsDB;
-    if ($category == 'category') {
+    if ('category' == $category) {
         // Assume we have a valid category id
         $sql = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = '.$item_id;
         $result = $xoopsDB->query($sql); // TODO: error check
@@ -58,7 +58,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         return $item;
     }
 
-    if ($category=='file') {
+    if ('file' == $category) {
         // Assume we have a valid file id
         $sql = 'SELECT cid,title FROM '.$xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
         $result = $xoopsDB->query($sql); // TODO: error check

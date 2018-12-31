@@ -32,7 +32,7 @@ function Import_mydownloads($path='', $imgurl='')
 {
     $ok =  isset($_POST['ok']) ? intval($_POST['ok']) : 0;
     global $xoopsDB;
-    if ($ok == 1) {
+    if (1 == $ok) {
         //Vider les tables
         $query = $xoopsDB->queryF('truncate table ' . $xoopsDB->prefix('tdmdownloads_broken'));
         $query = $xoopsDB->queryF('truncate table ' . $xoopsDB->prefix('tdmdownloads_cat'));
@@ -43,7 +43,7 @@ function Import_mydownloads($path='', $imgurl='')
         //Inserer les données des catégories
         $query_topic = $xoopsDB->query('SELECT cid, pid, title, imgurl FROM ' . $xoopsDB->prefix('mydownloads_cat'));
         while (false !== ($donnees = $xoopsDB->fetchArray($query_topic))) {
-            if ($donnees['imgurl'] == '') {
+            if ('' == $donnees['imgurl']) {
                 $img = 'blank.gif';
             } else {
                 $img = substr_replace($donnees['imgurl'], '', 0, strlen($imgurl));
@@ -100,7 +100,7 @@ function Import_wfdownloads($shots='', $catimg='')
 {
     $ok =  isset($_POST['ok']) ? intval($_POST['ok']) : 0;
     global $xoopsDB;
-    if ($ok == 1) {
+    if (1 == $ok) {
         //Vider les tables
         $query = $xoopsDB->queryF('truncate table ' . $xoopsDB->prefix('tdmdownloads_broken'));
         $query = $xoopsDB->queryF('truncate table ' . $xoopsDB->prefix('tdmdownloads_cat'));
@@ -111,7 +111,7 @@ function Import_wfdownloads($shots='', $catimg='')
         //Inserer les données des catégories
         $query_topic = $xoopsDB->query('SELECT cid, pid, title, imgurl, description, total, summary, spotlighttop, spotlighthis, dohtml, dosmiley, doxcode, doimage, dobr, weight, formulize_fid FROM ' . $xoopsDB->prefix('wfdownloads_cat'));
         while (false !== ($donnees = $xoopsDB->fetchArray($query_topic))) {
-            if ($donnees['imgurl'] == '') {
+            if ('' == $donnees['imgurl']) {
                 $img = 'blank.gif';
             } else {
                 $img = $donnees['imgurl'];
@@ -130,7 +130,7 @@ function Import_wfdownloads($shots='', $catimg='')
         $query_links = $xoopsDB->query('SELECT lid, cid, title, url, filename, filetype, homepage, version, size, platform, screenshot, screenshot2, screenshot3, screenshot4, submitter, publisher, status, date, hits, rating, votes, comments, license, mirror, price, paypalemail, features, requirements, homepagetitle, forumid, limitations, versiontypes, dhistory, published, expired, updated, offline, summary, description, ipaddress, notifypub, formulize_idreq  FROM '
                                        . $xoopsDB->prefix('wfdownloads_downloads'));
         while (false !== ($donnees = $xoopsDB->fetchArray($query_links))) {
-            if ($donnees['url']=='') {
+            if ('' == $donnees['url']) {
                 $newurl = XOOPS_URL . '/uploads/' . $donnees['filename'];
             } else {
                 $newurl = $donnees['url'];
@@ -185,7 +185,7 @@ switch ($op) {
 
     // import Mydownloads
     case 'import_mydownloads':
-        if ($_REQUEST['path'] == '' || $_REQUEST['imgurl'] == '') {
+        if ('' == $_REQUEST['path'] || '' == $_REQUEST['imgurl']) {
             redirect_header('import.php?op=form_mydownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
             Import_mydownloads($_REQUEST['path'], $_REQUEST['imgurl']);
@@ -232,7 +232,7 @@ switch ($op) {
 
     // import WF-Downloads
     case 'import_wfdownloads':
-        if ($_REQUEST['shots'] == '' || $_REQUEST['catimg'] == '') {
+        if ('' == $_REQUEST['shots'] || '' == $_REQUEST['catimg']) {
             redirect_header('import.php?op=form_wfdownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
             Import_wfdownloads($_REQUEST['shots'], $_REQUEST['catimg']);

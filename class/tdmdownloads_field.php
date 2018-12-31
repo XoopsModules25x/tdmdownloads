@@ -47,7 +47,7 @@ class TDMDownloads_field extends XoopsObject
     public function getForm($action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
@@ -59,7 +59,7 @@ class TDMDownloads_field extends XoopsObject
         $form = new XoopsThemeForm($title, 'form', $action, 'post', true);
         $form->setExtra('enctype="multipart/form-data"');
         //titre
-        if ($this->getVar('status_def') == 1) {
+        if (1 == $this->getVar('status_def')) {
             $form->addElement(new xoopsFormLabel(_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
             $form->addElement(new XoopsFormHidden('title', $this->getVar('title')));
         } else {

@@ -42,7 +42,7 @@ $xoopsTpl->assign('nb_catcol', $xoopsModuleConfig['nb_catcol']);
 $count = 1;
 $keywords = '';
 foreach (array_keys($downloadscat_arr) as $i) {
-    if ($downloadscat_arr[$i]->getVar('cat_pid') == 0) {
+    if (0 == $downloadscat_arr[$i]->getVar('cat_pid')) {
         $totaldownloads = TDMDownloads_NumbersOfEntries($mytree, $categories, $downloads_arr, $downloadscat_arr[$i]->getVar('cat_cid'));
         $subcategories_arr = $mytree->getFirstChild($downloadscat_arr[$i]->getVar('cat_cid'));
         $chcount = 0;
@@ -66,7 +66,7 @@ foreach (array_keys($downloadscat_arr) as $i) {
 //pour afficher les résumés
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 //téléchargements récents
-if ($xoopsModuleConfig['bldate']==1) {
+if (1 == $xoopsModuleConfig['bldate']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -84,7 +84,7 @@ if ($xoopsModuleConfig['bldate']==1) {
     }
 }
 //plus téléchargés
-if ($xoopsModuleConfig['blpop']==1) {
+if (1 == $xoopsModuleConfig['blpop']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -101,7 +101,7 @@ if ($xoopsModuleConfig['blpop']==1) {
     }
 }
 //mieux notés
-if ($xoopsModuleConfig['blrating']==1) {
+if (1 == $xoopsModuleConfig['blrating']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -118,7 +118,7 @@ if ($xoopsModuleConfig['blrating']==1) {
         $xoopsTpl->append('bl_rating', ['id' => $downloads_arr_rating[$i]->getVar('lid'), 'cid' => $downloads_arr_rating[$i]->getVar('cid'), 'rating' => $rating, 'title' => $title]);
     }
 }
-if ($xoopsModuleConfig['bldate']==0 and $xoopsModuleConfig['blpop']==0 and $xoopsModuleConfig['blrating']==0) {
+if (0 == $xoopsModuleConfig['bldate'] and 0 == $xoopsModuleConfig['blpop'] and 0 == $xoopsModuleConfig['blrating']) {
     $bl_affichage = 0;
 } else {
     $bl_affichage = 1;
@@ -132,7 +132,7 @@ $xoopsTpl->assign('show_latest_files', $xoopsModuleConfig['show_latest_files']);
 if ($xoopsModuleConfig['newdownloads'] > 0) {
     $xoopsTpl->assign('nb_dowcol', $xoopsModuleConfig['nb_dowcol']);
     //Utilisation d'une copie d'écran avec la largeur selon les préférences
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('shotwidth', $xoopsModuleConfig['shotwidth']);
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('img_float', $xoopsModuleConfig['img_float']);
@@ -168,7 +168,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     $count = 1;
     foreach (array_keys($downloads_arr) as $i) {
-        if ($downloads_arr[$i]->getVar('logourl') == 'blank.gif') {
+        if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
             $logourl = $downloads_arr[$i]->getVar('logourl');
@@ -178,7 +178,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
         $submitter = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (strpos($description, '[pagebreak]')==false) {
+        if (false == strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
             $description_short = substr($description, 0, strpos($description, '[pagebreak]'));
@@ -194,7 +194,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
             $adminlink = '';
         }
         //permission de télécharger
-        if ($xoopsModuleConfig['permission_download'] == 1) {
+        if (1 == $xoopsModuleConfig['permission_download']) {
             if (!in_array($downloads_arr[$i]->getVar('cid'), $categories)) {
                 $perm_download = false;
             } else {

@@ -23,7 +23,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
 // redirection si pas de droit pour poster
-if ($perm_modif === false) {
+if (false === $perm_modif) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
@@ -34,7 +34,7 @@ $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 $view_downloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
-if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
+if (0 == count($view_downloads) || 0 == $view_downloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
 }
@@ -105,8 +105,8 @@ switch ($op) {
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 
         // erreur si la taille du fichier n'est pas un nombre
-        if (intval($_REQUEST['size']) == 0) {
-            if ($_REQUEST['size'] == '0' || $_REQUEST['size'] == '') {
+        if (0 == intval($_REQUEST['size'])) {
+            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
                 $erreur = false;
             } else {
                 $erreur = true;
@@ -115,7 +115,7 @@ switch ($op) {
         }
         // erreur si la catégorie est vide
         if (isset($_REQUEST['cid'])) {
-            if ($_REQUEST['cid'] == 0) {
+            if (0 == $_REQUEST['cid']) {
                 $erreur=true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
@@ -133,12 +133,12 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
-            if ($downloads_field[$i]->getVar('status_def') == 0) {
+            if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$nom_champ] = $_POST[$nom_champ];
             }
         }
-        if ($erreur==true) {
+        if (true == $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
@@ -185,7 +185,7 @@ switch ($op) {
                 $criteria->setOrder('ASC');
                 $downloads_field = $downloadsfieldHandler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
-                    if ($downloads_field[$i]->getVar('status_def') == 0) {
+                    if (0 == $downloads_field[$i]->getVar('status_def')) {
                         $objdata = $downloadsfieldmoddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('moddata', $_POST[$nom_champ]);

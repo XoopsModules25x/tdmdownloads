@@ -31,7 +31,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 0, '!='));
 $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-if ($cid != 0) {
+if (0 != $cid) {
     $criteria->add(new Criteria('cid', $cid));
     $cat = $downloadscatHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $cat->getVar('cat_title');
@@ -75,7 +75,7 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     foreach (array_keys($downloads_arr) as $i) {
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (strpos($description, '[pagebreak]')==false) {
+        if (false == strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
             $description_short = substr($description, 0, strpos($description, '[pagebreak]'));

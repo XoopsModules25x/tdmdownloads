@@ -38,7 +38,7 @@ class TDMDownloads_broken extends XoopsObject
     public function getForm($lid, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
 

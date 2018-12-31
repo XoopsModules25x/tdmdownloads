@@ -53,7 +53,7 @@ class TDMDownloads_mod extends XoopsObject
     public function getForm($lid, $erreur, $donnee = [], $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
-        if ($action === false) {
+        if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -67,7 +67,7 @@ class TDMDownloads_mod extends XoopsObject
         include_once(XOOPS_ROOT_PATH . '/class/xoopsformloader.php');
 
         // affectation des variables
-        if ($erreur === true) {
+        if (true === $erreur) {
             $d_title = $donnee['title'];
             $d_cid = $donnee['cid'];
             $d_homepage = $donnee['homepage'];
@@ -98,7 +98,7 @@ class TDMDownloads_mod extends XoopsObject
         $url = $view_downloads->getVar('url');
         $formurl = new XoopsFormText(_AM_TDMDOWNLOADS_FORMURL, 'url', 75, 255, $url);
         $fichier->addElement($formurl, false);
-        if ($perm_upload === true) {
+        if (true === $perm_upload) {
             $fichier->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
         }
         $form->addElement($fichier);
@@ -117,7 +117,7 @@ class TDMDownloads_mod extends XoopsObject
             $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
         $downloadscat_arr = $downloadscatHandler->getall($criteria);
-        if (count($downloadscat_arr) == 0) {
+        if (0 == count($downloadscat_arr)) {
             redirect_header('index.php', 2, _NOPERM);
         }
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
@@ -130,24 +130,24 @@ class TDMDownloads_mod extends XoopsObject
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
-            if ($downloads_field[$i]->getVar('status_def') == 1) {
-                if ($downloads_field[$i]->getVar('fid') == 1) {
+            if (1 == $downloads_field[$i]->getVar('status_def')) {
+                if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
-                    if ($downloads_field[$i]->getVar('status') == 1) {
+                    if (1 == $downloads_field[$i]->getVar('status')) {
                         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMHOMEPAGE, 'homepage', 50, 255, $d_homepage));
                     } else {
                         $form->addElement(new XoopsFormHidden('homepage', ''));
                     }
                 }
-                if ($downloads_field[$i]->getVar('fid') == 2) {
+                if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
-                    if ($downloads_field[$i]->getVar('status') == 1) {
+                    if (1 == $downloads_field[$i]->getVar('status')) {
                         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMVERSION, 'version', 10, 255, $d_version));
                     } else {
                         $form->addElement(new XoopsFormHidden('version', ''));
                     }
                 }
-                if ($downloads_field[$i]->getVar('fid') == 3) {
+                if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
                     /*if ($downloads_field[$i]->getVar('status') == 1) {
                         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMSIZE, 'size', 10, 255, $d_size));
@@ -155,10 +155,10 @@ class TDMDownloads_mod extends XoopsObject
                         $form->addElement(new XoopsFormHidden('size', ''));
                     }*/
 
-                    if ($downloads_field[$i]->getVar('status') == 1) {
+                    if (1 == $downloads_field[$i]->getVar('status')) {
                         $size_value_arr = explode(' ', $view_downloads->getVar('size'));
                         $size_value = $size_value_arr[0];
-                        if ($erreur === false) {
+                        if (false === $erreur) {
                             $type_value = $size_value_arr[1];
                         } else {
                             $type_value = $donnee['type_size'];
@@ -176,9 +176,9 @@ class TDMDownloads_mod extends XoopsObject
                         $form->addElement(new XoopsFormHidden('type_size', ''));
                     }
                 }
-                if ($downloads_field[$i]->getVar('fid') == 4) {
+                if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
-                    if ($downloads_field[$i]->getVar('status') == 1) {
+                    if (1 == $downloads_field[$i]->getVar('status')) {
                         $platformselect = new XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|', $d_platform), 5, true);
                         $platform_array = explode('|', $xoopsModuleConfig['platform']);
                         foreach ($platform_array as $platform) {
@@ -199,13 +199,13 @@ class TDMDownloads_mod extends XoopsObject
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
-                    if ($erreur === true) {
+                    if (true === $erreur) {
                         $contenu = $donnee[$nom_champ];
                     } else {
                         $contenu = $downloadsfielddata[$j]->getVar('data');
                     }
                 }
-                if ($downloads_field[$i]->getVar('status') == 1) {
+                if (1 == $downloads_field[$i]->getVar('status')) {
                     $form->addElement(new XoopsFormText($downloads_field[$i]->getVar('title'), $nom_champ, 50, 255, $contenu));
                 } else {
                     $form->addElement(new XoopsFormHidden($nom_champ, ''));
@@ -241,7 +241,7 @@ class TDMDownloads_mod extends XoopsObject
             $imgtray->addElement($imageselect, false);
             $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
             $fileseltray= new XoopsFormElementTray('', '<br>');
-            if ($perm_upload === true) {
+            if (true === $perm_upload) {
                 $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedimage', $xoopsModuleConfig['maxuploadsize']), false);
             }
             $imgtray->addElement($fileseltray);

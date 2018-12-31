@@ -23,7 +23,7 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname'
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
 // redirection si pas de droit pour poster
-if ($perm_submit === false) {
+if (false === $perm_submit) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
@@ -75,7 +75,7 @@ switch ($op) {
             $donnee['submitter'] = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
         }
         $obj->setVar('date', time());
-        if ($perm_autoapprove === true) {
+        if (true === $perm_autoapprove) {
             $obj->setVar('status', 1);
         } else {
             $obj->setVar('status', 0);
@@ -93,8 +93,8 @@ switch ($op) {
         }
         $donnee['date_update'] = 0;
         // erreur si la taille du fichier n'est pas un nombre
-        if (intval($_REQUEST['size']) == 0) {
-            if ($_REQUEST['size'] == '0' || $_REQUEST['size'] == '') {
+        if (0 == intval($_REQUEST['size'])) {
+            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
                 $erreur = false;
             } else {
                 $erreur = true;
@@ -103,7 +103,7 @@ switch ($op) {
         }
         // erreur si la catégorie est vide
         if (isset($_REQUEST['cid'])) {
-            if ($_REQUEST['cid'] == 0) {
+            if (0 == $_REQUEST['cid']) {
                 $erreur=true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
@@ -121,16 +121,16 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
-            if ($downloads_field[$i]->getVar('status_def') == 0) {
+            if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$nom_champ] = $_POST[$nom_champ];
             }
         }
         // enregistrement temporaire des tags
-        if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../tag'))) {
+        if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
             $donnee['TAG'] = $_POST['tag'];
         }
-        if ($erreur==true) {
+        if (true == $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
@@ -172,7 +172,7 @@ switch ($op) {
             if ($downloadsHandler->insert($obj)) {
                 $lid_dowwnloads = $obj->get_new_enreg();
                 //tags
-                if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../tag'))) {
+                if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../tag'))) {
                     $tagHandler = xoops_getModuleHandler('tag', 'tag');
                     $tagHandler->updateByItem($_POST['tag'], $lid_dowwnloads, $xoopsModule->getVar('dirname'), 0);
                 }
@@ -182,7 +182,7 @@ switch ($op) {
                 $criteria->setOrder('ASC');
                 $downloads_field = $downloadsfieldHandler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
-                    if ($downloads_field[$i]->getVar('status_def') == 0) {
+                    if (0 == $downloads_field[$i]->getVar('status_def')) {
                         $objdata = $downloadsfielddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('data', $_POST[$nom_champ]);
@@ -194,7 +194,7 @@ switch ($op) {
                 if ($xoopsUser) {
                     if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                         //permission pour télécharger
-                        if ($xoopsModuleConfig['permission_download'] == 1) {
+                        if (1 == $xoopsModuleConfig['permission_download']) {
                             $gpermHandler = xoops_getHandler('groupperm');
                             $criteria = new CriteriaCompo();
                             $criteria->add(new Criteria('gperm_itemid', $lid_dowwnloads, '='));
@@ -217,7 +217,7 @@ switch ($op) {
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
                 $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $donnee['cid'];
 
-                if ($perm_autoapprove === true) {
+                if (true === $perm_autoapprove) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
                     $notificationHandler->triggerEvent('category', $donnee['cid'], 'new_file', $tags);
                     redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br>' . _MD_TDMDOWNLOADS_SUBMIT_ISAPPROVED . '');

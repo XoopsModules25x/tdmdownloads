@@ -21,7 +21,7 @@ $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
 // redirection si le téléchargement n'existe pas
 $view_downloads = $downloadsHandler->get($lid);
-if (count($view_downloads) == 0) {
+if (0 == count($view_downloads)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
 }
@@ -32,7 +32,7 @@ if (!in_array($view_downloads->getVar('cid'), $categories)) {
     exit();
 }
 //redirection si pas de permission (télécharger)
-if ($xoopsModuleConfig['permission_download'] == 2) {
+if (2 == $xoopsModuleConfig['permission_download']) {
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     if (!in_array($view_downloads->getVar('lid'), $item)) {
         redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
@@ -46,7 +46,7 @@ if ($xoopsModuleConfig['permission_download'] == 2) {
     }
 }
 //check download limit option
-if ($xoopsModuleConfig['downlimit'] == 1) {
+if (1 == $xoopsModuleConfig['downlimit']) {
     $limitlid = $xoopsModuleConfig['limitlid'];
     $limitglobal = $xoopsModuleConfig['limitglobal'];
     $yesterday = strtotime(formatTimestamp(time()-86400));

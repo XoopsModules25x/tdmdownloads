@@ -69,7 +69,7 @@ switch ($op) {
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsbroken_arr) as $i) {
-                $class = ($class == 'even') ? 'odd' : 'even';
+                $class = ('even' == $class) ? 'odd' : 'even';
                 $downloads_lid = $downloadsbroken_arr[$i]->getVar('lid');
                 $downloads_reportid = $downloadsbroken_arr[$i]->getVar('reportid');
                 $downloads_title = $downloadsbroken_arr[$i]->getVar('title');
@@ -98,7 +98,7 @@ switch ($op) {
     // permet de suprimmer le rapport de téléchargment brisé
     case 'del_brokendownloads':
         $obj = $downloadsbrokenHandler->get($_REQUEST['broken_id']);
-        if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }

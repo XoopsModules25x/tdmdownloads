@@ -27,7 +27,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 // redirection si la catégorie n'existe pas
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('cat_cid', $cid));
-if ($downloadscatHandler->getCount($criteria) == 0 || $cid == 0) {
+if (0 == $downloadscatHandler->getCount($criteria) || 0 == $cid) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
     exit();
 }
@@ -90,7 +90,7 @@ foreach (array_keys($downloadscat_arr) as $i) {
 //pour afficher les résumés
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 //téléchargements récents
-if ($xoopsModuleConfig['bldate']==1) {
+if (1 == $xoopsModuleConfig['bldate']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -109,7 +109,7 @@ if ($xoopsModuleConfig['bldate']==1) {
     }
 }
 //plus téléchargés
-if ($xoopsModuleConfig['blpop']==1) {
+if (1 == $xoopsModuleConfig['blpop']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -127,7 +127,7 @@ if ($xoopsModuleConfig['blpop']==1) {
     }
 }
 //mieux notés
-if ($xoopsModuleConfig['blrating']==1) {
+if (1 == $xoopsModuleConfig['blrating']) {
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
@@ -146,7 +146,7 @@ if ($xoopsModuleConfig['blrating']==1) {
     }
 }
 // affichage du résumé
-if ($xoopsModuleConfig['bldate']==0 and $xoopsModuleConfig['blpop']==0 and $xoopsModuleConfig['blrating']==0) {
+if (0 == $xoopsModuleConfig['bldate'] and 0 == $xoopsModuleConfig['blpop'] and 0 == $xoopsModuleConfig['blrating']) {
     $bl_affichage = 0;
 } else {
     $bl_affichage = 1;
@@ -157,7 +157,7 @@ if ($xoopsModuleConfig['bldate']==0 and $xoopsModuleConfig['blpop']==0 and $xoop
 if ($xoopsModuleConfig['perpage'] > 0) {
     $xoopsTpl->assign('nb_dowcol', $xoopsModuleConfig['nb_dowcol']);
     //Utilisation d'une copie d'écran avec la largeur selon les préférences
-    if ($xoopsModuleConfig['useshots'] == 1) {
+    if (1 == $xoopsModuleConfig['useshots']) {
         $xoopsTpl->assign('shotwidth', $xoopsModuleConfig['shotwidth']);
         $xoopsTpl->assign('show_screenshot', true);
         $xoopsTpl->assign('img_float', $xoopsModuleConfig['img_float']);
@@ -212,7 +212,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     foreach (array_keys($downloads_arr) as $i) {
-        if ($downloads_arr[$i]->getVar('logourl') == 'blank.gif') {
+        if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
             $logourl = $downloads_arr[$i]->getVar('logourl');
@@ -222,7 +222,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         $submitter = XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (strpos($description, '[pagebreak]')==false) {
+        if (false == strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
             $description_short = substr($description, 0, strpos($description, '[pagebreak]'));
@@ -238,7 +238,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
             $adminlink = '';
         }
         //permission de télécharger
-        if ($xoopsModuleConfig['permission_download'] == 1) {
+        if (1 == $xoopsModuleConfig['permission_download']) {
             if (!in_array($downloads_arr[$i]->getVar('cid'), $categories)) {
                 $perm_download = false;
             } else {
@@ -264,14 +264,14 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         $keywords .= $downloads_arr[$i]->getVar('title') . ',';
     }
 
-    if ($numrows == 0) {
+    if (0 == $numrows) {
         $bl_affichage = 0;
     }
     $xoopsTpl->assign('bl_affichage', $bl_affichage);
 
     // affichage du sommaire
     if ($xoopsModuleConfig['autosummary']) {
-        if ($numrows == 0) {
+        if (0 == $numrows) {
             $xoopsTpl->assign('aff_summary', false);
         } else {
             $xoopsTpl->assign('aff_summary', true);
@@ -284,28 +284,28 @@ if ($xoopsModuleConfig['perpage'] > 0) {
     if ($numrows>1) {
         $xoopsTpl->assign('navigation', true);
         $sortorder = $sort . $order;
-        if ($sortorder == 'hitsASC') {
+        if ('hitsASC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYLTOM;
         }
-        if ($sortorder == 'hitsDESC') {
+        if ('hitsDESC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYMTOL;
         }
-        if ($sortorder == 'titleASC') {
+        if ('titleASC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEATOZ;
         }
-        if ($sortorder == 'titleDESC') {
+        if ('titleDESC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEZTOA;
         }
-        if ($sortorder == 'dateASC') {
+        if ('dateASC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATEOLD;
         }
-        if ($sortorder == 'dateDESC') {
+        if ('dateDESC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATENEW;
         }
-        if ($sortorder == 'ratingASC') {
+        if ('ratingASC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGLTOH;
         }
-        if ($sortorder == 'ratingDESC') {
+        if ('ratingDESC' == $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGHTOL;
         }
         $xoopsTpl->assign('affichage_tri', sprintf(_MD_TDMDOWNLOADS_CAT_CURSORTBY, $affichage_tri));

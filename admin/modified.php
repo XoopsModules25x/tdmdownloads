@@ -64,7 +64,7 @@ switch ($op) {
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsmod_arr) as $i) {
-                $class = ($class == 'even') ? 'odd' : 'even';
+                $class = ('even' == $class) ? 'odd' : 'even';
                 $downloads_lid = $downloadsmod_arr[$i]->getVar('lid');
                 $downloads_requestid = $downloadsmod_arr[$i]->getVar('requestid');
                 $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
@@ -147,20 +147,20 @@ switch ($op) {
         $criteria->add(new Criteria('status', 1));
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
-            if ($downloads_field[$i]->getVar('status_def') == 1) {
-                if ($downloads_field[$i]->getVar('fid') == 1) {
+            if (1 == $downloads_field[$i]->getVar('status_def')) {
+                if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_homepage == $moddownloads_homepage ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . '</span>: <a href="' . $downloads_homepage . '">' . $downloads_homepage . '</a></small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 2) {
+                if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_version == $moddownloads_version ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMVERSION . '</span>: ' . $downloads_version . '</small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 3) {
+                if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $downloads_size  . '</small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 4) {
+                if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $downloads_platform  . '</small></td></tr>';
                 }
@@ -204,20 +204,20 @@ switch ($op) {
         $criteria->add(new Criteria('status', 1));
         $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
-            if ($downloads_field[$i]->getVar('status_def') == 1) {
-                if ($downloads_field[$i]->getVar('fid') == 1) {
+            if (1 == $downloads_field[$i]->getVar('status_def')) {
+                if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_homepage == $moddownloads_homepage ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . '</span>: <a href="' . $moddownloads_homepage . '">' . $moddownloads_homepage . '</a></small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 2) {
+                if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_version == $moddownloads_version ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMVERSION . '</span>: ' . $moddownloads_version . '</small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 3) {
+                if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $moddownloads_size  . '</small></td></tr>';
                 }
-                if ($downloads_field[$i]->getVar('fid') == 4) {
+                if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
                     echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $moddownloads_platform  . '</small></td></tr>';
                 }
@@ -261,11 +261,11 @@ switch ($op) {
     // permet de suprimmer le téléchargment modifié
     case 'del_moddownloads':
         $obj = $downloadsmodHandler->get($_REQUEST['mod_id']);
-        if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-            if ($_REQUEST['new_file']==true) {
+            if (true == $_REQUEST['new_file']) {
                 $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
                 // permet de donner le chemin du fichier
                 $urlfile = $uploaddir_downloads . $urlfile;
@@ -305,7 +305,7 @@ switch ($op) {
         $view_moddownloads = $downloadsmodHandler->get($_REQUEST['mod_id']);
         $obj = $downloadsHandler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
-        if ($_REQUEST['new_file']==true) {
+        if (true == $_REQUEST['new_file']) {
             $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
             // permet de donner le chemin du fichier
             $urlfile = $uploaddir_downloads . $urlfile;
@@ -335,7 +335,7 @@ switch ($op) {
         foreach (array_keys($downloads_field) as $i) {
             $contenu = '';
             $iddata = 0;
-            if ($downloads_field[$i]->getVar('status_def') == 0) {
+            if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $view_moddownloads->getVar('requestid')));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -350,7 +350,7 @@ switch ($op) {
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
-                if ($iddata == 0) {
+                if (0 == $iddata) {
                     $objdata = $downloadsfielddataHandler->create();
                     $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                     $objdata->setVar('lid', $view_moddownloads->getVar('lid'));

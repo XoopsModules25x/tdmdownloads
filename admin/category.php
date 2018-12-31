@@ -61,7 +61,7 @@ switch ($op) {
                 echo '<a href="category.php?op=del_cat&downloadscat_cid=' . $i . '"><img src="../images/icon/delete.png" alt="'._AM_TDMDOWNLOADS_FORMDEL.'" title="'._AM_TDMDOWNLOADS_FORMDEL.'"></a>';
                 echo '</td>';
                 echo '</tr>';
-                $class = ($class == 'even') ? 'odd' : 'even';
+                $class = ('even' == $class) ? 'odd' : 'even';
             }
             echo '</table>';
         }
@@ -106,7 +106,7 @@ switch ($op) {
         global $xoopsModule;
         $downloadscat_cid = TDMDownloads_CleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
         $obj = $downloadscatHandler->get($downloadscat_cid);
-        if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
+        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -146,7 +146,7 @@ switch ($op) {
                     xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_arr[$i]->getVar('lid'));
                 }
                 //supression des tags
-                if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../../tag'))) {
+                if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
                     $tagHandler = xoops_getModuleHandler('link', 'tag');
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
@@ -213,7 +213,7 @@ switch ($op) {
                         xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_arr[$i]->getVar('lid'));
                     }
                     //supression des tags
-                    if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../../tag'))) {
+                    if ((1 == $xoopsModuleConfig['usetag']) and (is_dir('../../tag'))) {
                         $tagHandler = xoops_getModuleHandler('link', 'tag');
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
@@ -320,7 +320,7 @@ switch ($op) {
         $obj->setVar('cat_title', $_POST['cat_title']);
         $obj->setVar('cat_description_main', $_POST['cat_description_main']);
         $obj->setVar('cat_weight', $_POST['cat_weight']);
-        if (intval($_REQUEST['cat_weight'])==0 && $_REQUEST['cat_weight'] != '0') {
+        if (0 == intval($_REQUEST['cat_weight']) && '0' != $_REQUEST['cat_weight']) {
             $erreur=true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
@@ -330,7 +330,7 @@ switch ($op) {
                 $message_erreur .= _AM_TDMDOWNLOADS_ERREUR_CAT;
             }
         }
-        if ($erreur==true) {
+        if (true == $erreur) {
             echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';
         } else {
             if ($downloadscatHandler->insert($obj)) {
@@ -362,7 +362,7 @@ switch ($op) {
                     }
                 }
                 //permission pour télécharger
-                if ($xoopsModuleConfig['permission_download'] == 1) {
+                if (1 == $xoopsModuleConfig['permission_download']) {
                     $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
                     $gpermHandler = xoops_getHandler('groupperm');
                     $criteria = new CriteriaCompo();

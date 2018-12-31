@@ -45,17 +45,17 @@ if (TDMDownloads_checkModuleAdmin()) {
     $index_admin->addInfoBox(_MI_TDMDOWNLOADS_ADMENU5);
     $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU2, _AM_TDMDOWNLOADS_INDEX_CATEGORIES, $nb_categories);
     $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU3, _AM_TDMDOWNLOADS_INDEX_DOWNLOADS, $nb_downloads);
-    if ($nb_downloads_waiting == 0) {
+    if (0 == $nb_downloads_waiting) {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU3, _AM_TDMDOWNLOADS_INDEX_DOWNLOADSWAITING, $nb_downloads_waiting, 'Green');
     } else {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU3, _AM_TDMDOWNLOADS_INDEX_DOWNLOADSWAITING, $nb_downloads_waiting, 'Red');
     }
-    if ($nb_broken == 0) {
+    if (0 == $nb_broken) {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU4, _AM_TDMDOWNLOADS_INDEX_BROKEN, $nb_broken, 'Green');
     } else {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU4, _AM_TDMDOWNLOADS_INDEX_BROKEN, $nb_broken, 'Red');
     }
-    if ($nb_modified == 0) {
+    if (0 == $nb_modified) {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU5, _AM_TDMDOWNLOADS_INDEX_MODIFIED, $nb_modified, 'Green');
     } else {
         $index_admin->addInfoBoxLine(_MI_TDMDOWNLOADS_ADMENU5, _AM_TDMDOWNLOADS_INDEX_MODIFIED, $nb_modified, 'Red');
