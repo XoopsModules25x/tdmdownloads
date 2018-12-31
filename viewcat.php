@@ -82,7 +82,7 @@ foreach (array_keys($downloadscat_arr) as $i) {
             $keywords .= $downloadscat_arr[$i]->getVar('cat_title') . ',';
             $chcount++;
         }
-        $xoopsTpl->append('subcategories', array('image' => $uploadurl . $downloadscat_arr[$i]->getVar('cat_imgurl'), 'id' => $downloadscat_arr[$i]->getVar('cat_cid'), 'title' => $downloadscat_arr[$i]->getVar('cat_title'), 'description_main' => $downloadscat_arr[$i]->getVar('cat_description_main'), 'infercategories' => $subcategories, 'totaldownloads' => $totaldownloads, 'count' => $count));
+        $xoopsTpl->append('subcategories', ['image' => $uploadurl . $downloadscat_arr[$i]->getVar('cat_imgurl'), 'id' => $downloadscat_arr[$i]->getVar('cat_cid'), 'title' => $downloadscat_arr[$i]->getVar('cat_title'), 'description_main' => $downloadscat_arr[$i]->getVar('cat_description_main'), 'infercategories' => $subcategories, 'totaldownloads' => $totaldownloads, 'count' => $count]);
         $count++;
     }
 }
@@ -105,7 +105,7 @@ if ($xoopsModuleConfig['bldate']==1) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $date = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $xoopsTpl->append('bl_date', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'date' => $date,'title' => $title));
+        $xoopsTpl->append('bl_date', ['id' => $downloads_arr[$i]->getVar('lid'), 'cid' => $downloads_arr[$i]->getVar('cid'), 'date' => $date, 'title' => $title]);
     }
 }
 //plus téléchargés
@@ -123,7 +123,7 @@ if ($xoopsModuleConfig['blpop']==1) {
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
-        $xoopsTpl->append('bl_pop', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'hits' => $downloads_arr[$i]->getVar('hits'),'title' => $title));
+        $xoopsTpl->append('bl_pop', ['id' => $downloads_arr[$i]->getVar('lid'), 'cid' => $downloads_arr[$i]->getVar('cid'), 'hits' => $downloads_arr[$i]->getVar('hits'), 'title' => $title]);
     }
 }
 //mieux notés
@@ -142,7 +142,7 @@ if ($xoopsModuleConfig['blrating']==1) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $rating = number_format($downloads_arr[$i]->getVar('rating'), 1);
-        $xoopsTpl->append('bl_rating', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'),'rating' => $rating,'title' => $title));
+        $xoopsTpl->append('bl_rating', ['id' => $downloads_arr[$i]->getVar('lid'), 'cid' => $downloads_arr[$i]->getVar('cid'), 'rating' => $rating, 'title' => $title]);
     }
 }
 // affichage du résumé
@@ -254,10 +254,12 @@ if ($xoopsModuleConfig['perpage'] > 0) {
         // utilisation du sommaire
         $cpt++;
         $summary = $cpt . '- <a href="#l' . $cpt . '">' . $downloads_arr[$i]->getVar('title') . '</a><br>';
-        $xoopsTpl->append('summary', array('title' => $summary, 'count' => $cpt));
+        $xoopsTpl->append('summary', ['title' => $summary, 'count' => $cpt]);
 
-        $xoopsTpl->append('file', array('id' => $downloads_arr[$i]->getVar('lid'),'cid' => $downloads_arr[$i]->getVar('cid'), 'title' => $downloads_arr[$i]->getVar('title'), 'new' => $new, 'pop' => $pop,'logourl' => $logourl,'updated' => $datetime,'description_short' => $description_short,
-                                        'adminlink' => $adminlink, 'submitter' => $submitter, 'perm_download' => $perm_download, 'count' => $cpt));
+        $xoopsTpl->append('file', [
+            'id'        => $downloads_arr[$i]->getVar('lid'), 'cid' => $downloads_arr[$i]->getVar('cid'), 'title' => $downloads_arr[$i]->getVar('title'), 'new' => $new, 'pop' => $pop, 'logourl' => $logourl, 'updated' => $datetime, 'description_short' => $description_short,
+            'adminlink' => $adminlink, 'submitter' => $submitter, 'perm_download' => $perm_download, 'count' => $cpt
+        ]);
         //pour les mots clef
         $keywords .= $downloads_arr[$i]->getVar('title') . ',';
     }

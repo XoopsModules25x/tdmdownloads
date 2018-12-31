@@ -43,7 +43,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
 
     $sql .= ' ORDER BY date DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret = array();
+    $ret = [];
     $i = 0;
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/images/deco/tdmdownloads_search.png';

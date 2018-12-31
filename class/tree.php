@@ -32,7 +32,7 @@ class TDMObjectTree extends XoopsObjectTree
     
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0)
     {
-        $ret = array();
+        $ret = [];
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;

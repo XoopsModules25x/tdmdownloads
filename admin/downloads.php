@@ -195,7 +195,7 @@ switch ($op) {
         }
         //Affichage du formulaire de création des téléchargements
         $obj = $downloadsHandler->create();
-        $form = $obj->getForm($donnee = array(), false);
+        $form = $obj->getForm($donnee = [], false);
         $form->display();
     break;
 
@@ -218,7 +218,7 @@ switch ($op) {
         //Affichage du formulaire de création des téléchargements
         $downloads_lid = TDMDownloads_CleanVars($_REQUEST, 'downloads_lid', 0, 'int');
         $obj = $downloadsHandler->get($downloads_lid);
-        $form = $obj->getForm($donnee = array(), false);
+        $form = $obj->getForm($donnee = [], false);
         $form->display();
     break;
 
@@ -296,7 +296,7 @@ switch ($op) {
                 }
                 echo $downloads_admin->displayButton();
             }
-            xoops_confirm(array('ok' => 1, 'downloads_lid' => $downloads_lid, 'op' => 'del_downloads'), $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>');
+            xoops_confirm(['ok' => 1, 'downloads_lid' => $downloads_lid, 'op' => 'del_downloads'], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>');
         }
     break;
 
@@ -573,7 +573,7 @@ switch ($op) {
         }
         $erreur = false;
         $message_erreur = '';
-        $donnee = array();
+        $donnee = [];
         $obj->setVar('title', $_POST['title']);
         $obj->setVar('cid', $_POST['cid']);
         $obj->setVar('homepage', formatURL($_POST['homepage']));
@@ -687,7 +687,7 @@ switch ($op) {
             }
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
-                $uploader_2 = new XoopsMediaUploader($uploaddir_shots, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader_2 = new XoopsMediaUploader($uploaddir_shots, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader_2->fetchMedia($_POST['xoops_upload_file'][1])) {
                     $uploader_2->setPrefix('downloads_') ;
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
@@ -753,7 +753,7 @@ switch ($op) {
                 }
                 // pour les notifications uniquement lors d'un nouveau téléchargement
                 if (!isset($_REQUEST['downloads_modified'])) {
-                    $tags = array();
+                    $tags = [];
                     $tags['FILE_NAME'] = $_POST['title'];
                     $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/singlefile.php?cid=' . $_POST['cid'] . '&amp;lid=' . $lid_dowwnloads;
                     $downloadscat_cat = $downloadscatHandler->get($_POST['cid']);

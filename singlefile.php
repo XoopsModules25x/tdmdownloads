@@ -172,7 +172,7 @@ foreach (array_keys($downloads_field) as $i) {
         }
     }
     if ($champ_sup != '') {
-        $xoopsTpl->append('champ_sup', array('image' => $uploadurl_field . $downloads_field[$i]->getVar('img'), 'data' => $champ_sup));
+        $xoopsTpl->append('champ_sup', ['image' => $uploadurl_field . $downloads_field[$i]->getVar('img'), 'data' => $champ_sup]);
     }
     $champ_sup ='';
 }

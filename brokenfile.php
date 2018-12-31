@@ -117,7 +117,7 @@ switch ($op) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
             if ($downloadsbrokenHandler->insert($obj)) {
-                $tags = array();
+                $tags = [];
                 $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/broken.php';
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_broken', $tags);

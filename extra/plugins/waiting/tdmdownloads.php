@@ -11,10 +11,10 @@
 function b_waiting_tdmdownloads()
 {
     $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
-    $ret = array() ;
+    $ret = [];
 
     // TDMdownloads waiting
-    $block = array();
+    $block = [];
     $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status=0');
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/tdmdownloads/admin/downloads.php?op=liste&statut_display=0';
@@ -24,7 +24,7 @@ function b_waiting_tdmdownloads()
     $ret[] = $block ;
 
     // TDMDownloads broken
-    $block = array();
+    $block = [];
     $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('tdmdownloads_broken'));
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/tdmdownloads/admin/broken.php';
@@ -34,7 +34,7 @@ function b_waiting_tdmdownloads()
     $ret[] = $block ;
 
     // TDMDownloads modreq
-    $block = array();
+    $block = [];
     $result = $xoopsDB->query('SELECT COUNT(*) FROM ' . $xoopsDB->prefix('tdmdownloads_mod'));
     if ($result) {
         $block['adminlink'] = XOOPS_URL . '/modules/tdmdownloads/admin/modified.php';

@@ -171,7 +171,7 @@ switch ($op) {
                 $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
                 echo $field_admin->displayButton();
             }
-            xoops_confirm(array('ok' => 1, 'fid' => $_REQUEST['fid'], 'op' => 'del_field'), $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . $message);
+            xoops_confirm(['ok' => 1, 'fid' => $_REQUEST['fid'], 'op' => 'del_field'], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . $message);
         }
 
     break;
@@ -191,7 +191,7 @@ switch ($op) {
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $uploader = new XoopsMediaUploader($uploaddir_field, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $xoopsModuleConfig['maxuploadsize'], 16, null);
+        $uploader = new XoopsMediaUploader($uploaddir_field, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], 16, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_') ;
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);

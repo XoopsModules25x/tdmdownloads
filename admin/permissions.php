@@ -23,7 +23,7 @@ if (TDMDownloads_checkModuleAdmin()) {
 }
 
 $permission = isset($_POST['permission']) ? intval($_POST['permission']) : 1;
-$tab_perm = array(1 => _AM_TDMDOWNLOADS_PERM_VIEW, 2 => _AM_TDMDOWNLOADS_PERM_SUBMIT, 3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD, 4 => _AM_TDMDOWNLOADS_PERM_AUTRES);
+$tab_perm = [1 => _AM_TDMDOWNLOADS_PERM_VIEW, 2 => _AM_TDMDOWNLOADS_PERM_SUBMIT, 3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD, 4 => _AM_TDMDOWNLOADS_PERM_AUTRES];
 echo "<form method='post' name='fselperm' action='permissions.php'>\n";
 echo "<table border='0'>\n<tr>\n<td>\n";
 echo "<select name='permission' onChange='javascript: document.fselperm.submit()'>\n";
@@ -68,13 +68,13 @@ switch ($permission) {
         $formTitle = _AM_TDMDOWNLOADS_PERM_AUTRES;
         $permissionName = 'tdmdownloads_ac';
         $permissionDescription = _AM_TDMDOWNLOADS_PERM_AUTRES_DSC;
-        $global_perms_array = array(
+        $global_perms_array = [
         '4' => _AM_TDMDOWNLOADS_PERMISSIONS_4 ,
         '8' => _AM_TDMDOWNLOADS_PERMISSIONS_8 ,
         '16' => _AM_TDMDOWNLOADS_PERMISSIONS_16 ,
         '32' => _AM_TDMDOWNLOADS_PERMISSIONS_32 ,
         '64' => _AM_TDMDOWNLOADS_PERMISSIONS_64
-         );
+        ];
         break;
 }
 

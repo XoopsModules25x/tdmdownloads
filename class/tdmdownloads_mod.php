@@ -50,7 +50,7 @@ class TDMDownloads_mod extends XoopsObject
 
         return $new_enreg;
     }
-    public function getForm($lid, $erreur, $donnee = array(), $action = false)
+    public function getForm($lid, $erreur, $donnee = [], $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
         if ($action === false) {
@@ -167,7 +167,7 @@ class TDMDownloads_mod extends XoopsObject
                         $aff_size->addElement(new XoopsFormText('', 'size', 10, 255, $size_value));
                         $type = new XoopsFormSelect('', 'type_size', $type_value);
                         //$type_arr = array('[o]' => _AM_TDMDOWNLOADS_BYTES, '[Ko]' => _AM_TDMDOWNLOADS_KBYTES, '[Mo]' => _AM_TDMDOWNLOADS_MBYTES, '[Go]' => _AM_TDMDOWNLOADS_GBYTES, '[To]' => _AM_TDMDOWNLOADS_TBYTES);
-                        $type_arr = array(_AM_TDMDOWNLOADS_BYTES => '['._AM_TDMDOWNLOADS_BYTES.']', _AM_TDMDOWNLOADS_KBYTES => '['._AM_TDMDOWNLOADS_KBYTES.']', _AM_TDMDOWNLOADS_MBYTES => '['._AM_TDMDOWNLOADS_MBYTES.']', _AM_TDMDOWNLOADS_GBYTES => '['._AM_TDMDOWNLOADS_GBYTES.']', _AM_TDMDOWNLOADS_TBYTES => '['._AM_TDMDOWNLOADS_TBYTES.']');
+                        $type_arr = [_AM_TDMDOWNLOADS_BYTES => '[' . _AM_TDMDOWNLOADS_BYTES . ']', _AM_TDMDOWNLOADS_KBYTES => '[' . _AM_TDMDOWNLOADS_KBYTES . ']', _AM_TDMDOWNLOADS_MBYTES => '[' . _AM_TDMDOWNLOADS_MBYTES . ']', _AM_TDMDOWNLOADS_GBYTES => '[' . _AM_TDMDOWNLOADS_GBYTES . ']', _AM_TDMDOWNLOADS_TBYTES => '[' . _AM_TDMDOWNLOADS_TBYTES . ']'];
                         $type->addOptionArray($type_arr);
                         $aff_size->addElement($type);
                         $form->addElement($aff_size);
@@ -213,7 +213,7 @@ class TDMDownloads_mod extends XoopsObject
             }
         }
         //description
-        $editor_configs           =array();
+        $editor_configs           = [];
         $editor_configs['name']   = 'description';
         $editor_configs['value']  = $d_description;
         $editor_configs['rows']   = 20;

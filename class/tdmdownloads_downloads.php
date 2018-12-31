@@ -60,7 +60,7 @@ class TDMDownloads_downloads extends XoopsObject
     {
         $this->__construct();
     }
-    public function getForm($donnee = array(), $erreur = false, $action = false)
+    public function getForm($donnee = [], $erreur = false, $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsModuleConfig, $xoopsUser;
         if ($action === false) {
@@ -162,7 +162,7 @@ class TDMDownloads_downloads extends XoopsObject
                         $aff_size = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
                         $aff_size->addElement(new XoopsFormText('', 'size', 10, 255, $size_value));
                         $type = new XoopsFormSelect('', 'type_size', $type_value);
-                        $type_arr = array(_AM_TDMDOWNLOADS_BYTES => '['._AM_TDMDOWNLOADS_BYTES.']', _AM_TDMDOWNLOADS_KBYTES => '['._AM_TDMDOWNLOADS_KBYTES.']', _AM_TDMDOWNLOADS_MBYTES => '['._AM_TDMDOWNLOADS_MBYTES.']', _AM_TDMDOWNLOADS_GBYTES => '['._AM_TDMDOWNLOADS_GBYTES.']', _AM_TDMDOWNLOADS_TBYTES => '['._AM_TDMDOWNLOADS_TBYTES.']');
+                        $type_arr = [_AM_TDMDOWNLOADS_BYTES => '[' . _AM_TDMDOWNLOADS_BYTES . ']', _AM_TDMDOWNLOADS_KBYTES => '[' . _AM_TDMDOWNLOADS_KBYTES . ']', _AM_TDMDOWNLOADS_MBYTES => '[' . _AM_TDMDOWNLOADS_MBYTES . ']', _AM_TDMDOWNLOADS_GBYTES => '[' . _AM_TDMDOWNLOADS_GBYTES . ']', _AM_TDMDOWNLOADS_TBYTES => '[' . _AM_TDMDOWNLOADS_TBYTES . ']'];
                         $type->addOptionArray($type_arr);
                         $aff_size->addElement($type);
                         $form->addElement($aff_size);
@@ -215,7 +215,7 @@ class TDMDownloads_downloads extends XoopsObject
             }
         }
         //description
-        $editor_configs           =array();
+        $editor_configs           = [];
         $editor_configs['name']   = 'description';
         $editor_configs['value']  = $this->getVar('description', 'e');
         $editor_configs['rows']   = 20;
@@ -290,7 +290,7 @@ class TDMDownloads_downloads extends XoopsObject
                 if (!$this->isNew()) {
                     $selection_date = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMDATEUPDATE);
                     $date = new XoopsFormRadio('', 'date_update', $date_update);
-                    $options = array('N' =>_AM_TDMDOWNLOADS_FORMDATEUPDATE_NO . ' (' . formatTimestamp($v_date, 's') . ')', 'Y' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_YES);
+                    $options = ['N' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_NO . ' (' . formatTimestamp($v_date, 's') . ')', 'Y' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_YES];
                     $date->addOptionArray($options);
                     $selection_date->addElement($date);
                     $selection_date->addElement(new XoopsFormTextDateSelect('', 'date', '', time()));

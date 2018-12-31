@@ -91,7 +91,7 @@ function Import_mydownloads($path='', $imgurl='')
         echo _AM_TDMDOWNLOADS_IMPORT_OK;
         echo '</div>';
     } else {
-        xoops_confirm(array('op' => 'import_mydownloads', 'ok' => 1, 'path' => $path, 'imgurl' => $imgurl), 'import.php', _AM_TDMDOWNLOADS_IMPORT_CONF_MYDOWNLOADS . '<br>');
+        xoops_confirm(['op' => 'import_mydownloads', 'ok' => 1, 'path' => $path, 'imgurl' => $imgurl], 'import.php', _AM_TDMDOWNLOADS_IMPORT_CONF_MYDOWNLOADS . '<br>');
     }
 }
 
@@ -163,7 +163,7 @@ function Import_wfdownloads($shots='', $catimg='')
         echo _AM_TDMDOWNLOADS_IMPORT_OK;
         echo '</div>';
     } else {
-        xoops_confirm(array('op' => 'import_wfdownloads', 'ok' => 1, 'shots' => $shots, 'catimg' => $catimg), 'import.php', _AM_TDMDOWNLOADS_IMPORT_CONF_WFDOWNLOADS . '<br>');
+        xoops_confirm(['op' => 'import_wfdownloads', 'ok' => 1, 'shots' => $shots, 'catimg' => $catimg], 'import.php', _AM_TDMDOWNLOADS_IMPORT_CONF_WFDOWNLOADS . '<br>');
     }
 }
 

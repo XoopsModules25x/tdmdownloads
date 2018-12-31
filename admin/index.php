@@ -32,8 +32,10 @@ $nb_broken = $downloadsbrokenHandler->getCount();
 // compte le nombre de demande de modifications
 $nb_modified = $downloadsmodHandler->getCount();
 // dossier dans uploads
-$folder = array(XOOPS_ROOT_PATH . '/uploads/tdmdownloads/', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/downloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images',
-               XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/cats', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/field', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots');
+$folder = [
+    XOOPS_ROOT_PATH . '/uploads/tdmdownloads/', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/downloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images',
+               XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/cats', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/field', XOOPS_ROOT_PATH . '/uploads/tdmdownloads/images/shots'
+];
 
 if (TDMDownloads_checkModuleAdmin()) {
     $index_admin = \Xmf\Module\Admin::getInstance();
@@ -60,7 +62,7 @@ if (TDMDownloads_checkModuleAdmin()) {
     }
     foreach (array_keys($folder) as $i) {
         $index_admin->addConfigBoxLine($folder[$i], 'folder');
-        $index_admin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
+        $index_admin->addConfigBoxLine([$folder[$i], '777'], 'chmod');
     }
     echo $index_admin->displayNavigation('index.php');
     echo $index_admin->displayIndex();

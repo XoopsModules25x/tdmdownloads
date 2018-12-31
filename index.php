@@ -58,7 +58,7 @@ foreach (array_keys($downloadscat_arr) as $i) {
             $keywords .= $downloadscat_arr[$i]->getVar('cat_title') . ',';
             $chcount++;
         }
-        $xoopsTpl->append('categories', array('image' => $uploadurl . $downloadscat_arr[$i]->getVar('cat_imgurl'), 'id' => $downloadscat_arr[$i]->getVar('cat_cid'), 'title' => $downloadscat_arr[$i]->getVar('cat_title'), 'description_main' => $downloadscat_arr[$i]->getVar('cat_description_main'), 'subcategories' => $subcategories, 'totaldownloads' => $totaldownloads, 'count' => $count));
+        $xoopsTpl->append('categories', ['image' => $uploadurl . $downloadscat_arr[$i]->getVar('cat_imgurl'), 'id' => $downloadscat_arr[$i]->getVar('cat_cid'), 'title' => $downloadscat_arr[$i]->getVar('cat_title'), 'description_main' => $downloadscat_arr[$i]->getVar('cat_description_main'), 'subcategories' => $subcategories, 'totaldownloads' => $totaldownloads, 'count' => $count]);
         $count++;
     }
 }
@@ -80,7 +80,7 @@ if ($xoopsModuleConfig['bldate']==1) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $date = formatTimestamp($downloads_arr_date[$i]->getVar('date'), 's');
-        $xoopsTpl->append('bl_date', array('id' => $downloads_arr_date[$i]->getVar('lid'),'cid' => $downloads_arr_date[$i]->getVar('cid'),'date' => $date,'title' => $title));
+        $xoopsTpl->append('bl_date', ['id' => $downloads_arr_date[$i]->getVar('lid'), 'cid' => $downloads_arr_date[$i]->getVar('cid'), 'date' => $date, 'title' => $title]);
     }
 }
 //plus téléchargés
@@ -97,7 +97,7 @@ if ($xoopsModuleConfig['blpop']==1) {
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
-        $xoopsTpl->append('bl_pop', array('id' => $downloads_arr_hits[$i]->getVar('lid'),'cid' => $downloads_arr_hits[$i]->getVar('cid'),'hits' => $downloads_arr_hits[$i]->getVar('hits'),'title' => $title));
+        $xoopsTpl->append('bl_pop', ['id' => $downloads_arr_hits[$i]->getVar('lid'), 'cid' => $downloads_arr_hits[$i]->getVar('cid'), 'hits' => $downloads_arr_hits[$i]->getVar('hits'), 'title' => $title]);
     }
 }
 //mieux notés
@@ -115,7 +115,7 @@ if ($xoopsModuleConfig['blrating']==1) {
             $title = substr($title, 0, ($xoopsModuleConfig['longbl'])) . '...';
         }
         $rating = number_format($downloads_arr_rating[$i]->getVar('rating'), 1);
-        $xoopsTpl->append('bl_rating', array('id' => $downloads_arr_rating[$i]->getVar('lid'),'cid' => $downloads_arr_rating[$i]->getVar('cid'),'rating' => $rating,'title' => $title));
+        $xoopsTpl->append('bl_rating', ['id' => $downloads_arr_rating[$i]->getVar('lid'), 'cid' => $downloads_arr_rating[$i]->getVar('cid'), 'rating' => $rating, 'title' => $title]);
     }
 }
 if ($xoopsModuleConfig['bldate']==0 and $xoopsModuleConfig['blpop']==0 and $xoopsModuleConfig['blrating']==0) {
@@ -141,7 +141,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $criteria->add(new Criteria('status', 0, '!='));
     $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
     $criteria->setLimit($xoopsModuleConfig['newdownloads']);
-    $tblsort = array();
+    $tblsort = [];
     $tblsort[1]='date';
     $tblsort[2]='date';
     $tblsort[3]='hits';
@@ -150,7 +150,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $tblsort[6]='rating';
     $tblsort[7]='title';
     $tblsort[8]='title';
-    $tblorder = array();
+    $tblorder = [];
     $tblorder[1]='DESC';
     $tblorder[2]='ASC';
     $tblorder[3]='DESC';
@@ -207,8 +207,10 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
                 $perm_download = true;
             }
         }
-        $xoopsTpl->append('file', array('id' => $downloads_arr[$i]->getVar('lid'),'cid'=>$downloads_arr[$i]->getVar('cid'), 'title' => $downloads_arr[$i]->getVar('title'), 'new' => $new, 'pop' => $pop,'logourl' => $logourl,'updated' => $datetime,'description_short' => $description_short,
-                                        'adminlink' => $adminlink, 'submitter' => $submitter, 'perm_download' => $perm_download, 'count' => $count));
+        $xoopsTpl->append('file', [
+            'id'        => $downloads_arr[$i]->getVar('lid'), 'cid' => $downloads_arr[$i]->getVar('cid'), 'title' => $downloads_arr[$i]->getVar('title'), 'new' => $new, 'pop' => $pop, 'logourl' => $logourl, 'updated' => $datetime, 'description_short' => $description_short,
+            'adminlink' => $adminlink, 'submitter' => $submitter, 'perm_download' => $perm_download, 'count' => $count
+        ]);
         //pour les mots clef
         $keywords .= $downloads_arr[$i]->getVar('title') . ',';
         $count++;

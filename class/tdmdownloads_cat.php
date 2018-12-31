@@ -67,7 +67,7 @@ class TDMDownloads_cat extends XoopsObject
         //titre
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'cat_title', 50, 255, $this->getVar('cat_title')), true);
         //editeur
-        $editor_configs           =array();
+        $editor_configs           = [];
         $editor_configs['name']   = 'cat_description_main';
         $editor_configs['value']  = $this->getVar('cat_description_main', 'e');
         $editor_configs['rows']   = 20;

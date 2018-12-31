@@ -26,7 +26,7 @@ function tdmdownloads_new($limit=0, $offset=0)
     $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i = 0;
-    $ret = array();
+    $ret = [];
 
     while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $lid = $row['lid'];
@@ -77,7 +77,7 @@ function tdmdownloads_data($limit=0, $offset=0)
     $result = $xoopsDB->query($sql, $limit, $offset);
 
     $i = 0;
-    $ret = array();
+    $ret = [];
 
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $id = $myrow['lid'];

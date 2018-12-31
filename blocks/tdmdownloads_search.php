@@ -30,7 +30,7 @@ function b_tdmdownloads_search_show()
 
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 
-    $block = array();
+    $block = [];
 
     //formulaire de recherche
     $form = new XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, 'search', XOOPS_URL . '/modules/tdmdownloads/search.php', 'post');
@@ -55,8 +55,8 @@ function b_tdmdownloads_search_show()
     $downloads_field = $downloadsfieldHandler->getall($criteria);
     foreach (array_keys($downloads_field) as $i) {
         $title_sup = '';
-        $contenu_arr = array();
-        $lid_arr = array();
+        $contenu_arr = [];
+        $lid_arr = [];
         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
         $criteria = new CriteriaCompo();
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;

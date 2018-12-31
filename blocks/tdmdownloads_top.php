@@ -19,7 +19,7 @@ function b_tdmdownloads_top_show($options)
     require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/include/functions.php';
     //appel de la class
     $downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-    $block = array();
+    $block = [];
     $type_block = $options[0];
     $nb_entree = $options[1];
     $lenght_title = $options[2];

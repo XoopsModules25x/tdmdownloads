@@ -114,7 +114,7 @@ switch ($op) {
                 $broken_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU4, 'broken.php', 'list');
                 echo $broken_admin->displayButton();
             }
-            xoops_confirm(array('ok' => 1, 'broken_id' => $_REQUEST['broken_id'], 'op' => 'del_brokendownloads'), $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
+            xoops_confirm(['ok' => 1, 'broken_id' => $_REQUEST['broken_id'], 'op' => 'del_brokendownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
         }
     break;
 }

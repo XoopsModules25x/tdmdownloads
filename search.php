@@ -68,8 +68,8 @@ $downloads_field = $downloadsfieldHandler->getall($criteria);
 $arguments = '';
 foreach (array_keys($downloads_field) as $i) {
     $title_sup   = '';
-    $contenu_arr = array();
-    $lid_arr     = array();
+    $contenu_arr = [];
+    $lid_arr     = [];
     $nom_champ   = 'champ' . $downloads_field[$i]->getVar('fid');
     $criteria    = new CriteriaCompo();
     if (isset($_REQUEST[$nom_champ])) {
@@ -162,7 +162,7 @@ if ($cat != 0) {
     $criteria_2->add(new Criteria('cid', $cat));
     $arguments .= 'cat=' . $cat . '&amp;';
 }
-$tblsort     = array();
+$tblsort     = [];
 $tblsort[1]  = 'date';
 $tblsort[2]  = 'date';
 $tblsort[3]  = 'hits';
@@ -171,7 +171,7 @@ $tblsort[5]  = 'rating';
 $tblsort[6]  = 'rating';
 $tblsort[7]  = 'title';
 $tblsort[8]  = 'title';
-$tblorder    = array();
+$tblorder    = [];
 $tblorder[1] = 'DESC';
 $tblorder[2] = 'ASC';
 $tblorder[3] = 'DESC';

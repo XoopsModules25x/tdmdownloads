@@ -72,7 +72,7 @@ switch ($op) {
 
         //Affichage du formulaire de notation des téléchargements
         $obj = $downloadsmodHandler->create();
-        $form = $obj->getForm($lid, false, $donnee = array());
+        $form = $obj->getForm($lid, false, $donnee = []);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
@@ -81,7 +81,7 @@ switch ($op) {
         $obj = $downloadsmodHandler->create();
         $erreur = false;
         $message_erreur = '';
-        $donnee = array();
+        $donnee = [];
         $obj->setVar('title', $_POST['title']);
         $donnee['title'] = $_POST['title'];
         $obj->setVar('cid', $_POST['cid']);
@@ -162,7 +162,7 @@ switch ($op) {
             }
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
-                $uploader_2 = new XoopsMediaUploader($uploaddir_shots, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $xoopsModuleConfig['maxuploadsize'], null, null);
+                $uploader_2 = new XoopsMediaUploader($uploaddir_shots, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], null, null);
                 if ($uploader_2->fetchMedia($_POST['xoops_upload_file'][1])) {
                     $uploader_2->setPrefix('downloads_') ;
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
@@ -194,7 +194,7 @@ switch ($op) {
                         $downloadsfieldmoddataHandler->insert($objdata) or $objdata->getHtmlErrors();
                     }
                 }
-                $tags = array();
+                $tags = [];
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/modified.php';
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);

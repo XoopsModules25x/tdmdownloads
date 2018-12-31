@@ -35,7 +35,7 @@ function TDMDownloads_checkModuleAdmin()
 function TDMDownloads_MygetItemIds($permtype, $dirname)
 {
     global $xoopsUser;
-    static $permissions = array();
+    static $permissions = [];
     if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
         return $permissions[$permtype];
     }
@@ -55,7 +55,7 @@ function TDMDownloads_MygetItemIds($permtype, $dirname)
 function TDMDownloads_NumbersOfEntries($mytree, $categories, $entries, $cid)
 {
     $count = 0;
-    $child_arr = array();
+    $child_arr = [];
     if (in_array($cid, $categories)) {
         $child = $mytree->getAllChild($cid);
         foreach (array_keys($entries) as $i) {

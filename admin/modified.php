@@ -295,7 +295,7 @@ switch ($op) {
                 $modified_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
                 echo $modified_admin->displayButton();
             }
-            xoops_confirm(array('ok' => 1, 'mod_id' => $_REQUEST['mod_id'], 'new_file' => $_REQUEST['new_file'], 'op' => 'del_moddownloads'), $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
+            xoops_confirm(['ok' => 1, 'mod_id' => $_REQUEST['mod_id'], 'new_file' => $_REQUEST['new_file'], 'op' => 'del_moddownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
         }
     break;
 

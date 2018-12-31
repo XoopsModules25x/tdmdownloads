@@ -281,7 +281,7 @@ switch ($op) {
                 $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
                 echo $category_admin->displayButton();
             }
-            xoops_confirm(array('ok' => 1, 'downloadscat_cid' => $downloadscat_cid, 'op' => 'del_cat'), $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message);
+            xoops_confirm(['ok' => 1, 'downloadscat_cid' => $downloadscat_cid, 'op' => 'del_cat'], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message);
         }
 
     break;
@@ -302,7 +302,7 @@ switch ($op) {
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $uploader = new XoopsMediaUploader($uploaddir, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $xoopsModuleConfig['maxuploadsize'], null, null);
+        $uploader = new XoopsMediaUploader($uploaddir, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], null, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_') ;
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
@@ -378,7 +378,7 @@ switch ($op) {
                 }
                 //notification
                 if (!isset($_REQUEST['categorie_modified'])) {
-                    $tags = array();
+                    $tags = [];
                     $tags['CATEGORY_NAME'] = $_POST['cat_title'];
                     $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $newcat_cid;
                     $notificationHandler = xoops_getHandler('notification');
