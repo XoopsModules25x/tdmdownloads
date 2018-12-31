@@ -168,7 +168,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     $count = 1;
     foreach (array_keys($downloads_arr) as $i) {
-        if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
+        if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
             $logourl = $downloads_arr[$i]->getVar('logourl');

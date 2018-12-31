@@ -64,7 +64,7 @@ switch ($op) {
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsmod_arr) as $i) {
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
                 $downloads_lid = $downloadsmod_arr[$i]->getVar('lid');
                 $downloads_requestid = $downloadsmod_arr[$i]->getVar('requestid');
                 $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));

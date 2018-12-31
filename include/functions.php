@@ -202,7 +202,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
 {
     global $xoopsModule;
     $category_parent = $mytree->getAllParent($key);
-    if ('ASC' == $order) {
+    if ('ASC' === $order) {
         $category_parent = array_reverse($category_parent);
         if (true === $link) {
             $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
@@ -224,7 +224,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
         }
     }
-    if ('ASC' == $order) {
+    if ('ASC' === $order) {
         if (array_key_exists($key, $category_array)) {
             if (true === $lasturl) {
                 $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';

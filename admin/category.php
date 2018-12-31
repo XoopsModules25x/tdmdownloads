@@ -61,7 +61,7 @@ switch ($op) {
                 echo '<a href="category.php?op=del_cat&downloadscat_cid=' . $i . '"><img src="../images/icon/delete.png" alt="'._AM_TDMDOWNLOADS_FORMDEL.'" title="'._AM_TDMDOWNLOADS_FORMDEL.'"></a>';
                 echo '</td>';
                 echo '</tr>';
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
             }
             echo '</table>';
         }

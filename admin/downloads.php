@@ -152,7 +152,7 @@ switch ($op) {
             $mytree = new XoopsObjectTree($category_arr, 'cat_cid', 'cat_pid');
             $class = 'odd';
             foreach (array_keys($downloads_arr) as $i) {
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
                 $category = TDMDownloads_PathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../images/deco/arrow.gif"> ');
                 echo '<tr class="'.$class.'">';
                 echo '<td align="center">';
@@ -354,7 +354,7 @@ switch ($op) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
                     if ('' != $view_downloads->getVar('homepage')) {
-                        $class = ('even' == $class) ? 'odd' : 'even';
+                        $class = ('even' === $class) ? 'odd' : 'even';
                         echo '<tr class="' . $class . '">';
                         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . ' </td>';
                         echo '<td><a href="' . $view_downloads->getVar('homepage') . '">' . $view_downloads->getVar('homepage') . '</a></td>';
@@ -363,7 +363,7 @@ switch ($op) {
                 if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
                     if ('' != $view_downloads->getVar('version')) {
-                        $class = ('even' == $class) ? 'odd' : 'even';
+                        $class = ('even' === $class) ? 'odd' : 'even';
                         echo '<tr class="' . $class . '">';
                         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMVERSION . ' </td>';
                         echo '<td>' . $view_downloads->getVar('version') . '</td></tr>';
@@ -372,7 +372,7 @@ switch ($op) {
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
                     if ('' != $view_downloads->getVar('size')) {
-                        $class = ('even' == $class) ? 'odd' : 'even';
+                        $class = ('even' === $class) ? 'odd' : 'even';
                         echo '<tr class="' . $class . '">';
                         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMSIZE . '</td>';
                         echo '<td>' . $view_downloads->getVar('size') . '</td></tr>';
@@ -381,7 +381,7 @@ switch ($op) {
                 if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
                     if ('' != $view_downloads->getVar('platform')) {
-                        $class = ('even' == $class) ? 'odd' : 'even';
+                        $class = ('even' === $class) ? 'odd' : 'even';
                         echo '<tr class="' . $class . '">';
                         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPLATFORM . ' </td>';
                         echo '<td>' . $view_downloads->getVar('platform') . '</td></tr>';
@@ -397,14 +397,14 @@ switch ($op) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
                 if ('' != $contenu) {
-                    $class = ('even' == $class) ? 'odd' : 'even';
+                    $class = ('even' === $class) ? 'odd' : 'even';
                     echo '<tr class="' . $class . '">';
                     echo '<td width="30%">' . $downloads_field[$i]->getVar('title') . ' </td>';
                     echo '<td>' . $contenu . '</td></tr>';
                 }
             }
         }
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMTEXT . ' </td>';
         echo '<td>' . $downloads_description . '</td>';
@@ -419,7 +419,7 @@ switch ($op) {
                     $tags .= $tags_array['delimiter'] . ' ' . $tags_array['tags'][$i] . ' ';
                 }
 
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
                 echo '<tr class="' . $class . '">';
                 echo '<td width="30%">' . $tags_array['title'] . ' </td>';
                 echo '<td>' . $tags . '</td>';
@@ -427,47 +427,47 @@ switch ($op) {
             }
         }
         if ($xoopsModuleConfig['useshots']) {
-            if ('blank.gif' != $view_downloads->getVar('logourl')) {
-                $class = ('even' == $class) ? 'odd' : 'even';
+            if ('blank.gif' !== $view_downloads->getVar('logourl')) {
+                $class = ('even' === $class) ? 'odd' : 'even';
                 echo '<tr class="' . $class . '">';
                 echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMIMG . ' </td>';
                 echo '<td><img src="' . $uploadurl_shots . $view_downloads->getVar('logourl') . '" alt="" title=""></td>';
                 echo '</tr>';
             }
         }
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMDATE . ' </td>';
         echo '<td>' . formatTimestamp($view_downloads->getVar('date')) . '</td>';
         echo '</tr>';
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPOSTER . ' </td>';
         echo '<td>' . XoopsUser::getUnameFromId($view_downloads->getVar('submitter')) . '</td>';
         echo '</tr>';
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMHITS . ' </td>';
         echo '<td>' . $view_downloads->getVar('hits') . '</td>';
         echo '</tr>';
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMRATING . ' </td>';
         echo '<td>' . number_format($view_downloads->getVar('rating'), 1) . ' (' . $view_downloads->getVar('votes') . ' ' . _AM_TDMDOWNLOADS_FORMVOTE . ')</td>';
         echo '</tr>';
         if ('' != $view_downloads->getVar('paypal') && true === $xoopsModuleConfig['use_paypal']) {
-            $class = ('even' == $class) ? 'odd' : 'even';
+            $class = ('even' === $class) ? 'odd' : 'even';
             echo '<tr class="' . $class . '">';
             echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPAYPAL . ' </td>';
             echo '<td>' . $view_downloads->getVar('paypal') . '</td>';
             echo '</tr>';
         }
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMCOMMENTS . ' </td>';
         echo '<td>' . $view_downloads->getVar('comments') . ' <a href="../singlefile.php?cid=' . $view_downloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a></td>';
         echo '</tr>';
-        $class = ('even' == $class) ? 'odd' : 'even';
+        $class = ('even' === $class) ? 'odd' : 'even';
         echo '<tr class="' . $class . '">';
         echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMACTION . ' </td>';
         echo '<td>';
@@ -603,7 +603,7 @@ switch ($op) {
                 $donnee['status'] = 0;
             }
         } else {
-            if ('Y' == $_POST['date_update']) {
+            if ('Y' === $_POST['date_update']) {
                 $obj->setVar('date', strtotime($_POST['date']));
                 if (isset($_POST['status'])) {
                     $obj->setVar('status', 2);

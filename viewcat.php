@@ -212,7 +212,7 @@ if ($xoopsModuleConfig['perpage'] > 0) {
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     foreach (array_keys($downloads_arr) as $i) {
-        if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
+        if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
             $logourl = $downloads_arr[$i]->getVar('logourl');
@@ -284,28 +284,28 @@ if ($xoopsModuleConfig['perpage'] > 0) {
     if ($numrows>1) {
         $xoopsTpl->assign('navigation', true);
         $sortorder = $sort . $order;
-        if ('hitsASC' == $sortorder) {
+        if ('hitsASC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYLTOM;
         }
-        if ('hitsDESC' == $sortorder) {
+        if ('hitsDESC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_POPULARITYMTOL;
         }
-        if ('titleASC' == $sortorder) {
+        if ('titleASC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEATOZ;
         }
-        if ('titleDESC' == $sortorder) {
+        if ('titleDESC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_TITLEZTOA;
         }
-        if ('dateASC' == $sortorder) {
+        if ('dateASC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATEOLD;
         }
-        if ('dateDESC' == $sortorder) {
+        if ('dateDESC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_DATENEW;
         }
-        if ('ratingASC' == $sortorder) {
+        if ('ratingASC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGLTOH;
         }
-        if ('ratingDESC' == $sortorder) {
+        if ('ratingDESC' === $sortorder) {
             $affichage_tri = _MD_TDMDOWNLOADS_CAT_RATINGHTOL;
         }
         $xoopsTpl->assign('affichage_tri', sprintf(_MD_TDMDOWNLOADS_CAT_CURSORTBY, $affichage_tri));

@@ -53,7 +53,7 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $tpl->assign('channel_category', 'Event');
     $tpl->assign('channel_generator', 'XOOPS - ' . htmlspecialchars($xoopsModule->getVar('name'), ENT_QUOTES));
     $tpl->assign('channel_language', _LANGCODE);
-    if (_LANGCODE == 'fr') {
+    if (_LANGCODE === 'fr') {
         $tpl->assign('docs', 'http://www.scriptol.fr/rss/RSS-2.0.html');
     } else {
         $tpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');

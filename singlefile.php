@@ -59,7 +59,7 @@ if (1 == $xoopsModuleConfig['useshots']) {
     $xoopsTpl->assign('img_float', $xoopsModuleConfig['img_float']);
 }
 
-if ('ltr' == $xoopsModuleConfig['download_float']) {
+if ('ltr' === $xoopsModuleConfig['download_float']) {
     $xoopsTpl->assign('textfloat', 'floatleft');
     $xoopsTpl->assign('infofloat', 'floatright');
 } else {
@@ -68,7 +68,7 @@ if ('ltr' == $xoopsModuleConfig['download_float']) {
 }
 
 // sortie des informations
-if ('blank.gif' == $view_downloads->getVar('logourl')) {
+if ('blank.gif' === $view_downloads->getVar('logourl')) {
     $logourl = '';
 } else {
     $logourl = $view_downloads->getVar('logourl');

@@ -66,7 +66,7 @@ switch ($op) {
                 }
                 echo '</td>';
                 echo '</tr>';
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
             }
             echo '</table>';
         }

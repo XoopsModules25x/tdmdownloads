@@ -91,7 +91,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['description'] = $description_short;
         $logourl = '';
         if (true === $use_logo) {
-            if ('blank.gif' == $downloads_arr[$i]->getVar('logourl')) {
+            if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
                 $logourl = '';
             } else {
                 $logourl = XOOPS_URL . '/uploads/tdmdownloads/images/shots/'. $downloads_arr[$i]->getVar('logourl');

@@ -69,7 +69,7 @@ switch ($op) {
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsbroken_arr) as $i) {
-                $class = ('even' == $class) ? 'odd' : 'even';
+                $class = ('even' === $class) ? 'odd' : 'even';
                 $downloads_lid = $downloadsbroken_arr[$i]->getVar('lid');
                 $downloads_reportid = $downloadsbroken_arr[$i]->getVar('reportid');
                 $downloads_title = $downloadsbroken_arr[$i]->getVar('title');
