@@ -69,13 +69,13 @@ define('_MD_TDMDOWNLOADS_SINGLEFILE_PAYPAL', "Don pour %s");
 define('_MD_TDMDOWNLOADS_SINGLEFILE_NOPERM', "Vous n'avez pas les autorisations de téléchargement");
 // ratefile.php
 define('_MD_TDMDOWNLOADS_RATEFILE_BEOBJECTIVE', "Veuillez être objectif, si tout le monde reçoit un 1 ou un 10, les cotes ne sont pas très utiles.");
-define('_MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN', "Ne votez pas pour vos propres fichiers.<br />Tous les votes sont enregistrés et vérifiés.");
+define('_MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN', "Ne votez pas pour vos propres fichiers.<br>Tous les votes sont enregistrés et vérifiés.");
 define('_MD_TDMDOWNLOADS_RATEFILE_DONOTVOTE', "Ne votez pas pour vos propres fichiers.");
 define('_MD_TDMDOWNLOADS_RATEFILE_NORATING', "Le vote doit être comprise entre 0 et 10");
 define('_MD_TDMDOWNLOADS_RATEFILE_RATE', "Notez-le !");
 define('_MD_TDMDOWNLOADS_RATEFILE_RATINGSCALE', "L'échelle est de 1 à 10, avec 1 étant faible et 10 étant excellent.");
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTE', "Vote");
-define('_MD_TDMDOWNLOADS_RATEFILE_VOTEOK', "Votre vote est apprécié.<br /> Merci d'avoir pris le temps de voter ici");
+define('_MD_TDMDOWNLOADS_RATEFILE_VOTEOK', "Votre vote est apprécié.<br> Merci d'avoir pris le temps de voter ici");
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTEONCE', "Veuillez ne pas voter pour la même ressource plus d'une fois.");
 // brokenfile.php
 define('_MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED', "Vous avez déjà soumis un rapport de fichier brisé pour ce téléchargement.");
@@ -112,7 +112,7 @@ define('_MD_TDMDOWNLOADS_MOREDETAILS', "plus de détails");
 define('_MD_TDMDOWNLOADS_DOWNLOAD', "Télécharger");
 define('_MD_TDMDOWNLOADS_RSS', "Flux RSS");
 //visit.php
-define('_MD_TDMDOWNLOADS_NOPERMISETOLINK', "Ce fichier n'appartient pas au site d'où vous venez.<br /><br />Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br /><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br /><br />Définition de leecher : </ b> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br /><br /><strong>Vous êtes déjà enregistré</strong>");
+define('_MD_TDMDOWNLOADS_NOPERMISETOLINK', "Ce fichier n'appartient pas au site d'où vous venez.<br><br>Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br><br>Définition de leecher : </ b> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br><br><strong>Vous êtes déjà enregistré</strong>");
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', "Vous devez choisir une catégorie !");
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', "La taille du fichier doit être un nombre");

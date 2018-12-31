@@ -18,7 +18,7 @@
 		<div class="itemBody">
 			<div class="itemText justify">
 		      <{if $downloads.logourl != ""}>
-	         <img class="<{$downloads.logourl_class}>" width="<{$downloads.logourl_width}>" src="<{$downloads.logourl}>" alt="<{$downloads.title}>" />
+	         <img class="<{$downloads.logourl_class}>" width="<{$downloads.logourl_width}>" src="<{$downloads.logourl}>" alt="<{$downloads.title}>">
 	         <{/if}>
 	         <{if $downloads.description != ""}>
                 <{$downloads.description}>

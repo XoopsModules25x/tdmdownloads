@@ -28,7 +28,7 @@ function tdmdownloads_new($limit=0, $offset=0)
     $i = 0;
     $ret = array();
 
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $lid = $row['lid'];
         $ret[$i]['link']     = $URL_MOD."/singlefile.php?lid=".$lid;
         $ret[$i]['cat_link'] = $URL_MOD."/viewcat.php?cid=".$row['cid'];
@@ -79,7 +79,7 @@ function tdmdownloads_data($limit=0, $offset=0)
     $i = 0;
     $ret = array();
 
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $id = $myrow['lid'];
         $ret[$i]['id']   = $id;
         $ret[$i]['link'] = XOOPS_URL."/modules/TDMDownloads/singlefile.php?lid=".$id."";
