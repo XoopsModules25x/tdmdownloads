@@ -14,12 +14,12 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 if (TDMDownloads_checkModuleAdmin()) {
-    $permissions_admin = new ModuleAdmin();
-    echo $permissions_admin->addNavigation('permissions.php');
+    $permissions_admin = \Xmf\Module\Admin::getInstance();
+    echo $permissions_admin->displayNavigation('permissions.php');
 }
 
 $permission = isset($_POST['permission']) ? intval($_POST['permission']) : 1;
@@ -88,7 +88,7 @@ if ($permission == 4) {
         $sql = "SELECT lid, cid, title FROM ".$xoopsDB->prefix("tdmdownloads_downloads")." ORDER BY title";
         $result = $xoopsDB->query($sql);
         if ($result) {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['lid'], $row['title']);
             }
         }
@@ -96,20 +96,20 @@ if ($permission == 4) {
         $sql = 'SELECT cat_cid, cat_pid, cat_title FROM '.$xoopsDB->prefix('tdmdownloads_cat').' ORDER BY cat_title';
         $result = $xoopsDB->query($sql);
         if ($result) {
-            while ($row = $xoopsDB->fetchArray($result)) {
+            while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['cat_cid'], $row['cat_title'], $row['cat_pid']);
             }
         }
     }
 }
 
-if ($downloadscat_Handler->getCount()) {
+if ($downloadscatHandler->getCount()) {
     echo $permissionsForm->render();
 } else {
     redirect_header("category.php", 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);
 }
 
-echo "<br /><br /><br /><br />\n";
+echo "<br><br><br><br>\n";
 unset($permissionsForm);
 
 xoops_cp_footer();

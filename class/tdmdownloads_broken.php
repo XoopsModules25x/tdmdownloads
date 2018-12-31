@@ -58,7 +58,7 @@ class TDMDownloads_broken extends XoopsObject
 
 class TDMDownloadstdmdownloads_brokenHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_broken", 'tdmdownloads_broken', 'reportid', 'lid');
     }

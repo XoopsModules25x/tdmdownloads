@@ -79,7 +79,7 @@ class TDMDownloads_cat extends XoopsObject
         //image
         $downloadscat_img = $this->getVar('cat_imgurl') ? $this->getVar('cat_imgurl') : 'blank.gif';
         $uploadirectory='/uploads/TDMDownloads/images/cats';
-        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br />');
+        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
         $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
@@ -88,33 +88,33 @@ class TDMDownloads_cat extends XoopsObject
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadscat_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadscat_img . "' name='image3' id='image3' alt='' />"));
-        $fileseltray= new XoopsFormElementTray('', '<br />');
+        $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
+        $fileseltray= new XoopsFormElementTray('', '<br>');
         $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
         $fileseltray->addElement(new XoopsFormLabel(''), false);
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         // Pour faire une sous-catégorie
-        $downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+        $downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $downloadscat_arr = $downloadscat_Handler->getall($criteria);
+        $downloadscat_arr = $downloadscatHandler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cat_pid', 'cat_title', '--', $this->getVar('cat_pid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
         //poids de la catégorie
         $form->addElement(new XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);
 
         //permissions
-        $member_handler =  xoops_gethandler('member');
-        $group_list = $member_handler->getGroupList();
-        $gperm_handler = xoops_gethandler('groupperm');
+        $memberHandler =  xoops_getHandler('member');
+        $group_list = $memberHandler->getGroupList();
+        $gpermHandler = xoops_getHandler('groupperm');
         $full_list = array_keys($group_list);
         global $xoopsModule;
         if (!$this->isNew()) {
-            $groups_ids_view = $gperm_handler->getGroupIds('tdmdownloads_view', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
-            $groups_ids_submit = $gperm_handler->getGroupIds('tdmdownloads_submit', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
-            $groups_ids_download = $gperm_handler->getGroupIds('tdmdownloads_download', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_view = $gpermHandler->getGroupIds('tdmdownloads_view', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_submit = $gpermHandler->getGroupIds('tdmdownloads_submit', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_download = $gpermHandler->getGroupIds('tdmdownloads_download', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
             $groups_ids_view = array_values($groups_ids_view);
             $groups_news_can_view_checkbox = new XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_VIEW_DSC, 'groups_view[]', $groups_ids_view);
             $groups_ids_submit = array_values($groups_ids_submit);
@@ -158,7 +158,7 @@ class TDMDownloadstdmdownloads_catHandler extends XoopsPersistableObjectHandler
      * TDMDownloadstdmdownloads_catHandler constructor.
      * @param null|XoopsDatabase $db
      */
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_cat", 'tdmdownloads_cat', 'cat_cid', 'cat_title');
     }

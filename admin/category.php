@@ -14,7 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
@@ -25,15 +25,15 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $category_admin = new ModuleAdmin();
-            echo $category_admin->addNavigation('category.php');
+            $category_admin = \Xmf\Module\Admin::getInstance();
+            echo $category_admin->displayNavigation('category.php');
             $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
-            echo $category_admin->renderButton();
+            echo $category_admin->displayButton();
         }
         $criteria = new CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $downloads_cat = $downloadscat_Handler->getall($criteria);
+        $downloads_cat = $downloadscatHandler->getall($criteria);
         //Affichage du tableau
         if (count($downloads_cat)>0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
@@ -45,7 +45,7 @@ switch ($op) {
             echo '<th align="center" width="8%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
             echo '</tr>';
             $class = 'odd';
-            include_once XOOPS_ROOT_PATH."/modules/TDMDownloads/class/tree.php";
+            require_once XOOPS_ROOT_PATH."/modules/TDMDownloads/class/tree.php";
             $mytree = new TDMObjectTree($downloads_cat, 'cat_cid', 'cat_pid');
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../images/deco/arrow.gif">');
             foreach (array_keys($category_ArrayTree) as $i) {
@@ -72,13 +72,13 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $category_admin = new ModuleAdmin();
-            echo $category_admin->addNavigation('category.php');
+            $category_admin = \Xmf\Module\Admin::getInstance();
+            echo $category_admin->displayNavigation('category.php');
             $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
-            echo $category_admin->renderButton();
+            echo $category_admin->displayButton();
         }
         //Affichage du formulaire de création des catégories
-        $obj = $downloadscat_Handler->create();
+        $obj = $downloadscatHandler->create();
         $form = $obj->getForm();
         $form->display();
     break;
@@ -88,15 +88,15 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $category_admin = new ModuleAdmin();
-            echo $category_admin->addNavigation('category.php');
+            $category_admin = \Xmf\Module\Admin::getInstance();
+            echo $category_admin->displayNavigation('category.php');
             $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
             $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
-            echo $category_admin->renderButton();
+            echo $category_admin->displayButton();
         }
         //Affichage du formulaire de création des catégories
         $downloadscat_cid = TDMDownloads_CleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
-        $obj = $downloadscat_Handler->get($downloadscat_cid);
+        $obj = $downloadscatHandler->get($downloadscat_cid);
         $form = $obj->getForm();
         $form->display();
     break;
@@ -105,7 +105,7 @@ switch ($op) {
     case "del_cat":
         global $xoopsModule;
         $downloadscat_cid = TDMDownloads_CleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
-        $obj = $downloadscat_Handler->get($downloadscat_cid);
+        $obj = $downloadscatHandler->get($downloadscat_cid);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -113,32 +113,32 @@ switch ($op) {
             // supression des téléchargements de la catégorie
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('cid', $downloadscat_cid));
-            $downloads_arr = $downloads_Handler->getall($criteria);
+            $downloads_arr = $downloadsHandler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 // supression des votes
                 $criteria_1 = new CriteriaCompo();
                 $criteria_1->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_votedata = $downloadsvotedata_Handler->getall($criteria_1);
+                $downloads_votedata = $downloadsvotedataHandler->getall($criteria_1);
                 foreach (array_keys($downloads_votedata) as $j) {
-                    $objvotedata = $downloadsvotedata_Handler->get($downloads_votedata[$j]->getVar('ratingid'));
-                    $downloadsvotedata_Handler->delete($objvotedata) or $objvotedata->getHtmlErrors();
+                    $objvotedata = $downloadsvotedataHandler->get($downloads_votedata[$j]->getVar('ratingid'));
+                    $downloadsvotedataHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
                 }
                 // supression des rapports de fichier brisé
                 $criteria_2 = new CriteriaCompo();
                 $criteria_2->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_broken = $downloadsbroken_Handler->getall($criteria_2);
+                $downloads_broken = $downloadsbrokenHandler->getall($criteria_2);
                 foreach (array_keys($downloads_broken) as $j) {
-                    $objbroken = $downloadsbroken_Handler->get($downloads_broken[$j]->getVar('reportid'));
-                    $downloadsbroken_Handler->delete($objbroken) or $objbroken ->getHtmlErrors();
+                    $objbroken = $downloadsbrokenHandler->get($downloads_broken[$j]->getVar('reportid'));
+                    $downloadsbrokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
                 }
                 // supression des data des champs sup.
                 $criteria_3 = new CriteriaCompo();
                 $criteria_3->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                $downloads_fielddata = $downloadsfielddata_Handler->getall($criteria_3);
-                if ($downloadsfielddata_Handler->getCount($criteria_3) > 0) {
+                $downloads_fielddata = $downloadsfielddataHandler->getall($criteria_3);
+                if ($downloadsfielddataHandler->getCount($criteria_3) > 0) {
                     foreach (array_keys($downloads_fielddata) as $j) {
-                        $objfielddata = $downloadsfielddata_Handler->get($downloads_fielddata[$j]->getVar('iddata'));
-                        $downloadsfielddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                        $objfielddata = $downloadsfielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
+                        $downloadsfielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
                     }
                 }
                 // supression des commentaires
@@ -147,14 +147,14 @@ switch ($op) {
                 }
                 //supression des tags
                 if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../../tag'))) {
-                    $tag_handler = xoops_getmodulehandler('link', 'tag');
+                    $tagHandler = xoops_getModuleHandler('link', 'tag');
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_tags = $tag_handler->getall($criteria);
+                    $downloads_tags = $tagHandler->getall($criteria);
                     if (count($downloads_tags) > 0) {
                         foreach (array_keys($downloads_tags) as $j) {
-                            $objtags = $tag_handler->get($downloads_tags[$j]->getVar('tl_id'));
-                            $tag_handler->delete($objtags) or $objtags->getHtmlErrors();
+                            $objtags = $tagHandler->get($downloads_tags[$j]->getVar('tl_id'));
+                            $tagHandler->delete($objtags) or $objtags->getHtmlErrors();
                         }
                     }
                 }
@@ -168,45 +168,45 @@ switch ($op) {
                     unlink($urlfile);
                 }
                 // supression du téléchargment
-                $objdownloads = $downloads_Handler->get($downloads_arr[$i]->getVar('lid'));
-                $downloads_Handler->delete($objdownloads) or $objdownloads->getHtmlErrors();
+                $objdownloads = $downloadsHandler->get($downloads_arr[$i]->getVar('lid'));
+                $downloadsHandler->delete($objdownloads) or $objdownloads->getHtmlErrors();
             }
             // supression des sous catégories avec leurs téléchargements
-            $downloadscat_arr = $downloadscat_Handler->getall();
+            $downloadscat_arr = $downloadscatHandler->getall();
             $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             foreach (array_keys($downloads_childcat) as $i) {
                 // supression de la catégorie
-                $objchild = $downloadscat_Handler->get($downloads_childcat[$i]->getVar('cat_cid'));
-                $downloadscat_Handler->delete($objchild) or $objchild->getHtmlErrors();
+                $objchild = $downloadscatHandler->get($downloads_childcat[$i]->getVar('cat_cid'));
+                $downloadscatHandler->delete($objchild) or $objchild->getHtmlErrors();
                 // supression des téléchargements associés
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                $downloads_arr = $downloads_Handler->getall($criteria);
+                $downloads_arr = $downloadsHandler->getall($criteria);
                 foreach (array_keys($downloads_arr) as $i) {
                     // supression des votes
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_votedata = $downloadsvotedata_Handler->getall($criteria);
+                    $downloads_votedata = $downloadsvotedataHandler->getall($criteria);
                     foreach (array_keys($downloads_votedata) as $j) {
-                        $objvotedata = $downloadsvotedata_Handler->get($downloads_votedata[$j]->getVar('ratingid'));
-                        $downloadsvotedata_Handler->delete($objvotedata) or $objvotedata->getHtmlErrors();
+                        $objvotedata = $downloadsvotedataHandler->get($downloads_votedata[$j]->getVar('ratingid'));
+                        $downloadsvotedataHandler->delete($objvotedata) or $objvotedata->getHtmlErrors();
                     }
                     // supression des rapports de fichier brisé
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_broken = $downloadsbroken_Handler->getall($criteria);
+                    $downloads_broken = $downloadsbrokenHandler->getall($criteria);
                     foreach (array_keys($downloads_broken) as $j) {
-                        $objbroken = $downloadsbroken_Handler->get($downloads_broken[$j]->getVar('reportid'));
-                        $downloadsbroken_Handler->delete($objbroken) or $objbroken ->getHtmlErrors();
+                        $objbroken = $downloadsbrokenHandler->get($downloads_broken[$j]->getVar('reportid'));
+                        $downloadsbrokenHandler->delete($objbroken) or $objbroken ->getHtmlErrors();
                     }
                     // supression des data des champs sup.
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('lid', $downloads_arr[$i]->getVar('lid')));
-                    $downloads_fielddata = $downloadsfielddata_Handler->getall($criteria);
+                    $downloads_fielddata = $downloadsfielddataHandler->getall($criteria);
                     foreach (array_keys($downloads_fielddata) as $j) {
-                        $objfielddata = $downloadsfielddata_Handler->get($downloads_fielddata[$j]->getVar('iddata'));
-                        $downloadsfielddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                        $objfielddata = $downloadsfielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
+                        $downloadsfielddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
                     }
                     // supression des commentaires
                     if ($downloads_arr[$i]->getVar('comments') > 0) {
@@ -214,14 +214,14 @@ switch ($op) {
                     }
                     //supression des tags
                     if (($xoopsModuleConfig['usetag'] == 1) and (is_dir('../../tag'))) {
-                        $tag_handler = xoops_getmodulehandler('link', 'tag');
+                        $tagHandler = xoops_getModuleHandler('link', 'tag');
                         $criteria = new CriteriaCompo();
                         $criteria->add(new Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
-                        $downloads_tags = $tag_handler->getall($criteria);
+                        $downloads_tags = $tagHandler->getall($criteria);
                         if (count($downloads_tags) > 0) {
                             foreach (array_keys($downloads_tags) as $j) {
-                                $objtags = $tag_handler->get($downloads_tags[$j]->getVar('tl_id'));
-                                $tag_handler->delete($objtags) or $objtags->getHtmlErrors();
+                                $objtags = $tagHandler->get($downloads_tags[$j]->getVar('tl_id'));
+                                $tagHandler->delete($objtags) or $objtags->getHtmlErrors();
                             }
                         }
                     }
@@ -233,11 +233,11 @@ switch ($op) {
                         unlink($urlfile);
                     }
                     // supression du téléchargment
-                    $objdownloads = $downloads_Handler->get($downloads_arr[$i]->getVar('lid'));
-                    $downloads_Handler->delete($objdownloads) or $objdownloads->getHtmlErrors();
+                    $objdownloads = $downloadsHandler->get($downloads_arr[$i]->getVar('lid'));
+                    $downloadsHandler->delete($objdownloads) or $objdownloads->getHtmlErrors();
                 }
             }
-            if ($downloadscat_Handler->delete($obj)) {
+            if ($downloadscatHandler->delete($obj)) {
                 redirect_header('category.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             } else {
                 echo $obj->getHtmlErrors();
@@ -246,14 +246,14 @@ switch ($op) {
             $message = '';
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('cid', $downloadscat_cid));
-            $downloads_arr = $downloads_Handler->getall($criteria);
+            $downloads_arr = $downloadsHandler->getall($criteria);
             if (count($downloads_arr) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                 foreach (array_keys($downloads_arr) as $i) {
                     $message .= '<span style="color : Red">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
                 }
             }
-            $downloadscat_arr = $downloadscat_Handler->getall();
+            $downloadscat_arr = $downloadscatHandler->getall();
             $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
             $downloads_childcat=$mytree->getAllChild($downloadscat_cid);
             if (count($downloads_childcat) > 0) {
@@ -262,7 +262,7 @@ switch ($op) {
                     $message .= '<b><span style="color : Red">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
-                    $downloads_arr = $downloads_Handler->getall($criteria);
+                    $downloads_arr = $downloadsHandler->getall($criteria);
                     if (count($downloads_arr) > 0) {
                         $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS .'<br>';
                         foreach (array_keys($downloads_arr) as $i) {
@@ -276,10 +276,10 @@ switch ($op) {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
             if (TDMDownloads_checkModuleAdmin()) {
-                $category_admin = new ModuleAdmin();
+                $category_admin = \Xmf\Module\Admin::getInstance();
                 $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
                 $category_admin->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
-                echo $category_admin->renderButton();
+                echo $category_admin->displayButton();
             }
             xoops_confirm(array('ok' => 1, 'downloadscat_cid' => $downloadscat_cid, 'op' => 'del_cat'), $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message);
         }
@@ -293,15 +293,15 @@ switch ($op) {
         }
         $cat_cid = TDMDownloads_CleanVars($_REQUEST, 'cat_cid', 0, 'int');
         if (isset($_REQUEST['cat_cid'])) {
-            $obj = $downloadscat_Handler->get($cat_cid);
+            $obj = $downloadscatHandler->get($cat_cid);
         } else {
-            $obj = $downloadscat_Handler->create();
+            $obj = $downloadscatHandler->create();
         }
         $erreur = false;
         $message_erreur = '';
         // Récupération des variables:
         // Pour l'image
-        include_once XOOPS_ROOT_PATH.'/class/uploader.php';
+        require_once XOOPS_ROOT_PATH.'/class/uploader.php';
         $uploader = new XoopsMediaUploader($uploaddir, array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'), $xoopsModuleConfig['maxuploadsize'], null, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_') ;
@@ -333,46 +333,46 @@ switch ($op) {
         if ($erreur==true) {
             echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';
         } else {
-            if ($downloadscat_Handler->insert($obj)) {
+            if ($downloadscatHandler->insert($obj)) {
                 $newcat_cid = $obj->get_new_enreg();
                 //permission pour voir
                 $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gpermHandler = xoops_getHandler('groupperm');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
                 $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new Criteria('gperm_name', 'tdmdownloads_view', '='));
-                $gperm_handler->deleteAll($criteria);
+                $gpermHandler->deleteAll($criteria);
                 if (isset($_POST['groups_view'])) {
                     foreach ($_POST['groups_view'] as $onegroup_id) {
-                        $gperm_handler->addRight('tdmdownloads_view', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
+                        $gpermHandler->addRight('tdmdownloads_view', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
                     }
                 }
                 //permission pour editer
                 $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
-                $gperm_handler = xoops_gethandler('groupperm');
+                $gpermHandler = xoops_getHandler('groupperm');
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
                 $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new Criteria('gperm_name', 'tdmdownloads_submit', '='));
-                $gperm_handler->deleteAll($criteria);
+                $gpermHandler->deleteAll($criteria);
                 if (isset($_POST['groups_submit'])) {
                     foreach ($_POST['groups_submit'] as $onegroup_id) {
-                        $gperm_handler->addRight('tdmdownloads_submit', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
+                        $gpermHandler->addRight('tdmdownloads_submit', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
                     }
                 }
                 //permission pour télécharger
                 if ($xoopsModuleConfig['permission_download'] == 1) {
                     $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
-                    $gperm_handler = xoops_gethandler('groupperm');
+                    $gpermHandler = xoops_getHandler('groupperm');
                     $criteria = new CriteriaCompo();
                     $criteria->add(new Criteria('gperm_itemid', $perm_id, '='));
                     $criteria->add(new Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                     $criteria->add(new Criteria('gperm_name', 'tdmdownloads_download', '='));
-                    $gperm_handler->deleteAll($criteria);
+                    $gpermHandler->deleteAll($criteria);
                     if (isset($_POST['groups_download'])) {
                         foreach ($_POST['groups_download'] as $onegroup_id) {
-                            $gperm_handler->addRight('tdmdownloads_download', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
+                            $gpermHandler->addRight('tdmdownloads_download', $perm_id, $onegroup_id, $xoopsModule->getVar('mid'));
                         }
                     }
                 }
@@ -381,8 +381,8 @@ switch ($op) {
                     $tags = array();
                     $tags['CATEGORY_NAME'] = $_POST['cat_title'];
                     $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/viewcat.php?cid=' . $newcat_cid;
-                    $notification_handler = xoops_gethandler('notification');
-                    $notification_handler->triggerEvent('global', 0, 'new_category', $tags);
+                    $notificationHandler = xoops_getHandler('notification');
+                    $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);
                 }
                 redirect_header('category.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }

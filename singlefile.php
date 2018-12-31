@@ -14,16 +14,16 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_singlefile.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_singlefile.tpl';
+require_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 
 //information du téléchargement
-$view_downloads = $downloads_Handler->get($lid);
+$view_downloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
@@ -43,12 +43,12 @@ $criteria = new CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $downloadscat_Handler->getall($criteria);
+$downloadscat_arr = $downloadscatHandler->getall($criteria);
 $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //navigation
-$navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow" /> ', true, 'ASC', true);
-$navigation = $navigation . ' <img src="images/deco/arrow.gif" alt="arrow" /> ' . $view_downloads->getVar('title');
+$navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+$navigation = $navigation . ' <img src="images/deco/arrow.gif" alt="arrow"> ' . $view_downloads->getVar('title');
 $xoopsTpl->assign('navigation', $navigation);
 
 // sortie des informations
@@ -76,7 +76,7 @@ if ($view_downloads->getVar('logourl') == 'blank.gif') {
 }
 // Défini si la personne est un admin
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
+    $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=edit_downloads&amp;downloads_lid=' . $_REQUEST['lid'] . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
 } else {
     $adminlink = '';
 }
@@ -103,7 +103,7 @@ $xoopsTpl->assign('show_bookmark', $xoopsModuleConfig['show_bookmark']);
 $xoopsTpl->assign('show_social', $xoopsModuleConfig['show_social']);
 
 //paypal
-if ($view_downloads->getVar('paypal') != '' && $xoopsModuleConfig['use_paypal'] == true) {
+if ($view_downloads->getVar('paypal') != '' && $xoopsModuleConfig['use_paypal'] === true) {
     $paypal = '<form name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="'.$view_downloads->getVar('paypal').'">
@@ -121,7 +121,7 @@ $criteria = new CriteriaCompo();
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
 $criteria->add(new Criteria('status', 1));
-$downloads_field = $downloadsfield_Handler->getall($criteria);
+$downloads_field = $downloadsfieldHandler->getall($criteria);
 $nb_champ = count($downloads_field);
 $champ_sup ='';
 $champ_sup_vide = 0;
@@ -157,11 +157,11 @@ foreach (array_keys($downloads_field) as $i) {
             }
         }
     } else {
-        $view_data = $downloadsfielddata_Handler->get();
+        $view_data = $downloadsfielddataHandler->get();
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('lid', $_REQUEST['lid']));
         $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-        $downloadsfielddata = $downloadsfielddata_Handler->getall($criteria);
+        $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
         $contenu = '';
         foreach (array_keys($downloadsfielddata) as $j) {
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');

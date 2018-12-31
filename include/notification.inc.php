@@ -3,7 +3,7 @@
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
+//                       <https://www.xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -30,10 +30,10 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
     $item_id = intval($item_id);
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') != 'TDMDownloads') {
-        $module_handler = xoops_gethandler('module');
-        $module = $module_handler->getByDirname('TDMDownloads');
-        $config_handler = xoops_gethandler('config');
-        $config = $config_handler->getConfigsByCat(0, $module->getVar('mid'));
+        $moduleHandler = xoops_getHandler('module');
+        $module = $moduleHandler->getByDirname('TDMDownloads');
+        $configHandler = xoops_getHandler('config');
+        $config = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
         $module = $xoopsModule;
         $config = $xoopsModuleConfig;

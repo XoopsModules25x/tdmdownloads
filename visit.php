@@ -15,12 +15,12 @@
  */
 
 error_reporting(0);
-include 'header.php';
+require __DIR__ . '/header.php';
 
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 $cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
 // redirection si le téléchargement n'existe pas
-$view_downloads = $downloads_Handler->get($lid);
+$view_downloads = $downloadsHandler->get($lid);
 if (count($view_downloads) == 0) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
     exit();
@@ -59,7 +59,7 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
         }
         $criteria->add(new Criteria('downlimit_lid', $lid, '='));
         $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
-        $numrows = $downloadslimit_Handler->getCount($criteria);
+        $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitlid) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
             exit();
@@ -73,25 +73,25 @@ if ($xoopsModuleConfig['downlimit'] == 1) {
             $criteria->add(new Criteria('downlimit_hostname', getenv("REMOTE_ADDR"), '='));
         }
         $criteria->add(new Criteria('downlimit_date', $yesterday, '>'));
-        $numrows = $downloadslimit_Handler->getCount($criteria);
+        $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitglobal) {
             redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
             exit();
         }
     }
 
-    $obj = $downloadslimit_Handler->create();
+    $obj = $downloadslimitHandler->create();
     $obj->setVar('downlimit_lid', $lid);
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
     $obj->setVar('downlimit_hostname', getenv("REMOTE_ADDR"));
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
-    $downloadslimit_Handler->insert($obj) or $obj->getHtmlErrors();
+    $downloadslimitHandler->insert($obj) or $obj->getHtmlErrors();
     // purge
     $criteria = new CriteriaCompo();
     $criteria->add(new Criteria('downlimit_date', (time() - 172800), '<'));
-    $numrows = $downloadslimit_Handler->getCount($criteria);
-    echo 'a détruire: ' . $numrows . '<br/>';
-    $downloadslimit_Handler->deleteAll($criteria);
+    $numrows = $downloadslimitHandler->getCount($criteria);
+    echo 'a détruire: ' . $numrows . '<br>';
+    $downloadslimitHandler->deleteAll($criteria);
 }
 
 @$xoopsLogger->activated = false;

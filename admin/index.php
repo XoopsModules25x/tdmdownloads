@@ -14,29 +14,29 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 // compte le nombre de catégories
 $criteria = new CriteriaCompo();
-$nb_categories = $downloadscat_Handler->getCount($criteria);
+$nb_categories = $downloadscatHandler->getCount($criteria);
 // compte le nombre de téléchargements
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 0, '!='));
-$nb_downloads = $downloads_Handler->getCount($criteria);
+$nb_downloads = $downloadsHandler->getCount($criteria);
 // compte le nombre de téléchargements en attente de validation
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 0));
-$nb_downloads_waiting = $downloads_Handler->getCount($criteria);
+$nb_downloads_waiting = $downloadsHandler->getCount($criteria);
 // compte le nombre de rapport de téléchargements brisés
-$nb_broken = $downloadsbroken_Handler->getCount();
+$nb_broken = $downloadsbrokenHandler->getCount();
 // compte le nombre de demande de modifications
-$nb_modified = $downloadsmod_Handler->getCount();
+$nb_modified = $downloadsmodHandler->getCount();
 // dossier dans uploads
 $folder = array(XOOPS_ROOT_PATH . '/uploads/TDMDownloads/', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images',
                XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/cats', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/field', XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots');
 
 if (TDMDownloads_checkModuleAdmin()) {
-    $index_admin = new ModuleAdmin();
+    $index_admin = \Xmf\Module\Admin::getInstance();
     $index_admin->addInfoBox(_MI_TDMDOWNLOADS_ADMENU2);
     $index_admin->addInfoBox(_MI_TDMDOWNLOADS_ADMENU3);
     $index_admin->addInfoBox(_MI_TDMDOWNLOADS_ADMENU4);
@@ -62,7 +62,7 @@ if (TDMDownloads_checkModuleAdmin()) {
         $index_admin->addConfigBoxLine($folder[$i], 'folder');
         $index_admin->addConfigBoxLine(array($folder[$i], '777'), 'chmod');
     }
-    echo $index_admin->addNavigation('index.php');
-    echo $index_admin->renderIndex();
+    echo $index_admin->displayNavigation('index.php');
+    echo $index_admin->displayIndex();
 }
 xoops_cp_footer();

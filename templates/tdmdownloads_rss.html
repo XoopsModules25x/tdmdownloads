@@ -11,7 +11,7 @@
     <managingEditor><{$channel_editor}></managingEditor>
     <webMaster><{$channel_webmaster}></webMaster>
     <language><{$channel_language}></language>
-    <atom:link href="<{$xoops_url}><{$smarty.server.REQUEST_URI}>" rel="self" type="application/rss+xml" />
+    <atom:link href="<{$xoops_url}><{$smarty.server.REQUEST_URI}>" rel="self" type="application/rss+xml">
     <{if $image_url != ""}>
     <image>
       <title><{$channel_title}></title>

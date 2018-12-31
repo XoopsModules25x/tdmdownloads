@@ -14,11 +14,11 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 if (TDMDownloads_checkModuleAdmin()) {
-    $import_admin = new ModuleAdmin();
-    echo $import_admin->addNavigation('import.php');
+    $import_admin = \Xmf\Module\Admin::getInstance();
+    echo $import_admin->displayNavigation('import.php');
 }
 //Action dans switch
 if (isset($_REQUEST['op'])) {
@@ -42,7 +42,7 @@ function Import_mydownloads($path='', $imgurl='')
         $query = $xoopsDB->queryF("truncate table ".$xoopsDB->prefix("tdmdownloads_votedata"));
         //Inserer les données des catégories
         $query_topic = $xoopsDB->query("SELECT cid, pid, title, imgurl FROM ".$xoopsDB->prefix("mydownloads_cat"));
-        while ($donnees = $xoopsDB->fetchArray($query_topic)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_topic))) {
             if ($donnees['imgurl'] == "") {
                 $img = "blank.gif";
             } else {
@@ -55,13 +55,13 @@ function Import_mydownloads($path='', $imgurl='')
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br/>', $donnees['title']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
         }
-        echo '<br/>';
+        echo '<br>';
 
         //Inserer les donnees des téléchargemnts
         $query_links = $xoopsDB->query("SELECT lid, cid, title, url, homepage, version, size, platform, logourl, submitter, status, date, hits, rating, votes, comments FROM ".$xoopsDB->prefix("mydownloads_downloads"));
-        while ($donnees = $xoopsDB->fetchArray($query_links)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_links))) {
             //On recupere la description
             $requete = $xoopsDB->queryF("SELECT description FROM ".$xoopsDB->prefix("mydownloads_text")." WHERE lid = '".$donnees['lid']."'");
             list($description) = $xoopsDB -> fetchRow($requete);
@@ -71,18 +71,18 @@ function Import_mydownloads($path='', $imgurl='')
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br/>', $donnees['title']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
             @copy($path . $donnees['logourl'], XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/shots/" . $donnees['logourl']);
         }
-        echo '<br/>';
+        echo '<br>';
         //Inserer les donnees des votes
         $query_vote = $xoopsDB->query("SELECT ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp FROM ".$xoopsDB->prefix("mydownloads_votedata"));
-        while ($donnees = $xoopsDB->fetchArray($query_vote)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_vote))) {
             $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_votedata")." (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp ) VALUES ('".$donnees['ratingid']."', '".$donnees['lid']."', '".$donnees['ratinguser']."', '".$donnees['rating']."', '".$donnees['ratinghostname']."', '". $donnees['ratingtimestamp']."')");
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['ratingid'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br/>', $donnees['ratingid']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
         }
         echo "<br><br>";
         echo "<div class='errorMsg'>";
@@ -108,7 +108,7 @@ function Import_wfdownloads($shots='', $catimg='')
         $query = $xoopsDB->queryF("truncate table ".$xoopsDB->prefix("tdmdownloads_votedata"));
         //Inserer les données des catégories
         $query_topic = $xoopsDB->query("SELECT cid, pid, title, imgurl, description, total, summary, spotlighttop, spotlighthis, dohtml, dosmiley, doxcode, doimage, dobr, weight, formulize_fid FROM ".$xoopsDB->prefix("wfdownloads_cat"));
-        while ($donnees = $xoopsDB->fetchArray($query_topic)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_topic))) {
             if ($donnees['imgurl'] == "") {
                 $img = "blank.gif";
             } else {
@@ -119,13 +119,13 @@ function Import_wfdownloads($shots='', $catimg='')
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br/>', $donnees['title']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
         }
-        echo '<br/>';
+        echo '<br>';
 
         //Inserer les donnees des téléchargemnts
         $query_links = $xoopsDB->query("SELECT lid, cid, title, url, filename, filetype, homepage, version, size, platform, screenshot, screenshot2, screenshot3, screenshot4, submitter, publisher, status, date, hits, rating, votes, comments, license, mirror, price, paypalemail, features, requirements, homepagetitle, forumid, limitations, versiontypes, dhistory, published, expired, updated, offline, summary, description, ipaddress, notifypub, formulize_idreq  FROM ".$xoopsDB->prefix("wfdownloads_downloads"));
-        while ($donnees = $xoopsDB->fetchArray($query_links)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_links))) {
             if ($donnees['url']=='') {
                 $newurl = XOOPS_URL . '/uploads/' . $donnees['filename'];
             } else {
@@ -138,19 +138,19 @@ function Import_wfdownloads($shots='', $catimg='')
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['title'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br/>', $donnees['title']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
             @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . "/uploads/TDMDownloads/images/shots/" . $donnees['screenshot']);
         }
-        echo '<br/>';
+        echo '<br>';
 
         //Inserer les donnees des votes
         $query_vote = $xoopsDB->query("SELECT ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp FROM ".$xoopsDB->prefix("wfdownloads_votedata"));
-        while ($donnees = $xoopsDB->fetchArray($query_vote)) {
+        while (false !== ($donnees = $xoopsDB->fetchArray($query_vote))) {
             $insert = $xoopsDB->queryF("INSERT INTO ".$xoopsDB->prefix("tdmdownloads_votedata")." (ratingid, lid, ratinguser, rating, ratinghostname, ratingtimestamp ) VALUES ('".$donnees['ratingid']."', '".$donnees['lid']."', '".$donnees['ratinguser']."', '".$donnees['rating']."', '".$donnees['ratinghostname']."', '". $donnees['ratingtimestamp']."')");
             if (!$insert) {
                 echo "<font color='red'>" . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA .": </font> " . $donnees['ratingid'] . "<br>";
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br/>', $donnees['ratingid']);
+            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
         }
         echo "<br><br>";
         echo "<div class='errorMsg'>";
@@ -170,10 +170,10 @@ switch ($op) {
         echo "</div>";
         echo "<br><br>";
         if (TDMDownloads_checkModuleAdmin()) {
-            $a_admin = new ModuleAdmin();
+            $a_admin = \Xmf\Module\Admin::getInstance();
             $a_admin->addItemButton(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS, 'import.php?op=form_mydownloads', 'add');
             $a_admin->addItemButton(_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS, 'import.php?op=form_wfdownloads', 'add');
-            echo $a_admin->renderButton("center");
+            echo $a_admin->displayButton("center");
         }
     break;
 
@@ -193,7 +193,7 @@ switch ($op) {
         $query = $xoopsDB->query("SELECT COUNT(lid) as count FROM ".$xoopsDB->prefix("mydownloads_downloads"));
         list($count_downloads) = $xoopsDB->fetchRow($query) ;
         if ($count_downloads < 1) {
-            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . "<br />";
+            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . "<br>";
         } else {
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads);
         }
@@ -202,7 +202,7 @@ switch ($op) {
         if ($count_topic < 1) {
             echo ""._AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC."<br>";
         } else {
-            echo sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
+            echo sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
         }
         echo "</fieldset>";
         echo "<br><br>";
@@ -210,11 +210,11 @@ switch ($op) {
                 <form action='import.php?op=import_mydownloads' method=POST>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_PATH . "</td>
-                    <td  class='odd'><input type='text' name='path' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/mydownloads/images/shots/' /></td>
+                    <td  class='odd'><input type='text' name='path' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/mydownloads/images/shots/'></td>
                 </tr>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_URL . "</td>
-                    <td  class='odd'><input type='text' name='imgurl' id='import_data' size='100' value='" . XOOPS_URL . "/modules/mydownloads/images/shots/' /></td>
+                    <td  class='odd'><input type='text' name='imgurl' id='import_data' size='100' value='" . XOOPS_URL . "/modules/mydownloads/images/shots/'></td>
                 </tr>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_DOWNLOADS . "</td>
@@ -240,7 +240,7 @@ switch ($op) {
         $query = $xoopsDB->query("SELECT COUNT(lid) as count FROM ".$xoopsDB->prefix("wfdownloads_downloads"));
         list($count_downloads) = $xoopsDB->fetchRow($query) ;
         if ($count_downloads < 1) {
-            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . "<br />";
+            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . "<br>";
         } else {
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads);
         }
@@ -249,7 +249,7 @@ switch ($op) {
         if ($count_topic < 1) {
             echo ""._AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC."<br>";
         } else {
-            echo sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
+            echo sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
         }
         echo "</fieldset>";
         echo "<br><br>";
@@ -257,11 +257,11 @@ switch ($op) {
                 <form action='import.php?op=import_wfdownloads' method=POST>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS . "</td>
-                    <td  class='odd'><input type='text' name='shots' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/images/screenshots/' /></td>
+                    <td  class='odd'><input type='text' name='shots' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/images/screenshots/'></td>
                 </tr>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG . "</td>
-                    <td  class='odd'><input type='text' name='catimg' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/images/category/' /></td>
+                    <td  class='odd'><input type='text' name='catimg' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/images/category/'></td>
                 </tr>
                 <tr>
                     <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_DOWNLOADS . "</td>

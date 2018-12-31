@@ -22,7 +22,7 @@
 function TDMDownloads_checkModuleAdmin()
 {
     if (file_exists($GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php'))) {
-        include_once $GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php');
+        require_once $GLOBALS['xoops']->path('/Frameworks/moduleclasses/moduleadmin/moduleadmin.php');
 
         return true;
     } else {
@@ -39,11 +39,11 @@ function TDMDownloads_MygetItemIds($permtype, $dirname)
     if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
         return $permissions[$permtype];
     }
-    $module_handler = xoops_gethandler('module');
-    $tdmModule = $module_handler->getByDirname($dirname);
+    $moduleHandler = xoops_getHandler('module');
+    $tdmModule = $moduleHandler->getByDirname($dirname);
     $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-    $gperm_handler = xoops_gethandler('groupperm');
-    $categories = $gperm_handler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
+    $gpermHandler = xoops_getHandler('groupperm');
+    $categories = $gpermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
 
     return $categories;
 }
@@ -93,15 +93,15 @@ function TDMDownloads_Thumbnail($time, $status)
             $img_url = XOOPS_URL . "/modules/TDMDownloads/language/" . $language . "/";
             if ($status==1) {
                 if (is_readable($img_path . 'new.png')) {
-                    $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '"/>';
+                    $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                 } else {
-                    $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '"/>';
+                    $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                 }
             } elseif ($status==2) {
                 if (is_readable($img_path . 'updated.png')) {
-                    $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '"/>';
+                    $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                 } else {
-                    $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '"/>';
+                    $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/TDMDownloads/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                 }
             }
         }
@@ -126,9 +126,9 @@ function TDMDownloads_Popular($hits)
         $img_path = XOOPS_ROOT_PATH . "/modules/TDMDownloads/language/" . $language . "/";
         $img_url = XOOPS_URL . "/modules/TDMDownloads/language/" . $language . "/";
         if (is_readable($img_path . 'popular.png')) {
-            $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '"/>';
+            $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
         } else {
-            $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/TDMDownloads/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '"/>';
+            $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/TDMDownloads/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
         }
     }
 
@@ -194,7 +194,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
     $category_parent = $mytree->getAllParent($key);
     if ($order == 'ASC') {
         $category_parent = array_reverse($category_parent);
-        if ($link == true) {
+        if ($link === true) {
             $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
         } else {
             $Path = $xoopsModule->name() . $prefix;
@@ -208,7 +208,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
         $Path = $first_category . $prefix;
     }
     foreach (array_keys($category_parent) as $j) {
-        if ($link == true) {
+        if ($link === true) {
             $Path .= '<a href="viewcat.php?cid=' . $category_parent[$j]->getVar('cat_cid') . '">' . $category_parent[$j]->getVar($title) . '</a>' . $prefix;
         } else {
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
@@ -216,7 +216,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
     }
     if ($order == 'ASC') {
         if (array_key_exists($key, $category_array)) {
-            if ($lasturl == true) {
+            if ($lasturl === true) {
                 $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
             } else {
                 $first_category = $category_array[$key]->getVar($title);
@@ -226,7 +226,7 @@ function TDMDownloads_PathTreeUrl($mytree, $key, $category_array, $title, $prefi
         }
         $Path .= $first_category;
     } else {
-        if ($link == true) {
+        if ($link === true) {
             $Path .= '<a href="index.php">' . $xoopsModule->name() . '</a>';
         } else {
             $Path .= $xoopsModule->name();

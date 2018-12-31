@@ -14,5 +14,5 @@
  * @author      Hossein Azizabadi (Aka Voltan)
  */
 
-include 'header.php';
+require __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';

@@ -36,7 +36,7 @@ class TDMDownloads_fielddata extends XoopsObject
 
 class TDMDownloadstdmdownloads_fielddataHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_fielddata", 'tdmdownloads_fielddata', 'iddata', 'data');
     }

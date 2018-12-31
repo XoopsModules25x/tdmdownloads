@@ -37,7 +37,7 @@ class TDMDownloads_downlimit extends XoopsObject
 
 class TDMDownloadstdmdownloads_downlimitHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_downlimit", 'tdmdownloads_downlimit', 'downlimit_id', 'downlimit_lid');
     }

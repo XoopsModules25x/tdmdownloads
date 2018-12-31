@@ -68,7 +68,7 @@ class TDMDownloads_field extends XoopsObject
         //image
         $downloadsfield_img = $this->getVar('img') ? $this->getVar('img') : 'blank.gif';
         $uploadirectory='/uploads/TDMDownloads/images/field';
-        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br />');
+        $imgtray = new XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
         $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect= new XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
         $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
@@ -77,8 +77,8 @@ class TDMDownloads_field extends XoopsObject
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . "\", \"\", \"" . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadsfield_img . "' name='image3' id='image3' alt='' /><br />"));
-        $fileseltray= new XoopsFormElementTray('', '<br />');
+        $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . "/" . $uploadirectory . "/" . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
+        $fileseltray= new XoopsFormElementTray('', '<br>');
         $fileseltray->addElement(new XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
         $fileseltray->addElement(new XoopsFormLabel(''), false);
         $imgtray->addElement($fileseltray);
@@ -109,7 +109,7 @@ class TDMDownloads_field extends XoopsObject
 
 class TDMDownloadstdmdownloads_fieldHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_field", 'tdmdownloads_field', 'fid', 'title');
     }

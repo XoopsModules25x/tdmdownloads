@@ -14,8 +14,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
-include_once XOOPS_ROOT_PATH.'/class/template.php';
+require_once __DIR__ . '/header.php';
+require_once XOOPS_ROOT_PATH.'/class/template.php';
 $items_count = $xoopsModuleConfig['perpagerss'];
 $cid = isset($_GET['cid']) ? intval($_GET['cid']) : 0;
 if (function_exists('mb_http_output')) {
@@ -33,7 +33,7 @@ $criteria->add(new Criteria('status', 0, '!='));
 $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 if ($cid != 0) {
     $criteria->add(new Criteria('cid', $cid));
-    $cat = $downloadscat_Handler->get($cid);
+    $cat = $downloadscatHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $cat->getVar('cat_title');
 } else {
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name');
@@ -41,7 +41,7 @@ if ($cid != 0) {
 $criteria->setLimit($xoopsModuleConfig['perpagerss']);
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
-$downloads_arr = $downloads_Handler->getall($criteria);
+$downloads_arr = $downloadsHandler->getall($criteria);
 
 if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));

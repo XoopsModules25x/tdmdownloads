@@ -14,7 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
@@ -26,8 +26,8 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $broken_admin = new ModuleAdmin();
-            echo $broken_admin->addNavigation('broken.php');
+            $broken_admin = \Xmf\Module\Admin::getInstance();
+            echo $broken_admin->displayNavigation('broken.php');
         }
         $criteria = new CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
@@ -47,11 +47,11 @@ switch ($op) {
         $criteria->setSort('reportid');
         $criteria->setOrder('ASC');
         //pour faire une jointure de table
-        $downloadsbroken_Handler->table_link = $downloadsbroken_Handler->db->prefix("tdmdownloads_downloads"); // Nom de la table en jointure
-        $downloadsbroken_Handler->field_link = "lid"; // champ de la table en jointure
-        $downloadsbroken_Handler->field_object = "lid"; // champ de la table courante
-        $downloadsbroken_arr = $downloadsbroken_Handler->getByLink($criteria);
-        $numrows = $downloadsbroken_Handler->getCount($criteria);
+        $downloadsbrokenHandler->table_link = $downloadsbrokenHandler->db->prefix("tdmdownloads_downloads"); // Nom de la table en jointure
+        $downloadsbrokenHandler->field_link = "lid"; // champ de la table en jointure
+        $downloadsbrokenHandler->field_object = "lid"; // champ de la table courante
+        $downloadsbroken_arr = $downloadsbrokenHandler->getByLink($criteria);
+        $numrows = $downloadsbrokenHandler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
@@ -88,8 +88,8 @@ switch ($op) {
                 echo '<a href="broken.php?op=del_brokendownloads&broken_id=' . $downloads_reportid . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
             }
-            echo '</table><br />';
-            echo '<br /><div align=right>' . $pagenav . '</div><br />';
+            echo '</table><br>';
+            echo '<br><div align=right>' . $pagenav . '</div><br>';
         } else {
             echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS . '</div>';
         }
@@ -97,12 +97,12 @@ switch ($op) {
 
     // permet de suprimmer le rapport de téléchargment brisé
     case "del_brokendownloads":
-        $obj = $downloadsbroken_Handler->get($_REQUEST['broken_id']);
+        $obj = $downloadsbrokenHandler->get($_REQUEST['broken_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-            if ($downloadsbroken_Handler->delete($obj)) {
+            if ($downloadsbrokenHandler->delete($obj)) {
                 redirect_header('broken.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
             echo $objvotedata->getHtmlErrors();
@@ -110,9 +110,9 @@ switch ($op) {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
             if (TDMDownloads_checkModuleAdmin()) {
-                $broken_admin = new ModuleAdmin();
+                $broken_admin = \Xmf\Module\Admin::getInstance();
                 $broken_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU4, 'broken.php', 'list');
-                echo $broken_admin->renderButton();
+                echo $broken_admin->displayButton();
             }
             xoops_confirm(array('ok' => 1, 'broken_id' => $_REQUEST['broken_id'], 'op' => 'del_brokendownloads'), $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
         }

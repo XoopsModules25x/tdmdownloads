@@ -15,16 +15,16 @@
  */
 
 // Include xoops admin header
-include_once '../../../include/cp_header.php';
+require_once dirname(__DIR__) . '/../../include/cp_header.php';
 
 include_once(XOOPS_ROOT_PATH."/kernel/module.php");
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-include_once XOOPS_ROOT_PATH."/class/tree.php";
-include_once XOOPS_ROOT_PATH."/class/xoopslists.php";
-include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+require_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
+require_once XOOPS_ROOT_PATH."/class/tree.php";
+require_once XOOPS_ROOT_PATH."/class/xoopslists.php";
+require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
-include_once '../include/functions.php';
+require_once dirname(__DIR__) . '/include/functions.php';
 
 if ($xoopsUser) {
     $xoopsModule = XoopsModule::getByDirname("TDMDownloads");
@@ -61,11 +61,11 @@ $uploadurl_field = XOOPS_URL . '/uploads/TDMDownloads/images/field/';
 /////////////
 
 //appel des class
-$downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$downloadsvotedata_Handler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$downloadsbroken_Handler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$downloadsmod_Handler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$downloadsfieldmoddata_Handler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
+$downloadscatHandler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
+$downloadsHandler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
+$downloadsvotedataHandler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
+$downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$downloadsfielddataHandler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
+$downloadsbrokenHandler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
+$downloadsmodHandler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
+$downloadsfieldmoddataHandler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');

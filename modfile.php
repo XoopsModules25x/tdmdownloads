@@ -14,16 +14,16 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_modfile.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_modfile.tpl';
+require_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
 
 // redirection si pas de droit pour poster
-if ($perm_modif == false) {
+if ($perm_modif === false) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
@@ -31,7 +31,7 @@ if ($perm_modif == false) {
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 
 //information du téléchargement
-$view_downloads = $downloads_Handler->get($lid);
+$view_downloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
@@ -44,7 +44,7 @@ switch ($op) {
     // Vue liste
     case "list":
         //navigation
-        $view_categorie = $downloadscat_Handler->get($view_downloads->getVar('cid'));
+        $view_categorie = $downloadscatHandler->get($view_downloads->getVar('cid'));
         $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
         if (!in_array($view_downloads->getVar('cid'), $categories)) {
             redirect_header('index.php', 2, _NOPERM);
@@ -55,12 +55,12 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $downloadscat_Handler->getall($criteria);
+        $downloadscat_arr = $downloadscatHandler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
-        $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow" /> ', true, 'ASC', true);
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> ' . _MD_TDMDOWNLOADS_SINGLEFILE_MODIFY;
+        $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow"> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
+        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow"> ' . _MD_TDMDOWNLOADS_SINGLEFILE_MODIFY;
         $xoopsTpl->assign('navigation', $navigation);
          // référencement
         // titre de la page
@@ -71,14 +71,14 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $view_downloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj = $downloadsmod_Handler->create();
+        $obj = $downloadsmodHandler->create();
         $form = $obj->getForm($lid, false, $donnee = array());
         $xoopsTpl->assign('themeForm', $form->render());
     break;
     // save
     case "save":
-        include_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $obj = $downloadsmod_Handler->create();
+        require_once XOOPS_ROOT_PATH.'/class/uploader.php';
+        $obj = $downloadsmodHandler->create();
         $erreur = false;
         $message_erreur = '';
         $donnee = array();
@@ -131,7 +131,7 @@ switch ($op) {
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $downloadsfield_Handler->getall($criteria);
+        $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if ($downloads_field[$i]->getVar('status_def') == 0) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
@@ -177,27 +177,27 @@ switch ($op) {
                 }
             }
 
-            if ($downloadsmod_Handler->insert($obj)) {
+            if ($downloadsmodHandler->insert($obj)) {
                 $lid_dowwnloads = $obj->get_new_enreg();
                 // Récupération des champs supplémentaires:
                 $criteria = new CriteriaCompo();
                 $criteria->setSort('weight ASC, title');
                 $criteria->setOrder('ASC');
-                $downloads_field = $downloadsfield_Handler->getall($criteria);
+                $downloads_field = $downloadsfieldHandler->getall($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if ($downloads_field[$i]->getVar('status_def') == 0) {
-                        $objdata = $downloadsfieldmoddata_Handler->create();
+                        $objdata = $downloadsfieldmoddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('moddata', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lid_dowwnloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $downloadsfieldmoddata_Handler->insert($objdata) or $objdata->getHtmlErrors();
+                        $downloadsfieldmoddataHandler->insert($objdata) or $objdata->getHtmlErrors();
                     }
                 }
                 $tags = array();
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/modified.php';
-                $notification_handler = xoops_gethandler('notification');
-                $notification_handler->triggerEvent('global', 0, 'file_modify', $tags);
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);
                 redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
             }
             echo $obj->getHtmlErrors();

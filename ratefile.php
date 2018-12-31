@@ -14,22 +14,22 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_ratefile.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_ratefile.tpl';
+require_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'liste', 'string');
 $lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
 
 //redirection si pas de permission de vote
-if ($perm_vote == false) {
+if ($perm_vote === false) {
     redirect_header('index.php', 2, _NOPERM);
     exit();
 }
 
-$view_downloads = $downloads_Handler->get($lid);
+$view_downloads = $downloadsHandler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activé
 if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
@@ -52,12 +52,12 @@ switch ($op) {
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-        $downloadscat_arr = $downloadscat_Handler->getall($criteria);
+        $downloadscat_arr = $downloadscatHandler->getall($criteria);
         $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
         //navigation
-        $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow" /> ', true, 'ASC', true);
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> ' . _MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE;
+        $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow"> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
+        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow"> ' . _MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE;
         $xoopsTpl->assign('navigation', $navigation);
         // référencement
         // titre de la page
@@ -67,14 +67,14 @@ switch ($op) {
         //description
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $view_downloads->getVar('title') . ')'));
         //Affichage du formulaire de notation des téléchargements
-        $obj = $downloadsvotedata_Handler->create();
+        $obj = $downloadsvotedataHandler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
     break;
 
     // save
     case "save":
-        $obj = $downloadsvotedata_Handler->create();
+        $obj = $downloadsvotedataHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
@@ -84,7 +84,7 @@ switch ($op) {
         if ($ratinguser != 0) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
-            $downloads_arr = $downloads_Handler->getall($criteria);
+            $downloads_arr = $downloadsHandler->getall($criteria);
             foreach (array_keys($downloads_arr) as $i) {
                 if ($downloads_arr[$i]->getVar('submitter') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
@@ -94,7 +94,7 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il ne vote pas 2 fois
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $lid));
-            $downloadsvotes_arr = $downloadsvotedata_Handler->getall($criteria);
+            $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
             foreach (array_keys($downloadsvotes_arr) as $i) {
                 if ($downloadsvotes_arr[$i]->getVar('ratinguser') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
@@ -109,7 +109,7 @@ switch ($op) {
             $criteria->add(new Criteria('ratinguser', 0));
             $criteria->add(new Criteria('ratinghostname', getenv("REMOTE_ADDR")));
             $criteria->add(new Criteria('ratingtimestamp', $yesterday, '>'));
-            if ($downloadsvotedata_Handler->getCount($criteria) >= 1) {
+            if ($downloadsvotedataHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . intval($_REQUEST['lid']), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 exit();
             }
@@ -136,20 +136,20 @@ switch ($op) {
         if ($erreur==true) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
-            if ($downloadsvotedata_Handler->insert($obj)) {
+            if ($downloadsvotedataHandler->insert($obj)) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $lid));
-                $downloadsvotes_arr = $downloadsvotedata_Handler->getall($criteria);
-                $total_vote = $downloadsvotedata_Handler->getCount($criteria);
+                $downloadsvotes_arr = $downloadsvotedataHandler->getall($criteria);
+                $total_vote = $downloadsvotedataHandler->getCount($criteria);
                 $total_rating = 0;
                 foreach (array_keys($downloadsvotes_arr) as $i) {
                     $total_rating += $downloadsvotes_arr[$i]->getVar('rating');
                 }
                 $rating = $total_rating / $total_vote;
-                $objdownloads = $downloads_Handler->get($lid);
+                $objdownloads = $downloadsHandler->get($lid);
                 $objdownloads->setVar('rating', number_format($rating, 1));
                 $objdownloads->setVar('votes', $total_vote);
-                if ($downloads_Handler->insert($objdownloads)) {
+                if ($downloadsHandler->insert($objdownloads)) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEOK);
                 }
                 echo $objdownloads->getHtmlErrors();

@@ -66,7 +66,7 @@ class TDMDownloads_votedata extends XoopsObject
 
 class TDMDownloadstdmdownloads_votedataHandler extends XoopsPersistableObjectHandler
 {
-    public function __construct(&$db)
+    public function __construct(\XoopsDatabase $db)
     {
         parent::__construct($db, "tdmdownloads_votedata", 'tdmdownloads_votedata', 'ratingid', 'lid');
     }

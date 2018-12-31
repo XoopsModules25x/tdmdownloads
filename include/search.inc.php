@@ -45,7 +45,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = array();
     $i = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]["image"] = "images/deco/tdmdownloads_search.png";
         $ret[$i]["link"] = "singlefile.php?cid=".$myrow["cid"]."&lid=".$myrow["lid"]."";
         $ret[$i]["title"] = $myrow["title"];

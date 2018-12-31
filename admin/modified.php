@@ -14,7 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include 'admin_header.php';
+require __DIR__ . '/admin_header.php';
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
@@ -26,8 +26,8 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $modified_admin = new ModuleAdmin();
-            echo $modified_admin->addNavigation('modified.php');
+            $modified_admin = \Xmf\Module\Admin::getInstance();
+            echo $modified_admin->displayNavigation('modified.php');
         }
         $criteria = new CriteriaCompo();
         if (isset($_REQUEST['limit'])) {
@@ -46,8 +46,8 @@ switch ($op) {
         }
         $criteria->setSort('requestid');
         $criteria->setOrder('ASC');
-        $downloadsmod_arr = $downloadsmod_Handler->getall($criteria);
-        $numrows = $downloadsmod_Handler->getCount($criteria);
+        $downloadsmod_arr = $downloadsmodHandler->getall($criteria);
+        $numrows = $downloadsmodHandler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
@@ -67,7 +67,7 @@ switch ($op) {
                 $class = ($class == 'even') ? 'odd' : 'even';
                 $downloads_lid = $downloadsmod_arr[$i]->getVar('lid');
                 $downloads_requestid = $downloadsmod_arr[$i]->getVar('requestid');
-                $downloads = $downloads_Handler->get($downloadsmod_arr[$i]->getVar('lid'));
+                $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
                 // pour savoir si le fichier est nouveau
                 $downloads_url = $downloads->getVar('url');
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
@@ -80,8 +80,8 @@ switch ($op) {
                 echo '<a href="modified.php?op=del_moddownloads&mod_id=' . $downloads_requestid . '&new_file=' . $new_file . '"><img src="../images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
                 echo '</td>';
             }
-            echo '</table><br />';
-            echo '<br /><div align=right>' . $pagenav . '</div><br />';
+            echo '</table><br>';
+            echo '<br><div align=right>' . $pagenav . '</div><br>';
         } else {
             echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS . '</div>';
         }
@@ -92,21 +92,21 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         if (TDMDownloads_checkModuleAdmin()) {
-            $modified_admin = new ModuleAdmin();
-            echo $modified_admin->addNavigation('modified.php');
+            $modified_admin = \Xmf\Module\Admin::getInstance();
+            echo $modified_admin->displayNavigation('modified.php');
             $modified_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
-            echo $modified_admin->renderButton();
+            echo $modified_admin->displayButton();
         }
         //information du téléchargement
-        $view_downloads = $downloads_Handler->get($_REQUEST['downloads_lid']);
+        $view_downloads = $downloadsHandler->get($_REQUEST['downloads_lid']);
         //information du téléchargement modifié
-        $view_moddownloads = $downloadsmod_Handler->get($_REQUEST['mod_id']);
+        $view_moddownloads = $downloadsmodHandler->get($_REQUEST['mod_id']);
 
         // original
         $downloads_title = $view_downloads->getVar('title');
         $downloads_url = $view_downloads->getVar('url');
         //catégorie
-        $view_categorie = $downloadscat_Handler->get($view_downloads->getVar('cid'));
+        $view_categorie = $downloadscatHandler->get($view_downloads->getVar('cid'));
         $downloads_categorie = $view_categorie->getVar('cat_title');
         $downloads_homepage = $view_downloads->getVar('homepage');
         $downloads_version = $view_downloads->getVar('version');
@@ -118,7 +118,7 @@ switch ($op) {
         $moddownloads_title = $view_moddownloads->getVar('title');
         $moddownloads_url = $view_moddownloads->getVar('url');
         //catégorie
-        $view_categorie = $downloadscat_Handler->get($view_moddownloads->getVar('cid'));
+        $view_categorie = $downloadscatHandler->get($view_moddownloads->getVar('cid'));
         $moddownloads_categorie = $view_categorie->getVar('cat_title');
         $moddownloads_homepage = $view_moddownloads->getVar('homepage');
         $moddownloads_version = $view_moddownloads->getVar('version');
@@ -137,15 +137,15 @@ switch ($op) {
         echo '<table width="100%">';
         echo '<tr>';
         echo '<td valign="top" width="50%"><small><span class="' . ($downloads_title == $moddownloads_title ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTITLE . '</span>: ' . $downloads_title . '</small></td>';
-        echo '<td valign="top" rowspan="14"><small><span class="' . ($downloads_description == $moddownloads_description ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTEXT . '</span>:<br />' . $downloads_description . '</small></td>';
+        echo '<td valign="top" rowspan="14"><small><span class="' . ($downloads_description == $moddownloads_description ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTEXT . '</span>:<br>' . $downloads_description . '</small></td>';
         echo '</tr>';
-        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br />' . $downloads_url . '</small></td></tr>';
+        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br>' . $downloads_url . '</small></td></tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_categorie == $moddownloads_categorie ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMCAT . '</span>: ' . $downloads_categorie . '</small></td></tr>';
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new Criteria('status', 1));
-        $downloads_field = $downloadsfield_Handler->getall($criteria);
+        $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if ($downloads_field[$i]->getVar('status_def') == 1) {
                 if ($downloads_field[$i]->getVar('fid') == 1) {
@@ -170,7 +170,7 @@ switch ($op) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $downloadsfielddata_Handler->getall($criteria);
+                $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
@@ -179,14 +179,14 @@ switch ($op) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $downloadsfieldmoddata_Handler->getall($criteria);
+                $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
                 echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contenu  . '</small></td></tr>';
             }
         }
-        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br /> <img src="' . $uploadurl_shots . $downloads_logourl . '" alt="" title=""></small></td></tr>';
+        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br> <img src="' . $uploadurl_shots . $downloads_logourl . '" alt="" title=""></small></td></tr>';
         echo '</table>';
         //proposé
         echo '</td></tr><tr><td>';
@@ -194,15 +194,15 @@ switch ($op) {
         echo '<table width="100%">';
         echo '<tr>';
         echo '<td valign="top" width="40%"><small><span class="' . ($downloads_title == $moddownloads_title ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTITLE . '</span>: ' . $moddownloads_title . '</small></td>';
-        echo '<td valign="top" rowspan="14"><small><span class="' . ($downloads_description == $moddownloads_description ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTEXT . '</span>:<br />' . $moddownloads_description . '</small></td>';
+        echo '<td valign="top" rowspan="14"><small><span class="' . ($downloads_description == $moddownloads_description ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMTEXT . '</span>:<br>' . $moddownloads_description . '</small></td>';
         echo '</tr>';
-        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br />' . $moddownloads_url . '</small></td></tr>';
+        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_url == $moddownloads_url ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMURL . '</span>:<br>' . $moddownloads_url . '</small></td></tr>';
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_categorie == $moddownloads_categorie ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMCAT . '</span>: ' . $moddownloads_categorie . '</small></td></tr>';
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new Criteria('status', 1));
-        $downloads_field = $downloadsfield_Handler->getall($criteria);
+        $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if ($downloads_field[$i]->getVar('status_def') == 1) {
                 if ($downloads_field[$i]->getVar('fid') == 1) {
@@ -227,7 +227,7 @@ switch ($op) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $downloadsfielddata_Handler->getall($criteria);
+                $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
@@ -236,14 +236,14 @@ switch ($op) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $downloadsfieldmoddata_Handler->getall($criteria);
+                $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
                 echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $mod_contenu  . '</small></td></tr>';
             }
         }
-        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br /> <img src="' . $uploadurl_shots . $moddownloads_logourl . '" alt="" title=""></small></td></tr>';
+        echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br> <img src="' . $uploadurl_shots . $moddownloads_logourl . '" alt="" title=""></small></td></tr>';
         echo '</table>';
         echo '</table>';
         echo '</td></tr></table>';
@@ -260,7 +260,7 @@ switch ($op) {
 
     // permet de suprimmer le téléchargment modifié
     case "del_moddownloads":
-        $obj = $downloadsmod_Handler->get($_REQUEST['mod_id']);
+        $obj = $downloadsmodHandler->get($_REQUEST['mod_id']);
         if (isset($_REQUEST['ok']) && $_REQUEST['ok'] == 1) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -278,12 +278,12 @@ switch ($op) {
             // supression des data des champs sup
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-            $downloads_fielddata = $downloadsfieldmoddata_Handler->getall($criteria);
+            $downloads_fielddata = $downloadsfieldmoddataHandler->getall($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
-                $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
-                $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+                $objfielddata = $downloadsfieldmoddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
+                $downloadsfieldmoddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
             }
-            if ($downloadsmod_Handler->delete($obj)) {
+            if ($downloadsmodHandler->delete($obj)) {
                 redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
             echo $objvotedata->getHtmlErrors();
@@ -291,9 +291,9 @@ switch ($op) {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
             if (TDMDownloads_checkModuleAdmin()) {
-                $modified_admin = new ModuleAdmin();
+                $modified_admin = \Xmf\Module\Admin::getInstance();
                 $modified_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
-                echo $modified_admin->renderButton();
+                echo $modified_admin->displayButton();
             }
             xoops_confirm(array('ok' => 1, 'mod_id' => $_REQUEST['mod_id'], 'new_file' => $_REQUEST['new_file'], 'op' => 'del_moddownloads'), $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
         }
@@ -302,8 +302,8 @@ switch ($op) {
     // permet d'accépter la modification
     case "approve":
         // choix du téléchargement:
-        $view_moddownloads = $downloadsmod_Handler->get($_REQUEST['mod_id']);
-        $obj = $downloads_Handler->get($view_moddownloads->getVar('lid'));
+        $view_moddownloads = $downloadsmodHandler->get($_REQUEST['mod_id']);
+        $obj = $downloadsHandler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
         if ($_REQUEST['new_file']==true) {
             $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
@@ -331,7 +331,7 @@ switch ($op) {
         $criteria = new CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
-        $downloads_field = $downloadsfield_Handler->getall($criteria);
+        $downloads_field = $downloadsfieldHandler->getall($criteria);
         foreach (array_keys($downloads_field) as $i) {
             $contenu = '';
             $iddata = 0;
@@ -339,41 +339,41 @@ switch ($op) {
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $view_moddownloads->getVar('requestid')));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfieldmoddata = $downloadsfieldmoddata_Handler->getall($criteria);
+                $downloadsfieldmoddata = $downloadsfieldmoddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
                 $criteria = new CriteriaCompo();
                 $criteria->add(new Criteria('lid', $view_moddownloads->getVar('lid')));
                 $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
-                $downloadsfielddata = $downloadsfielddata_Handler->getall($criteria);
+                $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
                 if ($iddata == 0) {
-                    $objdata = $downloadsfielddata_Handler->create();
+                    $objdata = $downloadsfielddataHandler->create();
                     $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                     $objdata->setVar('lid', $view_moddownloads->getVar('lid'));
                 } else {
-                    $objdata = $downloadsfielddata_Handler->get($iddata);
+                    $objdata = $downloadsfielddataHandler->get($iddata);
                 }
                 $objdata->setVar('data', $contenu);
-                $downloadsfielddata_Handler->insert($objdata) or $objdata->getHtmlErrors();
+                $downloadsfielddataHandler->insert($objdata) or $objdata->getHtmlErrors();
             }
         }
         // supression du rapport de modification
-        $objmod = $downloadsmod_Handler->get($_REQUEST['mod_id']);
-        $downloadsmod_Handler->delete($objmod);
+        $objmod = $downloadsmodHandler->get($_REQUEST['mod_id']);
+        $downloadsmodHandler->delete($objmod);
         // supression des data des champs sup
         $criteria = new CriteriaCompo();
         $criteria->add(new Criteria('lid', $_REQUEST['mod_id']));
-        $downloads_fielddata = $downloadsfieldmoddata_Handler->getall($criteria);
+        $downloads_fielddata = $downloadsfieldmoddataHandler->getall($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
-            $objfielddata = $downloadsfieldmoddata_Handler->get($downloads_fielddata[$i]->getVar('modiddata'));
-            $downloadsfieldmoddata_Handler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
+            $objfielddata = $downloadsfieldmoddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
+            $downloadsfieldmoddataHandler->delete($objfielddata) or $objvfielddata->getHtmlErrors();
         }
         // enregistrement
-        if ($downloads_Handler->insert($obj)) {
+        if ($downloadsHandler->insert($obj)) {
             redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
         echo $obj->getHtmlErrors();

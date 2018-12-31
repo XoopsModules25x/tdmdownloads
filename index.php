@@ -14,10 +14,10 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_index.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_index.tpl';
+require_once XOOPS_ROOT_PATH.'/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 // pour les permissions
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
@@ -26,7 +26,7 @@ $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('status', 0, '!='));
 $criteria->add(new Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloads_arr = $downloads_Handler->getall($criteria);
+$downloads_arr = $downloadsHandler->getall($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloads_arr)));
 
 //tableau des catégories
@@ -34,7 +34,7 @@ $criteria = new CriteriaCompo();
 $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloadscat_arr = $downloadscat_Handler->getall($criteria);
+$downloadscat_arr = $downloadscatHandler->getall($criteria);
 $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 
 //affichage des catégories
@@ -73,7 +73,7 @@ if ($xoopsModuleConfig['bldate']==1) {
     $criteria->setSort('date');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_date = $downloads_Handler->getall($criteria);
+    $downloads_arr_date = $downloadsHandler->getall($criteria);
     foreach (array_keys($downloads_arr_date) as $i) {
         $title = $downloads_arr_date[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -91,7 +91,7 @@ if ($xoopsModuleConfig['blpop']==1) {
     $criteria->setSort('hits');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_hits = $downloads_Handler->getall($criteria);
+    $downloads_arr_hits = $downloadsHandler->getall($criteria);
     foreach (array_keys($downloads_arr_hits) as $i) {
         $title = $downloads_arr_hits[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -108,7 +108,7 @@ if ($xoopsModuleConfig['blrating']==1) {
     $criteria->setSort('rating');
     $criteria->setOrder('DESC');
     $criteria->setLimit($xoopsModuleConfig['nbbl']);
-    $downloads_arr_rating = $downloads_Handler->getall($criteria);
+    $downloads_arr_rating = $downloadsHandler->getall($criteria);
     foreach (array_keys($downloads_arr_rating) as $i) {
         $title = $downloads_arr_rating[$i]->getVar('title');
         if (strlen($title) >= $xoopsModuleConfig['longbl']) {
@@ -163,7 +163,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
     $order = isset($xoopsModuleConfig['toporder']) ? $xoopsModuleConfig['toporder'] : 1;
     $criteria->setSort($tblsort[$sort]);
     $criteria->setOrder($tblorder[$order]);
-    $downloads_arr = $downloads_Handler->getall($criteria);
+    $downloads_arr = $downloadsHandler->getall($criteria);
     $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
     $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
     $count = 1;
@@ -189,7 +189,7 @@ if ($xoopsModuleConfig['newdownloads'] > 0) {
 
         // Défini si la personne est un admin
         if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
-            $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $downloads_arr[$i]->getVar('lid') . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '" /></a>';
+            $adminlink = '<a href="' . XOOPS_URL . '/modules/TDMDownloads/admin/downloads.php?op=view_downloads&amp;downloads_lid=' . $downloads_arr[$i]->getVar('lid') . '" title="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"><img src="' . XOOPS_URL . '/modules/TDMDownloads/images/icon/edit.png" width="16px" height="16px" border="0" alt="' . _MD_TDMDOWNLOADS_EDITTHISDL . '"></a>';
         } else {
             $adminlink = '';
         }

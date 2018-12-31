@@ -14,10 +14,10 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_liste.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_liste.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null);
 
 $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
@@ -50,20 +50,20 @@ $criteria->setOrder('ASC');
 $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 /*$cat_select = new XoopsFormSelect(_MD_TDMDOWNLOADS_SEARCH_CATEGORIES . ' ', 'cat', $cat);
 $cat_select->addOption(0,_MD_TDMDOWNLOADS_SEARCH_ALL2);
-$cat_select->addOptionArray($downloadscat_Handler->getList($criteria ));
+$cat_select->addOptionArray($downloadscatHandler->getList($criteria ));
 $form->addElement($cat_select);*/
-$downloadscat_arr = $downloadscat_Handler->getall($criteria);
+$downloadscat_arr = $downloadscatHandler->getall($criteria);
 $mytree           = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
-$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
+$downloadsfieldHandler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
 $criteria = new CriteriaCompo();
 $criteria->add(new Criteria('search', 1));
 $criteria->add(new Criteria('status', 1));
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
-$downloads_field = $downloadsfield_Handler->getall($criteria);
+$downloads_field = $downloadsfieldHandler->getall($criteria);
 
 $arguments = '';
 foreach (array_keys($downloads_field) as $i) {
@@ -111,7 +111,7 @@ foreach (array_keys($downloads_field) as $i) {
             }
         } else {
             $criteria->setOrder('ASC');
-            $tdmdownloads_arr = $downloads_Handler->getall($criteria);
+            $tdmdownloads_arr = $downloadsHandler->getall($criteria);
             foreach (array_keys($tdmdownloads_arr) as $j) {
                 $contenu_arr[$tdmdownloads_arr[$j]->getVar($nom_champ_base)] = $tdmdownloads_arr[$j]->getVar($nom_champ_base);
             }
@@ -124,14 +124,14 @@ foreach (array_keys($downloads_field) as $i) {
         $criteria->add(new Criteria('fid', $downloads_field[$i]->getVar('fid')));
         $criteria->setSort('data');
         $criteria->setOrder('ASC');
-        $tdmdownloads_arr = $downloadsfielddata_Handler->getall($criteria);
+        $tdmdownloads_arr = $downloadsfielddataHandler->getall($criteria);
         foreach (array_keys($tdmdownloads_arr) as $j) {
             $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');
         }
         if ($champ_contenu[$downloads_field[$i]->getVar('fid')] != '') {
             $criteria_1 = new CriteriaCompo();
             $criteria_1->add(new Criteria('data', $champ_contenu[$downloads_field[$i]->getVar('fid')]));
-            $data_arr = $downloadsfielddata_Handler->getall($criteria_1);
+            $data_arr = $downloadsfielddataHandler->getall($criteria_1);
             foreach (array_keys($data_arr) as $k) {
                 $lid_arr[] = $data_arr[$k]->getVar('lid');
             }
@@ -184,7 +184,7 @@ $sort        = isset($xoopsModuleConfig['searchorder']) ? $xoopsModuleConfig['se
 $order       = isset($xoopsModuleConfig['searchorder']) ? $xoopsModuleConfig['searchorder'] : 1;
 $criteria_2->setSort($tblsort[$sort]);
 $criteria_2->setOrder($tblorder[$order]);
-$numrows = $downloads_Handler->getCount($criteria_2);
+$numrows = $downloadsHandler->getCount($criteria_2);
 if (isset($_REQUEST['limit'])) {
     $criteria_2->setLimit($_REQUEST['limit']);
     $limit = $_REQUEST['limit'];
@@ -200,17 +200,17 @@ if (isset($_REQUEST['start'])) {
     $start = 0;
 }
 //pour faire une jointure de table
-$downloads_Handler->table_link   = $downloads_Handler->db->prefix("tdmdownloads_cat"); // Nom de la table en jointure
-$downloads_Handler->field_link   = "cat_cid"; // champ de la table en jointure
-$downloads_Handler->field_object = "cid"; // champ de la table courante
-$tdmdownloads_arr                = $downloads_Handler->getByLink($criteria_2);
+$downloadsHandler->table_link   = $downloadsHandler->db->prefix("tdmdownloads_cat"); // Nom de la table en jointure
+$downloadsHandler->field_link   = "cat_cid"; // champ de la table en jointure
+$downloadsHandler->field_object = "cid"; // champ de la table courante
+$tdmdownloads_arr                = $downloadsHandler->getByLink($criteria_2);
 if ($numrows > $limit) {
     $pagenav = new XoopsPageNav($numrows, $limit, $start, 'start', $arguments);
     $pagenav = $pagenav->renderNav(4);
 } else {
     $pagenav = '';
 }
-$xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_SEARCH_THEREARE, $downloads_Handler->getCount($criteria_2)));
+$xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_SEARCH_THEREARE, $downloadsHandler->getCount($criteria_2)));
 $xoopsTpl->assign('pagenav', $pagenav);
 $keywords = '';
 foreach (array_keys($tdmdownloads_arr) as $i) {
@@ -245,7 +245,7 @@ foreach (array_keys($tdmdownloads_arr) as $i) {
             $criteria = new CriteriaCompo();
             $criteria->add(new Criteria('lid', $tdmdownloads_arr[$i]->getVar('lid')));
             $criteria->add(new Criteria('fid', $downloads_field[$j]->getVar('fid')));
-            $downloadsfielddata = $downloadsfielddata_Handler->getall($criteria);
+            $downloadsfielddata = $downloadsfielddataHandler->getall($criteria);
             if (count($downloadsfielddata) > 0) {
                 foreach (array_keys($downloadsfielddata) as $k) {
                     $contenu = $downloadsfielddata[$k]->getVar('data', 'n');

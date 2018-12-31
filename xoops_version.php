@@ -227,8 +227,8 @@ $modversion['config'][$i]['formtype'] = 'select';
 $modversion['config'][$i]['valuetype'] = 'text';
 $modversion['config'][$i]['default'] = 'dhtmltextarea';
 xoops_load('xoopseditorhandler');
-$editor_handler = XoopsEditorHandler::getInstance();
-$modversion['config'][$i]['options'] = array_flip($editor_handler->getList());
+$editorHandler = XoopsEditorHandler::getInstance();
+$modversion['config'][$i]['options'] = array_flip($editorHandler->getList());
 
 $i++;
 $modversion['config'][$i]['name']        = 'break' . $i;

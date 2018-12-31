@@ -3,7 +3,7 @@
 		<span class="itemTitle">
 			<strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/TDMDownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
 		</span>
-        <br/>
+        <br>
     </div>
     <div class="itemInfo">
 
@@ -16,15 +16,15 @@
         <span class="itemPop"><{$down.pop}></span>
         <{/if}>
         <{if $down.perm_download != ""}>
-        <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$xoops_url}>/modules/TDMDownloads/images/icon/download-now.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"/></a></span>
+        <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$xoops_url}>/modules/TDMDownloads/images/icon/download-now.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"></a></span>
         <{/if}>
         <span class="itemPoster"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SUBMITDATE}><{$down.updated}></span>
         <span class="itemPostDate"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SUBMITTER}><{$down.submitter}></span>
         <{$down.description_short}>
         <div class="itemText justify">
-            <{if $show_screenshot == true}>
+            <{if $show_screenshot === true}>
             <{if $down.logourl != ''}>
-            <img class="<{$img_float}>" width="<{$shotwidth}>" src="<{$down.logourl}>" alt="<{$down.title}>"/>
+            <img class="<{$img_float}>" width="<{$shotwidth}>" src="<{$down.logourl}>" alt="<{$down.title}>">
             <{/if}>
             <{/if}>
         </div>
