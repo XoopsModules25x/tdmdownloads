@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads\Common;
+<?php
+
+namespace XoopsModules\Tdmdownloads\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -17,7 +19,6 @@
  * @author      XOOPS Development Team
  * @package     Publisher
  * @since       1.05
- *
  */
 
 // require_once dirname(dirname(__DIR__)) . '/include/common.php';
@@ -28,14 +29,14 @@
 class Configurator
 {
     public $name;
-    public $paths           = [];
-    public $uploadFolders   = [];
-    public $copyBlankFiles  = [];
+    public $paths = [];
+    public $uploadFolders = [];
+    public $copyBlankFiles = [];
     public $copyTestFolders = [];
     public $templateFolders = [];
-    public $oldFiles        = [];
-    public $oldFolders      = [];
-    public $renameTables    = [];
+    public $oldFiles = [];
+    public $oldFolders = [];
+    public $renameTables = [];
     public $modCopyright;
 
     /**
@@ -44,20 +45,20 @@ class Configurator
     public function __construct()
     {
         $moduleDirName = basename(dirname(dirname(__DIR__)));
-        $moduleDirNameUpper   = strtoupper($moduleDirName);
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-        require_once  dirname(dirname(__DIR__)) . '/include/config.php';
+        require_once dirname(dirname(__DIR__)) . '/include/config.php';
         $config = getConfig();
 
-        $this->name            = $config->name;
-        $this->paths           = $config->paths;
-        $this->uploadFolders   = $config->uploadFolders;
-        $this->copyBlankFiles  = $config->copyBlankFiles;
+        $this->name = $config->name;
+        $this->paths = $config->paths;
+        $this->uploadFolders = $config->uploadFolders;
+        $this->copyBlankFiles = $config->copyBlankFiles;
         $this->copyTestFolders = $config->copyTestFolders;
         $this->templateFolders = $config->templateFolders;
-        $this->oldFiles        = $config->oldFiles;
-        $this->oldFolders      = $config->oldFolders;
-        $this->renameTables    = $config->renameTables;
-        $this->modCopyright    = $config->modCopyright;
+        $this->oldFiles = $config->oldFiles;
+        $this->oldFolders = $config->oldFolders;
+        $this->renameTables = $config->renameTables;
+        $this->modCopyright = $config->modCopyright;
     }
 }

@@ -1,9 +1,9 @@
 <?php
-// $Id: notification.inc.php 4 2011-02-04 20:31:45Z Kris_fr $
+//
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org>                             //
+//                  Copyright (c) 2000-2019 XOOPS.org                        //
+//                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -33,12 +33,13 @@
 function tdmdownloads_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
+    $moduleDirName = basename(dirname(__DIR__));
     $item_id = (int)$item_id;
-    if (empty($xoopsModule) || 'TDMDownloads' !== $xoopsModule->getVar('dirname')) {
+    if (empty($xoopsModule) || $xoopsModule->getVar('dirname') !== $moduleDirName) {
         $moduleHandler = xoops_getHandler('module');
-        $module = $moduleHandler->getByDirname('TDMDownloads');
+        $module        = $moduleHandler->getByDirname($moduleDirName);
         $configHandler = xoops_getHandler('config');
-        $config = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
         $module = $xoopsModule;
         $config = $xoopsModuleConfig;
@@ -46,7 +47,7 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
 
     if ('global' === $category) {
         $item['name'] = '';
-        $item['url'] = '';
+        $item['url']  = '';
 
         return $item;
     }
@@ -54,23 +55,25 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     global $xoopsDB;
     if ('category' === $category) {
         // Assume we have a valid category id
-        $sql = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = '.$item_id;
-        $result = $xoopsDB->query($sql); // TODO: error check
+        $sql          = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = ' . $item_id;
+        $result       = $xoopsDB->query($sql); // TODO: error check
         $result_array = $xoopsDB->fetchArray($result);
         $item['name'] = $result_array['title'];
-        $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/viewcat.php?cid=' . $item_id;
+        $item['url']  = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/viewcat.php?cid=' . $item_id;
 
         return $item;
     }
 
     if ('file' === $category) {
         // Assume we have a valid file id
-        $sql = 'SELECT cid,title FROM '.$xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
-        $result = $xoopsDB->query($sql); // TODO: error check
+        $sql          = 'SELECT cid,title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
+        $result       = $xoopsDB->query($sql); // TODO: error check
         $result_array = $xoopsDB->fetchArray($result);
         $item['name'] = $result_array['title'];
-        $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;
+        $item['url']  = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;
 
         return $item;
     }
+
+    return null;
 }

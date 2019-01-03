@@ -20,19 +20,23 @@
  * @return array
  */
 
+//use XoopsModules\Tdmdownloads;
+
 function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
 {
     global $xoopsDB;
+    $moduleDirName = basename(dirname(__DIR__));
 
     $sql = 'SELECT lid, cid, title, description, submitter, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status != 0';
 
-    if (0 != $userid) {
+    if (0 !== $userid) {
         $sql .= ' AND submitter=' . (int)$userid . ' ';
     }
-    require_once XOOPS_ROOT_PATH.'/modules/tdmdownloads/include/functions.php';
-    $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
+
+    $utilities  = new \XoopsModules\Tdmdownloads\Utilities($db, $helper);
+    $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     if (is_array($categories) && count($categories) > 0) {
-        $sql .= ' AND cid IN ('.implode(',', $categories).') ';
+        $sql .= ' AND cid IN (' . implode(',', $categories) . ') ';
     } else {
         return null;
     }
@@ -40,24 +44,24 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     if (is_array($queryarray) && $count = count($queryarray)) {
         $sql .= " AND ((title LIKE '%$queryarray[0]%' OR description LIKE '%$queryarray[0]%')";
 
-        for ($i=1;$i<$count;$i++) {
+        for ($i = 1; $i < $count; ++$i) {
             $sql .= " $andor ";
             $sql .= "(title LIKE '%$queryarray[$i]%' OR description LIKE '%$queryarray[$i]%')";
         }
         $sql .= ')';
     }
 
-    $sql .= ' ORDER BY date DESC';
+    $sql    .= ' ORDER BY date DESC';
     $result = $xoopsDB->query($sql, $limit, $offset);
-    $ret = [];
-    $i = 0;
+    $ret    = [];
+    $i      = 0;
     while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/images/deco/tdmdownloads_search.png';
         $ret[$i]['link']  = 'singlefile.php?cid=' . $myrow['cid'] . '&lid=' . $myrow['lid'] . '';
         $ret[$i]['title'] = $myrow['title'];
         $ret[$i]['time']  = $myrow['date'];
         $ret[$i]['uid']   = $myrow['submitter'];
-        $i++;
+        ++$i;
     }
 
     return $ret;

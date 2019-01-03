@@ -14,26 +14,38 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Tree;
+
+/**
+ * @return array
+ */
 function b_tdmdownloads_search_show()
 {
-    require_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/include/functions.php';
+   require dirname(__DIR__) . '/include/common.php';
+   $moduleDirName = basename(dirname(__DIR__));
+
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
-    //appel des class
-    $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
-    $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
-    //appel des fichiers de langues
-    xoops_loadLanguage('main', 'TDMDownloads');
-    xoops_loadLanguage('admin', 'TDMDownloads');
+    $db = null;
 
-    $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
+    /** @var \XoopsModules\Tdmdownloads\Helper $helper */
+    $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+
+    //appel des class
+    //appel des fichiers de langues
+    $helper->loadLanguage('admin');
+    $helper->loadLanguage('main');
+    $helper->loadLanguage('common');
+
+    /** @var \XoopsModules\Tdmdownloads\Utility $utility */
+    $utility = new \XoopsModules\Tdmdownloads\Utility();
+    $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 
     $block = [];
 
     //formulaire de recherche
-    $form = new \XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, 'search', XOOPS_URL . '/modules/tdmdownloads/search.php', 'post');
+    $form = new \XoopsThemeForm(_MD_TDMDOWNLOADS_SEARCH, 'search', XOOPS_URL . '/modules/' . $moduleDirName . '/search.php', 'post');
     $form->setExtra('enctype="multipart/form-data"');
     //recherche par titre
     $form->addElement(new \XoopsFormText(_MD_TDMDOWNLOADS_SEARCH_TITLE, 'title', 25, 255, ''));
@@ -42,23 +54,23 @@ function b_tdmdownloads_search_show()
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
     $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
-    $downloadscat_arr = $categoryHandler->getAll($criteria);
-    $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscat_arr, 'cat_cid', 'cat_pid');
+    $downloadscatArray = $categoryHandler->getAll($criteria);
+    $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
     $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $criteria = new \CriteriaCompo();
+    $criteria     = new \CriteriaCompo();
     $criteria->add(new \Criteria('search', 1));
     $criteria->add(new \Criteria('status', 1));
     $criteria->setSort('weight ASC, title');
     $criteria->setOrder('ASC');
     $downloads_field = $fieldHandler->getAll($criteria);
     foreach (array_keys($downloads_field) as $i) {
-        $title_sup = '';
-        $contenu_arr = [];
-        $lid_arr = [];
-        $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-        $criteria = new \CriteriaCompo();
+        $title_sup                                          = '';
+        $contenu_arr                                        = [];
+        $lid_arr                                            = [];
+        $nom_champ                                          = 'champ' . $downloads_field[$i]->getVar('fid');
+        $criteria                                           = new \CriteriaCompo();
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         if (1 == $downloads_field[$i]->getVar('status_def')) {
             $criteria->add(new \Criteria('status', 0, '!='));
@@ -82,8 +94,8 @@ function b_tdmdownloads_search_show()
             }
             if (4 == $downloads_field[$i]->getVar('fid')) {
                 //platform
-                $title_sup = _AM_TDMDOWNLOADS_FORMPLATFORM;
-                $platform_array = explode('|', xoops_getModuleOption('platform', 'TDMDownloads'));
+                $title_sup      = _AM_TDMDOWNLOADS_FORMPLATFORM;
+                $platform_array = explode('|', xoops_getModuleOption('platform', $moduleDirName));
                 foreach ($platform_array as $platform) {
                     $contenu_arr[$platform] = $platform;
                 }

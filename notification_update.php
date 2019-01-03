@@ -14,5 +14,5 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-require  dirname(dirname(__DIR__)) . '/mainfile.php';
-include XOOPS_ROOT_PATH.'/include/notification_update.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/include/notification_update.php';

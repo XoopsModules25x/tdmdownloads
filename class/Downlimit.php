@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads;
+<?php
+
+namespace XoopsModules\Tdmdownloads;
 
 /**
  * TDMDownload
@@ -14,7 +16,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage) and Hossein Azizabadi (Aka voltan)
  */
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -26,11 +27,11 @@ class Downlimit extends \XoopsObject
     // constructor
     public function __construct()
     {
+        parent::__construct();
         $this->initVar('downlimit_id', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('downlimit_lid', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('downlimit_uid', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('downlimit_hostname', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('downlimit_date', XOBJ_DTYPE_INT, null, false, 10);
     }
-
 }

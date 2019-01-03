@@ -8,7 +8,7 @@
 }
 
 .tdmdownloads-data {
-    border: 0px;
+    border: 0;
     padding: 1px;
     margin: 1px;
 }
@@ -31,7 +31,7 @@
 }
 
 .tdmdownloads-body img {
-    border: 0px;
+    border: 0;
     padding: 1px;
     margin: 1px;
     max-height: 120px;
@@ -79,7 +79,7 @@
 
 .tdmdownloads-navigation-items {
     margin: 1px;
-    padding: 1px
+    padding: 1px;
 }
 
 .tdmdownloads-navigation-items span {
@@ -114,52 +114,52 @@
 }
 
 .tdmdownloads-box #date {
-    background: url(../images/icon/date.png) no-repeat left;
+    background: url(../assets/images/icon/date.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #author {
-    background: url(../images/icon/author.png) no-repeat left;
+    background: url(../assets/images/icon/author.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #hits {
-    background: url(../images/icon/hits.png) no-repeat left;
+    background: url(../assets/images/icon/hits.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #rating {
-    background: url(../images/icon/votes.png) no-repeat left;
+    background: url(../assets/images/icon/votes.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #comments {
-    background: url(../images/icon/comments.png) no-repeat left;
+    background: url(../assets/images/icon/comments.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #torate {
-    background: url(../images/icon/torate.png) no-repeat left;
+    background: url(../assets/images/icon/torate.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #tomodify {
-    background: url(../images/icon/tomodify.png) no-repeat left;
+    background: url(../assets/images/icon/tomodify.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #toreport {
-    background: url(../images/icon/toreport.png) no-repeat left;
+    background: url(../assets/images/icon/toreport.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #totell {
-    background: url(../images/icon/totell.png) no-repeat left;
+    background: url(../assets/images/icon/totell.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #download {
-    background: url(../images/icon/download-now.png) no-repeat left;
+    background: url(../assets/images/icon/download-now.png) no-repeat left;
     padding: 5px 25px;
     line-height: 1.6em;
     font-size: 1.1em;
@@ -184,11 +184,13 @@
 }
 
 .tdmdownloads-tag {
-    margin: 1px; padding: 1px;
+    margin: 1px; 
+    padding: 1px;
 }
 
 .tdmdownloads-socialnetwork {
-    width: 100%; height: 25px;
+    width: 100%; 
+    height: 25px;
     margin-bottom: 40px;
 }
 
@@ -198,7 +200,8 @@
 }
 
 .tdmdownloads-bookmarkme {
-    width: 100%; height: 50px;
+    width: 100%; 
+    height: 50px;
 }
 
 .tdmdownloads-bookmarkmetitle {

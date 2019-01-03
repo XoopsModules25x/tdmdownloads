@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads\Common;
+<?php
+
+namespace XoopsModules\Tdmdownloads\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -18,7 +20,6 @@
 trait VersionChecks
 {
     /**
-     *
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
      * @param \XoopsModule|null $module
@@ -35,14 +36,14 @@ trait VersionChecks
         xoops_loadLanguage('admin', $moduleDirName);
 
         //check for minimum XOOPS version
-        $currentVer = substr(XOOPS_VERSION, 6); // get the numeric part of string
+        $currentVer = mb_substr(XOOPS_VERSION, 6); // get the numeric part of string
         if (null === $requiredVer) {
             $requiredVer = '' . $module->getInfo('min_xoops'); //making sure it's a string
         }
-        $success     = true;
+        $success = true;
 
         if (version_compare($currentVer, $requiredVer, '<')) {
-            $success     = false;
+            $success = false;
             $module->setErrors(sprintf(_AM_WFL_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
@@ -50,7 +51,6 @@ trait VersionChecks
     }
 
     /**
-     *
      * Verifies PHP version meets minimum requirements for this module
      * @static
      * @param \XoopsModule $module
@@ -60,12 +60,12 @@ trait VersionChecks
     public static function checkVerPhp(\XoopsModule $module)
     {
         $moduleDirName = basename(dirname(dirname(__DIR__)));
-        $moduleDirNameUpper = strtoupper($moduleDirName);
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
-        $verNum  = PHP_VERSION;
-        $reqVer  = $module->getInfo('min_php');
+        $verNum = PHP_VERSION;
+        $reqVer = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
                 $module->setErrors(sprintf(_AM_WFL_ERROR_BAD_PHP, $reqVer, $verNum));

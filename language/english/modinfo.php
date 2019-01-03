@@ -15,6 +15,8 @@
  */
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
+define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 // Description du module
 define('_MI_TDMDOWNLOADS_DESC', 'Creates a downloads section where users can download/submit/rate various files.');
 // Bloc
@@ -33,16 +35,16 @@ define('_MI_TDMDOWNLOADS_SMNAME1', 'Suggest');
 define('_MI_TDMDOWNLOADS_SMNAME2', 'Files List');
 // Menu administration
 define('_MI_TDMDOWNLOADS_ADMENU1', 'Index');
-define('_MI_TDMDOWNLOADS_ADMENU2', 'Categories Management');
-define('_MI_TDMDOWNLOADS_ADMENU3', 'Downloads Management');
-define('_MI_TDMDOWNLOADS_ADMENU4', 'Broken Downloads');
-define('_MI_TDMDOWNLOADS_ADMENU5', 'Modified Downloads');
-define('_MI_TDMDOWNLOADS_ADMENU6', 'Extra Fields Management');
+define('_MI_TDMDOWNLOADS_ADMENU2', 'Categories');
+define('_MI_TDMDOWNLOADS_ADMENU3', 'Downloads');
+define('_MI_TDMDOWNLOADS_ADMENU4', 'Broken');
+define('_MI_TDMDOWNLOADS_ADMENU5', 'Modified');
+define('_MI_TDMDOWNLOADS_ADMENU6', 'Extra Fields');
 define('_MI_TDMDOWNLOADS_ADMENU7', 'Import');
 define('_MI_TDMDOWNLOADS_ADMENU8', 'Permissions');
 define('_MI_TDMDOWNLOADS_ADMENU9', 'About');
 // Préférences
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', 'General');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', 'General');
 define('_MI_TDMDOWNLOADS_POPULAR', 'Number of hits for downloadable items to be marked as popular');
 define('_MI_TDMDOWNLOADS_AUTO_SUMMARY', 'Automatic Summary?');
 define('_MI_TDMDOWNLOADS_SHOW_UPDATED', "Show the 'updated' and 'new' picture?");
@@ -58,7 +60,7 @@ define('_MI_TDMDOWNLOADS_USETELLAFRIENDDSC', 'You have to install Tellafriend mo
 define('_MI_TDMDOWNLOADS_USETAG', 'Use TAG module to generate tags');
 define('_MI_TDMDOWNLOADS_USETAGDSC', 'You have to install TAG module in order to use this option');
 define('_MI_TDMDOWNLOADS_FORM_OPTIONS', 'Editor');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', 'User');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', 'User');
 define('_MI_TDMDOWNLOADS_PERPAGE', 'Number of items per page');
 define('_MI_TDMDOWNLOADS_NBDOWCOL', 'This option allows you to choose the number of columns of downloads');
 define('_MI_TDMDOWNLOADS_NEWDLS', 'Number of new files in the Home Page');
@@ -88,9 +90,9 @@ define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT', 'Download page float');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_DSC', '<ul><li>Left to Right: Show download description in left side and info column in right side</li><li>Right to Left: Show download description in right side and info column in left side</li></ul>');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_LTR', 'Left to Right');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_RTL', 'Right to Left');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', 'Administration');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', 'Administration');
 define('_MI_TDMDOWNLOADS_PERPAGEADMIN', 'Number of items per page in the administration');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', 'Downloads');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', 'Downloads');
 define('_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD', "Select the type of permission for 'Download Permission'");
 define('_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD1', 'Permission by category');
 define('_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD2', 'Permission by file');
@@ -109,18 +111,18 @@ define('_MI_TDMDOWNLOADS_LIMITGLOBAL', 'Number of downloads in 24 hours');
 define('_MI_TDMDOWNLOADS_LIMITGLOBALDSC', 'Number of download for each user in 24 hours. Select 0 for unlimited.');
 define('_MI_TDMDOWNLOADS_LIMITLID', 'Number of downloads for each file in 24 hours');
 define('_MI_TDMDOWNLOADS_LIMITLIDDSC', 'Number of downloads for each file in 24 hours by each user. Select 0 for unlimited.');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', 'Paypal');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', 'Paypal');
 define('_MI_TDMDOWNLOADS_USEPAYPAL', "Use button 'Donate' of Paypal ");
 define('_MI_TDMDOWNLOADS_CURRENCYPAYPAL', 'Currency of Donation');
 define('_MI_TDMDOWNLOADS_IMAGEPAYPAL', "Image for the button 'Make a Donation'");
 define('_MI_TDMDOWNLOADS_IMAGEPAYPALDSC', 'Please enter the address of the image');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', 'RSS');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', 'RSS');
 define('_MI_TDMDOWNLOADS_PERPAGERSS', 'RSS number of downloads');
 define('_MI_TDMDOWNLOADS_PERPAGERSSDSCC', 'Number of downloads displayed on RSS pages');
 define('_MI_TDMDOWNLOADS_TIMECACHERSS', 'RSS cache time');
 define('_MI_TDMDOWNLOADS_TIMECACHERSSDSC', 'Cache time for RSS pages in minutes');
 define('_MI_TDMDOWNLOADS_LOGORSS', 'Site logo for RSS pages');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', 'Comments and notifications');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', 'Comments and notifications');
 // Notifications
 define('_MI_TDMDOWNLOADS_GLOBAL_NOTIFY', 'Global');
 define('_MI_TDMDOWNLOADS_GLOBAL_NOTIFYDSC', 'Global downloads notification options.');
@@ -163,3 +165,73 @@ define('_MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} aut
 //1.62
 define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES', 'Show Latest Files');
 define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES_DSC', 'This will show latest files on the user side');
+
+//2.00
+//Help
+//define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
+//define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
+define('_MI_TDMDOWNLOADS_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_TDMDOWNLOADS_OVERVIEW', 'Overview');
+
+//define('_MI_TDMDOWNLOADS_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_TDMDOWNLOADS_DISCLAIMER', 'Disclaimer');
+define('_MI_TDMDOWNLOADS_LICENSE', 'License');
+define('_MI_TDMDOWNLOADS_SUPPORT', 'Support');
+
+
+
+define('_MI_TDMDOWNLOADS_ADMENU_MIGRATE', 'Migrate');
+define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS', 'Show Development Tools Button?');
+define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
+
+define('_MI_TDMDOWNLOADS_BLOCKS_ADMIN', 'Blocks');
+
+
+
+
+
+
+
+define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
+define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
+
+define('_MI_TDMDOWNLOADS_MENU_HISTORY', 'History');
+
+//Categories:
+
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span> ');
+
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- User ---</span> ');
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Administration ---</span> ');
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Downloads ---</span> ');
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Paypal ---</span> ');
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- RSS ---</span> ');
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Comments and notifications ---</span> ');
+
+define('_MI_TDMDOWNLOADS_CONFCAT_SEO_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Preferences for rewriting methods, meta data, etc ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Index and category pages ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_CATEGORY', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Category page ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_CATEGORY_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_ITEM', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Article page ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_ITEM_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_FORMAT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Format ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_FORMAT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_PRINT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Print page ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_PRINT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Others ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Permissions ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+
+define('_MI_TDMDOWNLOADS_CONFCAT_INDEX', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Index page ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_INDEX_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_SUBMIT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Submit article ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_SUBMIT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Submit article layout and form default values ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_SEARCH', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Search page ---</span> ');
+define('_MI_TDMDOWNLOADS_CONFCAT_SEARCH_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
+
+//define('_MI_TDMDOWNLOADS_ADMENU5', 'Blocks Admin');
+

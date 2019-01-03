@@ -10,15 +10,16 @@
 #
 
 CREATE TABLE tdmdownloads_broken (
-  reportid int(5) NOT NULL auto_increment,
-  lid int(11) NOT NULL default '0',
-  sender int(11) NOT NULL default '0',
-  ip varchar(20) NOT NULL default '',
+  reportid INT(5) NOT NULL AUTO_INCREMENT,
+  lid INT(11) NOT NULL DEFAULT '0',
+  sender INT(11) NOT NULL DEFAULT '0',
+  ip VARCHAR(20) NOT NULL DEFAULT '',
   PRIMARY KEY  (reportid),
   KEY lid (lid),
   KEY sender (sender),
   KEY ip (ip)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -26,15 +27,16 @@ CREATE TABLE tdmdownloads_broken (
 #
 
 CREATE TABLE tdmdownloads_cat (
-  cat_cid int(5) unsigned NOT NULL auto_increment,
-  cat_pid int(5) unsigned NOT NULL default '0',
-  cat_title varchar(255) NOT NULL default '',
-  cat_imgurl varchar(255) NOT NULL default '',
-  cat_description_main text NOT NULL,
-  cat_weight int(11) NOT NULL default '0',
+  cat_cid INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
+  cat_pid INT(5) UNSIGNED NOT NULL DEFAULT '0',
+  cat_title VARCHAR(255) NOT NULL DEFAULT '',
+  cat_imgurl VARCHAR(255) NOT NULL DEFAULT '',
+  cat_description_main TEXT NOT NULL,
+  cat_weight INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (cat_cid),
   KEY cat_pid (cat_pid)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -42,30 +44,31 @@ CREATE TABLE tdmdownloads_cat (
 #
 
 CREATE TABLE tdmdownloads_downloads (
-  lid int(11) unsigned NOT NULL auto_increment,
-  cid int(5) unsigned NOT NULL default '0',
-  title varchar(255) NOT NULL default '',
-  url varchar(255) NOT NULL default '',
-  homepage varchar(255) NOT NULL default '',
-  version varchar(20) NOT NULL default '',
-  size varchar(15) NOT NULL default '',
-  platform varchar(255) NOT NULL default '',
-  description text NOT NULL,
-  logourl varchar(255) NOT NULL default '',
-  submitter int(11) NOT NULL default '0',
-  status tinyint(2) NOT NULL default '0',
-  date int(10) NOT NULL default '0',
-  hits int(11) unsigned NOT NULL default '0',
-  rating double(6,4) NOT NULL default '0.0000',
-  votes int(11) unsigned NOT NULL default '0',
-  comments int(11) unsigned NOT NULL default '0',
-  top tinyint(2) NOT NULL default '0',
-  paypal varchar(255) NOT NULL default '',
+  lid INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  cid INT(5) UNSIGNED NOT NULL DEFAULT '0',
+  title VARCHAR(255) NOT NULL DEFAULT '',
+  url VARCHAR(255) NOT NULL DEFAULT '',
+  homepage VARCHAR(255) NOT NULL DEFAULT '',
+  version VARCHAR(20) NOT NULL DEFAULT '',
+  size VARCHAR(15) NOT NULL DEFAULT '',
+  platform VARCHAR(255) NOT NULL DEFAULT '',
+  description TEXT NOT NULL,
+  logourl VARCHAR(255) NOT NULL DEFAULT '',
+  submitter INT(11) NOT NULL DEFAULT '0',
+  status TINYINT(2) NOT NULL DEFAULT '0',
+  date INT(10) NOT NULL DEFAULT '0',
+  hits INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  rating DOUBLE(6,4) NOT NULL DEFAULT '0.0000',
+  votes INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  comments INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  top TINYINT(2) NOT NULL DEFAULT '0',
+  paypal VARCHAR(255) NOT NULL DEFAULT '',
   PRIMARY KEY  (lid),
   KEY cid (cid),
   KEY status (status),
   KEY title (title(40))
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -73,20 +76,21 @@ CREATE TABLE tdmdownloads_downloads (
 #
 
 CREATE TABLE tdmdownloads_mod (
-  requestid int(11) unsigned NOT NULL auto_increment,
-  lid int(11) unsigned NOT NULL default '0',
-  cid int(5) unsigned NOT NULL default '0',
-  title varchar(255) NOT NULL default '',
-  url varchar(255) NOT NULL default '',
-  homepage varchar(255) NOT NULL default '',
-  version varchar(20) NOT NULL default '',
-  size varchar(15) NOT NULL default '',
-  platform varchar(50) NOT NULL default '',
-  logourl varchar(255) NOT NULL default '',
-  description text NOT NULL,
-  modifysubmitter int(11) NOT NULL default '0',
+  requestid INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  cid INT(5) UNSIGNED NOT NULL DEFAULT '0',
+  title VARCHAR(255) NOT NULL DEFAULT '',
+  url VARCHAR(255) NOT NULL DEFAULT '',
+  homepage VARCHAR(255) NOT NULL DEFAULT '',
+  version VARCHAR(20) NOT NULL DEFAULT '',
+  size VARCHAR(15) NOT NULL DEFAULT '',
+  platform VARCHAR(50) NOT NULL DEFAULT '',
+  logourl VARCHAR(255) NOT NULL DEFAULT '',
+  description TEXT NOT NULL,
+  modifysubmitter INT(11) NOT NULL DEFAULT '0',
   PRIMARY KEY  (requestid)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -94,17 +98,18 @@ CREATE TABLE tdmdownloads_mod (
 #
 
 CREATE TABLE tdmdownloads_votedata (
-  ratingid int(11) unsigned NOT NULL auto_increment,
-  lid int(11) unsigned NOT NULL default '0',
-  ratinguser int(11) NOT NULL default '0',
-  rating tinyint(3) unsigned NOT NULL default '0',
-  ratinghostname varchar(60) NOT NULL default '',
-  ratingtimestamp int(10) NOT NULL default '0',
+  ratingid INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  ratinguser INT(11) NOT NULL DEFAULT '0',
+  rating TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
+  ratinghostname VARCHAR(60) NOT NULL DEFAULT '',
+  ratingtimestamp INT(10) NOT NULL DEFAULT '0',
   PRIMARY KEY  (ratingid),
   KEY ratinguser (ratinguser),
   KEY ratinghostname (ratinghostname),
   KEY lid (lid)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -112,15 +117,16 @@ CREATE TABLE tdmdownloads_votedata (
 #
 
 CREATE TABLE tdmdownloads_field (
-  fid int(11) unsigned NOT NULL auto_increment,
-  title varchar(255) NOT NULL default '',
-  img varchar(255) NOT NULL default '',
-  weight int(11) NOT NULL default '0',
-  status int(5) unsigned NOT NULL default '0',
-  search int(5) unsigned NOT NULL default '0',
-  status_def int(5) unsigned NOT NULL default '0',
+  fid INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  title VARCHAR(255) NOT NULL DEFAULT '',
+  img VARCHAR(255) NOT NULL DEFAULT '',
+  weight INT(11) NOT NULL DEFAULT '0',
+  status INT(5) UNSIGNED NOT NULL DEFAULT '0',
+  search INT(5) UNSIGNED NOT NULL DEFAULT '0',
+  status_def INT(5) UNSIGNED NOT NULL DEFAULT '0',
   PRIMARY KEY  (fid)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -128,12 +134,13 @@ CREATE TABLE tdmdownloads_field (
 #
 
 CREATE TABLE tdmdownloads_fielddata (
-  iddata int(11) unsigned NOT NULL auto_increment,
-  fid int(11) unsigned NOT NULL default '0',
-  lid int(11) unsigned NOT NULL default '0',
-  data varchar(255) NOT NULL default '',
+  iddata INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  fid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  data VARCHAR(255) NOT NULL DEFAULT '',
   PRIMARY KEY  (iddata)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -141,12 +148,13 @@ CREATE TABLE tdmdownloads_fielddata (
 #
 
 CREATE TABLE tdmdownloads_modfielddata (
-  modiddata int(11) unsigned NOT NULL auto_increment,
-  fid int(11) unsigned NOT NULL default '0',
-  lid int(11) unsigned NOT NULL default '0',
-  moddata varchar(255) NOT NULL default '',
+  modiddata INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  fid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  moddata VARCHAR(255) NOT NULL DEFAULT '',
   PRIMARY KEY  (modiddata)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;
 # --------------------------------------------------------
 
 #
@@ -154,10 +162,11 @@ CREATE TABLE tdmdownloads_modfielddata (
 #
 
 CREATE TABLE tdmdownloads_downlimit (
-  downlimit_id int(11) unsigned NOT NULL auto_increment,
-  downlimit_lid int(11) unsigned NOT NULL default '0',
-  downlimit_uid int(11) NOT NULL default '0',
-  downlimit_hostname varchar(60) NOT NULL default '',
-  downlimit_date int(10) NOT NULL default '0',
+  downlimit_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  downlimit_lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+  downlimit_uid INT(11) NOT NULL DEFAULT '0',
+  downlimit_hostname VARCHAR(60) NOT NULL DEFAULT '',
+  downlimit_date INT(10) NOT NULL DEFAULT '0',
   PRIMARY KEY  (downlimit_id)
-) ENGINE=MyISAM;
+)
+  ENGINE = MyISAM;

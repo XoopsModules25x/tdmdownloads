@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads\Common;
+<?php
+
+namespace XoopsModules\Tdmdownloads\Common;
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -27,15 +29,15 @@ class ModuleConstants
     //    static $moddir = basename(dirname(__DIR__));
 
     public static $moduleDirName = null;
-    public static $mydirname2    = null; //set in constructor
+    public static $mydirname2 = null; //set in constructor
 
-    public static $moduleUrl   = null;
-    public static $modulePath  = null;
-    public static $imagesUrl   = null;
-    public static $imagesPath  = null;
-    public static $adminUrl    = null;
-    public static $adminPath   = null;
-    public static $uploadsUrl  = null;
+    public static $moduleUrl = null;
+    public static $modulePath = null;
+    public static $imagesUrl = null;
+    public static $imagesPath = null;
+    public static $adminUrl = null;
+    public static $adminPath = null;
+    public static $uploadsUrl = null;
     public static $uploadsPath = null;
 
     //    const ROOT = $_SERVER['DOCUMENT_ROOT']."project/";

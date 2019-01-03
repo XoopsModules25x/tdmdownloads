@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads;
+<?php
+
+namespace XoopsModules\Tdmdownloads;
 
 /**
  * TDMDownload
@@ -14,7 +16,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -24,8 +25,10 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class Broken extends \XoopsObject
 {
     // constructor
+
     public function __construct()
     {
+        parent::__construct();
         $this->initVar('reportid', XOBJ_DTYPE_INT, null, false, 5);
         $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
         $this->initVar('sender', XOBJ_DTYPE_INT, null, false, 11);
@@ -38,11 +41,12 @@ class Broken extends \XoopsObject
     /**
      * @param      $lid
      * @param bool $action
+     *
      * @return \XoopsThemeForm
      */
     public function getForm($lid, $action = false)
     {
-        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+        //        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }

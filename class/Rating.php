@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads;
+<?php
+
+namespace XoopsModules\Tdmdownloads;
 
 /**
  * TDMDownload
@@ -14,7 +16,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -33,19 +34,16 @@ class Rating extends \XoopsObject
         $this->initVar('ratinghostname', XOBJ_DTYPE_TXTBOX, null, false);
         $this->initVar('ratingtimestamp', XOBJ_DTYPE_INT, null, false, 10);
     }
-    public function Rating()
-    {
-        $this->__construct();
-    }
 
     /**
      * @param      $lid
      * @param bool $action
+     *
      * @return \XoopsThemeForm
      */
     public function getForm($lid, $action = false)
     {
-        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+        //        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
@@ -57,7 +55,20 @@ class Rating extends \XoopsObject
         $form = new \XoopsThemeForm(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE, 'rateform', 'ratefile.php', 'post');
         $form->setExtra('enctype="multipart/form-data"');
         $rating = new \XoopsFormSelect(_MD_TDMDOWNLOADS_RATEFILE_VOTE, 'rating', $rating);
-        $options = ['11' => '--', '10' => '10', '9' => '9', '8' => '8', '7' => '7', '6' => '6', '5' => '5', '4' => '4', '3' => '3', '2' => '2', '1' => '1', '0' => '0'];
+        $options = [
+            '11' => '--',
+            '10' => '10',
+            '9' => '9',
+            '8' => '8',
+            '7' => '7',
+            '6' => '6',
+            '5' => '5',
+            '4' => '4',
+            '3' => '3',
+            '2' => '2',
+            '1' => '1',
+            '0' => '0',
+        ];
         $rating->addOptionArray($options);
         $form->addElement($rating, true);
         $form->addElement(new \XoopsFormCaptcha(), true);

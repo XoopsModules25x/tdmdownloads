@@ -13,13 +13,16 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
+use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
+/** @var Tdmdownloads\Helper $helper */
+$helper = Tdmdownloads\Helper::getInstance();
+
 //On recupere la valeur de l'argument op dans l'URL$
-$op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
+$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -27,19 +30,17 @@ switch ($op) {
     case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        if (TDMDownloads_checkModuleAdmin()) {
-            $modified_admin = \Xmf\Module\Admin::getInstance();
-            echo $modified_admin->displayNavigation('modified.php');
-        }
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
         $criteria = new \CriteriaCompo();
-        if (isset($_REQUEST['limit'])) {
+        if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
             $criteria->setLimit($_REQUEST['limit']);
             $limit = $_REQUEST['limit'];
         } else {
-            $criteria->setLimit($xoopsModuleConfig['perpageadmin']);
-            $limit = $xoopsModuleConfig['perpageadmin'];
+            $criteria->setLimit($helper->getConfig('perpageadmin'));
+            $limit = $helper->getConfig('perpageadmin');
         }
-        if (isset($_REQUEST['start'])) {
+        if (\Xmf\Request::hasVar('start', 'REQUEST')) {
             $criteria->setStart($_REQUEST['start']);
             $start = $_REQUEST['start'];
         } else {
@@ -62,7 +63,7 @@ switch ($op) {
             echo '<tr>';
             echo '<th align="center">' . _AM_TDMDOWNLOADS_FORMTITLE . '</th>';
             echo '<th align="center" width="20%">' . _AM_TDMDOWNLOADS_BROKEN_SENDER . '</th>';
-            echo '<th align="center" width="15%">'._AM_TDMDOWNLOADS_FORMACTION.'</th>';
+            echo '<th align="center" width="15%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsmod_arr) as $i) {
@@ -73,10 +74,11 @@ switch ($op) {
                 // pour savoir si le fichier est nouveau
                 $downloads_url = $downloads->getVar('url');
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
-                $new_file = ($downloads_url == $moddownloads_url ? false : true);
+                // $new_file = ($downloads_url == $moddownloads_url);
+                $new_file = ($downloads_url != $moddownloads_url);
                 echo '<tr class="' . $class . '">';
                 echo '<td align="center">' . $downloads->getVar('title') . '</td>';
-                echo '<td align="center"><b>' . XoopsUser::getUnameFromId($downloadsmod_arr[$i]->getVar('modifysubmitter')) . '</b></td>';
+                echo '<td align="center"><b>' . \XoopsUser::getUnameFromId($downloadsmod_arr[$i]->getVar('modifysubmitter')) . '</b></td>';
                 echo '<td align="center" width="15%">';
                 echo '<a href="modified.php?op=view_downloads&downloads_lid=' . $downloads_lid . '&mod_id=' . $downloads_requestid . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
                 echo '<a href="modified.php?op=del_moddownloads&mod_id=' . $downloads_requestid . '&new_file=' . $new_file . '"><img src="../assets/images/icon/ignore_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMIGNORE . '" title="' . _AM_TDMDOWNLOADS_FORMIGNORE . '"></a>';
@@ -85,37 +87,34 @@ switch ($op) {
             echo '</table><br>';
             echo '<br><div align=right>' . $pagenav . '</div><br>';
         } else {
-            echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS . '</div>';
+            echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS . '</div><br>';
         }
-    break;
-
+        break;
     // Affiche la comparaison de fichier
     case 'view_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        if (TDMDownloads_checkModuleAdmin()) {
-            $modified_admin = \Xmf\Module\Admin::getInstance();
-            echo $modified_admin->displayNavigation('modified.php');
-            $modified_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
-            echo $modified_admin->displayButton();
-        }
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
+        $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
+        $adminObject->displayButton('left');
         //information du téléchargement
-        $view_downloads = $downloadsHandler->get($_REQUEST['downloads_lid']);
+        $viewDownloads = $downloadsHandler->get($_REQUEST['downloads_lid']);
         //information du téléchargement modifié
         $view_moddownloads = $modifiedHandler->get($_REQUEST['mod_id']);
 
         // original
-        $downloads_title = $view_downloads->getVar('title');
-        $downloads_url = $view_downloads->getVar('url');
+        $downloads_title = $viewDownloads->getVar('title');
+        $downloads_url = $viewDownloads->getVar('url');
         //catégorie
-        $view_categorie = $categoryHandler->get($view_downloads->getVar('cid'));
+        $view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
         $downloads_categorie = $view_categorie->getVar('cat_title');
-        $downloads_homepage = $view_downloads->getVar('homepage');
-        $downloads_version = $view_downloads->getVar('version');
-        $downloads_size = $view_downloads->getVar('size');
-        $downloads_platform = $view_downloads->getVar('platform');
-        $downloads_description = $view_downloads->getVar('description');
-        $downloads_logourl = $view_downloads->getVar('logourl');
+        $downloads_homepage = $viewDownloads->getVar('homepage');
+        $downloads_version = $viewDownloads->getVar('version');
+        $downloads_size = $viewDownloads->getVar('size');
+        $downloads_platform = $viewDownloads->getVar('platform');
+        $downloads_description = $viewDownloads->getVar('description');
+        $downloads_logourl = $viewDownloads->getVar('logourl');
         // modifié
         $moddownloads_title = $view_moddownloads->getVar('title');
         $moddownloads_url = $view_moddownloads->getVar('url');
@@ -160,11 +159,11 @@ switch ($op) {
                 }
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
-                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $downloads_size  . '</small></td></tr>';
+                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $downloads_size . '</small></td></tr>';
                 }
                 if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
-                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $downloads_platform  . '</small></td></tr>';
+                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $downloads_platform . '</small></td></tr>';
                 }
             } else {
                 //original
@@ -185,7 +184,7 @@ switch ($op) {
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
-                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contenu  . '</small></td></tr>';
+                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contenu . '</small></td></tr>';
             }
         }
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br> <img src="' . $uploadurl_shots . $downloads_logourl . '" alt="" title=""></small></td></tr>';
@@ -209,7 +208,15 @@ switch ($op) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
-                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_homepage == $moddownloads_homepage ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . '</span>: <a href="' . $moddownloads_homepage . '">' . $moddownloads_homepage . '</a></small></td></tr>';
+                    echo '<tr><td valign="top" width="40%"><small><span class="'
+                         . ($downloads_homepage == $moddownloads_homepage ? 'style_ide' : 'style_dif')
+                         . '">'
+                         . _AM_TDMDOWNLOADS_FORMHOMEPAGE
+                         . '</span>: <a href="'
+                         . $moddownloads_homepage
+                         . '">'
+                         . $moddownloads_homepage
+                         . '</a></small></td></tr>';
                 }
                 if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
@@ -217,11 +224,11 @@ switch ($op) {
                 }
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
-                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $moddownloads_size  . '</small></td></tr>';
+                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_size == $moddownloads_size ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMSIZE . '</span>: ' . $moddownloads_size . '</small></td></tr>';
                 }
                 if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
-                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $moddownloads_platform  . '</small></td></tr>';
+                    echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_platform == $moddownloads_platform ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMPLATFORM . '</span>: ' . $moddownloads_platform . '</small></td></tr>';
                 }
             } else {
                 //original
@@ -242,7 +249,7 @@ switch ($op) {
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
-                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $mod_contenu  . '</small></td></tr>';
+                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $mod_contenu . '</small></td></tr>';
             }
         }
         echo '<tr><td valign="top" width="40%"><small><span class="' . ($downloads_logourl == $moddownloads_logourl ? 'style_ide' : 'style_dif') . '">' . _AM_TDMDOWNLOADS_FORMIMG . '</span>:<br> <img src="' . $uploadurl_shots . $moddownloads_logourl . '" alt="" title=""></small></td></tr>';
@@ -250,7 +257,7 @@ switch ($op) {
         echo '</table>';
         echo '</td></tr></table>';
         //permet de savoir si le fichier est nouveau
-        $new_file = ($downloads_url == $moddownloads_url ? false : true);
+        $new_file = ($downloads_url != $moddownloads_url);
         echo '<table><tr><td>';
         echo myTextForm('modified.php?op=approve&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMAPPROVE);
         echo '</td><td>';
@@ -258,17 +265,17 @@ switch ($op) {
         echo '</td><td>';
         echo myTextForm('modified.php?op=del_moddownloads&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMIGNORE);
         echo '</td></tr></table>';
-    break;
-
+        break;
     // permet de suprimmer le téléchargment modifié
     case 'del_moddownloads':
         $obj = $modifiedHandler->get($_REQUEST['mod_id']);
-        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+        //        if (\Xmf\Request::hasVar('ok', 'REQUEST') && $_REQUEST['ok'] === 1) {
+        if (1 === \Xmf\Request::getInt('ok', 0, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-            if (true == $_REQUEST['new_file']) {
-                $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
+            if (true === $_REQUEST['new_file']) {
+                $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
                 // permet de donner le chemin du fichier
                 $urlfile = $uploaddir_downloads . $urlfile;
                 // si le fichier est sur le serveur il es détruit
@@ -292,23 +299,26 @@ switch ($op) {
         } else {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
-            if (TDMDownloads_checkModuleAdmin()) {
-                $modified_admin = \Xmf\Module\Admin::getInstance();
-                $modified_admin->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
-                echo $modified_admin->displayButton();
-            }
-            xoops_confirm(['ok' => 1, 'mod_id' => $_REQUEST['mod_id'], 'new_file' => $_REQUEST['new_file'], 'op' => 'del_moddownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
-        }
-    break;
+            $adminObject = \Xmf\Module\Admin::getInstance();
+            $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
+            $adminObject->displayButton('left');
 
+            xoops_confirm([
+                              'ok' => 1,
+                              'mod_id' => $_REQUEST['mod_id'],
+                              'new_file' => $_REQUEST['new_file'],
+                              'op' => 'del_moddownloads',
+                          ], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
+        }
+        break;
     // permet d'accépter la modification
     case 'approve':
         // choix du téléchargement:
         $view_moddownloads = $modifiedHandler->get($_REQUEST['mod_id']);
         $obj = $downloadsHandler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
-        if (true == $_REQUEST['new_file']) {
-            $urlfile = substr_replace($obj->getVar('url'), '', 0, strlen($uploadurl_downloads));
+        if (true === $_REQUEST['new_file']) {
+            $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
             // permet de donner le chemin du fichier
             $urlfile = $uploaddir_downloads . $urlfile;
             // si le fichier est sur le serveur il es détruit
@@ -379,7 +389,7 @@ switch ($op) {
             redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
         echo $obj->getHtmlErrors();
-    break;
+        break;
 }
 //Affichage de la partie basse de l'administration de Xoops
 xoops_cp_footer();

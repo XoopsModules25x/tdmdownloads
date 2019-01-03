@@ -13,39 +13,47 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+use XoopsModules\Tdmdownloads;
 
 require_once __DIR__ . '/header.php';
-require_once XOOPS_ROOT_PATH.'/class/template.php';
-$items_count = $xoopsModuleConfig['perpagerss'];
-$cid = isset($_GET['cid']) ? (int)$_GET['cid'] : 0;
+require_once XOOPS_ROOT_PATH . '/class/template.php';
+
+global $xoopsModuleConfig;
+/** @var Tdmdownloads\Helper $helper */
+$helper = Tdmdownloads\Helper::getInstance();
+
+$items_count = $helper->getConfig('perpagerss');
+$cid = \Xmf\Request::getInt('cid', 0, 'GET');
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
 //header ('Content-Type:text/xml; charset=UTF-8');
 $xoopsModuleConfig['utf8'] = false;
 
+$moduleDirName = basename(__DIR__);
+
 $tpl = new \XoopsTpl();
-$tpl->caching=2; //1 = Cache global, 2 = Cache individuel (par template)
-$tpl->xoops_setCacheTime($xoopsModuleConfig['timecacherss']*60); // Temps de cache en secondes
-$categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
+$tpl->caching = 2; //1 = Cache global, 2 = Cache individuel (par template)
+$tpl->xoops_setCacheTime($helper->getConfig('timecacherss') * 60); // Temps de cache en secondes
+$categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-if (0 != $cid) {
+if (0 !== $cid) {
     $criteria->add(new \Criteria('cid', $cid));
     $cat = $categoryHandler->get($cid);
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name') . ' - ' . $cat->getVar('cat_title');
 } else {
     $title = $xoopsConfig['sitename'] . ' - ' . $xoopsModule->getVar('name');
 }
-$criteria->setLimit($xoopsModuleConfig['perpagerss']);
+$criteria->setLimit($helper->getConfig('perpagerss'));
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
 $downloads_arr = $downloadsHandler->getAll($criteria);
 
 if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
-    $tpl->assign('channel_link', XOOPS_URL.'/');
+    $tpl->assign('channel_link', XOOPS_URL . '/');
     $tpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
     $tpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
     $tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
@@ -58,8 +66,9 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     } else {
         $tpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');
     }
-    $tpl->assign('image_url', XOOPS_URL . $xoopsModuleConfig['logorss']);
-    $dimention = getimagesize(XOOPS_ROOT_PATH . $xoopsModuleConfig['logorss']);
+    $tpl->assign('mydirname', $moduleDirName);
+    $tpl->assign('image_url', XOOPS_URL . $helper->getConfig('logorss'));
+    $dimention = getimagesize(XOOPS_ROOT_PATH . $helper->getConfig('logorss'));
     if (empty($dimention[0])) {
         $width = 88;
     } else {
@@ -75,17 +84,17 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     foreach (array_keys($downloads_arr) as $i) {
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
-        if (false == strpos($description, '[pagebreak]')) {
+        if (false === mb_strpos($description, '[pagebreak]')) {
             $description_short = $description;
         } else {
-            $description_short = substr($description, 0, strpos($description, '[pagebreak]'));
+            $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
         $tpl->append('items', [
-            'title'       => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
-            'link'        => XOOPS_URL . '/modules/tdmdownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
-            'guid'        => XOOPS_URL . '/modules/tdmdownloads/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
-            'pubdate'     => formatTimestamp($downloads_arr[$i]->getVar('date'), 'rss'),
-            'description' => htmlspecialchars($description_short, ENT_QUOTES)
+            'title' => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
+            'link' => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
+            'guid' => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
+            'pubdate' => formatTimestamp($downloads_arr[$i]->getVar('date'), 'rss'),
+            'description' => htmlspecialchars($description_short, ENT_QUOTES),
         ]);
     }
 }

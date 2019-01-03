@@ -8,17 +8,17 @@ spl_autoload_register(function ($class) {
     $prefix = 'XoopsModules\\' . ucfirst(basename(dirname(__DIR__)));
 
     // base directory for the namespace prefix
-    $base_dir =  dirname(__DIR__) . '/class/';
+    $base_dir = dirname(__DIR__) . '/class/';
 
     // does the class use the namespace prefix?
-    $len = strlen($prefix);
+    $len = mb_strlen($prefix);
 
     if (0 !== strncmp($prefix, $class, $len)) {
         return;
     }
 
     // get the relative class name
-    $relativeClass = substr($class, $len);
+    $relativeClass = mb_substr($class, $len);
 
     // replace the namespace prefix with the base directory, replace namespace
     // separators with directory separators in the relative class name, append

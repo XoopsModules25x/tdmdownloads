@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads;
+<?php
+
+namespace XoopsModules\Tdmdownloads;
 
 /**
  * TDMDownload
@@ -14,6 +16,8 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
@@ -39,27 +43,35 @@ class Field extends \XoopsObject
     }
 
     /**
+     * @param null $db
      * @return int
      */
-    public function get_new_enreg()
+    public function getNewEnreg($db = null)
     {
-        global $xoopsDB;
-        $new_enreg = $xoopsDB->getInsertId();
+        $newEnreg = 0;
+        /** @var \XoopsMySQLDatabase $db */
+        if(null !== $db) {
+            $newEnreg = $db->getInsertId();
+        }
 
-        return $new_enreg;
+        return $newEnreg;
     }
 
     /**
      * @param bool $action
+     *
      * @return \XoopsThemeForm
      */
     public function getForm($action = false)
     {
-        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+        /** @var Tdmdownloads\Helper $helper */
+        $helper = Tdmdownloads\Helper::getInstance();
+
+        $moduleDirName = basename(dirname(__DIR__));
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
         //nom du formulaire selon l'action (editer ou ajouter):
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
@@ -69,26 +81,26 @@ class Field extends \XoopsObject
         $form->setExtra('enctype="multipart/form-data"');
         //titre
         if (1 == $this->getVar('status_def')) {
-            $form->addElement(new xoopsFormLabel(_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
+            $form->addElement(new \XoopsFormLabel(_AM_TDMDOWNLOADS_FORMTITLE, $this->getVar('title')));
             $form->addElement(new \XoopsFormHidden('title', $this->getVar('title')));
         } else {
             $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
         }
         //image
         $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
-        $uploadirectory='/uploads/tdmdownloads/images/field';
+        $uploadirectory = '/uploads/' . $moduleDirName . '/images/field';
         $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
-        $imgpath=sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect= new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
-        $topics_array = \XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $imgpath = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
+        $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadsfield_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray -> addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
-        $fileseltray= new \XoopsFormElementTray('', '<br>');
-        $fileseltray->addElement(new \XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+        $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadsfield_img . "' name='image3' id='image3' alt=''><br>"));
+        $fileseltray = new \XoopsFormElementTray('', '<br>');
+        $fileseltray->addElement(new \XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $helper->getConfig('maxuploadsize')), false);
         $fileseltray->addElement(new \XoopsFormLabel(''), false);
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);

@@ -1,9 +1,9 @@
 <?php
-// $Id: comment_edit.php 4 2011-02-04 20:31:45Z Kris_fr $
+//
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org>                             //
+//                  Copyright (c) 2000-2019 XOOPS.org                        //
+//                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -24,5 +24,5 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-require  dirname(dirname(__DIR__)) . '/mainfile.php';
-include XOOPS_ROOT_PATH.'/include/comment_edit.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/include/comment_edit.php';

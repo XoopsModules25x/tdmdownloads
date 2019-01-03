@@ -17,8 +17,12 @@
 use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
+
+/** @var Tdmdownloads\Helper $helper */
+$helper = Tdmdownloads\Helper::getInstance();
+
 //On recupere la valeur de l'argument op dans l'URL$
-$op = TDMDownloads_CleanVars($_REQUEST, 'op', 'list', 'string');
+$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -26,20 +30,18 @@ switch ($op) {
     case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        if (TDMDownloads_checkModuleAdmin()) {
-            $field_admin = \Xmf\Module\Admin::getInstance();
-            echo $field_admin->displayNavigation('field.php');
-            $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
-            $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
-            echo $field_admin->displayButton();
-        }
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
+        $adminObject->displayButton('left');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
         $numrows = count($downloads_field);
         //Affichage du tableau
-        if ($numrows>0) {
+        if ($numrows > 0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
             echo '<tr>';
             echo '<th align="left">' . _AM_TDMDOWNLOADS_FORMTITLE . '</th>';
@@ -52,7 +54,7 @@ switch ($op) {
             $class = 'odd';
             foreach (array_keys($downloads_field) as $i) {
                 $downloadsfield_fid = $downloads_field[$i]->getVar('fid');
-                echo '<tr class="'.$class.'">';
+                echo '<tr class="' . $class . '">';
                 echo '<td align="left">' . $downloads_field[$i]->getVar('title') . '</a></td>';
                 echo '<td align="center" width="10%">';
                 echo '<img src="' . $uploadurl_field . $downloads_field[$i]->getVar('img') . '" alt="" title="" height="16">';
@@ -72,8 +74,7 @@ switch ($op) {
             }
             echo '</table>';
         }
-    break;
-
+        break;
     case 'update_status':
         $obj = $fieldHandler->get($_REQUEST['fid']);
 
@@ -82,8 +83,7 @@ switch ($op) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
         echo $obj->getHtmlErrors();
-    break;
-
+        break;
     case 'update_search':
         $obj = $fieldHandler->get($_REQUEST['fid']);
 
@@ -92,47 +92,39 @@ switch ($op) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
         echo $obj->getHtmlErrors();
-    break;
-    //
-
+        break;
     // vue création
     case 'new_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        if (TDMDownloads_checkModuleAdmin()) {
-            $field_admin = \Xmf\Module\Admin::getInstance();
-            echo $field_admin->displayNavigation('field.php');
-            $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
-            echo $field_admin->displayButton();
-        }
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
+        $adminObject->displayButton('left');
         //Affichage du formulaire de création des champs
         $obj = $fieldHandler->create();
         $form = $obj->getForm();
         $form->display();
-    break;
-
+        break;
     // Pour éditer un champ
     case 'edit_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        if (TDMDownloads_checkModuleAdmin()) {
-            $field_admin = \Xmf\Module\Admin::getInstance();
-            echo $field_admin->displayNavigation('field.php');
-            $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
-            $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
-            echo $field_admin->displayButton();
-        }
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject->displayNavigation(basename(__FILE__));
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
+        $adminObject->displayButton('left');
         //Affichage du formulaire de création des champs
         $obj = $fieldHandler->get($_REQUEST['fid']);
         $form = $obj->getForm();
         $form->display();
-    break;
-
+        break;
     // Pour supprimer un champ
     case 'del_field':
         global $xoopsModule;
         $obj = $fieldHandler->get($_REQUEST['fid']);
-        if (isset($_REQUEST['ok']) && 1 == $_REQUEST['ok']) {
+        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -160,30 +152,27 @@ switch ($op) {
             $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
             $downloads_arr = $fielddataHandler->getAll($criteria);
             if (count($downloads_arr) > 0) {
-                $message .= _AM_TDMDOWNLOADS_DELDATA .'<br>';
+                $message .= _AM_TDMDOWNLOADS_DELDATA . '<br>';
                 foreach (array_keys($downloads_arr) as $i) {
-                    $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('data') . '</span><br>';
+                    $message .= '<span style="color: #ff0000;">' . $downloads_arr[$i]->getVar('data') . '</span><br>';
                 }
             }
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
-            if (TDMDownloads_checkModuleAdmin()) {
-                $field_admin = \Xmf\Module\Admin::getInstance();
-                $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
-                $field_admin->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
-                echo $field_admin->displayButton();
-            }
+            $adminObject = \Xmf\Module\Admin::getInstance();
+            $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
+            $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
+            $adminObject->displayButton('left');
             xoops_confirm(['ok' => 1, 'fid' => $_REQUEST['fid'], 'op' => 'del_field'], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . $message);
         }
 
-    break;
-
+        break;
     // Pour sauver un champ
     case 'save_field':
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if (isset($_REQUEST['fid'])) {
+        if (\Xmf\Request::hasVar('fid', 'REQUEST')) {
             $obj = $fieldHandler->get($_REQUEST['fid']);
         } else {
             $obj = $fieldHandler->create();
@@ -192,10 +181,16 @@ switch ($op) {
         $message_erreur = '';
         // Récupération des variables:
         // Pour l'image
-        require_once XOOPS_ROOT_PATH.'/class/uploader.php';
-        $uploader = new \XoopsMediaUploader($uploaddir_field, ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'], $xoopsModuleConfig['maxuploadsize'], 16, null);
+        require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        $uploader = new \XoopsMediaUploader($uploaddir_field, [
+            'image/gif',
+            'image/jpeg',
+            'image/pjpeg',
+            'image/x-png',
+            'image/png',
+        ], $helper->getConfig('maxuploadsize'), 16, null);
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-            $uploader->setPrefix('downloads_') ;
+            $uploader->setPrefix('downloads_');
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
             if (!$uploader->upload()) {
                 $errors = $uploader->getErrors();
@@ -213,13 +208,11 @@ switch ($op) {
         $obj->setVar('search', $_POST['search']);
         $obj->setVar('status_def', $_POST['status_def']);
 
-        if (0 == (int)$_REQUEST['weight'] && '0' != $_REQUEST['weight']) {
-            $erreur=true;
+        if (0 === \Xmf\Request::getInt('weight', 0, 'REQUEST') && '0' !== $_REQUEST['weight']) {
+            $erreur = true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
-        if (true == $erreur) {
-            //Affichage de la partie haute de l'administration de Xoops
-            xoops_cp_header();
+        if (true === $erreur) {
             echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';
         } else {
             if ($fieldHandler->insert($obj)) {
@@ -229,7 +222,7 @@ switch ($op) {
         }
         $form = $obj->getForm();
         $form->display();
-    break;
+        break;
 }
 //Affichage de la partie basse de l'administration de Xoops
-xoops_cp_footer();
+require_once __DIR__ . '/admin_footer.php';

@@ -1,9 +1,9 @@
 <?php
-// $Id: comment_new.php 4 2011-02-04 20:31:45Z Kris_fr $
+//
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org>                             //
+//                  Copyright (c) 2000-2019 XOOPS.org                        //
+//                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -26,19 +26,18 @@
 //  ------------------------------------------------------------------------ //
 
 require __DIR__ . '/header.php';
-$com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
+$com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 if ($com_itemid > 0) {
     // Get file title
     $sql = 'SELECT title, cid FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid=' . $com_itemid;
     $result = $xoopsDB->query($sql);
     if ($result) {
-        $categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
+        $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
         $row = $xoopsDB->fetchArray($result);
-        if (!in_array($row['cid'], $categories)) {
+        if (!in_array($row['cid'], $categories, true)) {
             redirect_header(XOOPS_URL, 2, _NOPERM);
-            exit();
         }
         $com_replytitle = $row['title'];
-        include XOOPS_ROOT_PATH.'/include/comment_new.php';
+    require XOOPS_ROOT_PATH . '/include/comment_new.php';
     }
 }

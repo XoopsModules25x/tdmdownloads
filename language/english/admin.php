@@ -14,7 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 // index.php
-define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'There are %s broken files report');
+define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'There are %s broken files reports');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'There are %s categories');
 define('_AM_TDMDOWNLOADS_INDEX_DOWNLOADS', 'There are %s files in our database');
 define('_AM_TDMDOWNLOADS_INDEX_DOWNLOADSWAITING', 'There are %s downloads waiting for approval');
@@ -32,7 +32,8 @@ define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME', 'Votes by anonymous (total of 
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER', 'Votes by users (total of votes: %s)');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_USER', 'Users');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP', 'IP Address');
-define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'Waiting for validation');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'Waiting for approval');
+
 //broken.php
 define('_AM_TDMDOWNLOADS_BROKEN_SENDER', 'Report Author');
 define('_AM_TDMDOWNLOADS_BROKEN_SURDEL', 'Are you sure you want to delete this report?');
@@ -82,7 +83,8 @@ define('_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS', 'There are %s files to import');
 define('_AM_TDMDOWNLOADS_IMPORT_NUMBER', 'Data to import');
 define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Import successfully done!');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', "VOTES: '%s' imported;");
-define('_AM_TDMDOWNLOADS_IMPORT_WARNING', "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied.");
+define('_AM_TDMDOWNLOADS_IMPORT_WARNING',
+       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied.");
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Import from WF Downloads (only for V3.23 RC5)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', 'Select Upload Directory (the path) for categories images of WF-Downloads');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS', 'Select Upload Directory (the path) for screen shots of WF-Downloads');
@@ -128,7 +130,7 @@ define('_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS', "Description: <br><br>Use the delim
 define('_AM_TDMDOWNLOADS_FORMTITLE', 'Title');
 define('_AM_TDMDOWNLOADS_FORMUPLOAD', 'Upload');
 define('_AM_TDMDOWNLOADS_FORMURL', 'Download URL');
-define('_AM_TDMDOWNLOADS_FORMVALID', 'Activate the download');
+define('_AM_TDMDOWNLOADS_FORMVALID', 'Approve the download');
 define('_AM_TDMDOWNLOADS_FORMVERSION', 'Version');
 define('_AM_TDMDOWNLOADS_FORMVOTE', 'Votes');
 define('_AM_TDMDOWNLOADS_FORMWEIGHT', 'Weight');
@@ -155,3 +157,32 @@ define('_AM_TDMDOWNLOADS_KBYTES', 'kB');
 define('_AM_TDMDOWNLOADS_MBYTES', 'MB');
 define('_AM_TDMDOWNLOADS_GBYTES', 'GB');
 define('_AM_TDMDOWNLOADS_TBYTES', 'TB');
+
+//2.00
+//directories
+define('_AM_TDMDOWNLOADS_AVAILABLE', "<span style='color : #008000;'>Available. </span>");
+define('_AM_TDMDOWNLOADS_NOTAVAILABLE', "<span style='color : #ff0000;'>is not available. </span>");
+define('_AM_TDMDOWNLOADS_NOTWRITABLE', "<span style='color : #ff0000;'>" . ' should have permission ( %1$d ), but it has ( %2$d )' . '</span>');
+define('_AM_TDMDOWNLOADS_CREATETHEDIR', 'Create it');
+define('_AM_TDMDOWNLOADS_SETMPERM', 'Set the permission');
+
+define('_AM_TDMDOWNLOADS_DIRCREATED', 'The directory has been created');
+define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'The directory can not be created');
+define('_AM_TDMDOWNLOADS_PERMSET', 'The permission has been set');
+define('_AM_TDMDOWNLOADS_PERMNOTSET', 'The permission can not be set');
+
+
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_TDMDOWNLOADS_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_TDMDOWNLOADS_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
+
+// Error Msgs
+define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
+define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');

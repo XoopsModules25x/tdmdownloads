@@ -112,7 +112,8 @@ define('_MD_TDMDOWNLOADS_MOREDETAILS', 'plus de détails');
 define('_MD_TDMDOWNLOADS_DOWNLOAD', 'Télécharger');
 define('_MD_TDMDOWNLOADS_RSS', 'Flux RSS');
 //visit.php
-define('_MD_TDMDOWNLOADS_NOPERMISETOLINK', "Ce fichier n'appartient pas au site d'où vous venez.<br><br>Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br><strong>Définition de leecher : </strong> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br><br><strong>Vous êtes déjà enregistré</strong>");
+define('_MD_TDMDOWNLOADS_NOPERMISETOLINK',
+       "Ce fichier n'appartient pas au site d'où vous venez.<br><br>Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br><strong>Définition de leecher : </strong> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br><br><strong>Vous êtes déjà enregistré</strong>");
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'Vous devez choisir une catégorie !');
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', 'La taille du fichier doit être un nombre');

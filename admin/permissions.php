@@ -13,27 +13,33 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
-if (TDMDownloads_checkModuleAdmin()) {
-    $permissions_admin = \Xmf\Module\Admin::getInstance();
-    echo $permissions_admin->displayNavigation('permissions.php');
-}
+require_once $GLOBALS['xoops']->path('www/class/xoopsform/grouppermform.php');
 
-$permission = isset($_POST['permission']) ? (int)$_POST['permission'] : 1;
-$tab_perm = [1 => _AM_TDMDOWNLOADS_PERM_VIEW, 2 => _AM_TDMDOWNLOADS_PERM_SUBMIT, 3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD, 4 => _AM_TDMDOWNLOADS_PERM_AUTRES];
+/** @var Tdmdownloads\Helper $helper */
+$helper = Tdmdownloads\Helper::getInstance();
+
+$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject->displayNavigation(basename(__FILE__));
+
+$permission = \Xmf\Request::getInt('permission', 1, 'POST');
+$tab_perm = [
+    1 => _AM_TDMDOWNLOADS_PERM_VIEW,
+    2 => _AM_TDMDOWNLOADS_PERM_SUBMIT,
+    3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD,
+    4 => _AM_TDMDOWNLOADS_PERM_AUTRES,
+];
 echo "<form method='post' name='fselperm' action='permissions.php'>\n";
 echo "<table border='0'>\n<tr>\n<td>\n";
 echo "<select name='permission' onChange='document.fselperm.submit()'>\n";
 foreach (array_keys($tab_perm) as $i) {
-    if ($permission == $i) {
-        $selected = ' selected';
-    } else {
         $selected = '';
+    if ($permission === $i) {
+        $selected = ' selected';
     }
     echo "<option value='" . $i . "'" . $selected . '>' . $tab_perm[$i] . '</option>';
 }
@@ -58,7 +64,7 @@ switch ($permission) {
         break;
     case 3:    // Download Permission
         $formTitle = _AM_TDMDOWNLOADS_PERM_DOWNLOAD;
-        if (1 == $xoopsModuleConfig['permission_download']) {
+        if (1 == $helper->getConfig('permission_download')) {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC;
             $permissionName = 'tdmdownloads_download';
         } else {
@@ -71,22 +77,22 @@ switch ($permission) {
         $permissionName = 'tdmdownloads_ac';
         $permissionDescription = _AM_TDMDOWNLOADS_PERM_AUTRES_DSC;
         $global_perms_array = [
-        '4' => _AM_TDMDOWNLOADS_PERMISSIONS_4 ,
-        '8' => _AM_TDMDOWNLOADS_PERMISSIONS_8 ,
-        '16' => _AM_TDMDOWNLOADS_PERMISSIONS_16 ,
-        '32' => _AM_TDMDOWNLOADS_PERMISSIONS_32 ,
-        '64' => _AM_TDMDOWNLOADS_PERMISSIONS_64
+            '4' => _AM_TDMDOWNLOADS_PERMISSIONS_4,
+            '8' => _AM_TDMDOWNLOADS_PERMISSIONS_8,
+            '16' => _AM_TDMDOWNLOADS_PERMISSIONS_16,
+            '32' => _AM_TDMDOWNLOADS_PERMISSIONS_32,
+            '64' => _AM_TDMDOWNLOADS_PERMISSIONS_64,
         ];
         break;
 }
 
 $permissionsForm = new \XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
-if (4 == $permission) {
+if (4 === $permission) {
     foreach ($global_perms_array as $perm_id => $permissionName) {
-        $permissionsForm->addItem($perm_id, $permissionName) ;
+        $permissionsForm->addItem($perm_id, $permissionName);
     }
 } else {
-    if (3 == $permission && 2 == $xoopsModuleConfig['permission_download']) {
+    if (3 === $permission && 2 === $helper->getConfig('permission_download')) {
         $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
         $result = $xoopsDB->query($sql);
         if ($result) {
@@ -95,7 +101,7 @@ if (4 == $permission) {
             }
         }
     } else {
-        $sql = 'SELECT cat_cid, cat_pid, cat_title FROM '.$xoopsDB->prefix('tdmdownloads_cat').' ORDER BY cat_title';
+        $sql = 'SELECT cat_cid, cat_pid, cat_title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' ORDER BY cat_title';
         $result = $xoopsDB->query($sql);
         if ($result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
@@ -114,4 +120,4 @@ if ($categoryHandler->getCount()) {
 echo "<br><br><br><br>\n";
 unset($permissionsForm);
 
-xoops_cp_footer();
+require __DIR__ . '/admin_footer.php';

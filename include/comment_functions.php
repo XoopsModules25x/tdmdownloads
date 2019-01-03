@@ -1,9 +1,9 @@
 <?php
-// $Id: comment_functions.php 144 2011-11-27 04:55:23Z beckmi $
+//
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <https://www.xoops.org>                             //
+//                  Copyright (c) 2000-2019 XOOPS.org                        //
+//                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -28,13 +28,13 @@
 // comment callback functions
 
 /**
- * @param $download_id
- * @param $total_num
+ * @param $downloadId
+ * @param $totalNumber
  */
-function tdmdownloads_com_update($download_id, $total_num)
+function tdmdownloads_com_update($downloadId, $totalNumber)
 {
-    $db = \XoopsDatabaseFactory::getDatabaseConnection();
-    $sql = 'UPDATE '.$db->prefix('tdmdownloads_downloads').' SET comments = '.$total_num.' WHERE lid = '.$download_id;
+    $db  = \XoopsDatabaseFactory::getDatabaseConnection();
+    $sql = 'UPDATE ' . $db->prefix('tdmdownloads_downloads') . ' SET comments = ' . $totalNumber . ' WHERE lid = ' . $downloadId;
     $db->query($sql);
 }
 

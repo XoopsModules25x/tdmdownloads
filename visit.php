@@ -13,43 +13,43 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+use XoopsModules\Tdmdownloads;
 
 error_reporting(0);
 require __DIR__ . '/header.php';
 
-$lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
-$cid = TDMDownloads_CleanVars($_REQUEST, 'cid', 0, 'int');
+/** @var Tdmdownloads\Helper $helper */
+$helper = Tdmdownloads\Helper::getInstance();
+
+$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
+$cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
 // redirection si le téléchargement n'existe pas
-$view_downloads = $downloadsHandler->get($lid);
-if (0 == count($view_downloads)) {
+$viewDownloads = $downloadsHandler->get($lid);
+if (is_array($viewDownloads) && 0 === count($viewDownloads)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
-    exit();
 }
 //redirection si pas de permission (cat)
-$categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
-if (!in_array($view_downloads->getVar('cid'), $categories)) {
+$categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
-    exit();
 }
 //redirection si pas de permission (télécharger)
-if (2 == $xoopsModuleConfig['permission_download']) {
-    $item = TDMDownloads_MygetItemIds('tdmdownloads_download_item', 'TDMDownloads');
-    if (!in_array($view_downloads->getVar('lid'), $item)) {
-        redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
-        exit();
+if (2 == $helper->getConfig('permission_download')) {
+    $item = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
+    if (!in_array($viewDownloads->getVar('lid'), $item, true)) {
+        redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
     }
 } else {
-    $categories = TDMDownloads_MygetItemIds('tdmdownloads_download', 'TDMDownloads');
-    if (!in_array($view_downloads->getVar('cid'), $categories)) {
-        redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
-        exit();
+    $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
+    if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+        redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
     }
 }
 //check download limit option
-if (1 == $xoopsModuleConfig['downlimit']) {
-    $limitlid = $xoopsModuleConfig['limitlid'];
-    $limitglobal = $xoopsModuleConfig['limitglobal'];
-    $yesterday = strtotime(formatTimestamp(time()-86400));
+if (1 == $helper->getConfig('downlimit')) {
+    $limitlid = $helper->getConfig('limitlid');
+    $limitglobal = $helper->getConfig('limitglobal');
+    $yesterday = strtotime(formatTimestamp(time() - 86400));
     if ($limitlid > 0) {
         $criteria = new \CriteriaCompo();
         if ($xoopsUser) {
@@ -61,8 +61,7 @@ if (1 == $xoopsModuleConfig['downlimit']) {
         $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitlid) {
-            redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
-            exit();
+            redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
         }
     }
     if ($limitglobal > 0) {
@@ -75,8 +74,7 @@ if (1 == $xoopsModuleConfig['downlimit']) {
         $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
         $numrows = $downloadslimitHandler->getCount($criteria);
         if ($numrows >= $limitglobal) {
-            redirect_header('singlefile.php?lid=' . $view_downloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
-            exit();
+            redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
         }
     }
 
@@ -96,19 +94,18 @@ if (1 == $xoopsModuleConfig['downlimit']) {
 
 @$xoopsLogger->activated = false;
 error_reporting(0);
-if ($xoopsModuleConfig['check_host']) {
-    $goodhost      = 0;
-    $referer       = parse_url(xoops_getenv('HTTP_REFERER'));
-    $referer_host  = $referer['host'];
-    foreach ($xoopsModuleConfig['referers'] as $ref) {
+if ($helper->getConfig('check_host')) {
+    $goodhost = 0;
+    $referer = parse_url(xoops_getenv('HTTP_REFERER'));
+    $referer_host = $referer['host'];
+    foreach ($helper->getConfig('referers') as $ref) {
         if (!empty($ref) && preg_match('/' . $ref . '/i', $referer_host)) {
             $goodhost = '1';
             break;
         }
     }
     if (!$goodhost) {
-        redirect_header(XOOPS_URL . "/modules/tdmdownloads/singlefile.php?cid=$cid&amp;lid=$lid", 30, _MD_TDMDOWNLOADS_NOPERMISETOLINK);
-        exit();
+        redirect_header(XOOPS_URL . "/modules/$moduleDirName/singlefile.php?cid=$cid&amp;lid=$lid", 30, _MD_TDMDOWNLOADS_NOPERMISETOLINK);
     }
 }
 
@@ -116,7 +113,7 @@ if ($xoopsModuleConfig['check_host']) {
 $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoopsDB->prefix('tdmdownloads_downloads'), $lid);
 $xoopsDB->queryF($sql);
 
-$url = $view_downloads->getVar('url', 'n');
+$url = $viewDownloads->getVar('url', 'n');
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
     header("Location: $url");
 }

@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads;
+<?php
+
+namespace XoopsModules\Tdmdownloads;
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -27,18 +29,20 @@ class Helper extends \Xmf\Module\Helper
     public $debug;
 
     /**
+     * Constructor
+     *
      * @param bool $debug
      */
     public function __construct($debug = false)
     {
-        $this->debug   = $debug;
+        $this->debug = $debug;
         $moduleDirName = basename(dirname(__DIR__));
         parent::__construct($moduleDirName);
     }
 
     /**
+     * Get instance
      * @param bool $debug
-     *
      * @return \XoopsModules\Tdmdownloads\Helper
      */
     public static function getInstance($debug = false)
@@ -68,11 +72,12 @@ class Helper extends \Xmf\Module\Helper
      */
     public function getHandler($name)
     {
-        $ret   = false;
-        $db    = \XoopsDatabaseFactory::getDatabaseConnection();
-        $class = '\\XoopsModules\\' . ucfirst(strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
-        $ret   = new $class($db);
+        $ret = false;
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
+        $class = '\\XoopsModules\\' . ucfirst(mb_strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
+        $ret = new $class($db);
+
         return $ret;
     }
 }
-//require __DIR__ . '/../../mainfile.php';
+
