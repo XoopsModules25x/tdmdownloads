@@ -1,4 +1,6 @@
 <?php
+
+use XoopsModules\Tdmdownloads;
 /**
  * TDMDownload
  *
@@ -13,19 +15,21 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+use XoopsModules\Tdmdownloads\Utility;
 
 function xoops_module_install_tdmdownloads()
 {
     global $xoopsModule, $xoopsConfig, $xoopsDB;
+    $moduleDirName = basename(dirname(__DIR__));
 
-    $namemodule = 'TDMDownloads';
+    $namemodule = $moduleDirName;
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
         include_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
         include_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';
     }
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $obj = $fieldHandler->create();
+    $obj          = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMHOMEPAGE);
     $obj->setVar('img', 'homepage.png');
     $obj->setVar('weight', 1);

@@ -16,7 +16,7 @@
 
 function xoops_module_update_tdmdownloads()
 {
-    $db = \XoopsDatabaseFactory::getDatabaseConnection();
+    $db  = \XoopsDatabaseFactory::getDatabaseConnection();
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . '` CHANGE `cid` `cat_cid` INT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ;';
     $db->query($sql);
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . "` CHANGE `pid` `cat_pid` INT( 5 ) UNSIGNED NOT NULL DEFAULT '0' ;";
@@ -35,8 +35,8 @@ function xoops_module_update_tdmdownloads()
     $db->query($sql);
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_mod') . "` CHANGE `size` `size` VARCHAR( 15 ) NOT NULL DEFAULT '';";
     $db->query($sql);
-    $sql = 'CREATE TABLE `' . $db->prefix('tdmdownloads_downlimit') . "` (downlimit_id int(11) unsigned NOT NULL auto_increment, downlimit_lid int(11) unsigned NOT NULL default '0',
-           downlimit_uid int(11) NOT NULL default '0', downlimit_hostname varchar(60) NOT NULL default '', downlimit_date int(10) NOT NULL default '0', PRIMARY KEY  (downlimit_id)
+    $sql = 'CREATE TABLE `' . $db->prefix('tdmdownloads_downlimit') . "` (downlimit_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT, downlimit_lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+           downlimit_uid INT(11) NOT NULL DEFAULT '0', downlimit_hostname VARCHAR(60) NOT NULL DEFAULT '', downlimit_date INT(10) NOT NULL DEFAULT '0', PRIMARY KEY  (downlimit_id)
            ) ENGINE=MyISAM";
     $db->query($sql);
 
