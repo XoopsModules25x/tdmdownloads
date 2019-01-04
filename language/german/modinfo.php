@@ -165,5 +165,5 @@ define('_MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYCAP', 'Benachrichtigung wenn Datei f
 define('_MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYDSC', 'Benachrichtigung erhalten, wenn die Datei freigegeben wird.');
 define('_MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} automatische Benachrichtigung: Datei freigegeben');
 //1.62
-define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES', "Die letzten Dateien anzeigen");
-define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES_DSC', "Auf der Benutzerseite werden die letzten Dateien angezeigt");
+define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES', 'Die letzten Dateien anzeigen');
+define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES_DSC', 'Auf der Benutzerseite werden die letzten Dateien angezeigt');

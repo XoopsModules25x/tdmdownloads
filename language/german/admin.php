@@ -123,7 +123,7 @@ define('_AM_TDMDOWNLOADS_FORMSIZE','Dateigröße');
 define('_AM_TDMDOWNLOADS_FORMSTATUS','Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK','Bestätigt');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER','Eingesendet von');
-define('_AM_TDMDOWNLOADS_FORMSUREDEL', 'Wollen Sie wirklich löschen: <b><span style="color:Red"> %s </span></b>');
+define('_AM_TDMDOWNLOADS_FORMSUREDEL', 'Wollen Sie wirklich löschen: <b><span style="color:#ff0000"> %s </span></b>');
 define('_AM_TDMDOWNLOADS_FORMTEXT','Bescheibung');
 define('_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS',"Bescheibung: <br><br>Verwenden Sie den Delimiter '<b>[pagebreak]</b>' um die Größe der Kurzbeschreibung zu definieren. <br> Durch eine Kurzbeschreibung kann die Textmenge in Ihrer Homepage möglichst klein gehalten werden.");
 define('_AM_TDMDOWNLOADS_FORMTITLE','Titel');
