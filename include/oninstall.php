@@ -130,16 +130,16 @@ function xoops_module_install_tdmdownloads()
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads/index.html');
 
     //Copie des blank.gif
-    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/blank.gif';
+    $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/blank.gif');
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/blank.gif');
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/blank.gif');
 
     //Copie des images pour les champs
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/icon/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/icon/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/icon/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/images/icon/platform.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/platform.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/platform.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/platform.png');
 
     return true;
 }
