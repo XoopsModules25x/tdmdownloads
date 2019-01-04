@@ -13,13 +13,14 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 use XoopsModules\Tdmdownloads;
 
 error_reporting(0);
 require __DIR__ . '/header.php';
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 $lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
 $cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
@@ -47,9 +48,9 @@ if (2 == $helper->getConfig('permission_download')) {
 }
 //check download limit option
 if (1 == $helper->getConfig('downlimit')) {
-    $limitlid = $helper->getConfig('limitlid');
+    $limitlid    = $helper->getConfig('limitlid');
     $limitglobal = $helper->getConfig('limitglobal');
-    $yesterday = strtotime(formatTimestamp(time() - 86400));
+    $yesterday   = strtotime(formatTimestamp(time() - 86400));
     if ($limitlid > 0) {
         $criteria = new \CriteriaCompo();
         if ($xoopsUser) {
@@ -95,8 +96,8 @@ if (1 == $helper->getConfig('downlimit')) {
 @$xoopsLogger->activated = false;
 error_reporting(0);
 if ($helper->getConfig('check_host')) {
-    $goodhost = 0;
-    $referer = parse_url(xoops_getenv('HTTP_REFERER'));
+    $goodhost     = 0;
+    $referer      = parse_url(xoops_getenv('HTTP_REFERER'));
     $referer_host = $referer['host'];
     foreach ($helper->getConfig('referers') as $ref) {
         if (!empty($ref) && preg_match('/' . $ref . '/i', $referer_host)) {

@@ -31,9 +31,10 @@ class Migrate extends \Xmf\Database\Migrate
      * @throws \InvalidArgumentException
      */
     public function __construct()
-    {   require_once  dirname(dirname(__DIR__)) . '/include/config.php';
-        $config = getConfig();
-        $this->renameTables            = $config->renameTables;
+    {
+        require_once dirname(dirname(__DIR__)) . '/include/config.php';
+        $config             = getConfig();
+        $this->renameTables = $config->renameTables;
 
         $moduleDirName = basename(dirname(dirname(__DIR__)));
         parent::__construct($moduleDirName);

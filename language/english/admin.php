@@ -171,7 +171,6 @@ define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'The directory can not be created');
 define('_AM_TDMDOWNLOADS_PERMSET', 'The permission has been set');
 define('_AM_TDMDOWNLOADS_PERMNOTSET', 'The permission can not be set');
 
-
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
@@ -186,6 +185,5 @@ define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Upload Folders have been deleted'
 define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
-
 
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');

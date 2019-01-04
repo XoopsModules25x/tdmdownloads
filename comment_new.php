@@ -29,15 +29,15 @@ require __DIR__ . '/header.php';
 $com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 if ($com_itemid > 0) {
     // Get file title
-    $sql = 'SELECT title, cid FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid=' . $com_itemid;
+    $sql    = 'SELECT title, cid FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid=' . $com_itemid;
     $result = $xoopsDB->query($sql);
     if ($result) {
         $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-        $row = $xoopsDB->fetchArray($result);
+        $row        = $xoopsDB->fetchArray($result);
         if (!in_array($row['cid'], $categories, true)) {
             redirect_header(XOOPS_URL, 2, _NOPERM);
         }
         $com_replytitle = $row['title'];
-    require XOOPS_ROOT_PATH . '/include/comment_new.php';
+        require XOOPS_ROOT_PATH . '/include/comment_new.php';
     }
 }

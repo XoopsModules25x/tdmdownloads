@@ -17,6 +17,7 @@
  *
  * @return bool|null
  */
+
 use XoopsModules\Tdmdownloads;
 
 /**
@@ -35,7 +36,7 @@ function TDMDownloads_tag_iteminfo(&$items)
             $items_id[] = (int)$item_id;
         }
     }
-//    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
+    //    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
     $items_obj   = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
@@ -43,13 +44,13 @@ function TDMDownloads_tag_iteminfo(&$items)
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
             if (isset($items_obj[$item_id])) {
-                $item_obj = $items_obj[$item_id];
+                $item_obj                 = $items_obj[$item_id];
                 $items[$cat_id][$item_id] = [
-                    'title' => $item_obj->getVar('title'),
-                    'uid' => $item_obj->getVar('submitter'),
-                    'link' => "singlefile.php?cid={$item_obj->getVar('cid')}&lid={$item_id}",
-                    'time' => $item_obj->getVar('date'),
-                    'tags' => '',
+                    'title'   => $item_obj->getVar('title'),
+                    'uid'     => $item_obj->getVar('submitter'),
+                    'link'    => "singlefile.php?cid={$item_obj->getVar('cid')}&lid={$item_id}",
+                    'time'    => $item_obj->getVar('date'),
+                    'tags'    => '',
                     'content' => '',
                 ];
             }
@@ -65,8 +66,10 @@ function TDMDownloads_tag_iteminfo(&$items)
  */
 function TDMDownloads_tag_synchronization($mid)
 {
-    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
-    $itemHandler = Tdmdownloads\Helper::getInstance()->getHandler('Downloads'); // xoops_getModuleHandler('tdmdownloads_downloads', $moduleDirName);
+    //    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
+    /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
+    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link'); //@var \XoopsModules\Tag\Handler $tagHandler
 
     /* clear tag-item links */

@@ -17,7 +17,7 @@
  * @since           3.23
  * @author          Xoops Development Team
  */
-$moduleDirName = basename(dirname(dirname(__DIR__)));
+$moduleDirName      = basename(dirname(dirname(__DIR__)));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 define('CO_' . $moduleDirNameUpper . '_GDLIBSTATUS', 'GD library support: ');
@@ -119,7 +119,6 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FILENAME', 'File Name');
 
 //Menu
 define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
-
 
 define('CO_' . $moduleDirNameUpper . '_FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');

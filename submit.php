@@ -13,14 +13,15 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
 require_once __DIR__ . '/header.php';
 $moduleDirName = basename(__DIR__);
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_submit.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -50,17 +51,17 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj = $downloadsHandler->create();
+        $obj  = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save_downloads':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $obj = $downloadsHandler->create();
-        $erreur = false;
+        $obj            = $downloadsHandler->create();
+        $erreur         = false;
         $message_erreur = '';
-        $donnee = [];
+        $donnee         = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST'));
         $donnee['title'] = \Xmf\Request::getString('title', '', 'POST');
         $obj->setVar('cid', \Xmf\Request::getString('cid', '', 'POST'));
@@ -104,14 +105,14 @@ switch ($op) {
             if ('0' === $_REQUEST['size'] || '' === $_REQUEST['size']) {
                 $erreur = false;
             } else {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
             if (0 == $_REQUEST['cid']) {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
@@ -120,7 +121,7 @@ switch ($op) {
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur = true;
+            $erreur         = true;
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -129,7 +130,7 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 === $downloads_field[$i]->getVar('status_def')) {
-                $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
+                $nom_champ          = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$nom_champ] = $_POST[$nom_champ];
             }
         }
@@ -197,7 +198,7 @@ switch ($op) {
                 $downloads_field = $fieldHandler->getAll($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 === $downloads_field[$i]->getVar('status_def')) {
-                        $objdata = $fielddataHandler->create();
+                        $objdata   = $fielddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('data', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lidDownloads);

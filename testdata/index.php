@@ -44,9 +44,9 @@ function loadSampleData()
     $helper->loadLanguage('modinfo');
     $helper->loadLanguage('common');
 
-//    $items = \Xmf\Yaml::readWrapped('quotes_data.yml');
-//    \Xmf\Database\TableLoad::truncateTable($moduleDirName . '_quotes');
-//    \Xmf\Database\TableLoad::loadTableFromArray($moduleDirName . '_quotes', $items);
+    //    $items = \Xmf\Yaml::readWrapped('quotes_data.yml');
+    //    \Xmf\Database\TableLoad::truncateTable($moduleDirName . '_quotes');
+    //    \Xmf\Database\TableLoad::loadTableFromArray($moduleDirName . '_quotes', $items);
 
     $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 
@@ -56,9 +56,8 @@ function loadSampleData()
         \Xmf\Database\TableLoad::loadTableFromArray($table, $tabledata);
     }
 
-
     //  ---  COPY test folder files ---------------
-    if (is_array ($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
+    if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
@@ -94,7 +93,8 @@ function exportSchema()
         $migrate->saveCurrentSchema();
 
         redirect_header('../admin/index.php', 1, constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS'));
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e) {
         exit(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR'));
     }
 }

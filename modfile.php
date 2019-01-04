@@ -19,8 +19,8 @@ use XoopsModules\Tdmdownloads;
 
 require_once __DIR__ . '/header.php';
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_modfile.tpl';
@@ -53,7 +53,7 @@ switch ($op) {
     case 'list':
         //navigation
         $view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
-        $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+        $categories     = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
         if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
             redirect_header('index.php', 2, _NOPERM);
         }
@@ -63,7 +63,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscatArray = $categoryHandler->getAll($criteria);
-        $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+        $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
         $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> <a title="' . $viewDownloads->getVar('title') . '" href="singlefile.php?lid=' . $viewDownloads->getVar('lid') . '">' . $viewDownloads->getVar('title') . '</a>';
@@ -78,17 +78,17 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $viewDownloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj = $modifiedHandler->create();
+        $obj  = $modifiedHandler->create();
         $form = $obj->getForm($lid, false, $donnee = []);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $obj = $modifiedHandler->create();
-        $erreur = false;
+        $obj            = $modifiedHandler->create();
+        $erreur         = false;
         $message_erreur = '';
-        $donnee = [];
+        $donnee         = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST')); //$_POST['title']);
         $donnee['title'] = \Xmf\Request::getString('title', '', 'POST'); //$_POST['title'];
         $obj->setVar('cid', \Xmf\Request::getInt('cid', 0, 'POST')); //$_POST['cid']);
@@ -99,7 +99,7 @@ switch ($op) {
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST')); //$_POST["version"]);
         $donnee['version'] = \Xmf\Request::getString('version', '', 'POST'); //$_POST["version"];
         $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST')); //$_POST["size"]);
-        $donnee['size'] = \Xmf\Request::getString('size', '', 'POST'); //$_POST["size"];
+        $donnee['size']      = \Xmf\Request::getString('size', '', 'POST'); //$_POST["size"];
         $donnee['type_size'] = \Xmf\Request::getString('type_size', '', 'POST'); //$_POST['type_size'];
         if (\Xmf\Request::hasVar('platform', 'POST')) {
             $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST'))); //$_POST['platform']));
@@ -112,21 +112,21 @@ switch ($op) {
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 
         // erreur si la taille du fichier n'est pas un nombre
-//        if (0 == (int)$_REQUEST['size']) {
-//            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
-         if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {
+        //        if (0 == (int)$_REQUEST['size']) {
+        //            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
+        if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {
             if ('0' == \Xmf\Request::getString('size', '', 'POST')
                 || '' === \Xmf\Request::getString('size', '', 'POST')) {
                 $erreur = false;
             } else {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
         // erreur si la catégorie est vide
-if (\Xmf\Request::hasVar('cid')) {
-        if (0 == \Xmf\Request::getInt('cid', 0, 'POST')) {
-                $erreur = true;
+        if (\Xmf\Request::hasVar('cid')) {
+            if (0 == \Xmf\Request::getInt('cid', 0, 'POST')) {
+                $erreur         = true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
@@ -135,7 +135,7 @@ if (\Xmf\Request::hasVar('cid')) {
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur = true;
+            $erreur         = true;
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -144,7 +144,7 @@ if (\Xmf\Request::hasVar('cid')) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 == $downloads_field[$i]->getVar('status_def')) {
-                $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
+                $nom_champ          = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$nom_champ] = \Xmf\Request::getString($nom_champ, '', 'POST');
             }
         }
@@ -203,7 +203,7 @@ if (\Xmf\Request::hasVar('cid')) {
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 == $downloads_field[$i]->getVar('status_def')) {
                         //$objdata = $modifiedfielddataHandler->create();
-                        $objdata = $modifieddataHandler->create();
+                        $objdata   = $modifieddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('moddata', $_POST[$nom_champ]);
                         $objdata->setVar('lid', $lidDownloads);
@@ -212,7 +212,7 @@ if (\Xmf\Request::hasVar('cid')) {
                         $modifieddataHandler->insert($objdata) || $objdata->getHtmlErrors();
                     }
                 }
-                $tags = [];
+                $tags                      = [];
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/modified.php';
                 /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');

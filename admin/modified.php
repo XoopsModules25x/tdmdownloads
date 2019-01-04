@@ -13,13 +13,14 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
@@ -50,7 +51,7 @@ switch ($op) {
         $criteria->setSort('requestid');
         $criteria->setOrder('ASC');
         $downloadsmod_arr = $modifiedHandler->getAll($criteria);
-        $numrows = $modifiedHandler->getCount($criteria);
+        $numrows          = $modifiedHandler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
@@ -67,12 +68,12 @@ switch ($op) {
             echo '</tr>';
             $class = 'odd';
             foreach (array_keys($downloadsmod_arr) as $i) {
-                $class = ('even' === $class) ? 'odd' : 'even';
-                $downloads_lid = $downloadsmod_arr[$i]->getVar('lid');
+                $class               = ('even' === $class) ? 'odd' : 'even';
+                $downloads_lid       = $downloadsmod_arr[$i]->getVar('lid');
                 $downloads_requestid = $downloadsmod_arr[$i]->getVar('requestid');
-                $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
+                $downloads           = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
                 // pour savoir si le fichier est nouveau
-                $downloads_url = $downloads->getVar('url');
+                $downloads_url    = $downloads->getVar('url');
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
                 // $new_file = ($downloads_url == $moddownloads_url);
                 $new_file = ($downloads_url != $moddownloads_url);
@@ -105,28 +106,28 @@ switch ($op) {
 
         // original
         $downloads_title = $viewDownloads->getVar('title');
-        $downloads_url = $viewDownloads->getVar('url');
+        $downloads_url   = $viewDownloads->getVar('url');
         //catégorie
-        $view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
-        $downloads_categorie = $view_categorie->getVar('cat_title');
-        $downloads_homepage = $viewDownloads->getVar('homepage');
-        $downloads_version = $viewDownloads->getVar('version');
-        $downloads_size = $viewDownloads->getVar('size');
-        $downloads_platform = $viewDownloads->getVar('platform');
+        $view_categorie        = $categoryHandler->get($viewDownloads->getVar('cid'));
+        $downloads_categorie   = $view_categorie->getVar('cat_title');
+        $downloads_homepage    = $viewDownloads->getVar('homepage');
+        $downloads_version     = $viewDownloads->getVar('version');
+        $downloads_size        = $viewDownloads->getVar('size');
+        $downloads_platform    = $viewDownloads->getVar('platform');
         $downloads_description = $viewDownloads->getVar('description');
-        $downloads_logourl = $viewDownloads->getVar('logourl');
+        $downloads_logourl     = $viewDownloads->getVar('logourl');
         // modifié
         $moddownloads_title = $view_moddownloads->getVar('title');
-        $moddownloads_url = $view_moddownloads->getVar('url');
+        $moddownloads_url   = $view_moddownloads->getVar('url');
         //catégorie
-        $view_categorie = $categoryHandler->get($view_moddownloads->getVar('cid'));
-        $moddownloads_categorie = $view_categorie->getVar('cat_title');
-        $moddownloads_homepage = $view_moddownloads->getVar('homepage');
-        $moddownloads_version = $view_moddownloads->getVar('version');
-        $moddownloads_size = $view_moddownloads->getVar('size');
-        $moddownloads_platform = $view_moddownloads->getVar('platform');
+        $view_categorie           = $categoryHandler->get($view_moddownloads->getVar('cid'));
+        $moddownloads_categorie   = $view_categorie->getVar('cat_title');
+        $moddownloads_homepage    = $view_moddownloads->getVar('homepage');
+        $moddownloads_version     = $view_moddownloads->getVar('version');
+        $moddownloads_size        = $view_moddownloads->getVar('size');
+        $moddownloads_platform    = $view_moddownloads->getVar('platform');
         $moddownloads_description = $view_moddownloads->getVar('description');
-        $moddownloads_logourl = $view_moddownloads->getVar('logourl');
+        $moddownloads_logourl     = $view_moddownloads->getVar('logourl');
         echo "<style type=\"text/css\">\n";
         echo ".style_dif {color: #FF0000; font-weight: bold;}\n";
         echo ".style_ide {color: #009966; font-weight: bold;}\n";
@@ -167,7 +168,7 @@ switch ($op) {
                 }
             } else {
                 //original
-                $contenu = '';
+                $contenu  = '';
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -177,7 +178,7 @@ switch ($op) {
                 }
                 //proposé
                 $mod_contenu = '';
-                $criteria = new \CriteriaCompo();
+                $criteria    = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
@@ -232,7 +233,7 @@ switch ($op) {
                 }
             } else {
                 //original
-                $contenu = '';
+                $contenu  = '';
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -242,7 +243,7 @@ switch ($op) {
                 }
                 //proposé
                 $mod_contenu = '';
-                $criteria = new \CriteriaCompo();
+                $criteria    = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
@@ -304,10 +305,10 @@ switch ($op) {
             $adminObject->displayButton('left');
 
             xoops_confirm([
-                              'ok' => 1,
-                              'mod_id' => $_REQUEST['mod_id'],
+                              'ok'       => 1,
+                              'mod_id'   => $_REQUEST['mod_id'],
                               'new_file' => $_REQUEST['new_file'],
-                              'op' => 'del_moddownloads',
+                              'op'       => 'del_moddownloads',
                           ], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
         }
         break;
@@ -315,7 +316,7 @@ switch ($op) {
     case 'approve':
         // choix du téléchargement:
         $view_moddownloads = $modifiedHandler->get($_REQUEST['mod_id']);
-        $obj = $downloadsHandler->get($view_moddownloads->getVar('lid'));
+        $obj               = $downloadsHandler->get($view_moddownloads->getVar('lid'));
         // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
         if (true === $_REQUEST['new_file']) {
             $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
@@ -346,7 +347,7 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             $contenu = '';
-            $iddata = 0;
+            $iddata  = 0;
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $view_moddownloads->getVar('requestid')));

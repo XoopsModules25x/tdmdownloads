@@ -22,8 +22,8 @@ use XoopsModules\Tdmdownloads\Tree;
  */
 function b_tdmdownloads_search_show()
 {
-   require dirname(__DIR__) . '/include/common.php';
-   $moduleDirName = basename(dirname(__DIR__));
+    require dirname(__DIR__) . '/include/common.php';
+    $moduleDirName = basename(dirname(__DIR__));
 
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
@@ -39,7 +39,7 @@ function b_tdmdownloads_search_show()
     $helper->loadLanguage('common');
 
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
-    $utility = new \XoopsModules\Tdmdownloads\Utility();
+    $utility    = new \XoopsModules\Tdmdownloads\Utility();
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 
     $block = [];

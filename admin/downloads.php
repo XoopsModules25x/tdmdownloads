@@ -20,8 +20,8 @@ use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 
@@ -56,14 +56,14 @@ switch ($op) {
         //nombre de téléchargement par page
         $limit        = $helper->getConfig('perpageadmin');
         $category_arr = $categoryHandler->getAll();
-        $numrowscat = count($category_arr);
+        $numrowscat   = count($category_arr);
         // redirection si il n'y a pas de catégories
         if (0 === $numrowscat) {
             redirect_header('category.php?op=new_cat', 2, _AM_TDMDOWNLOADS_REDIRECT_NOCAT);
         }
         $criteria = new \CriteriaCompo();
         // affiche uniquement les téléchargements activés
-        if  (\Xmf\Request::hasVar('statut_display', 'GET')) {
+        if (\Xmf\Request::hasVar('statut_display', 'GET')) {
             if (0 === \Xmf\Request::getInt('statut_display', 0, 'GET')) {
                 $criteria->add(new \Criteria('status', 0));
                 $statut_display = 0;
@@ -75,9 +75,9 @@ switch ($op) {
             $criteria->add(new \Criteria('status', 0, '!='));
             $statut_display = 1;
         }
-        $document_tri = 1;
+        $document_tri   = 1;
         $document_order = 1;
-        if  (\Xmf\Request::hasVar('document_tri')) {
+        if (\Xmf\Request::hasVar('document_tri')) {
             if (1 == \Xmf\Request::getInt('document_tri')) {
                 $criteria->setSort('date');
                 $document_tri = 1;
@@ -101,7 +101,7 @@ switch ($op) {
         } else {
             $criteria->setSort('date');
         }
-        if  (\Xmf\Request::hasVar('document_order')) {
+        if (\Xmf\Request::hasVar('document_order')) {
             if (1 == \Xmf\Request::getInt('document_order')) {
                 $criteria->setOrder('DESC');
                 $document_order = 1;
@@ -117,11 +117,11 @@ switch ($op) {
         $criteria->setStart($start);
         $criteria->setLimit($limit);
         //pour faire une jointure de table
-        $downloadsHandler->table_link = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
-        $downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
+        $downloadsHandler->table_link   = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
+        $downloadsHandler->field_link   = 'cat_cid'; // champ de la table en jointure
         $downloadsHandler->field_object = 'cid'; // champ de la table courante
-        $downloads_arr = $downloadsHandler->getByLink($criteria);
-        $numrows = $downloadsHandler->getCount($criteria);
+        $downloads_arr                  = $downloadsHandler->getByLink($criteria);
+        $numrows                        = $downloadsHandler->getCount($criteria);
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&document_tri=' . $document_tri . '&document_order=' . $document_order . '&statut_display=' . $statut_display);
             $pagenav = $pagenav->renderNav(4);
@@ -163,9 +163,9 @@ switch ($op) {
             echo '<th align="center" width="15%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
             echo '</tr>';
             $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
-            $class = 'odd';
+            $class  = 'odd';
             foreach (array_keys($downloads_arr) as $i) {
-                $class = ('even' === $class) ? 'odd' : 'even';
+                $class    = ('even' === $class) ? 'odd' : 'even';
                 $category = $utility->getPathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
                 echo '<tr class="' . $class . '">';
                 echo '<td align="center">';
@@ -210,7 +210,7 @@ switch ($op) {
         }
         $adminObject->displayButton('left');
         //Affichage du formulaire de création des téléchargements
-        $obj = $downloadsHandler->create();
+        $obj  = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
         $form->display();
         break;
@@ -230,16 +230,16 @@ switch ($op) {
         $adminObject->displayButton('left');
         //Affichage du formulaire de création des téléchargements
         $downloads_lid = $utility->cleanVars($_REQUEST, 'downloads_lid', 0, 'int');
-        $obj = $downloadsHandler->get($downloads_lid);
-        $form = $obj->getForm($donnee = [], false);
+        $obj           = $downloadsHandler->get($downloads_lid);
+        $form          = $obj->getForm($donnee = [], false);
         $form->display();
         break;
     // Pour supprimer un téléchargement
     case 'del_downloads':
         global $xoopsModule;
         $downloads_lid = $utility->cleanVars($_REQUEST, 'downloads_lid', 0, 'int');
-        $obj = $downloadsHandler->get($downloads_lid);
-        if  (\Xmf\Request::hasVar('ok') && 1 == \Xmf\Request::getInt('ok')) {
+        $obj           = $downloadsHandler->get($downloads_lid);
+        if (\Xmf\Request::hasVar('ok') && 1 == \Xmf\Request::getInt('ok')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -283,7 +283,7 @@ switch ($op) {
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../../tag')) {
                     /** @var \XoopsModules\Tag\LinkHandler $tagHandler */
                     $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
-                    $criteria = new \CriteriaCompo();
+                    $criteria   = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));
                     $downloads_tags = $tagHandler->getAll($criteria);
                     foreach (array_keys($downloads_tags) as $i) {
@@ -307,11 +307,8 @@ switch ($op) {
                 $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
             }
             $adminObject->displayButton('left');
-            xoops_confirm(
-                ['ok' => 1, 'downloads_lid' => $downloads_lid, 'op' => 'del_downloads'],
-                $_SERVER['REQUEST_URI'],
-                          sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>'
-            );
+            xoops_confirm(['ok' => 1, 'downloads_lid' => $downloads_lid, 'op' => 'del_downloads'], $_SERVER['REQUEST_URI'],
+                          sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>');
         }
         break;
     // Pour voir les détails du téléchargement
@@ -334,9 +331,9 @@ switch ($op) {
         //catégorie
         //$view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
         $category_arr = $categoryHandler->getAll();
-        $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
+        $mytree       = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
         // sortie des informations
-        $downloads_title = $viewDownloads->getVar('title');
+        $downloads_title       = $viewDownloads->getVar('title');
         $downloads_description = $viewDownloads->getVar('description');
         //permet d'enlever [pagebreak] du texte
         $downloads_description = str_replace('[pagebreak]', '', $downloads_description);
@@ -360,7 +357,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
         $downloads_field = $fieldHandler->getAll($criteria);
-        $class = 'odd';
+        $class           = 'odd';
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -400,7 +397,7 @@ switch ($op) {
                     }
                 }
             } else {
-                $contenu = '';
+                $contenu  = '';
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -507,7 +504,7 @@ switch ($op) {
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0, '!='));
         $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
-        $total_vote = count($downloadsvotedata_arr);
+        $total_vote            = count($downloadsvotedata_arr);
         echo '<table width="100%">';
         echo '<tr><td colspan="5"><b>';
         printf(_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER, $total_vote);
@@ -543,7 +540,7 @@ switch ($op) {
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0));
         $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
-        $total_vote = count($downloadsvotedata_arr);
+        $total_vote            = count($downloadsvotedata_arr);
         echo '<tr><td colspan="5"><br><b>';
         printf(_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME, $total_vote);
         echo '</b><br><br></td></tr>';
@@ -566,8 +563,8 @@ switch ($op) {
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('lid')));
             $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
-            $total_vote = $ratingHandler->getCount($criteria);
-            $obj                   = $downloadsHandler->get (\Xmf\Request::getInt('lid'));
+            $total_vote            = $ratingHandler->getCount($criteria);
+            $obj                   = $downloadsHandler->get(\Xmf\Request::getInt('lid'));
             if (0 === $total_vote) {
                 $obj->setVar('rating', number_format(0, 1));
                 $obj->setVar('votes', 0);
@@ -597,14 +594,14 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
-        if  (\Xmf\Request::hasVar('lid')) {
-            $obj = $downloadsHandler->get (\Xmf\Request::getInt('lid'));
+        if (\Xmf\Request::hasVar('lid')) {
+            $obj = $downloadsHandler->get(\Xmf\Request::getInt('lid'));
         } else {
             $obj = $downloadsHandler->create();
         }
-        $erreur = false;
+        $erreur         = false;
         $message_erreur = '';
-        $donnee = [];
+        $donnee         = [];
         $obj->setVar('title', $_POST['title']);
         $obj->setVar('cid', $_POST['cid']);
         $obj->setVar('homepage', formatURL($_POST['homepage']));
@@ -624,7 +621,7 @@ switch ($op) {
             $obj->setVar('submitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
             $donnee['submitter'] = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
         }
-        if  (\Xmf\Request::hasVar('downloads_modified')) {
+        if (\Xmf\Request::hasVar('downloads_modified')) {
             $obj->setVar('date', time());
             if (\Xmf\Request::hasVar('status', 'POST')) {
                 $obj->setVar('status', 1);
@@ -659,21 +656,21 @@ switch ($op) {
             if (0 == \Xmf\Request::getInt('size') || '' === \Xmf\Request::getString('size')) {
                 $erreur = false;
             } else {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _AM_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
         // erreur si la description est vide
         if (\Xmf\Request::hasVar('description', 'REQUEST')) {
             if ('' === $_REQUEST['description']) {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION . '<br>';
             }
         }
         // erreur si la catégorie est vide
-        if  (\Xmf\Request::hasVar('cid')) {
+        if (\Xmf\Request::hasVar('cid')) {
             if (0 == \Xmf\Request::getInt('cid')) {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _AM_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
@@ -684,7 +681,7 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 == $downloads_field[$i]->getVar('status_def')) {
-                $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
+                $nom_champ          = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$nom_champ] = $_POST[$nom_champ];
             }
         }
@@ -791,13 +788,13 @@ switch ($op) {
                     }
                 }
                 // pour les notifications uniquement lors d'un nouveau téléchargement
-                if  (\Xmf\Request::hasVar('downloads_modified')) {
-                    $tags = [];
-                    $tags['FILE_NAME'] = $_POST['title'];
-                    $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $_POST['cid'] . '&amp;lid=' . $lidDownloads;
-                    $downloadscat_cat = $categoryHandler->get($_POST['cid']);
+                if (\Xmf\Request::hasVar('downloads_modified')) {
+                    $tags                  = [];
+                    $tags['FILE_NAME']     = $_POST['title'];
+                    $tags['FILE_URL']      = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $_POST['cid'] . '&amp;lid=' . $lidDownloads;
+                    $downloadscat_cat      = $categoryHandler->get($_POST['cid']);
                     $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
-                    $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $_POST['cid'];
+                    $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $_POST['cid'];
                     /** @var \XoopsNotificationHandler $notificationHandler */
                     $notificationHandler = xoops_getHandler('notification');
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
@@ -812,7 +809,7 @@ switch ($op) {
         break;
     // permet de valider un téléchargement proposé
     case 'update_status':
-        $obj = $downloadsHandler->get (\Xmf\Request::getInt('downloads_lid'));
+        $obj = $downloadsHandler->get(\Xmf\Request::getInt('downloads_lid'));
         $obj->setVar('status', 1);
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
@@ -821,7 +818,7 @@ switch ($op) {
         break;
     // permet de valider un téléchargement proposé
     case 'lock_status':
-        $obj = $downloadsHandler->get (\Xmf\Request::getInt('downloads_lid'));
+        $obj = $downloadsHandler->get(\Xmf\Request::getInt('downloads_lid'));
         $obj->setVar('status', 0);
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DEACTIVATED);

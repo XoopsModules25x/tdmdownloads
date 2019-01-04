@@ -13,6 +13,7 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 use XoopsModules\Tdmdownloads;
 use XoopsModules\Tdmdownloads\Tree;
 

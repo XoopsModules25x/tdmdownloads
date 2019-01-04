@@ -20,7 +20,7 @@ require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 // compte le nombre de catégories
-$criteria = new \CriteriaCompo();
+$criteria      = new \CriteriaCompo();
 $nb_categories = $categoryHandler->getCount($criteria);
 // compte le nombre de téléchargements
 $criteria = new \CriteriaCompo();
@@ -35,7 +35,7 @@ $nb_broken = $brokenHandler->getCount();
 // compte le nombre de demande de modifications
 $nb_modified = $modifiedHandler->getCount();
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
@@ -45,7 +45,6 @@ if (0 == $nb_categories) {
 } else {
     $adminObject->addInfoBoxLine(sprintf(_AM_TDMDOWNLOADS_INDEX_CATEGORIES, '<span class="green" style = "font-weight: bold">' . $nb_categories . '</span>'), '', 'Green');
 }
-
 
 $adminObject->addInfoBox(_MI_TDMDOWNLOADS_ADMENU3);
 $adminObject->addInfoBoxLine(sprintf(_AM_TDMDOWNLOADS_INDEX_DOWNLOADS, $nb_downloads), '');
@@ -82,15 +81,12 @@ $configurator = new \XoopsModules\Tdmdownloads\Common\Configurator();
 /** @var \XoopsModules\Tdmdownloads\Utility $utility */
 $utility = new \XoopsModules\Tdmdownloads\Utility();
 
-
-
 foreach (array_keys($configurator->uploadFolders) as $i) {
     $utility::createFolder($configurator->uploadFolders[$i]);
     $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
 }
 
 $adminObject->displayNavigation(basename(__FILE__));
-
 
 //------------- Test Data ----------------------------
 

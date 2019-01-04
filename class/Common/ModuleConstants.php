@@ -28,17 +28,17 @@ class ModuleConstants
     //    const MODULE_DIRNAME0 = basename(__DIR__);
     //    static $moddir = basename(dirname(__DIR__));
 
-    public static $moduleDirName = null;
-    public static $mydirname2 = null; //set in constructor
+    public static $moduleDirName;
+    public static $mydirname2; //set in constructor
 
-    public static $moduleUrl = null;
-    public static $modulePath = null;
-    public static $imagesUrl = null;
-    public static $imagesPath = null;
-    public static $adminUrl = null;
-    public static $adminPath = null;
-    public static $uploadsUrl = null;
-    public static $uploadsPath = null;
+    public static $moduleUrl;
+    public static $modulePath;
+    public static $imagesUrl;
+    public static $imagesPath;
+    public static $adminUrl;
+    public static $adminPath;
+    public static $uploadsUrl;
+    public static $uploadsPath;
 
     //    const ROOT = $_SERVER['DOCUMENT_ROOT']."project/";
     //    const MODULE_DIRNAME = basename(dirname(__DIR__));

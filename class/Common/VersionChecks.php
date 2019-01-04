@@ -59,13 +59,13 @@ trait VersionChecks
      */
     public static function checkVerPhp(\XoopsModule $module)
     {
-        $moduleDirName = basename(dirname(dirname(__DIR__)));
+        $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
-        $verNum = PHP_VERSION;
-        $reqVer = $module->getInfo('min_php');
+        $verNum  = PHP_VERSION;
+        $reqVer  = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
                 $module->setErrors(sprintf(_AM_WFL_ERROR_BAD_PHP, $reqVer, $verNum));
