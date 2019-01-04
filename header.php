@@ -14,49 +14,58 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include '../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-include_once XOOPS_ROOT_PATH."/class/tree.php";
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar("dirname").'/include/functions.php';
+require dirname(dirname(__DIR__)) . '/mainfile.php';
+require XOOPS_ROOT_PATH . '/header.php';
+
+$moduleDirName = basename(__DIR__);
+
+//require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+//require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+//require_once XOOPS_ROOT_PATH . '/class/tree.php';
+//require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+
+$modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
+require __DIR__ . '/include/common.php';
+$myts = \MyTextSanitizer::getInstance();
+
+//require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/functions.php';
+
 //permission
-$gperm_handler = xoops_gethandler('groupperm');
+/** @var \XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler = xoops_getHandler('groupperm');
+$groups           = XOOPS_GROUP_ANONYMOUS;
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
-} else {
-    $groups = XOOPS_GROUP_ANONYMOUS;
 }
-xoops_loadLanguage("admin", $xoopsModule->getVar("dirname", "e"));
 
-$perm_submit = ($gperm_handler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_modif = ($gperm_handler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_vote = ($gperm_handler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_upload = ($gperm_handler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
-$perm_autoapprove = ($gperm_handler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid'))) ? true : false ;
+// Load language files
+$helper->loadLanguage('main');
+$helper->loadLanguage('admin');
 
-//paramËtres:
-// pour les images des catÈgories:
-$uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/cats/';
-$uploadurl = XOOPS_URL . '/uploads/TDMDownloads/images/cats/';
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new XoopsTpl();
+}
+
+$perm_submit      = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_modif       = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_vote        = $grouppermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_upload      = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_autoapprove = $grouppermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid')) ? true : false;
+
+//param√®tres:
+// pour les images des cat√©gories:
+$uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/';
+$uploadurl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/cats/';
 // pour les fichiers
-$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads/';
-$uploadurl_downloads = XOOPS_URL . '/uploads/TDMDownloads/downloads/';
+$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/downloads/';
+$uploadurl_downloads = XOOPS_URL . '/uploads/' . $moduleDirName . '/downloads/';
 // pour les logos
-$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots/';
-$uploadurl_shots = XOOPS_URL . '/uploads/TDMDownloads/images/shots/';
+$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/';
+$uploadurl_shots = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/';
 // pour les images des champs:
-$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/field/';
-$uploadurl_field = XOOPS_URL . '/uploads/TDMDownloads/images/field/';
-/////////////
-
-//appel des class
-$downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$downloadsvotedata_Handler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$downloadsmod_Handler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$downloadsbroken_Handler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$downloadsfieldmoddata_Handler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
-$downloadslimit_Handler = xoops_getModuleHandler('tdmdownloads_downlimit', 'TDMDownloads');
+$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/field/';
+$uploadurl_field = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/field/';

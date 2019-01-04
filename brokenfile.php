@@ -14,121 +14,123 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-include_once 'header.php';
+use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Tree;
+
+require_once __DIR__ . '/header.php';
 // template d'affichage
-$xoopsOption['template_main'] = 'tdmdownloads_brokenfile.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
-$xoTheme->addStylesheet( XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname', 'n') . '/css/styles.css', null );
+$moduleDirName = basename(__DIR__);
+
+$GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_brokenfile.tpl';
+require_once XOOPS_ROOT_PATH . '/header.php';
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
-$op = TDMDownloads_CleanVars($_REQUEST, 'op', 'liste', 'string');
-$lid = TDMDownloads_CleanVars($_REQUEST, 'lid', 0, 'int');
+$op  = $utility->cleanVars($_REQUEST, 'op', 'liste', 'string');
+$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
 
 //redirection si pas de permission de vote
-if ($perm_vote == false) {
+if (false === $perm_vote) {
     redirect_header('index.php', 2, _NOPERM);
-    exit();
 }
 
-$view_downloads = $downloads_Handler->get($lid);
-// redirection si le téléchargement n'existe pas ou n'est pas activé
-if (count($view_downloads) == 0 || $view_downloads->getVar('status') == 0) {
+$xoopsTpl->assign('mydirname', $moduleDirName);
+$viewDownloads = $downloadsHandler->get($lid);
+// redirection si le tÃ©lÃ©chargement n'existe pas ou n'est pas activï¿½
+if (0 == count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
-    exit();
 }
 
 //redirection si pas de permission (cat)
-$categories = TDMDownloads_MygetItemIds('tdmdownloads_view', 'TDMDownloads');
-if (!in_array($view_downloads->getVar('cid'), $categories)) {
+$categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
-    exit();
 }
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
     // Vue liste
-    case "liste":
-        //tableau des catégories
-        $criteria = new CriteriaCompo();
+    case 'liste':
+        //tableau des catÃ©gories
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
-        $criteria->add(new Criteria('cat_cid', '(' . implode(',', $categories) . ')','IN'));
-        $downloadscat_arr = $downloadscat_Handler->getall($criteria);
-        $mytree = new XoopsObjectTree($downloadscat_arr, 'cat_cid', 'cat_pid');
+        $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
+        $downloadscatArray = $categoryHandler->getAll($criteria);
+        $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
         //navigation
-        $navigation = TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' <img src="images/deco/arrow.gif" alt="arrow" /> ', true, 'ASC', true);
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> <a title="' . $view_downloads->getVar('title') . '" href="singlefile.php?lid=' . $view_downloads->getVar('lid') . '">' . $view_downloads->getVar('title') . '</a>';
-        $navigation .= ' <img src="images/deco/arrow.gif" alt="arrow" /> ' . _MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN;
+        $navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+        $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> <a title="' . $viewDownloads->getVar('title') . '" href="singlefile.php?lid=' . $viewDownloads->getVar('lid') . '">' . $viewDownloads->getVar('title') . '</a>';
+        $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ' . _MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN;
         $xoopsTpl->assign('navigation', $navigation);
-        // référencement
+        // rÃ©fÃ©rencement
         // titre de la page
-        $pagetitle = _MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' - ' . $view_downloads->getVar('title') . ' - ';
-        $pagetitle .= TDMDownloads_PathTreeUrl($mytree, $view_downloads->getVar('cid'), $downloadscat_arr, 'cat_title', $prefix = ' - ', false, 'DESC', true);
+        $pagetitle = _MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' - ' . $viewDownloads->getVar('title') . ' - ';
+        $pagetitle .= $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC', true);
         $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
         //description
-        $xoTheme->addMeta( 'meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' (' . $view_downloads->getVar('title') . ')'));
-        //Affichage du formulaire de fichier brisé*/
-        $obj = $downloadsbroken_Handler->create();
+        $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_REPORTBROKEN . ' (' . $viewDownloads->getVar('title') . ')'));
+        //Affichage du formulaire de fichier brisÃ©*/
+        $obj  = $brokenHandler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
-    break;
+        break;
     // save
-    case "save":
-        $obj = $downloadsbroken_Handler->create();
+    case 'save':
+        $obj = $brokenHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
         } else {
             $ratinguser = $xoopsUser->getVar('uid');
         }
-        if ($ratinguser != 0) {
-            // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
-            $downloadsbroken_arr = $downloadsbroken_Handler->getall($criteria);
+        if (0 !== $ratinguser) {
+            // si c'est un membre on vÃ©rifie qu'il n'envoie pas 2 fois un rapport
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
+            $downloadsbroken_arr = $brokenHandler->getAll($criteria);
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
-                    exit();
                 }
             }
         } else {
-            // si c'est un utilisateur anonyme on vérifie qu'il n'envoie pas 2 fois un rapport
-            $criteria = new CriteriaCompo();
-            $criteria->add(new Criteria('lid', $lid));
-            $criteria->add(new Criteria('sender', 0));
-            $criteria->add(new Criteria('ip', getenv("REMOTE_ADDR")));
-            if ($downloadsbroken_Handler->getCount($criteria) >= 1) {
+            // si c'est un utilisateur anonyme on vÃ©rifie qu'il n'envoie pas 2 fois un rapport
+            $criteria = new \CriteriaCompo();
+            $criteria->add(new \Criteria('lid', $lid));
+            $criteria->add(new \Criteria('sender', 0));
+            $criteria->add(new \Criteria('ip', getenv('REMOTE_ADDR')));
+            if ($brokenHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
-                exit();
             }
         }
-        $erreur = false;
+        $erreur         = false;
         $message_erreur = '';
         // Test avant la validation
-        xoops_load("captcha");
-        $xoopsCaptcha = XoopsCaptcha::getInstance();
-        if ( !$xoopsCaptcha->verify() ) {
-            $message_erreur.=$xoopsCaptcha->getMessage().'<br>';
-            $erreur=true;
+        xoops_load('captcha');
+        $xoopsCaptcha = \XoopsCaptcha::getInstance();
+        if (!$xoopsCaptcha->verify()) {
+            $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
+            $erreur         = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('sender', $ratinguser);
-        $obj->setVar('ip', getenv("REMOTE_ADDR"));
-        if ($erreur==true) {
+        $obj->setVar('ip', getenv('REMOTE_ADDR'));
+        if (true === $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
-            if ($downloadsbroken_Handler->insert($obj)) {
-                $tags = array();
-                $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/admin/broken.php';
-                $notification_handler = xoops_gethandler('notification');
-                $notification_handler->triggerEvent('global', 0, 'file_broken', $tags);
+            if ($brokenHandler->insert($obj)) {
+                $tags                      = [];
+                $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/broken.php';
+                /** @var \XoopsNotificationHandler $notificationHandler */
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('global', 0, 'file_broken', $tags);
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_THANKSFORINFO);
             }
             echo $obj->getHtmlErrors();
         }
-        //Affichage du formulaire de notation des téléchargements
+        //Affichage du formulaire de notation des tÃ©lÃ©chargements
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
 
-    break;
+        break;
 }
-include XOOPS_ROOT_PATH.'/footer.php';
+require XOOPS_ROOT_PATH . '/footer.php';

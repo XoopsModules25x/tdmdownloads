@@ -14,58 +14,63 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Tree;
+
 // Include xoops admin header
-include_once '../../../include/cp_header.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
 
-include_once(XOOPS_ROOT_PATH."/kernel/module.php");
-include_once XOOPS_ROOT_PATH."/class/xoopsformloader.php";
-include_once XOOPS_ROOT_PATH."/class/tree.php";
-include_once XOOPS_ROOT_PATH."/class/xoopslists.php";
-include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+include_once XOOPS_ROOT_PATH . '/kernel/module.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+//require_once XOOPS_ROOT_PATH . '/class/tree.php';
+//require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+//require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
-include_once '../include/functions.php';
+require dirname(__DIR__) . '/include/common.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+
+/** @var \Xmf\Module\Admin $adminObject */
+$adminObject = \Xmf\Module\Admin::getInstance();
+
+$myts = \MyTextSanitizer::getInstance();
 
 if ($xoopsUser) {
-    $xoopsModule = XoopsModule::getByDirname("TDMDownloads");
-    if ( !$xoopsUser->isAdmin($xoopsModule->mid()) ) {
-        redirect_header(XOOPS_URL."/",3,_NOPERM);
-        exit();
+    $xoopsModule = \XoopsModule::getByDirname($moduleDirName);
+    if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
+        redirect_header(XOOPS_URL . '/', 3, _NOPERM);
     }
 } else {
-    redirect_header(XOOPS_URL."/",3,_NOPERM);
-    exit();
+    redirect_header(XOOPS_URL . '/', 3, _NOPERM);
+}
+
+if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+    require_once $GLOBALS['xoops']->path('class/template.php');
+    $xoopsTpl = new \XoopsTpl();
 }
 
 // Include language file
 xoops_loadLanguage('admin', 'system');
-xoops_loadLanguage('admin', $xoopsModule->getVar('dirname', 'e'));
-xoops_loadLanguage('modinfo', $xoopsModule->getVar('dirname', 'e'));
+// Load language files
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('main');
+$helper->loadLanguage('common');
 
-$pathIcon16 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons16');
-$pathIcon32 = XOOPS_URL . '/' . $xoopsModule->getInfo('icons32');
-
-//param�tres:
-// pour les images des cat�gories:
-$uploaddir = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/cats/';
-$uploadurl = XOOPS_URL . '/uploads/TDMDownloads/images/cats/';
+//paramétres:
+// pour les images des catégories:
+$uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/';
+$uploadurl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/cats/';
 // pour les fichiers
-$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/downloads/';
-$uploadurl_downloads = XOOPS_URL . '/uploads/TDMDownloads/downloads/';
+$uploaddir_downloads = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/downloads/';
+$uploadurl_downloads = XOOPS_URL . '/uploads/' . $moduleDirName . '/downloads/';
 // pour les captures d'�cran fichiers
-$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/shots/';
-$uploadurl_shots = XOOPS_URL . '/uploads/TDMDownloads/images/shots/';
+$uploaddir_shots = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/';
+$uploadurl_shots = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/';
 // pour les images des champs:
-$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/TDMDownloads/images/field/';
-$uploadurl_field = XOOPS_URL . '/uploads/TDMDownloads/images/field/';
-/////////////
-
-//appel des class
-$downloadscat_Handler = xoops_getModuleHandler('tdmdownloads_cat', 'TDMDownloads');
-$downloads_Handler = xoops_getModuleHandler('tdmdownloads_downloads', 'TDMDownloads');
-$downloadsvotedata_Handler = xoops_getModuleHandler('tdmdownloads_votedata', 'TDMDownloads');
-$downloadsfield_Handler = xoops_getModuleHandler('tdmdownloads_field', 'TDMDownloads');
-$downloadsfielddata_Handler = xoops_getModuleHandler('tdmdownloads_fielddata', 'TDMDownloads');
-$downloadsbroken_Handler = xoops_getModuleHandler('tdmdownloads_broken', 'TDMDownloads');
-$downloadsmod_Handler = xoops_getModuleHandler('tdmdownloads_mod', 'TDMDownloads');
-$downloadsfieldmoddata_Handler = xoops_getModuleHandler('tdmdownloads_modfielddata', 'TDMDownloads');
+$uploaddir_field = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/field/';
+$uploadurl_field = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/field/';
