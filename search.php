@@ -19,7 +19,7 @@ use XoopsModules\Tdmdownloads;
 
 require_once __DIR__ . '/header.php';
 
-/** @var Tdmdownloads\Helper $helper */
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper        = Tdmdownloads\Helper::getInstance();
 $moduleDirName = basename(__DIR__);
 
@@ -62,7 +62,7 @@ $cat_select->addOption(0,_MD_TDMDOWNLOADS_SEARCH_ALL2);
 $cat_select->addOptionArray($categoryHandler->getList($criteria ));
 $form->addElement($cat_select);*/
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
@@ -76,17 +76,17 @@ $downloads_field = $fieldHandler->getAll($criteria);
 
 $arguments = '';
 foreach (array_keys($downloads_field) as $i) {
-    $title_sup = '';
+    $title_sup   = '';
     $contenu_arr = [];
-    $lid_arr = [];
-    $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-    $criteria = new \CriteriaCompo();
+    $lid_arr     = [];
+    $nom_champ   = 'champ' . $downloads_field[$i]->getVar('fid');
+    $criteria    = new \CriteriaCompo();
     if (isset($_REQUEST[$nom_champ])) {
         999 !== $_REQUEST[$nom_champ] ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         $arguments .= $nom_champ . '=' . $_REQUEST[$nom_champ] . '&amp;';
     } else {
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
-        $arguments .= $nom_champ . '=&amp;';
+        $arguments                                          .= $nom_champ . '=&amp;';
     }
     if (1 == $downloads_field[$i]->getVar('status_def')) {
         $criteria->add(new \Criteria('status', 0, '!='));
@@ -110,7 +110,7 @@ foreach (array_keys($downloads_field) as $i) {
         }
         if (4 == $downloads_field[$i]->getVar('fid')) {
             //platform
-            $title_sup = _AM_TDMDOWNLOADS_FORMPLATFORM;
+            $title_sup      = _AM_TDMDOWNLOADS_FORMPLATFORM;
             $platform_array = explode('|', $helper->getConfig('plateform'));
             foreach ($platform_array as $platform) {
                 $contenu_arr[$platform] = $platform;
@@ -171,16 +171,16 @@ if (0 !== $cat) {
     $criteria_2->add(new \Criteria('cid', $cat));
     $arguments .= 'cat=' . $cat . '&amp;';
 }
-$tblsort = [];
-$tblsort[1] = 'date';
-$tblsort[2] = 'date';
-$tblsort[3] = 'hits';
-$tblsort[4] = 'hits';
-$tblsort[5] = 'rating';
-$tblsort[6] = 'rating';
-$tblsort[7] = 'title';
-$tblsort[8] = 'title';
-$tblorder = [];
+$tblsort     = [];
+$tblsort[1]  = 'date';
+$tblsort[2]  = 'date';
+$tblsort[3]  = 'hits';
+$tblsort[4]  = 'hits';
+$tblsort[5]  = 'rating';
+$tblsort[6]  = 'rating';
+$tblsort[7]  = 'title';
+$tblsort[8]  = 'title';
+$tblorder    = [];
 $tblorder[1] = 'DESC';
 $tblorder[2] = 'ASC';
 $tblorder[3] = 'DESC';
@@ -209,10 +209,10 @@ if (\Xmf\Request::hasVar('start', 'REQUEST')) {
     $start = 0;
 }
 //pour faire une jointure de table
-$downloadsHandler->table_link = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
-$downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
+$downloadsHandler->table_link   = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
+$downloadsHandler->field_link   = 'cat_cid'; // champ de la table en jointure
 $downloadsHandler->field_object = 'cid'; // champ de la table courante
-$tdmdownloads_arr = $downloadsHandler->getByLink($criteria_2);
+$tdmdownloads_arr               = $downloadsHandler->getByLink($criteria_2);
 if ($numrows > $limit) {
     $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', $arguments);
     $pagenav = $pagenav->renderNav(4);
@@ -223,15 +223,15 @@ $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_SEARCH_THEREARE, $do
 $xoopsTpl->assign('pagenav', $pagenav);
 $keywords = '';
 foreach (array_keys($tdmdownloads_arr) as $i) {
-    $tdmdownloads_tab['lid'] = $tdmdownloads_arr[$i]->getVar('lid');
-    $tdmdownloads_tab['cid'] = $tdmdownloads_arr[$i]->getVar('cid');
-    $tdmdownloads_tab['title'] = $tdmdownloads_arr[$i]->getVar('title');
-    $tdmdownloads_tab['cat'] = $tdmdownloads_arr[$i]->getVar('cat_title');
+    $tdmdownloads_tab['lid']    = $tdmdownloads_arr[$i]->getVar('lid');
+    $tdmdownloads_tab['cid']    = $tdmdownloads_arr[$i]->getVar('cid');
+    $tdmdownloads_tab['title']  = $tdmdownloads_arr[$i]->getVar('title');
+    $tdmdownloads_tab['cat']    = $tdmdownloads_arr[$i]->getVar('cat_title');
     $tdmdownloads_tab['imgurl'] = $uploadurl . $tdmdownloads_arr[$i]->getVar('cat_imgurl');
-    $tdmdownloads_tab['date'] = formatTimestamp($tdmdownloads_arr[$i]->getVar('date'), 'd/m/Y');
+    $tdmdownloads_tab['date']   = formatTimestamp($tdmdownloads_arr[$i]->getVar('date'), 'd/m/Y');
     $tdmdownloads_tab['rating'] = number_format($tdmdownloads_arr[$i]->getVar('rating'), 0);
-    $tdmdownloads_tab['hits'] = $tdmdownloads_arr[$i]->getVar('hits');
-    $contenu = '';
+    $tdmdownloads_tab['hits']   = $tdmdownloads_arr[$i]->getVar('hits');
+    $contenu                    = '';
     foreach (array_keys($downloads_field) as $j) {
         if (1 == $downloads_field[$j]->getVar('status_def')) {
             if (1 === $downloads_field[$j]->getVar('fid')) {

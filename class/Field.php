@@ -50,7 +50,7 @@ class Field extends \XoopsObject
     {
         $newEnreg = 0;
         /** @var \XoopsMySQLDatabase $db */
-        if(null !== $db) {
+        if (null !== $db) {
             $newEnreg = $db->getInsertId();
         }
 
@@ -64,8 +64,8 @@ class Field extends \XoopsObject
      */
     public function getForm($action = false)
     {
-        /** @var Tdmdownloads\Helper $helper */
-        $helper = Tdmdownloads\Helper::getInstance();
+        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
+        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
         $moduleDirName = basename(dirname(__DIR__));
         if (false === $action) {
@@ -88,11 +88,11 @@ class Field extends \XoopsObject
         }
         //image
         $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
-        $uploadirectory = '/uploads/' . $moduleDirName . '/images/field';
-        $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
-        $imgpath = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
-        $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $uploadirectory     = '/uploads/' . $moduleDirName . '/images/field';
+        $imgtray            = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
+        $imgpath            = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect        = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
+        $topics_array       = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }

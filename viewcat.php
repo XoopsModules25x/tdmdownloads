@@ -177,7 +177,7 @@ if (1 == $helper->getConfig('blrating')) {
 }
 // affichage du résumé
 $bl_affichage = 1;
-if (0 == $helper->getConfig('bldate') && 0 == $helper->getConfig('blpop') && 0 == $helper->getConfig('blrating')) {
+if (0 === $helper->getConfig('bldate') && 0 === $helper->getConfig('blpop') && 0 === $helper->getConfig('blrating')) {
     $bl_affichage = 0;
 }
 //----------------------------------------------------------------------------------------------------------------------------------------------------

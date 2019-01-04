@@ -18,8 +18,8 @@ use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
-/** @var Tdmdownloads\Helper $helper */
-$helper = Tdmdownloads\Helper::getInstance();
+/** @var \XoopsModules\Tdmdownloads\Helper $helper */
+$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
@@ -39,7 +39,7 @@ switch ($op) {
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
-        $numrows = count($downloads_field);
+        $numrows         = count($downloads_field);
         //Affichage du tableau
         if ($numrows > 0) {
             echo '<table width="100%" cellspacing="1" class="outer">';
@@ -102,7 +102,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
         $adminObject->displayButton('left');
         //Affichage du formulaire de création des champs
-        $obj = $fieldHandler->create();
+        $obj  = $fieldHandler->create();
         $form = $obj->getForm();
         $form->display();
         break;
@@ -116,7 +116,7 @@ switch ($op) {
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
         $adminObject->displayButton('left');
         //Affichage du formulaire de création des champs
-        $obj = $fieldHandler->get($_REQUEST['fid']);
+        $obj  = $fieldHandler->get($_REQUEST['fid']);
         $form = $obj->getForm();
         $form->display();
         break;
@@ -147,7 +147,7 @@ switch ($op) {
             if (1 == $downloadsfield->getVar('status_def')) {
                 redirect_header('field.php', 2, _AM_TDMDOWNLOADS_REDIRECT_NODELFIELD);
             }
-            $message = '';
+            $message  = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
             $downloads_arr = $fielddataHandler->getAll($criteria);
@@ -177,7 +177,7 @@ switch ($op) {
         } else {
             $obj = $fieldHandler->create();
         }
-        $erreur = false;
+        $erreur         = false;
         $message_erreur = '';
         // Récupération des variables:
         // Pour l'image
@@ -209,7 +209,7 @@ switch ($op) {
         $obj->setVar('status_def', $_POST['status_def']);
 
         if (0 === \Xmf\Request::getInt('weight', 0, 'REQUEST') && '0' !== $_REQUEST['weight']) {
-            $erreur = true;
+            $erreur         = true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if (true === $erreur) {

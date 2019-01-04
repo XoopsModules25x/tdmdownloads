@@ -35,7 +35,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
  */
 class Breadcrumb
 {
-    public $dirname;
+    public  $dirname;
     private $bread = [];
 
     public function __construct()
@@ -52,7 +52,7 @@ class Breadcrumb
     public function addLink($title = '', $link = '')
     {
         $this->bread[] = [
-            'link' => $link,
+            'link'  => $link,
             'title' => $title,
         ];
     }

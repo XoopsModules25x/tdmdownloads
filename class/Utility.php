@@ -15,7 +15,6 @@ namespace XoopsModules\Tdmdownloads;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 use XoopsModules\Tdmdownloads\Common;
@@ -26,7 +25,9 @@ use XoopsModules\Tdmdownloads\Common;
 class Utility
 {
     use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
+
     use Common\ServerStats; // getServerStats Trait
+
     use Common\FilesManagement; // Files Management Trait
 
     /**
@@ -34,11 +35,11 @@ class Utility
      * www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags
      * www.cakephp.org
      *
-     * @param string  $text         String to truncate.
-     * @param int $length       Length of returned string, including ellipsis.
-     * @param string  $ending       Ending to be appended to the trimmed string.
-     * @param bool $exact        If false, $text will not be cut mid-word
-     * @param bool $considerHtml If true, HTML tags would be handled correctly
+     * @param string $text         String to truncate.
+     * @param int    $length       Length of returned string, including ellipsis.
+     * @param string $ending       Ending to be appended to the trimmed string.
+     * @param bool   $exact        If false, $text will not be cut mid-word
+     * @param bool   $considerHtml If true, HTML tags would be handled correctly
      *
      * @return string Trimmed string.
      */
@@ -52,8 +53,8 @@ class Utility
             // splits all html-tags to scanable lines
             preg_match_all('/(<.+?' . '>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
             $total_length = mb_strlen($ending);
-            $open_tags = [];
-            $truncate = '';
+            $open_tags    = [];
+            $truncate     = '';
             foreach ($lines as $line_matchings) {
                 // if there is any html-tag in this line, handle it and add it (uncounted) to the output
                 if (!empty($line_matchings[1])) {
@@ -79,7 +80,7 @@ class Utility
                 $content_length = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
                 if ($total_length + $content_length > $length) {
                     // the number of characters which are left
-                    $left = $length - $total_length;
+                    $left            = $length - $total_length;
                     $entities_length = 0;
                     // search for html entities
                     if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
@@ -98,7 +99,7 @@ class Utility
                     // maximum lenght is reached, so get off the loop
                     break;
                 }
-                $truncate .= $line_matchings[2];
+                $truncate     .= $line_matchings[2];
                 $total_length += $content_length;
 
                 // if the maximum length is reached, get off the loop
@@ -140,14 +141,14 @@ class Utility
      */
     public static function getEditor($helper = null, $options = null)
     {
-        /** @var Tdmdownloads\Helper $helper */
+        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         if (null === $options) {
-            $options = [];
-            $options['name'] = 'Editor';
-            $options['value'] = 'Editor';
-            $options['rows'] = 10;
-            $options['cols'] = '100%';
-            $options['width'] = '100%';
+            $options           = [];
+            $options['name']   = 'Editor';
+            $options['value']  = 'Editor';
+            $options['rows']   = 10;
+            $options['cols']   = '100%';
+            $options['width']  = '100%';
             $options['height'] = '400px';
         }
 
@@ -183,9 +184,9 @@ class Utility
             return $permissions[$permtype];
         }
         /** @var \XoopsModuleHandler $moduleHandler */
-        $moduleHandler    = xoops_getHandler('module');
-        $tdmModule        = $moduleHandler->getByDirname($dirname);
-        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $moduleHandler = xoops_getHandler('module');
+        $tdmModule     = $moduleHandler->getByDirname($dirname);
+        $groups        = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
@@ -204,7 +205,7 @@ class Utility
      */
     public function getNumbersOfEntries($mytree, $categories, $entries, $cid)
     {
-        $count = 0;
+        $count     = 0;
         $child_arr = [];
         if (in_array($cid, $categories, true)) {
             $child = $mytree->getAllChild($cid);
@@ -232,8 +233,8 @@ class Utility
     public function getStatusImage($time, $status)
     {
         global $xoopsModuleConfig;
-        $count = 7;
-        $new = '';
+        $count     = 7;
+        $new       = '';
         $startdate = (time() - (86400 * $count));
         if (1 == $xoopsModuleConfig['showupdated']) {
             if ($startdate < $time) {
@@ -242,7 +243,7 @@ class Utility
                     $language = 'english';
                 }
                 $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
-                $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
+                $img_url  = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
                 if (1 == $status) {
                     if (is_readable($img_path . 'new.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
@@ -277,7 +278,7 @@ class Utility
                 $language = 'english';
             }
             $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
-            $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
+            $img_url  = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
             if (is_readable($img_path . 'popular.png')) {
                 $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             } else {
@@ -347,7 +348,7 @@ class Utility
     {
         $category_parent = $mytree->getAllParent($key);
         $category_parent = array_reverse($category_parent);
-        $Path = '';
+        $Path            = '';
         foreach (array_keys($category_parent) as $j) {
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
         }

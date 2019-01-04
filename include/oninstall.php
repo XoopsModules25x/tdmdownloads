@@ -15,8 +15,12 @@ use XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 use XoopsModules\Tdmdownloads\Utility;
 
+/**
+ * @return bool
+ */
 function xoops_module_install_tdmdownloads()
 {
     global $xoopsModule, $xoopsConfig, $xoopsDB;

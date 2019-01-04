@@ -48,7 +48,7 @@ class Tree extends \XoopsObjectTree
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
-            $value = $this->tree[$key]['obj']->getVar($this->myId);
+            $value       = $this->tree[$key]['obj']->getVar($this->myId);
             $ret[$value] = $prefix_curr . $this->tree[$key]['obj']->getVar($fieldName);
             $prefix_curr .= $prefix_orig;
         }

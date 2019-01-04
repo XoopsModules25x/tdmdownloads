@@ -25,7 +25,6 @@ $moduleDirNameUpper = strtoupper($moduleDirName);
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 $helper->loadLanguage('common');
 
-
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 if (is_object($helper->getModule())) {
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');

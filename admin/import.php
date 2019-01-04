@@ -20,7 +20,7 @@ $import_admin = \Xmf\Module\Admin::getInstance();
 echo $import_admin->displayNavigation(basename(__FILE__));
 
 //Action dans switch
-    $op = 'index';
+$op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
     $op = $_REQUEST['op'];
 }
@@ -55,7 +55,7 @@ function importMydownloads($path = '', $imgurl = '')
                 @copy($path . $img, XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/' . $img);
             }
 
-            $title = $donnees['title'];
+            $title  = $donnees['title'];
             $insert = $xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix('tdmdownloads_cat') . " (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('" . $donnees['cid'] . "', '" . $donnees['pid'] . "', '" . $title . "', '" . $img . "', '', '0')");
             if (!$insert) {
                 echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';

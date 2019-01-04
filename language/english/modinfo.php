@@ -180,19 +180,11 @@ define('_MI_TDMDOWNLOADS_DISCLAIMER', 'Disclaimer');
 define('_MI_TDMDOWNLOADS_LICENSE', 'License');
 define('_MI_TDMDOWNLOADS_SUPPORT', 'Support');
 
-
-
 define('_MI_TDMDOWNLOADS_ADMENU_MIGRATE', 'Migrate');
 define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS', 'Show Development Tools Button?');
 define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
 
 define('_MI_TDMDOWNLOADS_BLOCKS_ADMIN', 'Blocks');
-
-
-
-
-
-
 
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
