@@ -188,7 +188,7 @@ switch ($op) {
                 //tags
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../tag')) {
                     /** @var \XoopsModules\Tag\TagHandler $tagHandler */
-                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
+                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
                     $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
                 }
                 // Récupération des champs supplémentaires:

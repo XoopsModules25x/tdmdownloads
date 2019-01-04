@@ -281,14 +281,14 @@ switch ($op) {
                 xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_lid);
                 //supression des tags
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../../tag')) {
-                    /** @var \XoopsModules\Tag\LinkHandler $tagHandler */
-                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+                    /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
+                    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                     $criteria   = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));
-                    $downloads_tags = $tagHandler->getAll($criteria);
+                    $downloads_tags = $linkHandler->getAll($criteria);
                     foreach (array_keys($downloads_tags) as $i) {
-                        $objtags = $tagHandler->get($downloads_tags[$i]->getVar('tl_id'));
-                        $tagHandler->delete($objtags) || $objtags->getHtmlErrors();
+                        $objtags = $linkHandler->get($downloads_tags[$i]->getVar('tl_id'));
+                        $linkHandler->delete($objtags) || $objtags->getHtmlErrors();
                     }
                 }
                 redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);

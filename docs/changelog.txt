@@ -37,7 +37,6 @@ TODO:
 - add test data
 - do more testing
 - update "update.php" file
-- convert to use XoopsRequest
 
 
 <h5>1.65 Final [2017/02/02]</h5>

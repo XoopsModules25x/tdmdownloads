@@ -36,7 +36,6 @@ function TDMDownloads_tag_iteminfo(&$items)
             $items_id[] = (int)$item_id;
         }
     }
-    //    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
     $items_obj   = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
@@ -66,11 +65,10 @@ function TDMDownloads_tag_iteminfo(&$items)
  */
 function TDMDownloads_tag_synchronization($mid)
 {
-    //    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
-    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link'); //@var \XoopsModules\Tag\Handler $tagHandler
+    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
 
     /* clear tag-item links */
     if (version_compare($GLOBALS['xoopsDB']->getServerVersion(), '4.1.0', 'ge')):
