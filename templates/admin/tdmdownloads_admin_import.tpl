@@ -24,7 +24,7 @@
 <{/if}>
 <{if $errors}>
     <{foreach item=error from=$errors}>
-        <font color='#ff0000'><{$error.title}>: </font><{$error.info}><br>
+        <span style="color: #ff0000; "><{$error.title}>: </span><{$error.info}><br>
     <{/foreach}>
 <{/if}>
 
