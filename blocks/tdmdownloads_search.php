@@ -58,6 +58,7 @@ function b_tdmdownloads_search_show()
     $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
     $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
+    /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
     $criteria     = new \CriteriaCompo();
     $criteria->add(new \Criteria('search', 1));

@@ -33,7 +33,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
         $sql .= ' AND submitter=' . (int)$userid . ' ';
     }
 
-    $utilities  = new \XoopsModules\Tdmdownloads\Utilities($db, $helper);
+    $utility  = new \XoopsModules\Tdmdownloads\Utility();
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     if (is_array($categories) && count($categories) > 0) {
         $sql .= ' AND cid IN (' . implode(',', $categories) . ') ';

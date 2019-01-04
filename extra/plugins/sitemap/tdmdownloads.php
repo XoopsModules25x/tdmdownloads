@@ -17,7 +17,7 @@
 function b_sitemap_tdmdownloads()
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $block   = sitemap_get_categoires_map($xoopsDB->prefix('tdmdownloads_cat'), 'cid', 'pid', 'title', 'viewcat.php?cid=', 'title');
+    $block   = sitemap_get_categories_map($xoopsDB->prefix('tdmdownloads_cat'), 'cid', 'pid', 'title', 'viewcat.php?cid=', 'title');
 
     return $block;
 }

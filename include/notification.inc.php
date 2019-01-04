@@ -36,8 +36,10 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
     $moduleDirName = basename(dirname(__DIR__));
     $item_id = (int)$item_id;
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') !== $moduleDirName) {
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
         $module        = $moduleHandler->getByDirname($moduleDirName);
+        /** @var \XoopsConfigHandler $configHandler */
         $configHandler = xoops_getHandler('config');
         $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {

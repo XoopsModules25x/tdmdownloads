@@ -119,6 +119,7 @@ switch ($op) {
             if ($brokenHandler->insert($obj)) {
                 $tags = [];
                 $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/broken.php';
+                /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_broken', $tags);
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_THANKSFORINFO);

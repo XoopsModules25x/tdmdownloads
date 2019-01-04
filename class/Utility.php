@@ -182,11 +182,14 @@ class Utility
         if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
             return $permissions[$permtype];
         }
-        $moduleHandler = xoops_getHandler('module');
-        $tdmModule = $moduleHandler->getByDirname($dirname);
-        $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler    = xoops_getHandler('module');
+        $tdmModule        = $moduleHandler->getByDirname($dirname);
+        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $categories = $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
+        $categories       = $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
 
         return $categories;
     }

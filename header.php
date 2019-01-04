@@ -35,6 +35,7 @@ $myts = \MyTextSanitizer::getInstance();
 //require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/functions.php';
 
 //permission
+/** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
 $groups           = XOOPS_GROUP_ANONYMOUS;
 if (is_object($xoopsUser)) {

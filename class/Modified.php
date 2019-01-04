@@ -78,11 +78,13 @@ class Modified extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
         $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
         //appel des class
+        /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
         $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+//        $categoryHandler  = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
         $viewDownloads = $downloadsHandler->get($lid);
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
@@ -125,6 +127,7 @@ class Modified extends \XoopsObject
         $form->addElement($fichier);
 
         //catégorie
+        /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
         /** @var \XoopsModules\Tdmdownloads\Utility $utility */
         $utility = new \XoopsModules\Tdmdownloads\Utility();

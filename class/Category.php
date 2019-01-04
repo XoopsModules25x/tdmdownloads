@@ -113,8 +113,10 @@ class Category extends \XoopsObject
         $imgtray->addElement($fileseltray);
         $form->addElement($imgtray);
         // Pour faire une sous-catégorie
+
+        /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
-        $criteria = new \CriteriaCompo();
+        $criteria        = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $downloadscatArray = $categoryHandler->getAll($criteria);
@@ -124,10 +126,12 @@ class Category extends \XoopsObject
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);
 
         //permissions
-        $memberHandler = xoops_getHandler('member');
-        $group_list = $memberHandler->getGroupList();
+        /** @var \XoopsMemberHandler $memberHandler */
+        $memberHandler    = xoops_getHandler('member');
+        $group_list       = $memberHandler->getGroupList();
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $full_list = array_keys($group_list);
+        $full_list        = array_keys($group_list);
         global $xoopsModule;
         if (!$this->isNew()) {
             $groups_ids_view = $grouppermHandler->getGroupIds('tdmdownloads_view', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));

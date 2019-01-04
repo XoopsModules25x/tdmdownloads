@@ -186,6 +186,7 @@ switch ($op) {
                 $lidDownloads = $obj->getNewEnreg($db);
                 //tags
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../tag')) {
+                    /** @var \XoopsModules\Tag\TagHandler $tagHandler */
                     $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag'); // xoops_getModuleHandler('tag', 'tag');
                     $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
                 }
@@ -208,8 +209,9 @@ switch ($op) {
                     if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                         //permission pour télécharger
                         if (1 == $helper->getConfig('permission_download')) {
+                            /** @var \XoopsGroupPermHandler $grouppermHandler */
                             $grouppermHandler = xoops_getHandler('groupperm');
-                            $criteria = new \CriteriaCompo();
+                            $criteria         = new \CriteriaCompo();
                             $criteria->add(new \Criteria('gperm_itemid', $lidDownloads, '='));
                             $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                             $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download_item', '='));
@@ -222,13 +224,14 @@ switch ($op) {
                         }
                     }
                 }
-                $notificationHandler = xoops_getHandler('notification');
-                $tags = [];
-                $tags['FILE_NAME'] = $donnee['title'];
-                $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lidDownloads;
-                $downloadscat_cat = $categoryHandler->get($donnee['cid']);
+                /** @var \XoopsNotificationHandler $notificationHandler */
+                $notificationHandler   = xoops_getHandler('notification');
+                $tags                  = [];
+                $tags['FILE_NAME']     = $donnee['title'];
+                $tags['FILE_URL']      = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lidDownloads;
+                $downloadscat_cat      = $categoryHandler->get($donnee['cid']);
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
-                $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
+                $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
 
                 if (true === $perm_autoapprove) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);

@@ -35,9 +35,10 @@ function TDMDownloads_tag_iteminfo(&$items)
             $items_id[] = (int)$item_id;
         }
     }
-    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
-    $itemHandler = Tdmdownloads\Helper::getInstance()->getHandler('Downloads'); // xoops_getModuleHandler('tdmdownloads_downloads', $moduleDirName);
-    $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
+//    $moduleDirName = basename(dirname(dirname(dirname(__DIR__))));
+    /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
+    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $items_obj   = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {

@@ -143,8 +143,9 @@ switch ($op) {
                 }
                 //supression des tags
                 if ((1 == $helper->getConfig('usetag')) && is_dir(dirname(dirname(__DIR__)) . '/tag')) {
-                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link'); //@var \XoopsModules\Tag\Handler $tagHandler
-                    $criteria = new \CriteriaCompo();
+                    /** @var \XoopsModules\Tag\TagHandler $tagHandler */
+                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+                    $criteria   = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
                     $downloads_tags = $tagHandler->getAll($criteria);
                     if (count($downloads_tags) > 0) {

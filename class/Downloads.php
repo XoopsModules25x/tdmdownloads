@@ -86,6 +86,7 @@ class Downloads extends \XoopsObject
             $action = $_SERVER['REQUEST_URI'];
         }
         //permission pour uploader
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
         $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($xoopsUser) {
@@ -115,6 +116,7 @@ class Downloads extends \XoopsObject
         $form->addElement($fichier);
 
         //catégorie
+        /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
         $categories = $utility->getItemIds('tdmdownloads_submit', $moduleDirName);
         $criteria = new \CriteriaCompo();
@@ -135,6 +137,7 @@ class Downloads extends \XoopsObject
         $form->addElement($mytree->makeSelectElement('cid', 'cat_title', '--', $this->getVar('cid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
         //affichage des champs
+        /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
         $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');

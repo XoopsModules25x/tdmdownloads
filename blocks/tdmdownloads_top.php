@@ -26,22 +26,24 @@
 function b_tdmdownloads_top_show($options)
 {
     require dirname(__DIR__) . '/include/common.php';
+    /** @var \XoopsModuleHandler $moduleHandler */
     $moduleHandler = xoops_getHandler('module');
     // get the name of the file's directory to get the "owner" of the block, i.e. its module, and not the "user", where it is currently
     //$mydir          = basename(dirname(__DIR__));
     $moduleDirName = basename(dirname(__DIR__));
     $mymodule      = $moduleHandler->getByDirname($moduleDirName);
     //appel de la class
-    $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-    $block = [];
-    $type_block = $options[0];
-    $nb_entree = $options[1];
-    $lenght_title = $options[2];
-    $use_logo = $options[3];
-    $use_description = $options[4];
-    $show_inforation = $options[5];
-    $logo_float = $options[6];
-    $logo_white = $options[7];
+    /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
+    $downloadsHandler   = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $block              = [];
+    $type_block         = $options[0];
+    $nb_entree          = $options[1];
+    $lenght_title       = $options[2];
+    $use_logo           = $options[3];
+    $use_description    = $options[4];
+    $show_inforation    = $options[5];
+    $logo_float         = $options[6];
+    $logo_white         = $options[7];
     $lenght_description = $options[8];
 
     array_shift($options);

@@ -214,6 +214,7 @@ if (\Xmf\Request::hasVar('cid')) {
                 }
                 $tags = [];
                 $tags['MODIFYREPORTS_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/modified.php';
+                /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);
                 redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'), 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
