@@ -41,6 +41,7 @@ function b_tdmdownloads_search_show()
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility         = new \XoopsModules\Tdmdownloads\Utility();
     $categories      = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+    /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
     $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
     $block = [];
