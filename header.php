@@ -15,7 +15,6 @@
  */
 
 require dirname(dirname(__DIR__)) . '/mainfile.php';
-require XOOPS_ROOT_PATH . '/header.php';
 
 $moduleDirName = basename(__DIR__);
 
