@@ -13,9 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 require __DIR__ . '/admin_header.php';
 
 // Template
@@ -54,12 +51,12 @@ switch ($op) {
         $criteria->setSort('reportid');
         $criteria->setOrder('ASC');
         //pour faire une jointure de table
-        $brokenHandler->table_link   = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
-        $brokenHandler->field_link   = 'lid'; // champ de la table en jointure
+        $brokenHandler->table_link = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
+        $brokenHandler->field_link = 'lid'; // champ de la table en jointure
         $brokenHandler->field_object = 'lid'; // champ de la table courante
-        $downloadsbroken_arr         = $brokenHandler->getByLink($criteria);
-        $numrows                     = $brokenHandler->getCount($criteria);
-        $pagenav                     = '';
+        $downloadsbroken_arr = $brokenHandler->getByLink($criteria);
+        $numrows = $brokenHandler->getCount($criteria);
+        $pagenav = '';
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
@@ -70,12 +67,12 @@ switch ($op) {
             $broken = [];
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 $broken = [
-                    'lid'      => $downloadsbroken_arr[$i]->getVar('lid'),
+                    'lid' => $downloadsbroken_arr[$i]->getVar('lid'),
                     'reportid' => $downloadsbroken_arr[$i]->getVar('reportid'),
-                    'title'    => $downloadsbroken_arr[$i]->getVar('title'),
-                    'cid'      => $downloadsbroken_arr[$i]->getVar('cid'),
-                    'sender'   => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
-                    'ip'       => $downloadsbroken_arr[$i]->getVar('ip')
+                    'title' => $downloadsbroken_arr[$i]->getVar('title'),
+                    'cid' => $downloadsbroken_arr[$i]->getVar('cid'),
+                    'sender' => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
+                    'ip' => $downloadsbroken_arr[$i]->getVar('ip'),
                 ];
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
                 unset($broken);
@@ -84,7 +81,6 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS);
         }
         break;
-
     // permet de suprimmer le rapport de téléchargment brisé
     case 'del_brokendownloads':
         $obj = $brokenHandler->get($_REQUEST['broken_id']);

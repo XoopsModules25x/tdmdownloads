@@ -1,6 +1,5 @@
 <?php
 
-use XoopsModules\Tdmdownloads;
 /**
  * TDMDownload
  *
@@ -16,8 +15,6 @@ use XoopsModules\Tdmdownloads;
  * @author      Gregory Mage (Aka Mage)
  */
 
-use XoopsModules\Tdmdownloads\Utility;
-
 /**
  * @return bool
  */
@@ -28,12 +25,12 @@ function xoops_module_install_tdmdownloads()
 
     $namemodule = $moduleDirName;
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-        include_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';
     }
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $obj          = $fieldHandler->create();
+    $obj = $fieldHandler->create();
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMHOMEPAGE);
     $obj->setVar('img', 'homepage.png');
     $obj->setVar('weight', 1);

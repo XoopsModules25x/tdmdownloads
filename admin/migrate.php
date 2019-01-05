@@ -3,7 +3,7 @@
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                  Copyright (c) 2000-2019 XOOPS.org                        //
-//                       <https://xoops.org/>                             //
+//                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -59,13 +59,13 @@ $configurator = new Tdmdownloads\Common\Configurator();
 /** @var \XoopsModules\Tdmdownloads\Common\Migrate $migrator */
 $migrator = new \XoopsModules\Tdmdownloads\Common\Migrate($configurator);
 
-$op        = Request::getCmd('op', 'default');
-$opShow    = Request::getCmd('show', null, 'POST');
+$op = Request::getCmd('op', 'default');
+$opShow = Request::getCmd('show', null, 'POST');
 $opMigrate = Request::getCmd('migrate', null, 'POST');
-$opSchema  = Request::getCmd('schema', null, 'POST');
-$op        = !empty($opShow) ? 'show' : $op;
-$op        = !empty($opMigrate) ? 'migrate' : $op;
-$op        = !empty($opSchema) ? 'schema' : $op;
+$opSchema = Request::getCmd('schema', null, 'POST');
+$op = !empty($opShow) ? 'show' : $op;
+$op = !empty($opMigrate) ? 'migrate' : $op;
+$op = !empty($opSchema) ? 'schema' : $op;
 
 $message = '';
 

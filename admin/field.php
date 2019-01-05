@@ -13,9 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 require __DIR__ . '/admin_header.php';
 require dirname(__DIR__) . '/include/common.php';
 // Template
@@ -42,21 +39,21 @@ switch ($op) {
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
-        $numrows         = count($downloads_field);
+        $numrows = count($downloads_field);
         //Affichage du tableau
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('fields_count', $numrows);
 
             foreach (array_keys($downloads_field) as $i) {
                 $field = [
-                    'title'      => $downloads_field[$i]->getVar('title'),
-                    'img'        => $uploadurl_field . $downloads_field[$i]->getVar('img'),
-                    'weight'     => $downloads_field[$i]->getVar('weight'),
-                    'fid'        => $downloads_field[$i]->getVar('fid'),
-                    'status'     => $downloads_field[$i]->getVar('status'),
-                    'search'     => $downloads_field[$i]->getVar('search'),
+                    'title' => $downloads_field[$i]->getVar('title'),
+                    'img' => $uploadurl_field . $downloads_field[$i]->getVar('img'),
+                    'weight' => $downloads_field[$i]->getVar('weight'),
+                    'fid' => $downloads_field[$i]->getVar('fid'),
+                    'status' => $downloads_field[$i]->getVar('status'),
+                    'search' => $downloads_field[$i]->getVar('search'),
                     'status_def' => $downloads_field[$i]->getVar('status_def'),
-                    'search'     => $downloads_field[$i]->getVar('search')
+                    'search' => $downloads_field[$i]->getVar('search'),
                 ];
                 $GLOBALS['xoopsTpl']->append('fields_list', $field);
                 unset($field);
@@ -91,7 +88,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des champs
-        $obj  = $fieldHandler->create();
+        $obj = $fieldHandler->create();
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
@@ -106,7 +103,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des champs
-        $obj  = $fieldHandler->get($_REQUEST['fid']);
+        $obj = $fieldHandler->get($_REQUEST['fid']);
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
@@ -137,7 +134,7 @@ switch ($op) {
             if (1 == $downloadsfield->getVar('status_def')) {
                 redirect_header('field.php', 2, _AM_TDMDOWNLOADS_REDIRECT_NODELFIELD);
             }
-            $message  = '';
+            $message = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', $_REQUEST['fid']));
             $downloads_arr = $fielddataHandler->getAll($criteria);
@@ -169,7 +166,7 @@ switch ($op) {
         } else {
             $obj = $fieldHandler->create();
         }
-        $erreur         = false;
+        $erreur = false;
         $message_erreur = '';
         // Récupération des variables:
         // Pour l'image
@@ -201,7 +198,7 @@ switch ($op) {
         $obj->setVar('status_def', $_POST['status_def']);
 
         if (0 === \Xmf\Request::getInt('weight', 0, 'REQUEST') && '0' !== $_REQUEST['weight']) {
-            $erreur         = true;
+            $erreur = true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if (true === $erreur) {

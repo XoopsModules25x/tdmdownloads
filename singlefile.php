@@ -13,10 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads\Tree;
-use XoopsModules\Tdmdownloads;
-
 require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
@@ -51,7 +47,7 @@ $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
 //navigation
 $navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -141,9 +137,9 @@ $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('status', 1));
 $downloads_field = $fieldHandler->getAll($criteria);
-$nb_champ        = count($downloads_field);
-$champ_sup       = '';
-$champ_sup_vide  = 0;
+$nb_champ = count($downloads_field);
+$champ_sup = '';
+$champ_sup_vide = 0;
 foreach (array_keys($downloads_field) as $i) {
     if (1 == $downloads_field[$i]->getVar('status_def')) {
         if (1 == $downloads_field[$i]->getVar('fid')) {
@@ -177,11 +173,11 @@ foreach (array_keys($downloads_field) as $i) {
         }
     } else {
         $view_data = $fielddataHandler->get();
-        $criteria  = new \CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
         $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
         $downloadsfielddata = $fielddataHandler->getAll($criteria);
-        $contenu            = '';
+        $contenu = '';
         foreach (array_keys($downloadsfielddata) as $j) {
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');
         }
@@ -193,7 +189,7 @@ foreach (array_keys($downloads_field) as $i) {
     if ('' != $champ_sup) {
         $xoopsTpl->append('champ_sup', [
             'image' => $uploadurl_field . $downloads_field[$i]->getVar('img'),
-            'data'  => $champ_sup,
+            'data' => $champ_sup,
         ]);
     }
     $champ_sup = '';
@@ -207,7 +203,7 @@ if ($nb_champ > 0 && $champ_sup_vide > 0) {
 $xoopsTpl->assign('perm_vote', $perm_vote);
 $xoopsTpl->assign('perm_modif', $perm_modif);
 $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
-$item       = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
+$item = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
 if (1 == $helper->getConfig('permission_download')) {
     if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
         $xoopsTpl->assign('perm_download', false);
@@ -224,7 +220,7 @@ if (1 == $helper->getConfig('permission_download')) {
 
 // pour utiliser tellafriend.
 if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
-    $string  = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'] . ':  ' . XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?lid=' . $_REQUEST['lid']);
+    $string = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'] . ':  ' . XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?lid=' . $_REQUEST['lid']);
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (false !== mb_strpos($subject, '%')) {
         $subject = rawurldecode($subject);

@@ -69,13 +69,13 @@ define('_MD_TDMDOWNLOADS_SINGLEFILE_PAYPAL', 'Spende für %s');
 define('_MD_TDMDOWNLOADS_SINGLEFILE_NOPERM', 'Sie besitzen keine Downloadberechtigung');
 // ratefile.php
 define('_MD_TDMDOWNLOADS_RATEFILE_BEOBJECTIVE', 'Bitte seien Sie objektiv, wenn Sie immer mit 1 oder 10 bewerten, ist das Rating nicht hilfreich.');
-define('_MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN', 'Das Abstimmen für eigene Einsendungen ist nicht zulässig.<br />Alle Bewertungen werden gespeichert und verifiziert.');
+define('_MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN', 'Das Abstimmen für eigene Einsendungen ist nicht zulässig.<br>Alle Bewertungen werden gespeichert und verifiziert.');
 define('_MD_TDMDOWNLOADS_RATEFILE_DONOTVOTE', 'Stimmen Sie nicht für eigene Einsendungen.');
 define('_MD_TDMDOWNLOADS_RATEFILE_NORATING', 'Die Bewertung muss zwischen 1 und 10 liegen.');
 define('_MD_TDMDOWNLOADS_RATEFILE_RATE', 'Bewerten!');
 define('_MD_TDMDOWNLOADS_RATEFILE_RATINGSCALE', 'Die Bewertungsskala reicht von 1 bis 10, wobei 1 schlecht und 10 excellent bedeuten.');
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTE', 'Abstimmen');
-define('_MD_TDMDOWNLOADS_RATEFILE_VOTEOK', 'Ihre Stimme wurde gezählt.<br />Danke, dass Sie sich die Zeit für die Abstimmung genommen haben.');
+define('_MD_TDMDOWNLOADS_RATEFILE_VOTEOK', 'Ihre Stimme wurde gezählt.<br>Danke, dass Sie sich die Zeit für die Abstimmung genommen haben.');
 define('_MD_TDMDOWNLOADS_RATEFILE_VOTEONCE', 'Bitte stimmen Sie für einen Download nur einmal ab.');
 // brokenfile.php
 define('_MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED', 'Sie haben uns diesen Download bereits als fehlerhaft gemeldet.');
@@ -112,12 +112,14 @@ define('_MD_TDMDOWNLOADS_MOREDETAILS', 'weitere Details');
 define('_MD_TDMDOWNLOADS_DOWNLOAD', 'Download');
 define('_MD_TDMDOWNLOADS_RSS', 'RSS Feed');
 //visit.php
-define('_MD_TDMDOWNLOADS_NOPERMISETOLINK',
-       'This file does not belong to the website from where you are coming.<br /><br />thanks to write an email to the webmaster of the website from where you are coming and tell him :<br /><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br /><br /><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br /><br />You are already <b>registered</b>.');
+define(
+    '_MD_TDMDOWNLOADS_NOPERMISETOLINK',
+       'This file does not belong to the website from where you are coming.<br><br>thanks to write an email to the webmaster of the website from where you are coming and tell him :<br><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br><br><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <b>registered</b>.'
+);
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'Sie müssen eine Kategorie wählen!');
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', 'Die Dateigröße muss numerisch angegeben werden');
-//Bookmarks 
+//Bookmarks
 define('_MD_TDMDOWNLOADS_BOOKMARK_ME', 'Bookmark Me');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BLINKLIST', 'Bookmark to Blinklist');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DELICIOUS', 'Bookmark to del.icio.us');

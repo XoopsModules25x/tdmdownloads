@@ -16,9 +16,6 @@ namespace XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -85,22 +82,22 @@ class Category extends \XoopsObject
         //titre
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'cat_title', 50, 255, $this->getVar('cat_title')), true);
         //editeur
-        $editor_configs           = [];
-        $editor_configs['name']   = 'cat_description_main';
-        $editor_configs['value']  = $this->getVar('cat_description_main', 'e');
-        $editor_configs['rows']   = 20;
-        $editor_configs['cols']   = 160;
-        $editor_configs['width']  = '100%';
+        $editor_configs = [];
+        $editor_configs['name'] = 'cat_description_main';
+        $editor_configs['value'] = $this->getVar('cat_description_main', 'e');
+        $editor_configs['rows'] = 20;
+        $editor_configs['cols'] = 160;
+        $editor_configs['width'] = '100%';
         $editor_configs['height'] = '400px';
         $editor_configs['editor'] = $helper->getConfig('editor');
         $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXT, 'cat_description_main', $editor_configs), false);
         //image
         $downloadscat_img = $this->getVar('cat_imgurl') ?: 'blank.gif';
-        $uploadirectory   = '/uploads/' . $moduleDirName . '/images/cats';
-        $imgtray          = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
-        $imgpath          = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect      = new \XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
-        $topics_array     = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $uploadirectory = '/uploads/' . $moduleDirName . '/images/cats';
+        $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
+        $imgpath = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect = new \XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
+        $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }
@@ -116,11 +113,11 @@ class Category extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
-        $criteria        = new \CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         $downloadscatArray = $categoryHandler->getAll($criteria);
-        $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+        $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
         $form->addElement($mytree->makeSelectElement('cat_pid', 'cat_title', '--', $this->getVar('cat_pid'), true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
         //poids de la catégorie
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMWEIGHT, 'cat_weight', 5, 5, $this->getVar('cat_weight', 'e')), false);
@@ -128,24 +125,24 @@ class Category extends \XoopsObject
         //permissions
         /** @var \XoopsMemberHandler $memberHandler */
         $memberHandler = xoops_getHandler('member');
-        $group_list    = $memberHandler->getGroupList();
+        $group_list = $memberHandler->getGroupList();
         /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $full_list        = array_keys($group_list);
+        $full_list = array_keys($group_list);
         global $xoopsModule;
         if (!$this->isNew()) {
-            $groups_ids_view                   = $grouppermHandler->getGroupIds('tdmdownloads_view', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
-            $groups_ids_submit                 = $grouppermHandler->getGroupIds('tdmdownloads_submit', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
-            $groups_ids_download               = $grouppermHandler->getGroupIds('tdmdownloads_download', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
-            $groups_ids_view                   = array_values($groups_ids_view);
-            $groups_news_can_view_checkbox     = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_VIEW_DSC, 'groups_view[]', $groups_ids_view);
-            $groups_ids_submit                 = array_values($groups_ids_submit);
-            $groups_news_can_submit_checkbox   = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_SUBMIT_DSC, 'groups_submit[]', $groups_ids_submit);
-            $groups_ids_download               = array_values($groups_ids_download);
+            $groups_ids_view = $grouppermHandler->getGroupIds('tdmdownloads_view', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_submit = $grouppermHandler->getGroupIds('tdmdownloads_submit', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_download = $grouppermHandler->getGroupIds('tdmdownloads_download', $this->getVar('cat_cid'), $xoopsModule->getVar('mid'));
+            $groups_ids_view = array_values($groups_ids_view);
+            $groups_news_can_view_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_VIEW_DSC, 'groups_view[]', $groups_ids_view);
+            $groups_ids_submit = array_values($groups_ids_submit);
+            $groups_news_can_submit_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_SUBMIT_DSC, 'groups_submit[]', $groups_ids_submit);
+            $groups_ids_download = array_values($groups_ids_download);
             $groups_news_can_download_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC, 'groups_download[]', $groups_ids_download);
         } else {
-            $groups_news_can_view_checkbox     = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_VIEW_DSC, 'groups_view[]', $full_list);
-            $groups_news_can_submit_checkbox   = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_SUBMIT_DSC, 'groups_submit[]', $full_list);
+            $groups_news_can_view_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_VIEW_DSC, 'groups_view[]', $full_list);
+            $groups_news_can_submit_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_SUBMIT_DSC, 'groups_submit[]', $full_list);
             $groups_news_can_download_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC, 'groups_download[]', $full_list);
         }
         // pour voir

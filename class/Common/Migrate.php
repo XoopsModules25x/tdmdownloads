@@ -33,7 +33,7 @@ class Migrate extends \Xmf\Database\Migrate
     public function __construct()
     {
         require_once dirname(dirname(__DIR__)) . '/include/config.php';
-        $config             = getConfig();
+        $config = getConfig();
         $this->renameTables = $config->renameTables;
 
         $moduleDirName = basename(dirname(dirname(__DIR__)));
@@ -57,15 +57,13 @@ class Migrate extends \Xmf\Database\Migrate
      *
      * @param string $tableName  table to convert
      * @param string $columnName column with IP address
-     *
-     * @return void
      */
     private function convertIPAddresses($tableName, $columnName)
     {
         if ($this->tableHandler->useTable($tableName)) {
             $attributes = $this->tableHandler->getColumnAttributes($tableName, $columnName);
-            if (false !== strpos($attributes, ' int(')) {
-                if (false === strpos($attributes, 'unsigned')) {
+            if (false !== mb_strpos($attributes, ' int(')) {
+                if (false === mb_strpos($attributes, 'unsigned')) {
                     $this->tableHandler->alterColumn($tableName, $columnName, " bigint(16) NOT NULL  DEFAULT '0' ");
                     $this->tableHandler->update($tableName, [$columnName => "4294967296 + $columnName"], "WHERE $columnName < 0", false);
                 }
@@ -77,12 +75,10 @@ class Migrate extends \Xmf\Database\Migrate
 
     /**
      * Move do* columns from newbb_posts to newbb_posts_text table
-     *
-     * @return void
      */
     private function moveDoColumns()
     {
-        $tableName    = 'newbb_posts_text';
+        $tableName = 'newbb_posts_text';
         $srcTableName = 'newbb_posts';
         if (false !== $this->tableHandler->useTable($tableName)
             && false !== $this->tableHandler->useTable($srcTableName)) {
@@ -90,8 +86,8 @@ class Migrate extends \Xmf\Database\Migrate
             if (false === $attributes) {
                 $this->synchronizeTable($tableName);
                 $updateTable = $GLOBALS['xoopsDB']->prefix($tableName);
-                $joinTable   = $GLOBALS['xoopsDB']->prefix($srcTableName);
-                $sql         = "UPDATE `$updateTable` t1 INNER JOIN `$joinTable` t2 ON t1.post_id = t2.post_id \n" . "SET t1.dohtml = t2.dohtml,  t1.dosmiley = t2.dosmiley, t1.doxcode = t2.doxcode\n" . '  , t1.doimage = t2.doimage, t1.dobr = t2.dobr';
+                $joinTable = $GLOBALS['xoopsDB']->prefix($srcTableName);
+                $sql = "UPDATE `$updateTable` t1 INNER JOIN `$joinTable` t2 ON t1.post_id = t2.post_id \n" . "SET t1.dohtml = t2.dohtml,  t1.dosmiley = t2.dosmiley, t1.doxcode = t2.doxcode\n" . '  , t1.doimage = t2.doimage, t1.dobr = t2.dobr';
                 $this->tableHandler->addToQueue($sql);
             }
         }
@@ -103,8 +99,6 @@ class Migrate extends \Xmf\Database\Migrate
      * Some typical uses include
      *   table and column renames
      *   data conversions
-     *
-     * @return void
      */
     protected function preSyncActions()
     {

@@ -14,9 +14,6 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-use XoopsModules\Tdmdownloads;
-use XoopsModules\Tdmdownloads\Tree;
-
 /**
  * @return array
  */
@@ -39,8 +36,8 @@ function b_tdmdownloads_search_show()
     $helper->loadLanguage('common');
 
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
-    $utility         = new \XoopsModules\Tdmdownloads\Utility();
-    $categories      = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+    $utility = new \XoopsModules\Tdmdownloads\Utility();
+    $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
     $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
@@ -57,23 +54,23 @@ function b_tdmdownloads_search_show()
     $criteria->setOrder('ASC');
     $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
     $downloadscatArray = $categoryHandler->getAll($criteria);
-    $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+    $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
     $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
     //recherche champ sup.
     /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $criteria     = new \CriteriaCompo();
+    $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('search', 1));
     $criteria->add(new \Criteria('status', 1));
     $criteria->setSort('weight ASC, title');
     $criteria->setOrder('ASC');
     $downloads_field = $fieldHandler->getAll($criteria);
     foreach (array_keys($downloads_field) as $i) {
-        $title_sup                                          = '';
-        $contenu_arr                                        = [];
-        $lid_arr                                            = [];
-        $nom_champ                                          = 'champ' . $downloads_field[$i]->getVar('fid');
-        $criteria                                           = new \CriteriaCompo();
+        $title_sup = '';
+        $contenu_arr = [];
+        $lid_arr = [];
+        $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
+        $criteria = new \CriteriaCompo();
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         if (1 == $downloads_field[$i]->getVar('status_def')) {
             $criteria->add(new \Criteria('status', 0, '!='));
@@ -97,7 +94,7 @@ function b_tdmdownloads_search_show()
             }
             if (4 == $downloads_field[$i]->getVar('fid')) {
                 //platform
-                $title_sup      = _AM_TDMDOWNLOADS_FORMPLATFORM;
+                $title_sup = _AM_TDMDOWNLOADS_FORMPLATFORM;
                 $platform_array = explode('|', xoops_getModuleOption('platform', $moduleDirName));
                 foreach ($platform_array as $platform) {
                     $contenu_arr[$platform] = $platform;

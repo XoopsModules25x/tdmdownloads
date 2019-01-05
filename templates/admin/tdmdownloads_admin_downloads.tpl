@@ -133,12 +133,12 @@
     <table width="100%">
         <tr>
             <th colspan="5">
-                <b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESTOTAL}> <{$ratings.votes_total}></b><br/><br/>
+                <b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESTOTAL}> <{$ratings.votes_total}></b><br><br>
             </th>
         </tr>
         <tr>
             <td colspan="5">
-                <b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER}> <{$ratings.user_total}></b><br/><br/>
+                <b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER}> <{$ratings.user_total}></b><br><br>
             </td>
         </tr>
         <tr>
@@ -160,7 +160,7 @@
         <{/foreach}>
 
         <tr>
-            <td colspan="5"><br/><b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME}> <{$ratings.anon_total}></b><br/><br/></td>
+            <td colspan="5"><br><b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME}> <{$ratings.anon_total}></b><br><br></td>
         </tr>
         <tr>
             <td colspan="2"><b><{$smarty.const._AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP}></b></td>

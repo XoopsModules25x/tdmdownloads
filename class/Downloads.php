@@ -2,8 +2,6 @@
 
 namespace XoopsModules\Tdmdownloads;
 
-use XoopsModules\Tdmdownloads;
-
 /**
  * TDMDownload
  *
@@ -83,7 +81,7 @@ class Downloads extends \XoopsObject
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
         /** @var \XoopsModules\Tdmdownloads\Utility $utility */
-        $utility       = new \XoopsModules\Tdmdownloads\Utility();
+        $utility = new \XoopsModules\Tdmdownloads\Utility();
         $moduleDirName = basename(dirname(__DIR__));
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -91,7 +89,7 @@ class Downloads extends \XoopsObject
         //permission pour uploader
         /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = xoops_getHandler('groupperm');
-        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         if ($xoopsUser) {
             $perm_upload = true;
             if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
@@ -110,7 +108,7 @@ class Downloads extends \XoopsObject
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'title', 50, 255, $this->getVar('title')), true);
         // fichier
         $fichier = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMFILE, '<br><br>');
-        $url     = $this->isNew() ? 'http://' : $this->getVar('url');
+        $url = $this->isNew() ? 'http://' : $this->getVar('url');
         $formurl = new \XoopsFormText(_AM_TDMDOWNLOADS_FORMURL, 'url', 75, 255, $url);
         $fichier->addElement($formurl, false);
         if (true === $perm_upload) {
@@ -121,8 +119,8 @@ class Downloads extends \XoopsObject
         //catégorie
         /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
-        $categories      = $utility->getItemIds('tdmdownloads_submit', $moduleDirName);
-        $criteria        = new \CriteriaCompo();
+        $categories = $utility->getItemIds('tdmdownloads_submit', $moduleDirName);
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
         $criteria->setOrder('ASC');
         if ($xoopsUser) {
@@ -142,7 +140,7 @@ class Downloads extends \XoopsObject
         //affichage des champs
         /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
         $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-        $criteria     = new \CriteriaCompo();
+        $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
@@ -176,7 +174,7 @@ class Downloads extends \XoopsObject
                             }
                         } else {
                             $size_value_arr = explode(' ', $this->getVar('size'));
-                            $size_value     = $size_value_arr[0];
+                            $size_value = $size_value_arr[0];
                             if (false === $erreur) {
                                 $type_value = $size_value_arr[1];
                             } else {
@@ -185,9 +183,9 @@ class Downloads extends \XoopsObject
                         }
                         $aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
                         $aff_size->addElement(new \XoopsFormText('', 'size', 10, 255, $size_value));
-                        $type     = new \XoopsFormSelect('', 'type_size', $type_value);
+                        $type = new \XoopsFormSelect('', 'type_size', $type_value);
                         $type_arr = [
-                            _AM_TDMDOWNLOADS_BYTES  => '[' . _AM_TDMDOWNLOADS_BYTES . ']',
+                            _AM_TDMDOWNLOADS_BYTES => '[' . _AM_TDMDOWNLOADS_BYTES . ']',
                             _AM_TDMDOWNLOADS_KBYTES => '[' . _AM_TDMDOWNLOADS_KBYTES . ']',
                             _AM_TDMDOWNLOADS_MBYTES => '[' . _AM_TDMDOWNLOADS_MBYTES . ']',
                             _AM_TDMDOWNLOADS_GBYTES => '[' . _AM_TDMDOWNLOADS_GBYTES . ']',
@@ -215,12 +213,12 @@ class Downloads extends \XoopsObject
                     }
                 }
             } else {
-                $contenu        = '';
+                $contenu = '';
                 $contenu_iddata = '';
-                $nom_champ      = 'champ' . $downloads_field[$i]->getVar('fid');
+                $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
                 /** @var \XoopsModules\Tdmdownloads\FielddataHandler $fielddataHandler */
                 $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
-                $criteria         = new \CriteriaCompo();
+                $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $this->getVar('lid')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
@@ -246,12 +244,12 @@ class Downloads extends \XoopsObject
             }
         }
         //description
-        $editor_configs           = [];
-        $editor_configs['name']   = 'description';
-        $editor_configs['value']  = $this->getVar('description', 'e');
-        $editor_configs['rows']   = 20;
-        $editor_configs['cols']   = 100;
-        $editor_configs['width']  = '100%';
+        $editor_configs = [];
+        $editor_configs['name'] = 'description';
+        $editor_configs['value'] = $this->getVar('description', 'e');
+        $editor_configs['rows'] = 20;
+        $editor_configs['cols'] = 100;
+        $editor_configs['width'] = '100%';
         $editor_configs['height'] = '400px';
         $editor_configs['editor'] = $helper->getConfig('editor');
         $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editor_configs), true);
@@ -271,16 +269,16 @@ class Downloads extends \XoopsObject
 
         //image
         if ($helper->getConfig('useshots')) {
-            $uploaddir        = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $this->getVar('logourl');
+            $uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $this->getVar('logourl');
             $downloadscat_img = $this->getVar('logourl') ?: 'blank.gif';
             if (!is_file($uploaddir)) {
                 $downloadscat_img = 'blank.gif';
             }
             $uploadirectory = '/uploads/' . $moduleDirName . '/images/shots';
-            $imgtray        = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
-            $imgpath        = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-            $imageselect    = new \XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
-            $topics_array   = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+            $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
+            $imgpath = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+            $imageselect = new \XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
+            $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
                 $imageselect->addOption((string)$image, $image);
             }
@@ -300,27 +298,27 @@ class Downloads extends \XoopsObject
             if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 // auteur
                 if ($this->isNew()) {
-                    $submitter             = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
+                    $submitter = !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0;
                     $donnee['date_update'] = 0;
                 } else {
                     $submitter = $this->getVar('submitter');
-                    $v_date    = $this->getVar('date');
+                    $v_date = $this->getVar('date');
                 }
                 if (true === $erreur) {
                     $date_update = $donnee['date_update'];
-                    $v_status    = $donnee['status'];
-                    $submitter   = $donnee['submitter'];
+                    $v_status = $donnee['status'];
+                    $submitter = $donnee['submitter'];
                 } else {
                     $date_update = 'N';
-                    $v_status    = 1;
+                    $v_status = 1;
                 }
                 $form->addElement(new \XoopsFormSelectUser(_AM_TDMDOWNLOADS_FORMSUBMITTER, 'submitter', true, $submitter, 1, false), true);
 
                 // date
                 if (!$this->isNew()) {
                     $selection_date = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMDATEUPDATE);
-                    $date           = new \XoopsFormRadio('', 'date_update', $date_update);
-                    $options        = [
+                    $date = new \XoopsFormRadio('', 'date_update', $date_update);
+                    $options = [
                         'N' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_NO . ' (' . formatTimestamp($v_date, 's') . ')',
                         'Y' => _AM_TDMDOWNLOADS_FORMDATEUPDATE_YES,
                     ];
@@ -335,14 +333,14 @@ class Downloads extends \XoopsObject
                 //permissions pour télécharger
                 if (2 == $helper->getConfig('permission_download')) {
                     /** @var \XoopsMemberHandler $memberHandler */
-                    $memberHandler    = xoops_getHandler('member');
-                    $group_list       = $memberHandler->getGroupList();
+                    $memberHandler = xoops_getHandler('member');
+                    $group_list = $memberHandler->getGroupList();
                     $grouppermHandler = xoops_getHandler('groupperm');
-                    $full_list        = array_keys($group_list);
+                    $full_list = array_keys($group_list);
                     global $xoopsModule;
                     if (!$this->isNew()) {
-                        $item_ids_download               = $grouppermHandler->getGroupIds('tdmdownloads_download_item', $this->getVar('lid'), $xoopsModule->getVar('mid'));
-                        $item_ids_downloa                = array_values($item_ids_download);
+                        $item_ids_download = $grouppermHandler->getGroupIds('tdmdownloads_download_item', $this->getVar('lid'), $xoopsModule->getVar('mid'));
+                        $item_ids_downloa = array_values($item_ids_download);
                         $item_news_can_download_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD, 'item_download[]', $item_ids_download);
                     } else {
                         $item_news_can_download_checkbox = new \XoopsFormCheckBox(_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD, 'item_download[]', $full_list);
