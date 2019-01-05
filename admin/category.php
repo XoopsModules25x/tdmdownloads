@@ -49,7 +49,7 @@ switch ($op) {
         if (0 < count($downloads_cat)) {
             $GLOBALS['xoopsTpl']->assign('categories_count', count($downloads_cat));
             $mytree             = new \XoopsModules\Tdmdownloads\Tree($downloads_cat, 'cat_cid', 'cat_pid');
-            $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="' . TDMDOWNLOADS_IMAGE_URL . 'assets/images/deco/arrow.gif">');
+            $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../assets/images/deco/arrow.gif">');
             $category           = [];
             foreach (array_keys($category_ArrayTree) as $i) {
                 $category = [
