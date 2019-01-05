@@ -116,6 +116,7 @@ function b_tdmdownloads_search_show()
             $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
             $criteria->setSort('data');
             $criteria->setOrder('ASC');
+            /** @var \XoopsModules\Tdmdownloads\FielddataHandler $fielddataHandler */
             $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
             $tdmdownloads_arr = $fielddataHandler->getAll($criteria);
             foreach (array_keys($tdmdownloads_arr) as $j) {
