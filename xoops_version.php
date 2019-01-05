@@ -26,9 +26,9 @@ $modversion = [
     'name'                => _MI_TDMDOWNLOADS_NAME,
     'version'             => '2.0',
     'module_status'       => 'Alpha 1',
-    'release_date'        => '2018/12/22',
+    'release_date'        => '2019/01/04',
     'description'         => _MI_TDMDOWNLOADS_DESC,
-    'credits'             => 'G. Mage, Mamba',
+    'credits'             => 'G. Mage, Mamba, Goffy',
     'author'              => 'G. Mage',
     'nickname'            => 'Mage',
     'module_website_url'  => 'www.xoops.org',
@@ -40,11 +40,13 @@ $modversion = [
     // ------------------- Folders & Files -------------------
     'dirname'             => $moduleDirName,
     'image'               => 'assets/images/logoModule.png',
+    'modicons16'          => 'assets/images/icons/16',
+    'modicons32'          => 'assets/images/icons/32',
     'release_file'        => XOOPS_URL . '/modules/' . $moduleDirName . '/docs/changelog.txt',
     'onInstall'           => 'include/oninstall.php',
     'onUpdate'            => 'include/onupdate.php',
     // ------------------- Min Requirements -------------------
-    'min_php'             => '5.5',
+    'min_php'             => '7.0',
     'min_xoops'           => '2.5.9',
     'min_admin'           => '1.1',
     'min_db'              => ['mysql' => '5.0.7', 'mysqli' => '5.0.7'],
@@ -165,6 +167,19 @@ $modversion['comments']['callback']['update']  = 'tdmdownloads_com_update';
 
 // Templates
 $modversion['templates'] = [
+    // Admin
+    ['file' => $moduleDirName . '_admin_about.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_header.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_index.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_footer.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_category.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_downloads.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_broken.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_modified.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_field.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_import.tpl', 'description' => '', 'type' => 'admin'],
+    ['file' => $moduleDirName . '_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
+    // User
     ['file' => $moduleDirName . '_brokenfile.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_download.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_index.tpl', 'description' => ''],

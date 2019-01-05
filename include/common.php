@@ -39,6 +39,7 @@ $helper->loadLanguage('common');
 //appel des class
 $categoryHandler     = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 $downloadsHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+$downlimitHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downlimit');
 $ratingHandler       = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Rating');
 $fieldHandler        = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
 $fielddataHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
@@ -48,10 +49,6 @@ $modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHand
 
 $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 $pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
-if (is_object($helper->getModule())) {
-    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
-    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
-}
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
@@ -93,6 +90,7 @@ if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof \XoopsTpl)
 }
 
 $GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+
 // Local icons path
 if (is_object($helper->getModule())) {
     $pathModIcon16 = $helper->getModule()->getInfo('modicons16');

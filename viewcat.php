@@ -26,8 +26,8 @@ $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_viewcat.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
-$xoopsTpl->assign('mydirname', $moduleDirName);
 $cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
 
 // pour les permissions

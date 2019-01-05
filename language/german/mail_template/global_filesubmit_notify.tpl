@@ -17,6 +17,6 @@ Auf diese Nachricht bitte nicht antworten, da diese automatisch generiert wurde.
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 Webmaster
 {X_ADMINMAIL}

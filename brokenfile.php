@@ -23,6 +23,7 @@ $moduleDirName = basename(__DIR__);
 
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_brokenfile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
 $op  = $utility->cleanVars($_REQUEST, 'op', 'liste', 'string');
@@ -33,7 +34,6 @@ if (false === $perm_vote) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
-$xoopsTpl->assign('mydirname', $moduleDirName);
 $viewDownloads = $downloadsHandler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activ�
 if (0 == count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {

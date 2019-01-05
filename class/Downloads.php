@@ -80,6 +80,8 @@ class Downloads extends \XoopsObject
     public function getForm($donnee = [], $erreur = false, $action = false)
     {
         global $xoopsModule, $xoopsUser;
+        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
+        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
         /** @var \XoopsModules\Tdmdownloads\Utility $utility */
         $utility       = new \XoopsModules\Tdmdownloads\Utility();
         $moduleDirName = basename(dirname(__DIR__));
@@ -332,6 +334,7 @@ class Downloads extends \XoopsObject
                 $form->addElement($status);
                 //permissions pour télécharger
                 if (2 == $helper->getConfig('permission_download')) {
+                    /** @var \XoopsMemberHandler $memberHandler */
                     $memberHandler    = xoops_getHandler('member');
                     $group_list       = $memberHandler->getGroupList();
                     $grouppermHandler = xoops_getHandler('groupperm');
@@ -365,7 +368,7 @@ class Downloads extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save_downloads'));
         //bouton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', '', false));
 
         return $form;
     }

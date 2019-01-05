@@ -28,8 +28,9 @@ define('_AM_TDMDOWNLOADS_DELSOUSCAT', 'Les catégories suivantes seront complèt
 define('_AM_TDMDOWNLOADS_DOWNLOADS_LISTE', 'Liste des téléchargements');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW', 'Nouveau téléchargement');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_SEARCH', 'Recherche');
-define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME', 'Votes des anonymes (total des votes : %s)');
-define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER', 'Votes des utilisateurs (total des votes : %s)');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESTOTAL', 'Total des votes');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME', 'Votes des anonymes');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER', 'Votes des utilisateurs');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_USER', 'Utilisateurs');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP', 'Adresse IP');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'En attente de validation');
@@ -141,6 +142,7 @@ define('_AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS', "Il n'y a aucun liens de té
 define('_AM_TDMDOWNLOADS_ERREUR_NOCAT', 'Vous devez choisir une catégorie !');
 define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Vous devez écrire une description');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', "Il n'y a aucun fichier à télécharger");
+define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', "Il n'y a téléchargements en attente d'approbation");
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'la taille du fichier doit être un nombre');
 define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'le poids doit être un nombre');
 //Message de redirection
@@ -156,3 +158,34 @@ define('_AM_TDMDOWNLOADS_KBYTES', 'Ko');
 define('_AM_TDMDOWNLOADS_MBYTES', 'Mo');
 define('_AM_TDMDOWNLOADS_GBYTES', 'Go');
 define('_AM_TDMDOWNLOADS_TBYTES', 'To');
+// ---------------- Admin Others ----------------
+define('_AM_TDMDOWNLOADS_MAINTAINEDBY', 'maintenues par');
+//2.00
+//directories
+define('_AM_TDMDOWNLOADS_AVAILABLE', "<span style='color : #008000;'>Available. </span>");
+define('_AM_TDMDOWNLOADS_NOTAVAILABLE', "<span style='color : #ff0000;'>is not available. </span>");
+define('_AM_TDMDOWNLOADS_NOTWRITABLE', "<span style='color : #ff0000;'>" . ' should have permission ( %1$d ), but it has ( %2$d )' . '</span>');
+define('_AM_TDMDOWNLOADS_CREATETHEDIR', 'Create it');
+define('_AM_TDMDOWNLOADS_SETMPERM', 'Set the permission');
+
+define('_AM_TDMDOWNLOADS_DIRCREATED', 'The directory has been created');
+define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'The directory can not be created');
+define('_AM_TDMDOWNLOADS_PERMSET', 'The permission has been set');
+define('_AM_TDMDOWNLOADS_PERMNOTSET', 'The permission can not be set');
+
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
+define('_AM_TDMDOWNLOADS_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_TDMDOWNLOADS_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
+
+// Error Msgs
+define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
+define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
+
+define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');

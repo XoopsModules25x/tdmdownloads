@@ -1,3 +1,3 @@
 <div class="tdmdownloads-block">
-	<{$block.form}>
+    <{$block.form}>
 </div>

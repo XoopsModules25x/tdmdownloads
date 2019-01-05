@@ -26,8 +26,8 @@ $moduleDirName = basename(__DIR__);
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_liste.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
-$xoopsTpl->assign('mydirname', $moduleDirName);
 
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 

@@ -33,9 +33,9 @@ $xoopsModuleConfig['utf8'] = false;
 
 $moduleDirName = basename(__DIR__);
 
-$tpl          = new \XoopsTpl();
-$tpl->caching = 2; //1 = Cache global, 2 = Cache individuel (par template)
-$tpl->xoops_setCacheTime($helper->getConfig('timecacherss') * 60); // Temps de cache en secondes
+//$xoopsTpl          = new \XoopsTpl();
+$xoopsTpl->caching = 2; //1 = Cache global, 2 = Cache individuel (par template)
+$xoopsTpl->xoops_setCacheTime($helper->getConfig('timecacherss') * 60); // Temps de cache en secondes
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 $criteria   = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
@@ -52,23 +52,23 @@ $criteria->setSort('date');
 $criteria->setOrder('DESC');
 $downloads_arr = $downloadsHandler->getAll($criteria);
 
-if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
-    $tpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
-    $tpl->assign('channel_link', XOOPS_URL . '/');
-    $tpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
-    $tpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
-    $tpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
-    $tpl->assign('channel_editor', $xoopsConfig['adminmail']);
-    $tpl->assign('channel_category', 'Event');
-    $tpl->assign('channel_generator', 'XOOPS - ' . htmlspecialchars($xoopsModule->getVar('name'), ENT_QUOTES));
-    $tpl->assign('channel_language', _LANGCODE);
+if (!$xoopsTpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
+    $xoopsTpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
+    $xoopsTpl->assign('channel_link', XOOPS_URL . '/');
+    $xoopsTpl->assign('channel_desc', htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES));
+    $xoopsTpl->assign('channel_lastbuild', formatTimestamp(time(), 'rss'));
+    $xoopsTpl->assign('channel_webmaster', $xoopsConfig['adminmail']);
+    $xoopsTpl->assign('channel_editor', $xoopsConfig['adminmail']);
+    $xoopsTpl->assign('channel_category', 'Event');
+    $xoopsTpl->assign('channel_generator', 'XOOPS - ' . htmlspecialchars($xoopsModule->getVar('name'), ENT_QUOTES));
+    $xoopsTpl->assign('channel_language', _LANGCODE);
     if (_LANGCODE === 'fr') {
-        $tpl->assign('docs', 'http://www.scriptol.fr/rss/RSS-2.0.html');
+        $xoopsTpl->assign('docs', 'http://www.scriptol.fr/rss/RSS-2.0.html');
     } else {
-        $tpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');
+        $xoopsTpl->assign('docs', 'http://cyber.law.harvard.edu/rss/rss.html');
     }
-    $tpl->assign('mydirname', $moduleDirName);
-    $tpl->assign('image_url', XOOPS_URL . $helper->getConfig('logorss'));
+
+    $xoopsTpl->assign('image_url', XOOPS_URL . $helper->getConfig('logorss'));
     $dimention = getimagesize(XOOPS_ROOT_PATH . $helper->getConfig('logorss'));
     if (empty($dimention[0])) {
         $width = 88;
@@ -80,8 +80,8 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     } else {
         $height = ($dimention[1] > 400) ? 400 : $dimention[1];
     }
-    $tpl->assign('image_width', $width);
-    $tpl->assign('image_height', $height);
+    $xoopsTpl->assign('image_width', $width);
+    $xoopsTpl->assign('image_height', $height);
     foreach (array_keys($downloads_arr) as $i) {
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
@@ -90,7 +90,7 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
         } else {
             $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
-        $tpl->append('items', [
+        $xoopsTpl->append('items', [
             'title'       => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
             'link'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
             'guid'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
@@ -100,4 +100,4 @@ if (!$tpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     }
 }
 header('Content-Type:text/xml; charset=' . _CHARSET);
-$tpl->display('db:tdmdownloads_rss.tpl', $cid);
+$xoopsTpl->display('db:tdmdownloads_rss.tpl', $cid);

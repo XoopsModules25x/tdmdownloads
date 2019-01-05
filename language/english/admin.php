@@ -28,8 +28,9 @@ define('_AM_TDMDOWNLOADS_DELSOUSCAT', 'The following categories will be complete
 define('_AM_TDMDOWNLOADS_DOWNLOADS_LISTE', 'Downloads List');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW', 'New download');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_SEARCH', 'Search');
-define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME', 'Votes by anonymous (total of votes: %s)');
-define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER', 'Votes by users (total of votes: %s)');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESTOTAL', 'Total of votes');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME', 'Votes by anonymous');
+define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER', 'Votes by users');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_USER', 'Users');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP', 'IP Address');
 define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'Waiting for approval');
@@ -38,7 +39,7 @@ define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'Waiting for approval');
 define('_AM_TDMDOWNLOADS_BROKEN_SENDER', 'Report Author');
 define('_AM_TDMDOWNLOADS_BROKEN_SURDEL', 'Are you sure you want to delete this report?');
 //modified.php
-define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Submitted by;');
+define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Submitted by:');
 define('_AM_TDMDOWNLOADS_MODIFIED_ORIGINAL', 'Original');
 define('_AM_TDMDOWNLOADS_MODIFIED_SURDEL', 'Are you sure to delete this download modification request?');
 //field.php
@@ -142,6 +143,7 @@ define('_AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS', 'There are no broken downloa
 define('_AM_TDMDOWNLOADS_ERREUR_NOCAT', 'You have to choose a category!');
 define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'You have to write a description');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', 'There are no files to download');
+define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', 'There are no files waiting for approval');
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'the file size must be a number');
 define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'weight must be a number');
 //Message de redirection
@@ -157,7 +159,8 @@ define('_AM_TDMDOWNLOADS_KBYTES', 'kB');
 define('_AM_TDMDOWNLOADS_MBYTES', 'MB');
 define('_AM_TDMDOWNLOADS_GBYTES', 'GB');
 define('_AM_TDMDOWNLOADS_TBYTES', 'TB');
-
+// ---------------- Admin Others ----------------
+define('_AM_TDMDOWNLOADS_MAINTAINEDBY', 'maintained by');
 //2.00
 //directories
 define('_AM_TDMDOWNLOADS_AVAILABLE', "<span style='color : #008000;'>Available. </span>");

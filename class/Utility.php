@@ -197,10 +197,10 @@ class Utility
 
     /**
      * retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
-     * @param $mytree
-     * @param $categories
-     * @param $entries
-     * @param $cid
+     * @param \XoopsModules\Oledrion\XoopsObjectTree $mytree
+     * @param                                        $categories
+     * @param                                        $entries
+     * @param                                        $cid
      * @return int
      */
     public function getNumbersOfEntries($mytree, $categories, $entries, $cid)
@@ -363,14 +363,14 @@ class Utility
     }
 
     /**
-     * @param        $mytree
-     * @param        $key
-     * @param        $category_array
-     * @param        $title
-     * @param string $prefix
-     * @param bool   $link
-     * @param string $order
-     * @param bool   $lasturl
+     * @param \XoopsModules\Tdmdownloads\Tree $mytree
+     * @param                                 $key
+     * @param                                 $category_array
+     * @param                                 $title
+     * @param string                          $prefix
+     * @param bool                            $link
+     * @param string                          $order
+     * @param bool                            $lasturl
      * @return string
      */
     public function getPathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
