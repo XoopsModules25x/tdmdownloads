@@ -197,7 +197,7 @@ class Utility
 
     /**
      * retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
-     * @param \XoopsModules\Oledrion\XoopsObjectTree $mytree
+     * @param \XoopsModules\Tdmdownloads\Tree $mytree
      * @param                                        $categories
      * @param                                        $entries
      * @param                                        $cid

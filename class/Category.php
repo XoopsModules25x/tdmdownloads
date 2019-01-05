@@ -168,7 +168,7 @@ class Category extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save_cat'));
         //boutton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', '', false));
+        $form->addElement(new \XoopsFormButtonTray('', 'Submit', _SUBMIT, 'submit', false));
 
         return $form;
     }
