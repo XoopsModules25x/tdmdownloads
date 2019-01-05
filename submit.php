@@ -25,8 +25,9 @@ $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_submit.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
-$xoopsTpl->assign('mydirname', $moduleDirName);
+
 //On recupere la valeur de l'argument op dans l'URL$
 $op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
 

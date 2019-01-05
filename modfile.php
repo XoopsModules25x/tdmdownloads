@@ -27,8 +27,9 @@ $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_modfile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 $moduleDirName = basename(__DIR__);
 
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
-$xoopsTpl->assign('mydirname', $moduleDirName);
+
 //On recupere la valeur de l'argument op dans l'URL$
 $op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
 
@@ -52,8 +53,8 @@ switch ($op) {
     // Vue liste
     case 'list':
         //navigation
-        $view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
-        $categories     = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+        $view_category = $categoryHandler->get($viewDownloads->getVar('cid'));
+        $categories    = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
         if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
             redirect_header('index.php', 2, _NOPERM);
         }

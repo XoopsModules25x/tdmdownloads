@@ -26,6 +26,7 @@ $moduleDirName = basename(__DIR__);
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_singlefile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 $lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');

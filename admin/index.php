@@ -19,6 +19,12 @@ use XoopsModules\Tdmdownloads;
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+// Template Index
+$templateMain = 'tdmdownloads_admin_index.tpl';
+
 // compte le nombre de catégories
 $criteria      = new \CriteriaCompo();
 $nb_categories = $categoryHandler->getCount($criteria);
@@ -26,17 +32,16 @@ $nb_categories = $categoryHandler->getCount($criteria);
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $nb_downloads = $downloadsHandler->getCount($criteria);
+unset ($criteria);
 // compte le nombre de téléchargements en attente de validation
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0));
 $nb_downloads_waiting = $downloadsHandler->getCount($criteria);
+unset ($criteria);
 // compte le nombre de rapport de téléchargements brisés
 $nb_broken = $brokenHandler->getCount();
 // compte le nombre de demande de modifications
 $nb_modified = $modifiedHandler->getCount();
-
-$moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
 $adminObject->addInfoBox(_MI_TDMDOWNLOADS_ADMENU2);

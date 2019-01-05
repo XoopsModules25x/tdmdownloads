@@ -26,6 +26,7 @@ $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 $moduleDirName                           = basename(__DIR__);
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+/** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 // pour les permissions
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);

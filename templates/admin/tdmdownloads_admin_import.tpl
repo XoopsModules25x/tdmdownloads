@@ -11,20 +11,21 @@
         -webkit-border-radius: 4px;
         border-radius: 4px;
         line-height: 140%;
-        margin-top:0px;
-        margin-bottom:50px;
+        margin-top: 0px;
+        margin-bottom: 50px;
     }
 </style>
 <{include file='db:tdmdownloads_admin_header.tpl'}>
 
 <{if $successes}>
     <{foreach item=success from=$successes}>
-        
+
     <{/foreach}>
 <{/if}>
 <{if $errors}>
     <{foreach item=error from=$errors}>
-        <span style="color: #ff0000; "><{$error.title}>: </span><{$error.info}><br>
+        <span style="color: #ff0000; "><{$error.title}>: </span><{$error.info}>
+        <br>
     <{/foreach}>
 <{/if}>
 
@@ -34,11 +35,11 @@
 <{/if}>
 
 <{if $form}>
-	<{$form}>
+    <{$form}>
 <{/if}>
-	
+
 <{if $error}>
-	<div class='errorMsg'><strong><{$error}></strong></div>
+    <div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>

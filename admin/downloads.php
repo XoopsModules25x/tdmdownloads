@@ -20,6 +20,9 @@ use XoopsModules\Tdmdownloads;
 
 require __DIR__ . '/admin_header.php';
 
+// Template
+$templateMain = 'tdmdownloads_admin_downloads.tpl';
+
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
@@ -42,21 +45,24 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         $adminObject = \Xmf\Module\Admin::getInstance();
-        $adminObject->displayNavigation(basename(__FILE__));
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         if (1 == $statut_menu) {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
-            if ($downloads_waiting > 0) {
-                $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', ' (<span style="color: #ff0000;">' . $downloads_waiting . '</span>)');
+            if (0 == $downloads_waiting) {
+                $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add');
+            } else {
+                $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
             }
         } else {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
         }
-        $adminObject->displayButton('left');
-        //nombre de téléchargement par page
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+
         $limit        = $helper->getConfig('perpageadmin');
         $category_arr = $categoryHandler->getAll();
         $numrowscat   = count($category_arr);
+
         // redirection si il n'y a pas de catégories
         if (0 === $numrowscat) {
             redirect_header('category.php?op=new_cat', 2, _AM_TDMDOWNLOADS_REDIRECT_NOCAT);
@@ -122,104 +128,65 @@ switch ($op) {
         $downloadsHandler->field_object = 'cid'; // champ de la table courante
         $downloads_arr                  = $downloadsHandler->getByLink($criteria);
         $numrows                        = $downloadsHandler->getCount($criteria);
+
+        $pagenav = '';
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&document_tri=' . $document_tri . '&document_order=' . $document_order . '&statut_display=' . $statut_display);
-            $pagenav = $pagenav->renderNav(4);
-        } else {
-            $pagenav = '';
+            $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
         }
         //Affichage du tableau des téléchargements
+        $GLOBALS['xoopsTpl']->append('downloads_count', $numrows);
         if ($numrows > 0) {
-            echo '<div align="right"><form id="form_document_tri" name="form_document_tri" method="get" action="document.php">';
-            echo _AM_TDMDOWNLOADS_TRIPAR
-                 . "<select name=\"document_tri\" id=\"document_tri\" onchange=\"location='"
-                 . XOOPS_URL
-                 . '/modules/'
-                 . $xoopsModule->dirname()
-                 . "/admin/downloads.php?statut_display=$statut_display&document_order=$document_order&document_tri='+this.options[this.selectedIndex].value\">";
-            echo '<option value="1"' . (1 == $document_tri ? ' selected' : '') . '>' . _AM_TDMDOWNLOADS_FORMDATE . '</option>';
-            echo '<option value="2"' . (2 == $document_tri ? ' selected' : '') . '>' . _AM_TDMDOWNLOADS_FORMTITLE . '</option>';
-            echo '<option value="3"' . (3 == $document_tri ? ' selected' : '') . '>' . _AM_TDMDOWNLOADS_FORMHITS . '</option>';
-            echo '<option value="4"' . (4 == $document_tri ? ' selected' : '') . '>' . _AM_TDMDOWNLOADS_FORMRATING . '</option>';
-            echo '<option value="5"' . (5 == $document_tri ? ' selected' : '') . '>' . _AM_TDMDOWNLOADS_FORMCAT . '</option>';
-            echo '</select> ';
-            echo _AM_TDMDOWNLOADS_ORDER
-                 . "<select name=\"order_tri\" id=\"order_tri\" onchange=\"location='"
-                 . XOOPS_URL
-                 . '/modules/'
-                 . $xoopsModule->dirname()
-                 . "/admin/downloads.php?statut_display=$statut_display&document_tri=$document_tri&document_order='+this.options[this.selectedIndex].value\">";
-            echo '<option value="1"' . (1 == $document_order ? ' selected' : '') . '>DESC</option>';
-            echo '<option value="2"' . (2 == $document_order ? ' selected' : '') . '>ASC</option>';
-            echo '</select> ';
-            echo '</form></div>';
-            echo '<table width="100%" cellspacing="1" class="outer">';
-            echo '<tr>';
-            echo '<th align="center" width="5%">' . _AM_TDMDOWNLOADS_FORMFILE . '</th>';
-            echo '<th align="left" width="20%">' . _AM_TDMDOWNLOADS_FORMTITLE . '</th>';
-            echo '<th align="left">' . _AM_TDMDOWNLOADS_FORMCAT . '</th>';
-            echo '<th align="center" width="5%">' . _AM_TDMDOWNLOADS_FORMHITS . '</th>';
-            echo '<th align="center" width="5%">' . _AM_TDMDOWNLOADS_FORMRATING . '</th>';
-            echo '<th align="center" width="15%">' . _AM_TDMDOWNLOADS_FORMACTION . '</th>';
-            echo '</tr>';
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
-            $class  = 'odd';
+            $selectDocument = _AM_TDMDOWNLOADS_TRIPAR
+                              . "<select name=\"document_tri\" id=\"document_tri\" onchange=\"location='"
+                              . XOOPS_URL
+                              . '/modules/'
+                              . $xoopsModule->dirname()
+                              . "/admin/downloads.php?statut_display=$statut_display&document_order=$document_order&document_tri='+this.options[this.selectedIndex].value\">";
+            $selectDocument .= '<option value="1"' . (1 == $document_tri ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMDATE . '</option>';
+            $selectDocument .= '<option value="2"' . (2 == $document_tri ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMTITLE . '</option>';
+            $selectDocument .= '<option value="3"' . (3 == $document_tri ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMHITS . '</option>';
+            $selectDocument .= '<option value="4"' . (4 == $document_tri ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMRATING . '</option>';
+            $selectDocument .= '<option value="5"' . (5 == $document_tri ? ' selected="selected"' : '') . '>' . _AM_TDMDOWNLOADS_FORMCAT . '</option>';
+            $selectDocument .= '</select> ';
+            $GLOBALS['xoopsTpl']->assign('selectDocument', $selectDocument);
+            $selectOrder = _AM_TDMDOWNLOADS_ORDER
+                           . "<select name=\"order_tri\" id=\"order_tri\" onchange=\"location='"
+                           . XOOPS_URL
+                           . '/modules/'
+                           . $xoopsModule->dirname()
+                           . "/admin/downloads.php?statut_display=$statut_display&document_tri=$document_tri&document_order='+this.options[this.selectedIndex].value\">";
+            $selectOrder .= '<option value="1"' . (1 == $document_order ? ' selected="selected"' : '') . '>DESC</option>';
+            $selectOrder .= '<option value="2"' . (2 == $document_order ? ' selected="selected"' : '') . '>ASC</option>';
+            $selectOrder .= '</select> ';
+            $GLOBALS['xoopsTpl']->assign('selectOrder', $selectOrder);
+
+            $mytree    = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
+            $class     = 'odd';
+            $downloads = [];
             foreach (array_keys($downloads_arr) as $i) {
-                $class    = ('even' === $class) ? 'odd' : 'even';
-                $category = $utility->getPathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
-                echo '<tr class="' . $class . '">';
-                echo '<td align="center">';
-                echo '<a href="../visit.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank"><img src="../assets/images/icon/download.png" alt="Download ' . $downloads_arr[$i]->getVar('title') . '" title="Download ' . $downloads_arr[$i]->getVar('title') . '"></a>';
-                echo '</td>';
-                echo '<td align="left"><a href="../singlefile.php?.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&lid=' . $i . '" target="_blank">' . $downloads_arr[$i]->getVar('title') . '</a></td>';
-                echo '<td align="left">' . $category . '</td>';
-                echo '<td align="center">' . $downloads_arr[$i]->getVar('hits') . '</td>';
-                echo '<td align="center">' . number_format($downloads_arr[$i]->getVar('rating'), 1) . '</td>';
-
-                echo '<td align="center">';
-                echo(1 == $statut_display ? '<a href="downloads.php?op=lock_status&downloads_lid='
-                                            . $i
-                                            . '"><img src="./../assets/images/icon/on.png" border="0" alt="'
-                                            . _AM_TDMDOWNLOADS_FORMLOCK
-                                            . '" title="'
-                                            . _AM_TDMDOWNLOADS_FORMLOCK
-                                            . '"></a> ' : '<a href="downloads.php?op=update_status&downloads_lid=' . $i . '"><img src="./../assets/images/icon/off.png" border="0" alt="' . _AM_TDMDOWNLOADS_FORMVALID . '" title="' . _AM_TDMDOWNLOADS_FORMVALID . '"></a> ');
-                echo '<a href="downloads.php?op=view_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/view_mini.png" alt="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '" title="' . _AM_TDMDOWNLOADS_FORMDISPLAY . '"></a> ';
-                echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> ';
-                echo '<a href="downloads.php?op=del_downloads&downloads_lid=' . $i . '"><img src="../assets/images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a>';
-                echo '</td>';
+                $download = [
+                    'category'       => $utility->getPathTree($mytree, $downloads_arr[$i]->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
+                    'cid'            => $downloads_arr[$i]->getVar('cid'),
+                    'lid'            => $i,
+                    'title'          => $downloads_arr[$i]->getVar('title'),
+                    'hits'           => $downloads_arr[$i]->getVar('hits'),
+                    'rating'         => number_format($downloads_arr[$i]->getVar('rating'), 1),
+                    'statut_display' => $statut_display
+                ];
+                $GLOBALS['xoopsTpl']->append('downloads_list', $download);
+                unset($download);
             }
-            echo '</table><br>';
-            echo '<br><div align=right>' . $pagenav . '</div><br>';
         } else {
-            echo '<div class="errorMsg" style="text-align: center;">' . _AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS . '</div>';
+            $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING);
         }
-
         break;
     // vue création
     case 'new_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         $adminObject = \Xmf\Module\Admin::getInstance();
-        $adminObject->displayNavigation(basename(__FILE__));
-        $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
-        if (0 == $downloads_waiting) {
-            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add');
-        } else {
-            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
-        }
-        $adminObject->displayButton('left');
-        //Affichage du formulaire de création des téléchargements
-        $obj  = $downloadsHandler->create();
-        $form = $obj->getForm($donnee = [], false);
-        $form->display();
-        break;
-    // Pour éditer un téléchargement
-    case 'edit_downloads':
-        //Affichage de la partie haute de l'administration de Xoops
-        xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
-        $adminObject->displayNavigation(basename(__FILE__));
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
         if (0 == $downloads_waiting) {
@@ -227,12 +194,33 @@ switch ($op) {
         } else {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
         }
-        $adminObject->displayButton('left');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        //Affichage du formulaire de création des téléchargements
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
+        $obj  = $downloadsHandler->create();
+        $form = $obj->getForm($donnee = [], false);
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        break;
+    // Pour éditer un téléchargement
+    case 'edit_downloads':
+        //Affichage de la partie haute de l'administration de Xoops
+        xoops_cp_header();
+        $adminObject = \Xmf\Module\Admin::getInstance();
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
+        $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
+
+        if (0 == $downloads_waiting) {
+            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add');
+        } else {
+            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
+        }
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         //Affichage du formulaire de création des téléchargements
         $downloads_lid = $utility->cleanVars($_REQUEST, 'downloads_lid', 0, 'int');
         $obj           = $downloadsHandler->get($downloads_lid);
         $form          = $obj->getForm($donnee = [], false);
-        $form->display();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     // Pour supprimer un téléchargement
     case 'del_downloads':
@@ -283,7 +271,7 @@ switch ($op) {
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../../tag')) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
-                    $criteria   = new \CriteriaCompo();
+                    $criteria    = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));
                     $downloads_tags = $linkHandler->getAll($criteria);
                     foreach (array_keys($downloads_tags) as $i) {
@@ -293,14 +281,16 @@ switch ($op) {
                 }
                 redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             } else {
-                echo $obj->getHtmlErrors();
+                $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
             }
         } else {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();
             $adminObject = \Xmf\Module\Admin::getInstance();
+            $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
+
             if (0 == $downloads_waiting) {
                 $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add');
             } else {
@@ -316,7 +306,7 @@ switch ($op) {
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
         $adminObject = \Xmf\Module\Admin::getInstance();
-        $adminObject->displayNavigation(basename(__FILE__));
+        $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
         if (0 == $downloads_waiting) {
@@ -324,12 +314,14 @@ switch ($op) {
         } else {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add', 'style="color : Red"');
         }
-        $adminObject->displayButton('left');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+        $GLOBALS['xoopsTpl']->assign('uploadurl_shots', $uploadurl_shots);
+
         $downloads_lid = $utility->cleanVars($_REQUEST, 'downloads_lid', 0, 'int');
         //information du téléchargement
         $viewDownloads = $downloadsHandler->get($downloads_lid);
         //catégorie
-        //$view_categorie = $categoryHandler->get($viewDownloads->getVar('cid'));
+        //$view_category = $categoryHandler->get($viewDownloads->getVar('cid'));
         $category_arr = $categoryHandler->getAll();
         $mytree       = new \XoopsModules\Tdmdownloads\Tree($category_arr, 'cat_cid', 'cat_pid');
         // sortie des informations
@@ -340,60 +332,44 @@ switch ($op) {
 
         $category = $utility->getPathTree($mytree, $viewDownloads->getVar('cid'), $category_arr, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
         // affichages des informations du téléchargement
-        echo '<table width="100%" cellspacing="1" class="outer">';
-        echo '<tr>';
-        echo '<th align="center" colspan="2">' . $downloads_title . '</th>';
-        echo '</tr>';
-        echo '<tr class="even">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMFILE . ' </td>';
-        echo '<td><a href="../visit.php?cid=' . $viewDownloads->getVar('cid') . '&lid=' . $downloads_lid . '"><img src="../assets/images/icon/download.png" alt="Download ' . $downloads_title . '" title="Download ' . $downloads_title . '"></a></td>';
-        echo '</tr>';
-        echo '<tr class="odd">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMCAT . ' </td>';
-        echo '<td>' . $category . '</td>';
-        echo '</tr>';
+        $download = [
+            'title'       => $downloads_title,
+            'description' => $downloads_description,
+            'cid'         => $viewDownloads->getVar('cid'),
+            'lid'         => $downloads_lid,
+            'category'    => $category
+        ];
+
         $criteria = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
         $downloads_field = $fieldHandler->getAll($criteria);
-        $class           = 'odd';
+        $fields_list     = [];
         foreach (array_keys($downloads_field) as $i) {
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
                     if ('' !== $viewDownloads->getVar('homepage')) {
-                        $class = ('even' === $class) ? 'odd' : 'even';
-                        echo '<tr class="' . $class . '">';
-                        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . ' </td>';
-                        echo '<td><a href="' . $viewDownloads->getVar('homepage') . '">' . $viewDownloads->getVar('homepage') . '</a></td>';
+                        $fields_list[] = ['name' => _AM_TDMDOWNLOADS_FORMHOMEPAGE, 'value' => '<a href="' . $viewDownloads->getVar('homepage') . '">' . $viewDownloads->getVar('homepage') . '</a>'];
                     }
                 }
                 if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
                     if ('' !== $viewDownloads->getVar('version')) {
-                        $class = ('even' === $class) ? 'odd' : 'even';
-                        echo '<tr class="' . $class . '">';
-                        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMVERSION . ' </td>';
-                        echo '<td>' . $viewDownloads->getVar('version') . '</td></tr>';
+                        $fields_list[] = ['name' => _AM_TDMDOWNLOADS_FORMVERSION, 'value' => $viewDownloads->getVar('version')];
                     }
                 }
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
                     if ('' !== $viewDownloads->getVar('size')) {
-                        $class = ('even' === $class) ? 'odd' : 'even';
-                        echo '<tr class="' . $class . '">';
-                        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMSIZE . '</td>';
-                        echo '<td>' . $viewDownloads->getVar('size') . '</td></tr>';
+                        $fields_list[] = ['name' => _AM_TDMDOWNLOADS_FORMSIZE, 'value' => $viewDownloads->getVar('size')];
                     }
                 }
                 if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
                     if ('' !== $viewDownloads->getVar('platform')) {
-                        $class = ('even' === $class) ? 'odd' : 'even';
-                        echo '<tr class="' . $class . '">';
-                        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPLATFORM . ' </td>';
-                        echo '<td>' . $viewDownloads->getVar('platform') . '</td></tr>';
+                        $fields_list[] = ['name' => _AM_TDMDOWNLOADS_FORMPLATFORM, 'value' => $viewDownloads->getVar('platform')];
                     }
                 }
             } else {
@@ -406,18 +382,11 @@ switch ($op) {
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
                 if ('' !== $contenu) {
-                    $class = ('even' === $class) ? 'odd' : 'even';
-                    echo '<tr class="' . $class . '">';
-                    echo '<td width="30%">' . $downloads_field[$i]->getVar('title') . ' </td>';
-                    echo '<td>' . $contenu . '</td></tr>';
+                    $fields_list[] = ['name' => $downloads_field[$i]->getVar('title'), 'value' => $contenu];
                 }
             }
         }
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMTEXT . ' </td>';
-        echo '<td>' . $downloads_description . '</td>';
-        echo '</tr>';
+        $download['fields_list'] = $fields_list;
         // tags
         if ((1 == $helper->getConfig('usetag')) && is_dir('../../tag')) {
             require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
@@ -427,134 +396,66 @@ switch ($op) {
                 foreach (array_keys($tags_array['tags']) as $i) {
                     $tags .= $tags_array['delimiter'] . ' ' . $tags_array['tags'][$i] . ' ';
                 }
-
-                $class = ('even' === $class) ? 'odd' : 'even';
-                echo '<tr class="' . $class . '">';
-                echo '<td width="30%">' . $tags_array['title'] . ' </td>';
-                echo '<td>' . $tags . '</td>';
-                echo '</tr>';
+                $download['tags'] = ['title' => $tags_array['title'], 'value' => $tags];
             }
         }
         if ($helper->getConfig('useshots')) {
             if ('blank.gif' !== $viewDownloads->getVar('logourl')) {
-                $class = ('even' === $class) ? 'odd' : 'even';
-                echo '<tr class="' . $class . '">';
-                echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMIMG . ' </td>';
-                echo '<td><img src="' . $uploadurl_shots . $viewDownloads->getVar('logourl') . '" alt="" title=""></td>';
-                echo '</tr>';
+                $download['logourl'] = $viewDownloads->getVar('logourl');
             }
         }
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMDATE . ' </td>';
-        echo '<td>' . formatTimestamp($viewDownloads->getVar('date')) . '</td>';
-        echo '</tr>';
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPOSTER . ' </td>';
-        echo '<td>' . \XoopsUser::getUnameFromId($viewDownloads->getVar('submitter')) . '</td>';
-        echo '</tr>';
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMHITS . ' </td>';
-        echo '<td>' . $viewDownloads->getVar('hits') . '</td>';
-        echo '</tr>';
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMRATING . ' </td>';
-        echo '<td>' . number_format($viewDownloads->getVar('rating'), 1) . ' (' . $viewDownloads->getVar('votes') . ' ' . _AM_TDMDOWNLOADS_FORMVOTE . ')</td>';
-        echo '</tr>';
+        $download['date']      = formatTimestamp($viewDownloads->getVar('date'));
+        $download['submitter'] = XoopsUser::getUnameFromId($viewDownloads->getVar('submitter'));
+        $download['hits']      = $viewDownloads->getVar('hits');
+        $download['rating']    = number_format($viewDownloads->getVar('rating'), 1);
+        $download['votes']     = $viewDownloads->getVar('votes');
+
         if (true === $helper->getConfig('use_paypal') && '' !== $viewDownloads->getVar('paypal')) {
-            $class = ('even' === $class) ? 'odd' : 'even';
-            echo '<tr class="' . $class . '">';
-            echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMPAYPAL . ' </td>';
-            echo '<td>' . $viewDownloads->getVar('paypal') . '</td>';
-            echo '</tr>';
+            $download['paypal'] = $viewDownloads->getVar('paypal');
         }
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMCOMMENTS . ' </td>';
-        echo '<td>'
-             . $viewDownloads->getVar('comments')
-             . ' <a href="../singlefile.php?cid='
-             . $viewDownloads->getVar('cid')
-             . '&lid='
-             . $downloads_lid
-             . '"><img src="../assets/images/icon/view_mini.png" alt="'
-             . _AM_TDMDOWNLOADS_FORMDISPLAY
-             . '" title="'
-             . _AM_TDMDOWNLOADS_FORMDISPLAY
-             . '"></a></td>';
-        echo '</tr>';
-        $class = ('even' === $class) ? 'odd' : 'even';
-        echo '<tr class="' . $class . '">';
-        echo '<td width="30%">' . _AM_TDMDOWNLOADS_FORMACTION . ' </td>';
-        echo '<td>';
-        echo(0 !== $viewDownloads->getVar('status') ? '' : '<a href="downloads.php?op=update_status&downloads_lid=' . $downloads_lid . '"><img src="./../assets/images/icon/off.png" border="0" alt="' . _AM_TDMDOWNLOADS_FORMVALID . '" title="' . _AM_TDMDOWNLOADS_FORMVALID . '"></a> ');
-        echo '<a href="downloads.php?op=edit_downloads&downloads_lid=' . $downloads_lid . '"><img src="../assets/images/icon/edit.png" alt="' . _AM_TDMDOWNLOADS_FORMEDIT . '" title="' . _AM_TDMDOWNLOADS_FORMEDIT . '"></a> <a href="downloads.php?op=del_downloads&downloads_lid=' . $downloads_lid . '">
-        <img src="../assets/images/icon/delete.png" alt="' . _AM_TDMDOWNLOADS_FORMDEL . '" title="' . _AM_TDMDOWNLOADS_FORMDEL . '"></a></td>';
-        echo '</tr>';
-        echo '</table>';
-        echo '<br>';
-        // Affichage des votes:
+        $download['comments'] = $viewDownloads->getVar('comments');
+
+        $GLOBALS['xoopsTpl']->assign('download', $download);
 
         // Utilisateur enregistré
-        echo '<hr>';
+        $ratings  = [];
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0, '!='));
         $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
         $total_vote            = count($downloadsvotedata_arr);
-        echo '<table width="100%">';
-        echo '<tr><td colspan="5"><b>';
-        printf(_AM_TDMDOWNLOADS_DOWNLOADS_VOTESUSER, $total_vote);
-        echo '</b><br><br></td></tr>';
-        echo '<tr><td><b>'
-             . _AM_TDMDOWNLOADS_DOWNLOADS_VOTE_USER
-             . '</b></td>'
-             . '<td><b>'
-             . _AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP
-             . '</b></td>'
-             . '<td align="center"><b>'
-             . _AM_TDMDOWNLOADS_FORMRATING
-             . '</b></td>'
-             . '<td><b>'
-             . _AM_TDMDOWNLOADS_FORMDATE
-             . '</b></td>'
-             . '<td align="center"><b>'
-             . _AM_TDMDOWNLOADS_FORMDEL
-             . '</b></td></tr>';
+        $ratings['user_total'] = $total_vote;
+        $user_list             = [];
         foreach (array_keys($downloadsvotedata_arr) as $i) {
-            echo '<tr>';
-            echo '<td>' . \XoopsUser::getUnameFromId($downloadsvotedata_arr[$i]->getVar('ratinguser')) . '</td>';
-            echo '<td>' . $downloadsvotedata_arr[$i]->getVar('ratinghostname') . '</td>';
-            echo '<td align="center">' . $downloadsvotedata_arr[$i]->getVar('rating') . '</td>';
-            echo '<td>' . formatTimestamp($downloadsvotedata_arr[$i]->getVar('ratingtimestamp')) . '</td>';
-            echo '<td align="center">';
-            echo myTextForm('downloads.php?op=del_vote&lid=' . $downloadsvotedata_arr[$i]->getVar('lid') . '&rid=' . $downloadsvotedata_arr[$i]->getVar('ratingid'), 'X');
-            echo '</td>';
-            echo '</tr>';
+            $user_list[] = [
+                'ratinguser'      => \XoopsUser::getUnameFromId($downloadsvotedata_arr[$i]->getVar('ratinguser')),
+                'ratinghostname'  => $downloadsvotedata_arr[$i]->getVar('ratinghostname'),
+                'rating'          => $downloadsvotedata_arr[$i]->getVar('rating'),
+                'ratingtimestamp' => formatTimestamp($downloadsvotedata_arr[$i]->getVar('ratingtimestamp')),
+                'myTextForm'      => myTextForm('downloads.php?op=del_vote&lid=' . $downloadsvotedata_arr[$i]->getVar('lid') . '&rid=' . $downloadsvotedata_arr[$i]->getVar('ratingid'), 'X')
+            ];
         }
+        $ratings['user_list'] = $user_list;
         // Utilisateur anonyme
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0));
         $downloadsvotedata_arr = $ratingHandler->getAll($criteria);
         $total_vote            = count($downloadsvotedata_arr);
-        echo '<tr><td colspan="5"><br><b>';
-        printf(_AM_TDMDOWNLOADS_DOWNLOADS_VOTESANONYME, $total_vote);
-        echo '</b><br><br></td></tr>';
-        echo '<tr><td colspan="2"><b>' . _AM_TDMDOWNLOADS_DOWNLOADS_VOTE_IP . '</b></td>' . '<td align="center"><b>' . _AM_TDMDOWNLOADS_FORMRATING . '</b></td>' . '<td><b>' . _AM_TDMDOWNLOADS_FORMDATE . '</b></td>' . '<td align="center"><b>' . _AM_TDMDOWNLOADS_FORMDEL . '</b></td></tr>';
+        $ratings['anon_total'] = $total_vote;
+        $anon_list             = [];
         foreach (array_keys($downloadsvotedata_arr) as $i) {
-            echo '<tr>';
-            echo '<td colspan="2">' . $downloadsvotedata_arr[$i]->getVar('ratinghostname') . '</td>';
-            echo '<td align="center">' . $downloadsvotedata_arr[$i]->getVar('rating') . '</td>';
-            echo '<td>' . formatTimestamp($downloadsvotedata_arr[$i]->getVar('ratingtimestamp')) . '</td>';
-            echo '<td align="center">';
-            echo myTextForm('downloads.php?op=del_vote&lid=' . $downloadsvotedata_arr[$i]->getVar('lid') . '&rid=' . $downloadsvotedata_arr[$i]->getVar('ratingid'), 'X');
-            echo '</tr>';
+            $anon_list[] = [
+                'ratinghostname'  => $downloadsvotedata_arr[$i]->getVar('ratinghostname'),
+                'rating'          => $downloadsvotedata_arr[$i]->getVar('rating'),
+                'ratingtimestamp' => formatTimestamp($downloadsvotedata_arr[$i]->getVar('ratingtimestamp')),
+                'myTextForm'      => myTextForm('downloads.php?op=del_vote&lid=' . $downloadsvotedata_arr[$i]->getVar('lid') . '&rid=' . $downloadsvotedata_arr[$i]->getVar('ratingid'), 'X')
+            ];
         }
-        echo '</table>';
+        $ratings['anon_list']   = $anon_list;
+        $ratings['votes_total'] = $ratings['user_total'] + $ratings['anon_total'];
+        $GLOBALS['xoopsTpl']->assign('ratings', $ratings);
+        $GLOBALS['xoopsTpl']->assign('download_detail', true);
         break;
     // permet de suprimmer un vote et de recalculer la note
     case 'del_vote':
@@ -583,9 +484,9 @@ switch ($op) {
                     redirect_header('downloads.php?op=view_downloads&downloads_lid=' . \Xmf\Request::getInt('lid'), 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
                 }
             }
-            echo $obj->getHtmlErrors();
+            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
         }
-        echo $objvotedata->getHtmlErrors();
+        $GLOBALS['xoopsTpl']->assign('error', $objvotedata->getHtmlErrors());
         break;
     // Pour sauver un téléchargement
     case 'save_downloads':
@@ -691,8 +592,8 @@ switch ($op) {
         }
 
         if (1 == $erreur) {
-            xoops_cp_header();
-            echo '<div class="errorMsg" style="text-align: left;">' . $message_erreur . '</div>';
+            //            xoops_cp_header();
+            $GLOBALS['xoopsTpl']->assign('error', $message_erreur);
         } else {
             $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
             // Pour le fichier
@@ -802,10 +703,10 @@ switch ($op) {
                 }
                 redirect_header('downloads.php', 2, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
-            echo $obj->getHtmlErrors();
+            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
         }
         $form = $obj->getForm($donnee, true);
-        $form->display();
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     // permet de valider un téléchargement proposé
     case 'update_status':
@@ -814,7 +715,7 @@ switch ($op) {
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
-        echo $obj->getHtmlErrors();
+        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
         break;
     // permet de valider un téléchargement proposé
     case 'lock_status':
@@ -823,8 +724,18 @@ switch ($op) {
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DEACTIVATED);
         }
-        echo $obj->getHtmlErrors();
+        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
         break;
 }
+
+// Local icons path
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+    $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+    $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
+}
+
 //Affichage de la partie basse de l'administration de Xoops
 require_once __DIR__ . '/admin_footer.php';

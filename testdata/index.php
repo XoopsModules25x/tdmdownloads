@@ -35,10 +35,11 @@ switch ($op) {
 
 function loadSampleData()
 {
-    $moduleDirName = basename(dirname(__DIR__));
-    $helper        = Tdmdownloads\Helper::getInstance();
-    $utility       = new Tdmdownloads\Utility();
-    $configurator  = new Common\Configurator();
+    $moduleDirName      = basename(dirname(__DIR__));
+    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+    $helper             = Tdmdownloads\Helper::getInstance();
+    $utility            = new Tdmdownloads\Utility();
+    $configurator       = new Common\Configurator();
     // Load language files
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');

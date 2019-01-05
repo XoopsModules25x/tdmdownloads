@@ -25,7 +25,9 @@ require_once $GLOBALS['xoops']->path('www/class/xoopsform/grouppermform.php');
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$adminObject->displayNavigation(basename(__FILE__));
+
+$templateMain = 'tdmdownloads_admin_permissions.tpl';
+$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 
 $permission = \Xmf\Request::getInt('permission', 1, 'POST');
 $tab_perm   = [
@@ -34,21 +36,16 @@ $tab_perm   = [
     3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD,
     4 => _AM_TDMDOWNLOADS_PERM_AUTRES,
 ];
-echo "<form method='post' name='fselperm' action='permissions.php'>\n";
-echo "<table border='0'>\n<tr>\n<td>\n";
-echo "<select name='permission' onChange='document.fselperm.submit()'>\n";
+
+xoops_load('XoopsFormLoader');
+$permTableForm = new XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
+$formSelect    = new XoopsFormSelect('', 'permission', $permission);
+$formSelect->setExtra('onchange="document.fselperm.submit()"');
 foreach (array_keys($tab_perm) as $i) {
-    $selected = '';
-    if ($permission === $i) {
-        $selected = ' selected';
-    }
-    echo "<option value='" . $i . "'" . $selected . '>' . $tab_perm[$i] . '</option>';
+    $formSelect->addOption($i, $tab_perm[$i]);
 }
-echo "</select>\n";
-echo "</td>\n</tr>\n<tr>\n<td>\n";
-echo "<input type='submit' name='go'>\n";
-echo "</td>\n</tr>\n</table>\n";
-echo "</form>\n";
+$permTableForm->addElement($formSelect);
+$GLOBALS['xoopsTpl']->assign('form_select', $permTableForm->render());
 
 $moduleId = $xoopsModule->getVar('mid');
 
@@ -113,7 +110,7 @@ if (4 === $permission) {
 }
 
 if ($categoryHandler->getCount()) {
-    echo $permissionsForm->render();
+    $GLOBALS['xoopsTpl']->assign('form_permissions', $permissionsForm->render());
 } else {
     redirect_header('category.php', 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);
 }
