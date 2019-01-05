@@ -16,14 +16,19 @@
 
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
-$import_admin = \Xmf\Module\Admin::getInstance();
-echo $import_admin->displayNavigation(basename(__FILE__));
+
+// Template
+$templateMain = 'tdmdownloads_admin_import.tpl';
+
+$adminObject = \Xmf\Module\Admin::getInstance();
 
 //Action dans switch
 $op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
     $op = $_REQUEST['op'];
 }
+
+$GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 
 // import depuis mydownloads
 /**
@@ -32,7 +37,8 @@ if (\Xmf\Request::hasVar('op', 'REQUEST')) {
  */
 function importMydownloads($path = '', $imgurl = '')
 {
-    $ok = \Xmf\Request::getInt('ok', 0, 'POST');
+    $moduleDirName = basename(dirname(__DIR__));
+    $ok            = \Xmf\Request::getInt('ok', 0, 'POST');
     global $xoopsDB;
     if (1 === $ok) {
         //Vider les tables
@@ -58,9 +64,9 @@ function importMydownloads($path = '', $imgurl = '')
             $title  = $donnees['title'];
             $insert = $xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix('tdmdownloads_cat') . " (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('" . $donnees['cid'] . "', '" . $donnees['pid'] . "', '" . $title . "', '" . $img . "', '', '0')");
             if (!$insert) {
-                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['title']];
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
+            $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP, $donnees['title']);
         }
         echo '<br>';
 
@@ -108,9 +114,9 @@ function importMydownloads($path = '', $imgurl = '')
                                        . $donnees['votes']
                                        . "', '0', '0' )");
             if (!$insert) {
-                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['title']];
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
+            $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP, $donnees['title']);
             @copy($path . $donnees['logourl'], XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $donnees['logourl']);
         }
         echo '<br>';
@@ -133,9 +139,9 @@ function importMydownloads($path = '', $imgurl = '')
                                        . $donnees['ratingtimestamp']
                                        . "')");
             if (!$insert) {
-                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['ratingid'] . '<br>';
+                $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['ratingid']];
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
+            $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP, $donnees['ratingid']);
         }
         echo '<br><br>';
         echo "<div class='errorMsg'>";
@@ -153,7 +159,8 @@ function importMydownloads($path = '', $imgurl = '')
  */
 function importWfdownloads($shots = '', $catimg = '')
 {
-    $ok = \Xmf\Request::getInt('ok', 0, 'POST');
+    $moduleDirName = basename(dirname(__DIR__));
+    $ok            = \Xmf\Request::getInt('ok', 0, 'POST');
     global $xoopsDB;
     if (1 === $ok) {
         //Vider les tables
@@ -191,9 +198,9 @@ function importWfdownloads($shots = '', $catimg = '')
                                        . $donnees['weight']
                                        . "')");
             if (!$insert) {
-                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['title']];
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP . '<br>', $donnees['title']);
+            $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_CAT_IMP, $donnees['title']);
         }
         echo '<br>';
 
@@ -245,10 +252,11 @@ function importWfdownloads($shots = '', $catimg = '')
                                        . "', '0', '0' )");
 
             if (!$insert) {
-                echo '<span style="color: #ff0000; ">' . _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA . ': </span> ' . $donnees['title'] . '<br>';
+                $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['title']];
             }
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP . '<br>', $donnees['title']);
+            $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP, $donnees['title']);
             @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $donnees['screenshot']);
+
         }
         echo '<br>';
 
@@ -275,10 +283,9 @@ function importWfdownloads($shots = '', $catimg = '')
             }
             echo sprintf(_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP . '<br>', $donnees['ratingid']);
         }
-        echo '<br><br>';
-        echo "<div class='errorMsg'>";
-        echo _AM_TDMDOWNLOADS_IMPORT_OK;
-        echo '</div>';
+        $successes[] = _AM_TDMDOWNLOADS_IMPORT_OK;
+        $GLOBALS['xoopsTpl']->assign('successes', $successes);
+        $GLOBALS['xoopsTpl']->assign('errors', $errors);
     } else {
         xoops_confirm(['op' => 'importWfdownloads', 'ok' => 1, 'shots' => $shots, 'catimg' => $catimg], 'import.php', _AM_TDMDOWNLOADS_IMPORT_CONF_WFDOWNLOADS . '<br>');
     }
@@ -287,15 +294,10 @@ function importWfdownloads($shots = '', $catimg = '')
 switch ($op) {
     case 'index':
     default:
-        echo '<br><br>';
-        echo "<div class='errorMsg'>";
-        echo _AM_TDMDOWNLOADS_IMPORT_WARNING;
-        echo '</div>';
-        echo '<br><br>';
-        $adminObject = \Xmf\Module\Admin::getInstance();
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS, 'import.php?op=form_mydownloads', 'add');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS, 'import.php?op=form_wfdownloads', 'add');
-        $adminObject->displayButton('center');
+        $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('center'));
+        $GLOBALS['xoopsTpl']->assign('intro', true);
         break;
     // import Mydownloads
     case 'importMydownloads':
@@ -306,41 +308,48 @@ switch ($op) {
         }
         break;
     case 'form_mydownloads':
-        echo '<br><br>';
-        echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_TDMDOWNLOADS_IMPORT_NUMBER . '</legend>';
+        // Get Theme Form
+        xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS, 'form_mydownloads', 'import.php', 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form number
+        $counter = 0;
+        $check   = '<ul>';
+
         global $xoopsDB;
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('mydownloads_downloads'));
         list($count_downloads) = $xoopsDB->fetchRow($sql);
         if ($count_downloads < 1) {
-            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '<br>';
+            $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '</li>';
         } else {
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads);
+            $check .= '<li>' . sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads) . '</li>';
+            $counter++;
         }
         $sql = $xoopsDB->query('SELECT COUNT(cid) AS count FROM ' . $xoopsDB->prefix('mydownloads_cat'));
         list($count_topic) = $xoopsDB->fetchRow($sql);
+
         if ($count_topic < 1) {
-            echo '' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '<br>';
+            $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
         } else {
-            echo sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
+            $check .= '<li>' . sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
+            $counter++;
         }
-        echo '</fieldset>';
-        echo '<br><br>';
-        echo "<table width='100%' border='0'>
-                <form action='import.php?op=importMydownloads' method=POST>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_PATH . "</td>
-                    <td  class='odd'><input type='text' name='path' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/mydownloads/assets/images/shots/'></td>
-                </tr>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_URL . "</td>
-                    <td  class='odd'><input type='text' name='imgurl' id='import_data' size='100' value='" . XOOPS_URL . "/modules/mydownloads/assets/images/shots/'></td>
-                </tr>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_DOWNLOADS . "</td>
-                    <td  class='odd'><input type='submit' name='button' id='import_data' value='" . _AM_TDMDOWNLOADS_IMPORT1 . "'></td>
-                </tr>
-                </form>
-            </table>";
+        $check .= '</ul>';
+        $form->addElement(new \XoopsFormLabel(_AM_TDMDOWNLOADS_IMPORT_NUMBER, $check));
+        // Form path
+        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_PATH, 'path', 100, 255, XOOPS_ROOT_PATH . '/modules/mydownloads/images/shots/'));
+        // Form url
+        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_URL, 'path', 100, 255, XOOPS_URL . '/modules/mydownloads/images/shots/'));
+        // To execute
+        if (0 < $counter) {
+            $form->addElement(new \XoopsFormHidden('op', 'import_mydownloads'));
+            $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        } else {
+            $form->addElement(new \XoopsFormHidden('op', 'cancel'));
+            $form->addElement(new \XoopsFormButton('', 'submit', _CANCEL, 'submit'));
+        }
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+
         break;
     // import WF-Downloads
     case 'importWfdownloads':
@@ -351,41 +360,47 @@ switch ($op) {
         }
         break;
     case 'form_wfdownloads':
-        echo '<br><br>';
-        echo "<fieldset><legend style='font-weight: bold; color: #900;'>" . _AM_TDMDOWNLOADS_IMPORT_NUMBER . '</legend>';
         global $xoopsDB;
+        // Get Theme Form
+        xoops_load('XoopsFormLoader');
+        $form = new \XoopsThemeForm(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS, 'form_mydownloads', 'import.php', 'post', true);
+        $form->setExtra('enctype="multipart/form-data"');
+        // Form number
+        $counter = 0;
+        $check   = '<ul>';
+
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('wfdownloads_downloads'));
         list($count_downloads) = $xoopsDB->fetchRow($sql);
         if ($count_downloads < 1) {
-            echo _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '<br>';
+            $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '</li>';
         } else {
-            echo sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads);
+            $check .= '<li>' . sprintf(_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS, $count_downloads) . '</li>';
+            $counter++;
         }
         $sql = $xoopsDB->query('SELECT COUNT(cid) AS count FROM ' . $xoopsDB->prefix('wfdownloads_cat'));
         list($count_topic) = $xoopsDB->fetchRow($sql);
         if ($count_topic < 1) {
-            echo '' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '<br>';
+            $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
         } else {
-            echo sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic);
+            $check .= '<li>' . sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
+            $counter++;
         }
-        echo '</fieldset>';
-        echo '<br><br>';
-        echo "<table width='100%' border='0'>
-                <form action='import.php?op=importWfdownloads' method=POST>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS . "</td>
-                    <td  class='odd'><input type='text' name='shots' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/assets/images/screenshots/'></td>
-                </tr>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG . "</td>
-                    <td  class='odd'><input type='text' name='catimg' id='import_data' size='100' value='" . XOOPS_ROOT_PATH . "/modules/wfdownloads/assets/images/category/'></td>
-                </tr>
-                <tr>
-                    <td  class='even'>" . _AM_TDMDOWNLOADS_IMPORT_DOWNLOADS . "</td>
-                    <td  class='odd'><input type='submit' name='button' id='import_data' value='" . _AM_TDMDOWNLOADS_IMPORT1 . "'></td>
-                </tr>
-                </form>
-            </table>";
+        $check .= '</ul>';
+        $form->addElement(new \XoopsFormLabel(_AM_TDMDOWNLOADS_IMPORT_NUMBER, $check));
+        // Form path
+        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS, 'path', 100, 255, XOOPS_ROOT_PATH . '/modules/wfdownloads/assets/images/screenshots/'));
+        // Form url
+        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG, 'catimg', 100, 255, XOOPS_ROOT_PATH . '/modules/wfdownloads/assets/images/category/'));
+        // To execute
+        if (0 < $counter) {
+            $form->addElement(new \XoopsFormHidden('op', 'import_mydownloads'));
+            $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
+        } else {
+            $form->addElement(new \XoopsFormHidden('op', 'cancel'));
+            $form->addElement(new \XoopsFormButton('', 'submit', _CANCEL, 'submit'));
+        }
+        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+
         break;
 }
 

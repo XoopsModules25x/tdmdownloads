@@ -285,7 +285,7 @@ class Modified extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         //bouton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', '', false));
 
         return $form;
     }

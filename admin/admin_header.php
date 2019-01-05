@@ -61,6 +61,11 @@ $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 $helper->loadLanguage('common');
 
+if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+    require_once $GLOBALS['xoops']->path('class/theme.php');
+    $GLOBALS['xoTheme'] = new \xos_opal_Theme();
+}
+
 //paramétres:
 // pour les images des catégories:
 $uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/';
@@ -74,3 +79,4 @@ $uploadurl_shots = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/';
 // pour les images des champs:
 $uploaddir_field = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/field/';
 $uploadurl_field = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/field/';
+

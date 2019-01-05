@@ -30,7 +30,7 @@
 - added migrate button option (mamba)
 - added Server stats (mamba)
 - added Blocks admin (mamba)
--
+- switch admin sites to template based (goffy)
 
 
 TODO:

@@ -39,8 +39,9 @@ function b_tdmdownloads_search_show()
     $helper->loadLanguage('common');
 
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
-    $utility    = new \XoopsModules\Tdmdownloads\Utility();
-    $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+    $utility         = new \XoopsModules\Tdmdownloads\Utility();
+    $categories      = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
+    $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
 
     $block = [];
 
@@ -102,6 +103,7 @@ function b_tdmdownloads_search_show()
                 }
             } else {
                 $criteria->setOrder('ASC');
+                $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
                 $tdmdownloads_arr = $downloadsHandler->getAll($criteria);
                 foreach (array_keys($tdmdownloads_arr) as $j) {
                     $contenu_arr[$tdmdownloads_arr[$j]->getVar($nom_champ_base)] = $tdmdownloads_arr[$j]->getVar($nom_champ_base);
@@ -112,6 +114,7 @@ function b_tdmdownloads_search_show()
             $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
             $criteria->setSort('data');
             $criteria->setOrder('ASC');
+            $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
             $tdmdownloads_arr = $fielddataHandler->getAll($criteria);
             foreach (array_keys($tdmdownloads_arr) as $j) {
                 $contenu_arr[$tdmdownloads_arr[$j]->getVar('data', 'n')] = $tdmdownloads_arr[$j]->getVar('data');

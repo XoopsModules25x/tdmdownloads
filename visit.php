@@ -60,7 +60,7 @@ if (1 == $helper->getConfig('downlimit')) {
         }
         $criteria->add(new \Criteria('downlimit_lid', $lid, '='));
         $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
-        $numrows = $downloadslimitHandler->getCount($criteria);
+        $numrows = $downlimitHandler->getCount($criteria);
         if ($numrows >= $limitlid) {
             redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITLID, $numrows, $limitlid));
         }
@@ -73,24 +73,25 @@ if (1 == $helper->getConfig('downlimit')) {
             $criteria->add(new \Criteria('downlimit_hostname', getenv('REMOTE_ADDR'), '='));
         }
         $criteria->add(new \Criteria('downlimit_date', $yesterday, '>'));
-        $numrows = $downloadslimitHandler->getCount($criteria);
+        $numrows = $downlimitHandler->getCount($criteria);
         if ($numrows >= $limitglobal) {
             redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 5, sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_LIMITGLOBAL, $numrows, $limitglobal));
         }
     }
 
-    $obj = $downloadslimitHandler->create();
+    /** @var \XoopsModules\Tdmdownloads\Downlimit $obj */
+    $obj = $downlimitHandler->create();
     $obj->setVar('downlimit_lid', $lid);
     $obj->setVar('downlimit_uid', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
     $obj->setVar('downlimit_hostname', getenv('REMOTE_ADDR'));
     $obj->setVar('downlimit_date', strtotime(formatTimestamp(time())));
-    $downloadslimitHandler->insert($obj) || $obj->getHtmlErrors();
+    $downlimitHandler->insert($obj) || $obj->getHtmlErrors();
     // purge
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('downlimit_date', time() - 172800, '<'));
-    $numrows = $downloadslimitHandler->getCount($criteria);
+    $numrows = $downlimitHandler->getCount($criteria);
     echo 'a détruire: ' . $numrows . '<br>';
-    $downloadslimitHandler->deleteAll($criteria);
+    $downlimitHandler->deleteAll($criteria);
 }
 
 @$xoopsLogger->activated = false;

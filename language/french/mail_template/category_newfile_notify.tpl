@@ -19,6 +19,6 @@ Merci de ne pas répondre à ce message.
 
 -----------
 
-{X_SITENAME} ({X_SITEURL}) 
+{X_SITENAME} ({X_SITEURL})
 L' Administrateur
 {X_ADMINMAIL}

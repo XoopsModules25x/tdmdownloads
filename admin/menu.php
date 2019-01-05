@@ -33,56 +33,56 @@ if (is_object($helper->getModule())) {
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU1,
     'link'  => 'admin/index.php',
-    'icon'  => 'assets/images/admin/home.png',
+    'icon'  => "{$pathModIcon32}/home.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU2,
     'link'  => 'admin/category.php',
-    'icon'  => 'assets/images/admin/category.png',
-    //'menu' =>  'assets/images/admin/menu_category.png',
+    'icon'  => "{$pathModIcon32}/category.png",
+    //'menu' =>  "{$pathIcon32}/menu_category.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU3,
     'link'  => 'admin/downloads.php',
-    'icon'  => 'assets/images/admin/downloads.png',
-    //'menu' =>  'assets/images/admin/menu_downloads.png',
+    'icon'  => "{$pathModIcon32}/downloads.png",
+    //'menu' =>  "{$pathIcon32}/menu_downloads.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU4,
     'link'  => 'admin/broken.php',
-    'icon'  => 'assets/images/admin/broken.png',
-    //'menu' =>  'assets/images/admin/menu_broken.png',
+    'icon'  => "{$pathModIcon32}/broken.png",
+    //'menu' =>  "{$pathIcon32}/menu_broken.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU5,
     'link'  => 'admin/modified.php',
-    'icon'  => 'assets/images/admin/modified.png',
-    //'menu' =>  'assets/images/admin/menu_modified.png',
+    'icon'  => "{$pathModIcon32}/modified.png",
+    //'menu' =>  "{$pathIcon32}/menu_modified.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU6,
     'link'  => 'admin/field.php',
-    'icon'  => 'assets/images/admin/field.png',
-    //'menu' =>  'assets/images/admin/menu_field.png',
+    'icon'  => "{$pathModIcon32}/field.png",
+    //'menu' =>  "{$pathIcon32}/menu_field.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU7,
     'link'  => 'admin/import.php',
-    'icon'  => 'assets/images/admin/import.png',
-    //'menu' =>  'assets/images/admin/menu_import.png',
+    'icon'  => "{$pathModIcon32}/import.png",
+    //'menu' =>  "{$pathIcon32}/menu_import.png",
 ];
 
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU8,
     'link'  => 'admin/permissions.php',
-    'icon'  => 'assets/images/admin/permissions.png',
-    //'menu' =>  'assets/images/admin/menu_permissions.png',
+    'icon'  => "{$pathIcon32}/permissions.png",
+    //'menu' =>  "{$pathIcon32}/menu_permissions.png",
 ];
 
 // Blocks Admin
@@ -103,6 +103,6 @@ if ($helper->getConfig('displayDeveloperTools')) {
 $adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU9,
     'link'  => 'admin/about.php',
-    'icon'  => 'assets/images/admin/about.png',
-    //'menu' =>  'assets/images/admin/menu_about.png',
+    'icon'  => "{$pathIcon32}/about.png",
+    //'menu' =>  "{$pathIcon32}/menu_about.png",
 ];

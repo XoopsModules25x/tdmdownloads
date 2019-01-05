@@ -122,7 +122,7 @@ class Field extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save_field'));
         //boutton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', '', false));
 
         return $form;
     }
