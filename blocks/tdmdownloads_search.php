@@ -104,6 +104,7 @@ function b_tdmdownloads_search_show()
                 }
             } else {
                 $criteria->setOrder('ASC');
+                /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
                 $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
                 $tdmdownloads_arr = $downloadsHandler->getAll($criteria);
                 foreach (array_keys($tdmdownloads_arr) as $j) {
