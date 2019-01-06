@@ -31,8 +31,8 @@ $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
-$downloads_arr = $downloadsHandler->getAll($criteria);
-$xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloads_arr)));
+$downloadsArray = $downloadsHandler->getAll($criteria);
+$xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloadsArray)));
 
 //tableau des catégories
 $criteria = new \CriteriaCompo();
@@ -48,7 +48,7 @@ $count    = 1;
 $keywords = '';
 foreach (array_keys($downloadscatArray) as $i) {
     if (0 === $downloadscatArray[$i]->getVar('cat_pid')) {
-        $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloads_arr, $downloadscatArray[$i]->getVar('cat_cid'));
+        $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloadsArray, $downloadscatArray[$i]->getVar('cat_cid'));
         $subcategories_arr = $mytree->getFirstChild($downloadscatArray[$i]->getVar('cat_cid'));
         $chcount           = 0;
         $subcategories     = '';
@@ -190,29 +190,29 @@ if ($helper->getConfig('newdownloads') > 0) {
     $order       = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
     $criteria->setSort($tblsort[$sort]);
     $criteria->setOrder($tblorder[$order]);
-    $downloads_arr = $downloadsHandler->getAll($criteria);
+    $downloadsArray = $downloadsHandler->getAll($criteria);
     $categories    = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
     $item          = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
     $count         = 1;
-    foreach (array_keys($downloads_arr) as $i) {
-        if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
+    foreach (array_keys($downloadsArray) as $i) {
+        if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
-            $logourl = $downloads_arr[$i]->getVar('logourl');
+            $logourl = $downloadsArray[$i]->getVar('logourl');
             $logourl = $uploadurl_shots . $logourl;
         }
-        $datetime    = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $submitter   = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
-        $description = $downloads_arr[$i]->getVar('description');
+        $datetime    = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
+        $submitter   = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
+        $description = $downloadsArray[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false === mb_strpos($description, '[pagebreak]')) {
-            $description_short = $description;
+            $descriptionShort = $description;
         } else {
-            $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
+            $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
         // pour les vignettes "new" et "mis à jour"
-        $new = $utility->getStatusImage($downloads_arr[$i]->getVar('date'), $downloads_arr[$i]->getVar('status'));
-        $pop = $utility->getPopularImage($downloads_arr[$i]->getVar('hits'));
+        $new = $utility->getStatusImage($downloadsArray[$i]->getVar('date'), $downloadsArray[$i]->getVar('status'));
+        $pop = $utility->getPopularImage($downloadsArray[$i]->getVar('hits'));
 
         // Défini si la personne est un admin
         $adminlink = '';
@@ -222,7 +222,7 @@ if ($helper->getConfig('newdownloads') > 0) {
                          . '/modules/'
                          . $moduleDirName
                          . '/admin/downloads.php?op=view_downloads&amp;downloads_lid='
-                         . $downloads_arr[$i]->getVar('lid')
+                         . $downloadsArray[$i]->getVar('lid')
                          . '" title="'
                          . _MD_TDMDOWNLOADS_EDITTHISDL
                          . '"><img src="'
@@ -235,32 +235,32 @@ if ($helper->getConfig('newdownloads') > 0) {
         }
         //permission de télécharger
 
-        $perm_download = true;
+        $downloadPermission = true;
         if (1 === $helper->getConfig('permission_download')) {
-            if (!in_array($downloads_arr[$i]->getVar('cid'), $categories, true)) {
-                $perm_download = false;
+            if (!in_array($downloadsArray[$i]->getVar('cid'), $categories, true)) {
+                $downloadPermission = false;
             }
         } else {
-            if (!in_array($downloads_arr[$i]->getVar('lid'), $item, true)) {
-                $perm_download = false;
+            if (!in_array($downloadsArray[$i]->getVar('lid'), $item, true)) {
+                $downloadPermission = false;
             }
         }
         $xoopsTpl->append('file', [
-            'id'                => $downloads_arr[$i]->getVar('lid'),
-            'cid'               => $downloads_arr[$i]->getVar('cid'),
-            'title'             => $downloads_arr[$i]->getVar('title'),
+            'id'                => $downloadsArray[$i]->getVar('lid'),
+            'cid'               => $downloadsArray[$i]->getVar('cid'),
+            'title'             => $downloadsArray[$i]->getVar('title'),
             'new'               => $new,
             'pop'               => $pop,
             'logourl'           => $logourl,
             'updated'           => $datetime,
-            'description_short' => $description_short,
+            'description_short' => $descriptionShort,
             'adminlink'         => $adminlink,
             'submitter'         => $submitter,
-            'perm_download'     => $perm_download,
+            'perm_download'     => $downloadPermission,
             'count'             => $count,
         ]);
         //pour les mots clef
-        $keywords .= $downloads_arr[$i]->getVar('title') . ',';
+        $keywords .= $downloadsArray[$i]->getVar('title') . ',';
         ++$count;
     }
 }

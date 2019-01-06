@@ -54,7 +54,7 @@ switch ($op) {
         $brokenHandler->table_link   = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
         $brokenHandler->field_link   = 'lid'; // champ de la table en jointure
         $brokenHandler->field_object = 'lid'; // champ de la table courante
-        $downloadsbroken_arr         = $brokenHandler->getByLink($criteria);
+        $brokenArray         = $brokenHandler->getByLink($criteria);
         $numrows                     = $brokenHandler->getCount($criteria);
         $pagenav                     = '';
         if ($numrows > $limit) {
@@ -65,14 +65,14 @@ switch ($op) {
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('broken_count', $numrows);
             $broken = [];
-            foreach (array_keys($downloadsbroken_arr) as $i) {
+            foreach (array_keys($brokenArray) as $i) {
                 $broken = [
-                    'lid'      => $downloadsbroken_arr[$i]->getVar('lid'),
-                    'reportid' => $downloadsbroken_arr[$i]->getVar('reportid'),
-                    'title'    => $downloadsbroken_arr[$i]->getVar('title'),
-                    'cid'      => $downloadsbroken_arr[$i]->getVar('cid'),
-                    'sender'   => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
-                    'ip'       => $downloadsbroken_arr[$i]->getVar('ip'),
+                    'lid'      => $brokenArray[$i]->getVar('lid'),
+                    'reportid' => $brokenArray[$i]->getVar('reportid'),
+                    'title'    => $brokenArray[$i]->getVar('title'),
+                    'cid'      => $brokenArray[$i]->getVar('cid'),
+                    'sender'   => XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
+                    'ip'       => $brokenArray[$i]->getVar('ip'),
                 ];
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
                 unset($broken);

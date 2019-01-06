@@ -82,9 +82,9 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsbroken_arr = $brokenHandler->getAll($criteria);
-            foreach (array_keys($downloadsbroken_arr) as $i) {
-                if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
+            $brokenArray = $brokenHandler->getAll($criteria);
+            foreach (array_keys($brokenArray) as $i) {
+                if ($brokenArray[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 }
             }
@@ -99,19 +99,19 @@ switch ($op) {
             }
         }
         $erreur         = false;
-        $message_erreur = '';
+        $errorMessage = '';
         // Test avant la validation
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
+            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
             $erreur         = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('sender', $ratinguser);
         $obj->setVar('ip', getenv('REMOTE_ADDR'));
         if (true === $erreur) {
-            $xoopsTpl->assign('message_erreur', $message_erreur);
+            $xoopsTpl->assign('errorMessage', $errorMessage);
         } else {
             if ($brokenHandler->insert($obj)) {
                 $tags                      = [];

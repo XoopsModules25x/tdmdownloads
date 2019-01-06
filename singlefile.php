@@ -229,13 +229,13 @@ if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
         $string = rawurldecode($string);
     }
     if (preg_match('/(' . preg_quote(XOOPS_URL, '/') . '.*)$/i', $string, $matches)) {
-        $target_uri = str_replace('&amp;', '&', $matches[1]);
+        $targetUri = str_replace('&amp;', '&', $matches[1]);
     } else {
-        $target_uri = XOOPS_URL . $_SERVER['REQUEST_URI'];
+        $targetUri = XOOPS_URL . $_SERVER['REQUEST_URI'];
     }
-    $tellafriend_texte = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($target_uri) . '&amp;subject=' . rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
+    $tellafriendText = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($targetUri) . '&amp;subject=' . rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 } else {
-    $tellafriend_texte = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])
+    $tellafriendText = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])
                                                                                                                                                                                              . ':  '
                                                                                                                                                                                              . XOOPS_URL
                                                                                                                                                                                              . '/modules/'
@@ -243,7 +243,7 @@ if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
                                                                                                                                                                                              . '/singlefile.php?lid='
                                                                                                                                                                                              . \Xmf\Request::getInt('lid', 0, 'REQUEST')) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 }
-$xoopsTpl->assign('tellafriend_texte', $tellafriend_texte);
+$xoopsTpl->assign('tellafriend_texte', $tellafriendText);
 
 // référencement
 // tags
@@ -263,11 +263,11 @@ $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
 $xoopsTpl->assign('version', $viewDownloads->getVar('version'));
 //description
 if (false === mb_strpos($description, '[pagebreak]')) {
-    $description_short = mb_substr($description, 0, 400);
+    $descriptionShort = mb_substr($description, 0, 400);
 } else {
-    $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
+    $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
 }
-$xoTheme->addMeta('meta', 'description', strip_tags($description_short));
+$xoTheme->addMeta('meta', 'description', strip_tags($descriptionShort));
 //keywords
 $keywords = \Xmf\Metagen::generateKeywords($viewDownloads->getVar('description'), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));

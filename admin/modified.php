@@ -157,16 +157,16 @@ switch ($op) {
                     $contenu = $downloadsfielddata[$j]->getVar('data', 'e');
                 }
                 //proposé
-                $mod_contenu = '';
+                $contentModified = '';
                 $criteria    = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
-                    $mod_contenu = $downloadsfieldmoddata[$j]->getVar('moddata', 'e');
+                    $contentModified = $downloadsfieldmoddata[$j]->getVar('moddata', 'e');
                 }
-                //                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $mod_contenu ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $mod_contenu . '</small></td></tr>';
-                $compare['cfields'][] = ['info' => $downloads_field[$i]->getVar('title'), 'current' => $contenu, 'modified' => $mod_contenu];
+                //                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $contentModified ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contentModified . '</small></td></tr>';
+                $compare['cfields'][] = ['info' => $downloads_field[$i]->getVar('title'), 'current' => $contenu, 'modified' => $contentModified];
             }
         }
         $compare['img'] = ['info' => _AM_TDMDOWNLOADS_FORMIMG, 'current' => $downloads_logourl, 'modified' => $moddownloads_logourl];

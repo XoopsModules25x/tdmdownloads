@@ -104,18 +104,18 @@ if (isset($block['bid'])) {
 }
 $form->addElement(new \XoopsFormHidden('op', $block['op']));
 $form->addElement(new \XoopsFormHidden('fct', 'blocksadmin'));
-$button_tray = new \XoopsFormElementTray('', '&nbsp;');
+$buttonTray = new \XoopsFormElementTray('', '&nbsp;');
 if ($block['is_custom']) {
-    $button_tray->addElement(new \XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
+    $buttonTray->addElement(new \XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
 }
 
 //Submit buttons
-$button_tray   = new \XoopsFormElementTray('', '');
+$buttonTray   = new \XoopsFormElementTray('', '');
 $submit_button = new \XoopsFormButton('', 'submitblock', _SUBMIT, 'submit');
-$button_tray->addElement($submit_button);
+$buttonTray->addElement($submit_button);
 
 $cancel_button = new \XoopsFormButton('', '', _CANCEL, 'button');
 $cancel_button->setExtra('onclick="history.go(-1)"');
-$button_tray->addElement($cancel_button);
+$buttonTray->addElement($cancel_button);
 
-$form->addElement($button_tray);
+$form->addElement($buttonTray);

@@ -57,7 +57,7 @@ switch ($op) {
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $obj            = $downloadsHandler->create();
         $erreur         = false;
-        $message_erreur = '';
+        $errorMessage = '';
         $donnee         = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST'));
         $donnee['title'] = \Xmf\Request::getString('title', '', 'POST');
@@ -103,21 +103,21 @@ switch ($op) {
                 $erreur = false;
             } else {
                 $erreur         = true;
-                $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
+                $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
             if (\Xmf\Request::getInt('cid', 0, 'REQUEST')) {
                 $erreur         = true;
-                $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
+                $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
         // erreur si le captcha est faux
         xoops_load('xoopscaptcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
+            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
             $erreur         = true;
         }
         // pour enregistrer temporairement les valeur des champs sup
@@ -127,8 +127,8 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 === $downloads_field[$i]->getVar('status_def')) {
-                $nom_champ          = 'champ' . $downloads_field[$i]->getVar('fid');
-                $donnee[$nom_champ] = \Xmf\Request::getString($nom_champ, '', 'POST');
+                $fieldName          = 'champ' . $downloads_field[$i]->getVar('fid');
+                $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
             }
         }
         // enregistrement temporaire des tags
@@ -136,7 +136,7 @@ switch ($op) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true === $erreur) {
-            $xoopsTpl->assign('message_erreur', $message_erreur);
+            $xoopsTpl->assign('errorMessage', $errorMessage);
         } else {
             $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
@@ -196,8 +196,8 @@ switch ($op) {
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 === $downloads_field[$i]->getVar('status_def')) {
                         $objdata   = $fielddataHandler->create();
-                        $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                        $objdata->setVar('data', \Xmf\Request::getString($nom_champ, '', 'POST'));
+                        $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
+                        $objdata->setVar('data', \Xmf\Request::getString($fieldName, '', 'POST'));
                         $objdata->setVar('lid', $lidDownloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                         $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();

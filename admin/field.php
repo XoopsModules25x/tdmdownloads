@@ -118,10 +118,10 @@ switch ($op) {
             // supression des entrée du champ
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', \Xmf\Request::getInt('fid', 0)));
-            $downloads_arr = $fielddataHandler->getAll($criteria);
-            foreach (array_keys($downloads_arr) as $i) {
+            $downloadsArray = $fielddataHandler->getAll($criteria);
+            foreach (array_keys($downloadsArray) as $i) {
                 // supression de l'entrée
-                $objdownloadsfielddata = $fielddataHandler->get($downloads_arr[$i]->getVar('iddata'));
+                $objdownloadsfielddata = $fielddataHandler->get($downloadsArray[$i]->getVar('iddata'));
                 $fielddataHandler->delete($objdownloadsfielddata) || $objdownloads->getHtmlErrors();
             }
             if ($fieldHandler->delete($obj)) {
@@ -137,11 +137,11 @@ switch ($op) {
             $message  = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', \Xmf\Request::getInt('fid', 0, 'GET')));
-            $downloads_arr = $fielddataHandler->getAll($criteria);
-            if (count($downloads_arr) > 0) {
+            $downloadsArray = $fielddataHandler->getAll($criteria);
+            if (count($downloadsArray) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDATA . '<br>';
-                foreach (array_keys($downloads_arr) as $i) {
-                    $message .= '<span style="color: #ff0000;">' . $downloads_arr[$i]->getVar('data') . '</span><br>';
+                foreach (array_keys($downloadsArray) as $i) {
+                    $message .= '<span style="color: #ff0000;">' . $downloadsArray[$i]->getVar('data') . '</span><br>';
                 }
             }
             //Affichage de la partie haute de l'administration de Xoops
@@ -167,7 +167,7 @@ switch ($op) {
             $obj = $fieldHandler->create();
         }
         $erreur         = false;
-        $message_erreur = '';
+        $errorMessage = '';
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
@@ -199,10 +199,10 @@ switch ($op) {
 
         if (0 === \Xmf\Request::getInt('weight', 0, 'POST') && '0' !== \Xmf\Request::getString('weight', '', 'POST')) {
             $erreur         = true;
-            $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
+            $errorMessage = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if (true === $erreur) {
-            $GLOBALS['xoopsTpl']->assign('error', $message_erreur);
+            $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
         } else {
             if ($fieldHandler->insert($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);

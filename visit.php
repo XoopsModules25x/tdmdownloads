@@ -96,9 +96,9 @@ error_reporting(0);
 if ($helper->getConfig('check_host')) {
     $goodhost     = 0;
     $referer      = parse_url(xoops_getenv('HTTP_REFERER'));
-    $referer_host = $referer['host'];
+    $refererHost = $referer['host'];
     foreach ($helper->getConfig('referers') as $ref) {
-        if (!empty($ref) && preg_match('/' . $ref . '/i', $referer_host)) {
+        if (!empty($ref) && preg_match('/' . $ref . '/i', $refererHost)) {
             $goodhost = '1';
             break;
         }

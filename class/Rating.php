@@ -75,9 +75,9 @@ class Rating extends \XoopsObject
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         $form->addElement(new \XoopsFormHidden('lid', $lid));
         // Submit button
-        $button_tray = new \XoopsFormElementTray('', '');
-        $button_tray->addElement(new \XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_RATEFILE_RATE, 'submit'));
-        $form->addElement($button_tray);
+        $buttonTray = new \XoopsFormElementTray('', '');
+        $buttonTray->addElement(new \XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_RATEFILE_RATE, 'submit'));
+        $form->addElement($buttonTray);
 
         return $form;
     }

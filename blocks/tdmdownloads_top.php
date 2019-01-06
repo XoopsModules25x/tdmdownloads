@@ -89,36 +89,36 @@ function b_tdmdownloads_top_show($options)
             break;
     }
     $criteria->setLimit($nb_entree);
-    $downloads_arr = $downloadsHandler->getAll($criteria);
-    foreach (array_keys($downloads_arr) as $i) {
-        $block[$i]['lid']   = $downloads_arr[$i]->getVar('lid');
-        $block[$i]['title'] = mb_strlen($downloads_arr[$i]->getVar('title')) > $lenght_title ? mb_substr($downloads_arr[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloads_arr[$i]->getVar('title');
-        $description_short  = '';
+    $downloadsArray = $downloadsHandler->getAll($criteria);
+    foreach (array_keys($downloadsArray) as $i) {
+        $block[$i]['lid']   = $downloadsArray[$i]->getVar('lid');
+        $block[$i]['title'] = mb_strlen($downloadsArray[$i]->getVar('title')) > $lenght_title ? mb_substr($downloadsArray[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloadsArray[$i]->getVar('title');
+        $descriptionShort  = '';
         if (true === $use_description) {
-            $description = $downloads_arr[$i]->getVar('description');
+            $description = $downloadsArray[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
             if (false === mb_strpos($description, '[pagebreak]')) {
-                $description_short = mb_substr($description, 0, $lenght_description) . ' ...';
+                $descriptionShort = mb_substr($description, 0, $lenght_description) . ' ...';
             } else {
-                $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]')) . ' ...';
+                $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]')) . ' ...';
             }
         }
-        $block[$i]['description'] = $description_short;
+        $block[$i]['description'] = $descriptionShort;
         $logourl                  = '';
         if (true === $use_logo) {
-            if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
+            if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
                 $logourl = '';
             } else {
-                $logourl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/' . $downloads_arr[$i]->getVar('logourl');
+                $logourl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/' . $downloadsArray[$i]->getVar('logourl');
             }
         }
         $block[$i]['logourl']       = $logourl;
         $block[$i]['logourl_class'] = $logo_float;
         $block[$i]['logourl_width'] = $logo_white;
-        $block[$i]['hits']          = $downloads_arr[$i]->getVar('hits');
-        $block[$i]['rating']        = number_format($downloads_arr[$i]->getVar('rating'), 1);
-        $block[$i]['date']          = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $block[$i]['submitter']     = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
+        $block[$i]['hits']          = $downloadsArray[$i]->getVar('hits');
+        $block[$i]['rating']        = number_format($downloadsArray[$i]->getVar('rating'), 1);
+        $block[$i]['date']          = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
+        $block[$i]['submitter']     = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
         $block[$i]['inforation']    = $show_inforation;
     }
 

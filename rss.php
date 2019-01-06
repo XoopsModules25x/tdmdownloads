@@ -20,7 +20,7 @@ global $xoopsModuleConfig;
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-$items_count = $helper->getConfig('perpagerss');
+$itemsCount = $helper->getConfig('perpagerss');
 $cid         = \Xmf\Request::getInt('cid', 0, 'GET');
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
@@ -47,7 +47,7 @@ if (0 !== $cid) {
 $criteria->setLimit($helper->getConfig('perpagerss'));
 $criteria->setSort('date');
 $criteria->setOrder('DESC');
-$downloads_arr = $downloadsHandler->getAll($criteria);
+$downloadsArray = $downloadsHandler->getAll($criteria);
 
 if (!$xoopsTpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $xoopsTpl->assign('channel_title', htmlspecialchars($title, ENT_QUOTES));
@@ -79,20 +79,20 @@ if (!$xoopsTpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     }
     $xoopsTpl->assign('image_width', $width);
     $xoopsTpl->assign('image_height', $height);
-    foreach (array_keys($downloads_arr) as $i) {
-        $description = $downloads_arr[$i]->getVar('description');
+    foreach (array_keys($downloadsArray) as $i) {
+        $description = $downloadsArray[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false === mb_strpos($description, '[pagebreak]')) {
-            $description_short = $description;
+            $descriptionShort = $description;
         } else {
-            $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
+            $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
         $xoopsTpl->append('items', [
-            'title'       => htmlspecialchars($downloads_arr[$i]->getVar('title'), ENT_QUOTES),
-            'link'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
-            'guid'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloads_arr[$i]->getVar('cid') . '&amp;lid=' . $downloads_arr[$i]->getVar('lid'),
-            'pubdate'     => formatTimestamp($downloads_arr[$i]->getVar('date'), 'rss'),
-            'description' => htmlspecialchars($description_short, ENT_QUOTES),
+            'title'       => htmlspecialchars($downloadsArray[$i]->getVar('title'), ENT_QUOTES),
+            'link'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
+            'guid'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
+            'pubdate'     => formatTimestamp($downloadsArray[$i]->getVar('date'), 'rss'),
+            'description' => htmlspecialchars($descriptionShort, ENT_QUOTES),
         ]);
     }
 }

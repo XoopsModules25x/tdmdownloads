@@ -82,28 +82,28 @@ class Category extends \XoopsObject
         //titre
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMTITLE, 'cat_title', 50, 255, $this->getVar('cat_title')), true);
         //editeur
-        $editor_configs           = [];
-        $editor_configs['name']   = 'cat_description_main';
-        $editor_configs['value']  = $this->getVar('cat_description_main', 'e');
-        $editor_configs['rows']   = 20;
-        $editor_configs['cols']   = 160;
-        $editor_configs['width']  = '100%';
-        $editor_configs['height'] = '400px';
-        $editor_configs['editor'] = $helper->getConfig('editor');
-        $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXT, 'cat_description_main', $editor_configs), false);
+        $editorConfigs           = [];
+        $editorConfigs['name']   = 'cat_description_main';
+        $editorConfigs['value']  = $this->getVar('cat_description_main', 'e');
+        $editorConfigs['rows']   = 20;
+        $editorConfigs['cols']   = 160;
+        $editorConfigs['width']  = '100%';
+        $editorConfigs['height'] = '400px';
+        $editorConfigs['editor'] = $helper->getConfig('editor');
+        $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXT, 'cat_description_main', $editorConfigs), false);
         //image
-        $downloadscat_img = $this->getVar('cat_imgurl') ?: 'blank.gif';
+        $categoryImage = $this->getVar('cat_imgurl') ?: 'blank.gif';
         $uploadirectory   = '/uploads/' . $moduleDirName . '/images/cats';
         $imgtray          = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
         $imgpath          = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect      = new \XoopsFormSelect($imgpath, 'downloadscat_img', $downloadscat_img);
+        $imageselect      = new \XoopsFormSelect($imgpath, 'downloadscat_img', $categoryImage);
         $topics_array     = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }
         $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"downloadscat_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
         $imgtray->addElement($imageselect, false);
-        $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
+        $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $categoryImage . "' name='image3' id='image3' alt=''>"));
         $fileseltray = new \XoopsFormElementTray('', '<br>');
         $fileseltray->addElement(new \XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedfile', $helper->getConfig('maxuploadsize')), false);
         $fileseltray->addElement(new \XoopsFormLabel(''), false);

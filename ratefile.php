@@ -83,18 +83,18 @@ switch ($op) {
         if (0 !== $ratinguser) {
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloads_arr = $downloadsHandler->getAll($criteria);
-            foreach (array_keys($downloads_arr) as $i) {
-                if ($downloads_arr[$i]->getVar('submitter') == $ratinguser) {
+            $downloadsArray = $downloadsHandler->getAll($criteria);
+            foreach (array_keys($downloadsArray) as $i) {
+                if ($downloadsArray[$i]->getVar('submitter') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
                 }
             }
             // si c'est un membre on vérifie qu'il ne vote pas 2 fois
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsvotes_arr = $ratingHandler->getAll($criteria);
-            foreach (array_keys($downloadsvotes_arr) as $i) {
-                if ($downloadsvotes_arr[$i]->getVar('ratinguser') === $ratinguser) {
+            $votesArray = $ratingHandler->getAll($criteria);
+            foreach (array_keys($votesArray) as $i) {
+                if ($votesArray[$i]->getVar('ratinguser') === $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 }
             }
@@ -111,17 +111,17 @@ switch ($op) {
             }
         }
         $erreur         = false;
-        $message_erreur = '';
+        $errorMessage = '';
         // Test avant la validation
         $rating = \Xmf\Request::getInt('rating', 0, 'POST');
         if ($rating < 0 || $rating > 10) {
-            $message_erreur .= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
+            $errorMessage .= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
             $erreur         = true;
         }
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
+            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
             $erreur         = true;
         }
         $obj->setVar('lid', $lid);
@@ -130,21 +130,21 @@ switch ($op) {
         $obj->setVar('ratinghostname', getenv('REMOTE_ADDR'));
         $obj->setVar('ratingtimestamp', time());
         if (true === $erreur) {
-            $xoopsTpl->assign('message_erreur', $message_erreur);
+            $xoopsTpl->assign('errorMessage', $errorMessage);
         } else {
             if ($ratingHandler->insert($obj)) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $lid));
-                $downloadsvotes_arr = $ratingHandler->getAll($criteria);
-                $total_vote         = $ratingHandler->getCount($criteria);
-                $total_rating       = 0;
-                foreach (array_keys($downloadsvotes_arr) as $i) {
-                    $total_rating += $downloadsvotes_arr[$i]->getVar('rating');
+                $votesArray = $ratingHandler->getAll($criteria);
+                $votesTotal         = $ratingHandler->getCount($criteria);
+                $ratingTotal       = 0;
+                foreach (array_keys($votesArray) as $i) {
+                    $ratingTotal += $votesArray[$i]->getVar('rating');
                 }
-                $rating       = $total_rating / $total_vote;
+                $rating       = $ratingTotal / $votesTotal;
                 $objdownloads = $downloadsHandler->get($lid);
                 $objdownloads->setVar('rating', number_format($rating, 1));
-                $objdownloads->setVar('votes', $total_vote);
+                $objdownloads->setVar('votes', $votesTotal);
                 if ($downloadsHandler->insert($objdownloads)) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEOK);
                 }
