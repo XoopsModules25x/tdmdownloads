@@ -23,7 +23,7 @@ require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //require_once XOOPS_ROOT_PATH . '/class/tree.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-//require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 
 require dirname(__DIR__) . '/include/common.php';

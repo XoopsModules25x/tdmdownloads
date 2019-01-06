@@ -1,5 +1,10 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
+
+<{if $error}>
+    <div class='errorMsg'><strong><{$error}></strong></div>
+<{/if}>
+
 <div align="right">
     <form id="form_document_tri" name="form_document_tri" method="get" action="document.php">
         <{$selectDocument}> <{$selectOrder}>
@@ -183,8 +188,5 @@
     <{$form}>
 <{/if}>
 
-<{if $error}>
-    <div class='errorMsg'><strong><{$error}></strong></div>
-<{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>
