@@ -15,10 +15,6 @@ namespace XoopsModules\Tdmdownloads;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-use Xmf\Request;
-use XoopsModules\Tdmdownloads;
-use XoopsModules\Tdmdownloads\Common;
-
 /**
  * Class Utility
  */
@@ -197,7 +193,7 @@ class Utility
 
     /**
      * retourne le nombre de téléchargements dans le catégories enfants d'une catégorie
-     * @param \XoopsModules\Tdmdownloads\Tree $mytree
+     * @param \XoopsModules\Tdmdownloads\Tree        $mytree
      * @param                                        $categories
      * @param                                        $entries
      * @param                                        $cid

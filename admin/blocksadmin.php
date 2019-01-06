@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -19,7 +18,7 @@ use Xmf\Request;
 require __DIR__ . '/admin_header.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
 if (!is_object($xoopsModule) || !is_object($GLOBALS['xoopsUser'])
     || !$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
@@ -45,19 +44,16 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     */
 
     $op = Request::getString('op', $op);
-    if (in_array($op, ['edit', 'delete', 'delete_ok', 'clone'])) {
+    if (in_array($op, ['edit', 'delete', 'delete_ok', 'clone'], true)) {
         $bid = Request::getInt('bid', 0, 'GET');
     }
 
-    /**
-     *
-     */
     function listBlocks()
     {
         global $xoopsModule, $pathIcon16;
         require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
         /** @var \XoopsMySQLDatabase $db */
         $db = \XoopsDatabaseFactory::getDatabaseConnection();
         xoops_loadLanguage('admin', 'system');
@@ -125,7 +121,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
             '86400'   => _DAY,
             '259200'  => sprintf(_DAYS, 3),
             '604800'  => _WEEK,
-            '2592000' => _MONTH
+            '2592000' => _MONTH,
         ];
         foreach ($block_arr as $i) {
             $groups_perms = $grouppermHandler->getGroupIds('block_read', $i->getVar('bid'));
@@ -295,7 +291,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
         xoops_cp_header();
 
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
         xoops_loadLanguage('admin', 'system');
         xoops_loadLanguage('admin/blocksadmin', 'system');
         xoops_loadLanguage('admin/groups', 'system');
@@ -326,7 +322,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
             'bid'        => $myblock->getVar('bid'),
             'edit_form'  => $myblock->getOptions(),
             'template'   => $myblock->getVar('template'),
-            'options'    => $myblock->getVar('options')
+            'options'    => $myblock->getVar('options'),
         ];
         echo '<a href="blocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_SYSTEM_BLOCKS_CLONEBLOCK . '<br><br>';
         require_once __DIR__ . '/blockform.php';
@@ -400,7 +396,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
             $sql = 'INSERT INTO ' . $db->prefix('block_module_link') . ' (block_id, module_id) VALUES (' . $newid . ', ' . $bmid . ')';
             $db->query($sql);
         }
-        $groups =& $GLOBALS['xoopsUser']->getGroups();
+        $groups = &$GLOBALS['xoopsUser']->getGroups();
         $count  = count($groups);
         for ($i = 0; $i < $count; ++$i) {
             $sql = 'INSERT INTO ' . $db->prefix('group_permission') . ' (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES (' . $groups[$i] . ', ' . $newid . ", 1, 'block_read')";
@@ -438,7 +434,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
         xoops_cp_header();
 
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
         xoops_loadLanguage('admin', 'system');
         xoops_loadLanguage('admin/blocksadmin', 'system');
         xoops_loadLanguage('admin/groups', 'system');
@@ -469,7 +465,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
             'bid'        => $myblock->getVar('bid'),
             'edit_form'  => $myblock->getOptions(),
             'template'   => $myblock->getVar('template'),
-            'options'    => $myblock->getVar('options')
+            'options'    => $myblock->getVar('options'),
         ];
         echo '<a href="blocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . _AM_SYSTEM_BLOCKS_EDITBLOCK . '<br><br>';
         require_once __DIR__ . '/blockform.php';
@@ -494,7 +490,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     function updateBlock($bid, $btitle, $bside, $bweight, $bvisible, $bcachetime, $bmodule, $options, $groups)
     {
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
         $myblock = new \XoopsBlock($bid);
         $myblock->setVar('title', $btitle);

@@ -13,10 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-use XoopsModules\Tdmdownloads\Tree;
-
 require_once __DIR__ . '/header.php';
 // template d'affichage
 $moduleDirName = basename(__DIR__);
@@ -26,8 +22,8 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 //On recupere la valeur de l'argument op dans l'URL$
-$op  = $utility->cleanVars($_REQUEST, 'op', 'liste', 'string');
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
+$op  = \Xmf\Request::getString('op', 'list');
+$lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
 //redirection si pas de permission de vote
 if (false === $perm_vote) {
@@ -48,8 +44,8 @@ if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
-    // Vue liste
-    case 'liste':
+    // Vue list
+    case 'list':
         //tableau des catégories
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
@@ -86,9 +82,9 @@ switch ($op) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
-            $downloadsbroken_arr = $brokenHandler->getAll($criteria);
-            foreach (array_keys($downloadsbroken_arr) as $i) {
-                if ($downloadsbroken_arr[$i]->getVar('sender') == $ratinguser) {
+            $brokenArray = $brokenHandler->getAll($criteria);
+            foreach (array_keys($brokenArray) as $i) {
+                if ($brokenArray[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 }
             }
@@ -103,19 +99,19 @@ switch ($op) {
             }
         }
         $erreur         = false;
-        $message_erreur = '';
+        $errorMessage = '';
         // Test avant la validation
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
-            $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
+            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
             $erreur         = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('sender', $ratinguser);
         $obj->setVar('ip', getenv('REMOTE_ADDR'));
         if (true === $erreur) {
-            $xoopsTpl->assign('message_erreur', $message_erreur);
+            $xoopsTpl->assign('errorMessage', $errorMessage);
         } else {
             if ($brokenHandler->insert($obj)) {
                 $tags                      = [];

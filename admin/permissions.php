@@ -13,9 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();

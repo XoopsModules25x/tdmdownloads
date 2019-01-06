@@ -24,7 +24,7 @@
         <{foreach item=downloads from=$downloads}>
             <{cycle values="odd,even" assign=class}>
             <tr class="<{$class}>">
-                <td align="center" style="vertical-align: middle;"><a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$downloads.cid}>&amp;lid=<{$downloads.lid}>" target="_blank"><img src="./images/download.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$downloads.title}>"
+                <td align="center" style="vertical-align: middle;"><a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$downloads.cid}>&amp;lid=<{$downloads.lid}>" target="_blank"><img src="./assets/images/download.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$downloads.title}>"
                                                                                                                                                                                                   title="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$downloads.title}>"></a></td>
                 <td align="left" style="vertical-align: middle;"><a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$downloads.cid}>&amp;lid=<{$downloads.lid}>" title="<{$downloads.title}>"><{$downloads.title}></a></td>
                 <td align="center" style="width: 32px; vertical-align: middle;"><img src="<{$downloads.imgurl}>" alt="<{$downloads.cat}>" title="<{$downloads.cat}>" width="30"></td>

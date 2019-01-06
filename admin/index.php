@@ -13,9 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
@@ -32,12 +29,12 @@ $nb_categories = $categoryHandler->getCount($criteria);
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0, '!='));
 $nb_downloads = $downloadsHandler->getCount($criteria);
-unset ($criteria);
+unset($criteria);
 // compte le nombre de téléchargements en attente de validation
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('status', 0));
 $nb_downloads_waiting = $downloadsHandler->getCount($criteria);
-unset ($criteria);
+unset($criteria);
 // compte le nombre de rapport de téléchargements brisés
 $nb_broken = $brokenHandler->getCount();
 // compte le nombre de demande de modifications
@@ -62,7 +59,6 @@ if (0 == $nb_downloads_waiting) {
 $adminObject->addInfoBox(_MI_TDMDOWNLOADS_ADMENU4);
 if (0 == $nb_broken) {
     $adminObject->addInfoBoxLine(sprintf(_AM_TDMDOWNLOADS_INDEX_BROKEN, '<span class="green" style = "font-weight: bold">' . $nb_broken . '</span>'), '', 'Green');
-
 } else {
     $adminObject->addInfoBoxLine(sprintf(_AM_TDMDOWNLOADS_INDEX_BROKEN, '<span class="red" style = "font-weight: bold">' . $nb_broken . '</span>'), '', 'Red');
 }
@@ -97,7 +93,7 @@ $adminObject->displayNavigation(basename(__FILE__));
 
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
-    require __DIR__ . '/../testdata/index.php';
+    require dirname(__DIR__) . '/testdata/index.php';
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
 

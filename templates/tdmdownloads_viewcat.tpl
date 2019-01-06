@@ -2,7 +2,7 @@
 
     <!-- Download logo-->
     <div class="tdmdownloads-logo center marg10">
-        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$mod_url}>/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
     </div>
 
     <!-- Category path -->
@@ -51,7 +51,7 @@
 
     <!-- RSS logo -->
     <div class="tdmdownloads-rss">
-        <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=<{$category_id}>"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=<{$category_id}>"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
     </div>
 
     <{if $bl_affichage==1}>

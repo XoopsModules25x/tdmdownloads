@@ -16,9 +16,6 @@ namespace XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -122,7 +119,7 @@ class Field extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save_field'));
         //boutton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', false));
+        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', 'submit', false));
 
         return $form;
     }

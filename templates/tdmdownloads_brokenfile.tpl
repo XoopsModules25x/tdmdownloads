@@ -16,9 +16,9 @@
         </ul>
     </div>
 
-    <{if $message_erreur != ''}>
+    <{if $errorMessage != ''}>
         <!-- Error message-->
-        <div class="errorMsg"><{$message_erreur}></div>
+        <div class="errorMsg"><{$errorMessage}></div>
     <{/if}>
 
     <!-- Submit form -->

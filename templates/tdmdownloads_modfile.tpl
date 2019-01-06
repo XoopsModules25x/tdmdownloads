@@ -8,9 +8,9 @@
     <!-- Category path -->
     <div class="bold marg1 pad1"><{$navigation}></div>
 
-    <{if $message_erreur != ''}>
+    <{if $errorMessage != ''}>
         <!-- Error message-->
-        <div class="errorMsg"><{$message_erreur}></div>
+        <div class="errorMsg"><{$errorMessage}></div>
     <{/if}>
 
     <!-- Submit form -->

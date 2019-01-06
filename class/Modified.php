@@ -184,24 +184,24 @@ class Modified extends \XoopsObject
 
                     if (1 == $downloads_field[$i]->getVar('status')) {
                         $size_value_arr = explode(' ', $viewDownloads->getVar('size'));
-                        $size_value     = $size_value_arr[0];
+                        $sizeValue     = $size_value_arr[0];
                         if (false === $erreur) {
-                            $type_value = $size_value_arr[1];
+                            $typeValue = $size_value_arr[1];
                         } else {
-                            $type_value = $donnee['type_size'];
+                            $typeValue = $donnee['type_size'];
                         }
                         $aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
-                        $aff_size->addElement(new \XoopsFormText('', 'size', 10, 255, $size_value));
-                        $type = new \XoopsFormSelect('', 'type_size', $type_value);
-                        //$type_arr = array('[o]' => _AM_TDMDOWNLOADS_BYTES, '[Ko]' => _AM_TDMDOWNLOADS_KBYTES, '[Mo]' => _AM_TDMDOWNLOADS_MBYTES, '[Go]' => _AM_TDMDOWNLOADS_GBYTES, '[To]' => _AM_TDMDOWNLOADS_TBYTES);
-                        $type_arr = [
+                        $aff_size->addElement(new \XoopsFormText('', 'size', 10, 255, $sizeValue));
+                        $type = new \XoopsFormSelect('', 'type_size', $typeValue);
+                        //$typeArray = array('[o]' => _AM_TDMDOWNLOADS_BYTES, '[Ko]' => _AM_TDMDOWNLOADS_KBYTES, '[Mo]' => _AM_TDMDOWNLOADS_MBYTES, '[Go]' => _AM_TDMDOWNLOADS_GBYTES, '[To]' => _AM_TDMDOWNLOADS_TBYTES);
+                        $typeArray = [
                             _AM_TDMDOWNLOADS_BYTES  => '[' . _AM_TDMDOWNLOADS_BYTES . ']',
                             _AM_TDMDOWNLOADS_KBYTES => '[' . _AM_TDMDOWNLOADS_KBYTES . ']',
                             _AM_TDMDOWNLOADS_MBYTES => '[' . _AM_TDMDOWNLOADS_MBYTES . ']',
                             _AM_TDMDOWNLOADS_GBYTES => '[' . _AM_TDMDOWNLOADS_GBYTES . ']',
                             _AM_TDMDOWNLOADS_TBYTES => '[' . _AM_TDMDOWNLOADS_TBYTES . ']',
                         ];
-                        $type->addOptionArray($type_arr);
+                        $type->addOptionArray($typeArray);
                         $aff_size->addElement($type);
                         $form->addElement($aff_size);
                     } else {
@@ -213,8 +213,8 @@ class Modified extends \XoopsObject
                     //plateforme
                     if (1 == $downloads_field[$i]->getVar('status')) {
                         $platformselect = new \XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|', $d_platform), 5, true);
-                        $platform_array = explode('|', $helper->getConfig('platform'));
-                        foreach ($platform_array as $platform) {
+                        $platformArray = explode('|', $helper->getConfig('platform'));
+                        foreach ($platformArray as $platform) {
                             $platformselect->addOption((string)$platform, $platform);
                         }
                         $form->addElement($platformselect, false);
@@ -225,7 +225,7 @@ class Modified extends \XoopsObject
                 }
             } else {
                 $contenu          = '';
-                $nom_champ        = 'champ' . $downloads_field[$i]->getVar('fid');
+                $fieldName        = 'champ' . $downloads_field[$i]->getVar('fid');
                 $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
                 $criteria         = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $viewDownloads->getVar('lid')));
@@ -233,46 +233,46 @@ class Modified extends \XoopsObject
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
                     if (true === $erreur) {
-                        $contenu = $donnee[$nom_champ];
+                        $contenu = $donnee[$fieldName];
                     } else {
                         $contenu = $downloadsfielddata[$j]->getVar('data');
                     }
                 }
                 if (1 == $downloads_field[$i]->getVar('status')) {
-                    $form->addElement(new \XoopsFormText($downloads_field[$i]->getVar('title'), $nom_champ, 50, 255, $contenu));
+                    $form->addElement(new \XoopsFormText($downloads_field[$i]->getVar('title'), $fieldName, 50, 255, $contenu));
                 } else {
-                    $form->addElement(new \XoopsFormHidden($nom_champ, ''));
+                    $form->addElement(new \XoopsFormHidden($fieldName, ''));
                 }
             }
         }
         //description
-        $editor_configs           = [];
-        $editor_configs['name']   = 'description';
-        $editor_configs['value']  = $d_description;
-        $editor_configs['rows']   = 20;
-        $editor_configs['cols']   = 60;
-        $editor_configs['width']  = '100%';
-        $editor_configs['height'] = '400px';
-        $editor_configs['editor'] = $helper->getConfig('editor');
-        $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editor_configs), true);
+        $editorConfigs           = [];
+        $editorConfigs['name']   = 'description';
+        $editorConfigs['value']  = $d_description;
+        $editorConfigs['rows']   = 20;
+        $editorConfigs['cols']   = 60;
+        $editorConfigs['width']  = '100%';
+        $editorConfigs['height'] = '400px';
+        $editorConfigs['editor'] = $helper->getConfig('editor');
+        $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editorConfigs), true);
         //image
         if ($helper->getConfig('useshots')) {
             $uploaddir        = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $viewDownloads->getVar('logourl');
-            $downloadscat_img = $viewDownloads->getVar('logourl') ?: 'blank.gif';
+            $categoryImage = $viewDownloads->getVar('logourl') ?: 'blank.gif';
             $uploadirectory   = '/uploads/' . $moduleDirName . '/images/shots';
             if (!is_file($uploaddir)) {
-                $downloadscat_img = 'blank.gif';
+                $categoryImage = 'blank.gif';
             }
             $imgtray      = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
             $imgpath      = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-            $imageselect  = new \XoopsFormSelect($imgpath, 'logo_img', $downloadscat_img);
+            $imageselect  = new \XoopsFormSelect($imgpath, 'logo_img', $categoryImage);
             $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
                 $imageselect->addOption((string)$image, $image);
             }
             $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
             $imgtray->addElement($imageselect, false);
-            $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $downloadscat_img . "' name='image3' id='image3' alt=''>"));
+            $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadirectory . '/' . $categoryImage . "' name='image3' id='image3' alt=''>"));
             $fileseltray = new \XoopsFormElementTray('', '<br>');
             if (true === $perm_upload) {
                 $fileseltray->addElement(new \XoopsFormFile(_AM_TDMDOWNLOADS_FORMUPLOAD, 'attachedimage', $helper->getConfig('maxuploadsize')), false);
@@ -285,7 +285,7 @@ class Modified extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save'));
         //bouton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButtonTray('', 'submit', _SUBMIT, 'submit', false));
+        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', 'submit', false));
 
         return $form;
     }

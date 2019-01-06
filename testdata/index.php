@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -36,7 +35,7 @@ switch ($op) {
 function loadSampleData()
 {
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
     $helper             = Tdmdownloads\Helper::getInstance();
     $utility            = new Tdmdownloads\Utility();
     $configurator       = new Common\Configurator();
@@ -59,7 +58,7 @@ function loadSampleData()
 
     //  ---  COPY test folder files ---------------
     if (is_array($configurator->copyTestFolders) && count($configurator->copyTestFolders) > 0) {
-        //        $file = __DIR__ . '/../testdata/images/';
+        //        $file =  dirname(__DIR__) . '/testdata/images/';
         foreach (array_keys($configurator->copyTestFolders) as $i) {
             $src  = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
@@ -73,7 +72,7 @@ function loadSampleData()
 function saveSampleData()
 {
     $moduleDirName      = basename(dirname(__DIR__));
-    $moduleDirNameUpper = strtoupper($moduleDirName);
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
     $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
 
@@ -88,7 +87,7 @@ function exportSchema()
 {
     try {
         $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = strtoupper($moduleDirName);
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
         $migrate = new  \Xmf\Database\Migrate($moduleDirName);
         $migrate->saveCurrentSchema();

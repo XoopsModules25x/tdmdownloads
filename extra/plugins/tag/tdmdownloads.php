@@ -18,8 +18,6 @@
  * @return bool|null
  */
 
-use XoopsModules\Tdmdownloads;
-
 /**
  * @param $items
  * @return bool|null

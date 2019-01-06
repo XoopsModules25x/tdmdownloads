@@ -13,9 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 require __DIR__ . '/admin_header.php';
 
 // Template
@@ -25,7 +22,7 @@ $templateMain = 'tdmdownloads_admin_broken.tpl';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = \Xmf\Request::getString('op', 'list');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -38,15 +35,15 @@ switch ($op) {
 
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
-            $criteria->setLimit($_REQUEST['limit']);
-            $limit = $_REQUEST['limit'];
+            $criteria->setLimit(\Xmf\Request::getInt('limit', 0, 'REQUEST'));
+            $limit = \Xmf\Request::getInt('limit', 0, 'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
-            $criteria->setStart($_REQUEST['start']);
-            $start = $_REQUEST['start'];
+            $criteria->setStart(\Xmf\Request::getInt('start', 0, 'REQUEST'));
+            $start = \Xmf\Request::getInt('start', 0, 'REQUEST');
         } else {
             $criteria->setStart(0);
             $start = 0;
@@ -57,7 +54,7 @@ switch ($op) {
         $brokenHandler->table_link   = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
         $brokenHandler->field_link   = 'lid'; // champ de la table en jointure
         $brokenHandler->field_object = 'lid'; // champ de la table courante
-        $downloadsbroken_arr         = $brokenHandler->getByLink($criteria);
+        $brokenArray         = $brokenHandler->getByLink($criteria);
         $numrows                     = $brokenHandler->getCount($criteria);
         $pagenav                     = '';
         if ($numrows > $limit) {
@@ -68,14 +65,14 @@ switch ($op) {
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('broken_count', $numrows);
             $broken = [];
-            foreach (array_keys($downloadsbroken_arr) as $i) {
+            foreach (array_keys($brokenArray) as $i) {
                 $broken = [
-                    'lid'      => $downloadsbroken_arr[$i]->getVar('lid'),
-                    'reportid' => $downloadsbroken_arr[$i]->getVar('reportid'),
-                    'title'    => $downloadsbroken_arr[$i]->getVar('title'),
-                    'cid'      => $downloadsbroken_arr[$i]->getVar('cid'),
-                    'sender'   => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
-                    'ip'       => $downloadsbroken_arr[$i]->getVar('ip')
+                    'lid'      => $brokenArray[$i]->getVar('lid'),
+                    'reportid' => $brokenArray[$i]->getVar('reportid'),
+                    'title'    => $brokenArray[$i]->getVar('title'),
+                    'cid'      => $brokenArray[$i]->getVar('cid'),
+                    'sender'   => XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
+                    'ip'       => $brokenArray[$i]->getVar('ip'),
                 ];
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
                 unset($broken);
@@ -84,11 +81,10 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS);
         }
         break;
-
     // permet de suprimmer le rapport de téléchargment brisé
     case 'del_brokendownloads':
-        $obj = $brokenHandler->get($_REQUEST['broken_id']);
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
+        $obj = $brokenHandler->get(\Xmf\Request::getInt('broken_id', 0, 'REQUEST'));
+        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0, 'REQUEST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -103,7 +99,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('broken.php'));
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU4, 'broken.php?op=list', 'list');
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-            xoops_confirm(['ok' => 1, 'broken_id' => $_REQUEST['broken_id'], 'op' => 'del_brokendownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
+            xoops_confirm(['ok' => 1, 'broken_id' => \Xmf\Request::getInt('broken_id', 0, 'REQUEST'), 'op' => 'del_brokendownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
         }
         break;
 }

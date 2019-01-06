@@ -16,7 +16,6 @@
  * @param null $prev_version
  * @return bool|null
  */
-
 function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
 {
     $ret = null;
@@ -30,6 +29,7 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
     if (!empty($errors)) {
         //        print_r($errors);
     }
+
     return $ret;
 }
 
@@ -46,9 +46,11 @@ function update_tdmdownloads_v167(&$module)
     rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads');
 
     // files have been moved to assets-folder
-    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/css/';;
+    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/css/';
+
     rrmdir($src);
-    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/images/';;
+    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/images/';
+
     rrmdir($src);
 
     // delete unneeded/replacfiles
@@ -79,7 +81,6 @@ function update_tdmdownloads_v167(&$module)
  */
 function rrmdir($src)
 {
-
     if (is_dir($src)) {
         $dir = opendir($src);
         while (false !== ($file = readdir($dir))) {

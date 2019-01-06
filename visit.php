@@ -13,17 +13,14 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 error_reporting(0);
 require __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
-$cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
+$lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
+$cid = \Xmf\Request::getInt('cid', 0, 'REQUEST');
 // redirection si le téléchargement n'existe pas
 $viewDownloads = $downloadsHandler->get($lid);
 if (is_array($viewDownloads) && 0 === count($viewDownloads)) {
@@ -99,9 +96,9 @@ error_reporting(0);
 if ($helper->getConfig('check_host')) {
     $goodhost     = 0;
     $referer      = parse_url(xoops_getenv('HTTP_REFERER'));
-    $referer_host = $referer['host'];
+    $refererHost = $referer['host'];
     foreach ($helper->getConfig('referers') as $ref) {
-        if (!empty($ref) && preg_match('/' . $ref . '/i', $referer_host)) {
+        if (!empty($ref) && preg_match('/' . $ref . '/i', $refererHost)) {
             $goodhost = '1';
             break;
         }

@@ -57,15 +57,13 @@ class Migrate extends \Xmf\Database\Migrate
      *
      * @param string $tableName  table to convert
      * @param string $columnName column with IP address
-     *
-     * @return void
      */
     private function convertIPAddresses($tableName, $columnName)
     {
         if ($this->tableHandler->useTable($tableName)) {
             $attributes = $this->tableHandler->getColumnAttributes($tableName, $columnName);
-            if (false !== strpos($attributes, ' int(')) {
-                if (false === strpos($attributes, 'unsigned')) {
+            if (false !== mb_strpos($attributes, ' int(')) {
+                if (false === mb_strpos($attributes, 'unsigned')) {
                     $this->tableHandler->alterColumn($tableName, $columnName, " bigint(16) NOT NULL  DEFAULT '0' ");
                     $this->tableHandler->update($tableName, [$columnName => "4294967296 + $columnName"], "WHERE $columnName < 0", false);
                 }
@@ -77,8 +75,6 @@ class Migrate extends \Xmf\Database\Migrate
 
     /**
      * Move do* columns from newbb_posts to newbb_posts_text table
-     *
-     * @return void
      */
     private function moveDoColumns()
     {
@@ -103,8 +99,6 @@ class Migrate extends \Xmf\Database\Migrate
      * Some typical uses include
      *   table and column renames
      *   data conversions
-     *
-     * @return void
      */
     protected function preSyncActions()
     {

@@ -23,10 +23,10 @@
 
                     <td class='center'>
                         <a href='category.php?op=edit_cat&amp;downloadscat_cid=<{$category.cid}>' title='<{$smarty.const._EDIT}>'>
-                            <img src='<{$pathModIcon16}>/edit.png' alt='<{$smarty.const._EDIT}>'/>
+                            <img src='<{$pathModIcon16}>/edit.png' alt='<{$smarty.const._EDIT}>'>
                         </a>
                         <a href='category.php?op=del_cat&amp;downloadscat_cid=<{$category.cid}>' title='<{$smarty.const._DELETE}>'>
-                            <img src='<{$pathModIcon16}>/delete.png' alt='<{$smarty.const._DELETE}>'/>
+                            <img src='<{$pathModIcon16}>/delete.png' alt='<{$smarty.const._DELETE}>'>
                         </a>
                     </td>
                 </tr>

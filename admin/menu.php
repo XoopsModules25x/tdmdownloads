@@ -13,13 +13,10 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads;
-
 include dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = strtoupper($moduleDirName);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
@@ -96,7 +93,7 @@ if ($helper->getConfig('displayDeveloperTools')) {
     $adminmenu[] = [
         'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
         'link'  => 'admin/migrate.php',
-        'icon'  => $pathIcon32 . '/database_go.png'
+        'icon'  => $pathIcon32 . '/database_go.png',
     ];
 }
 

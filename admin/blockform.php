@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
  * which is considered copyrighted (c) material of the original comment or credit authors.
@@ -13,11 +12,10 @@
  * @link            https://www.xoops.org
  * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
  */
-
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = strtoupper($moduleDirName); //$capsDirName
+$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 
 $form = new \XoopsThemeForm($block['form_title'], 'blockform', 'blocksadmin.php', 'post', true);
 if (isset($block['name'])) {
@@ -32,7 +30,7 @@ $side_select->addOptionArray([
                                  5 => _AM_SYSTEM_BLOCKS_CBCENTER,
                                  7 => _AM_SYSTEM_BLOCKS_CBBOTTOMLEFT,
                                  8 => _AM_SYSTEM_BLOCKS_CBBOTTOMRIGHT,
-                                 9 => _AM_SYSTEM_BLOCKS_CBBOTTOM
+                                 9 => _AM_SYSTEM_BLOCKS_CBBOTTOM,
                              ]);
 $form->addElement($side_select);
 $form->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'WEIGHT'), 'bweight', 2, 5, $block['weight']));
@@ -58,7 +56,7 @@ if ($block['is_custom']) {
                                       'H' => _AM_SYSTEM_BLOCKS_HTML,
                                       'P' => _AM_SYSTEM_BLOCKS_PHP,
                                       'S' => _AM_SYSTEM_BLOCKS_AFWSMILE,
-                                      'T' => _AM_SYSTEM_BLOCKS_AFNOSMILE
+                                      'T' => _AM_SYSTEM_BLOCKS_AFNOSMILE,
                                   ]);
     $form->addElement($ctype_select);
 } else {
@@ -69,7 +67,7 @@ if ($block['is_custom']) {
         if (count($btemplate) > 0) {
             $form->addElement(new \XoopsFormLabel(_AM_SYSTEM_BLOCKS_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate[0]->getVar('tpl_id') . '">' . _AM_SYSTEM_BLOCKS_EDITTPL . '</a>'));
         } else {
-            $btemplate2 =& $tplfileHandler->find('default', 'block', $block['bid']);
+            $btemplate2 = &$tplfileHandler->find('default', 'block', $block['bid']);
             if (count($btemplate2) > 0) {
                 $form->addElement(new \XoopsFormLabel(_AM_SYSTEM_BLOCKS_CONTENT, '<a href="' . XOOPS_URL . '/modules/system/admin.php?fct=tplsets&amp;op=edittpl&amp;id=' . $btemplate2[0]->getVar('tpl_id') . '" target="_blank">' . _AM_SYSTEM_BLOCKS_EDITTPL . '</a>'));
             }
@@ -91,7 +89,7 @@ $cache_select->addOptionArray([
                                   '86400'   => _DAY,
                                   '259200'  => sprintf(_DAYS, 3),
                                   '604800'  => _WEEK,
-                                  '2592000' => _MONTH
+                                  '2592000' => _MONTH,
                               ]);
 $form->addElement($cache_select);
 
@@ -106,18 +104,18 @@ if (isset($block['bid'])) {
 }
 $form->addElement(new \XoopsFormHidden('op', $block['op']));
 $form->addElement(new \XoopsFormHidden('fct', 'blocksadmin'));
-$button_tray = new \XoopsFormElementTray('', '&nbsp;');
+$buttonTray = new \XoopsFormElementTray('', '&nbsp;');
 if ($block['is_custom']) {
-    $button_tray->addElement(new \XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
+    $buttonTray->addElement(new \XoopsFormButton('', 'previewblock', _PREVIEW, 'submit'));
 }
 
 //Submit buttons
-$button_tray   = new \XoopsFormElementTray('', '');
+$buttonTray   = new \XoopsFormElementTray('', '');
 $submit_button = new \XoopsFormButton('', 'submitblock', _SUBMIT, 'submit');
-$button_tray->addElement($submit_button);
+$buttonTray->addElement($submit_button);
 
 $cancel_button = new \XoopsFormButton('', '', _CANCEL, 'button');
 $cancel_button->setExtra('onclick="history.go(-1)"');
-$button_tray->addElement($cancel_button);
+$buttonTray->addElement($cancel_button);
 
-$form->addElement($button_tray);
+$form->addElement($buttonTray);

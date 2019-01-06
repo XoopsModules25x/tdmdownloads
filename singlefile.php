@@ -13,10 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
-use XoopsModules\Tdmdownloads\Tree;
-use XoopsModules\Tdmdownloads;
-
 require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
@@ -29,7 +25,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
+$lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
 //information du téléchargement
 $viewDownloads = $downloadsHandler->get($lid);
@@ -89,7 +85,7 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
                  . '/modules/'
                  . $moduleDirName
                  . '/admin/downloads.php?op=view_downloads&amp;downloads_lid='
-                 . $_REQUEST['lid']
+                 . \Xmf\Request::getInt('lid', 0, 'REQUEST')
                  . '" title="'
                  . _MD_TDMDOWNLOADS_EDITTHISDL
                  . '"><img src="'
@@ -178,7 +174,7 @@ foreach (array_keys($downloads_field) as $i) {
     } else {
         $view_data = $fielddataHandler->get();
         $criteria  = new \CriteriaCompo();
-        $criteria->add(new \Criteria('lid', $_REQUEST['lid']));
+        $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('lid', 0, 'REQUEST')));
         $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
         $downloadsfielddata = $fielddataHandler->getAll($criteria);
         $contenu            = '';
@@ -224,7 +220,7 @@ if (1 == $helper->getConfig('permission_download')) {
 
 // pour utiliser tellafriend.
 if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
-    $string  = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'] . ':  ' . XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?lid=' . $_REQUEST['lid']);
+    $string  = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'] . ':  ' . XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'));
     $subject = sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']);
     if (false !== mb_strpos($subject, '%')) {
         $subject = rawurldecode($subject);
@@ -233,28 +229,28 @@ if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
         $string = rawurldecode($string);
     }
     if (preg_match('/(' . preg_quote(XOOPS_URL, '/') . '.*)$/i', $string, $matches)) {
-        $target_uri = str_replace('&amp;', '&', $matches[1]);
+        $targetUri = str_replace('&amp;', '&', $matches[1]);
     } else {
-        $target_uri = XOOPS_URL . $_SERVER['REQUEST_URI'];
+        $targetUri = XOOPS_URL . $_SERVER['REQUEST_URI'];
     }
-    $tellafriend_texte = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($target_uri) . '&amp;subject=' . rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
+    $tellafriendText = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($targetUri) . '&amp;subject=' . rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 } else {
-    $tellafriend_texte = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])
+    $tellafriendText = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])
                                                                                                                                                                                              . ':  '
                                                                                                                                                                                              . XOOPS_URL
                                                                                                                                                                                              . '/modules/'
                                                                                                                                                                                              . $moduleDirName
                                                                                                                                                                                              . '/singlefile.php?lid='
-                                                                                                                                                                                             . $_REQUEST['lid']) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
+                                                                                                                                                                                             . \Xmf\Request::getInt('lid', 0, 'REQUEST')) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 }
-$xoopsTpl->assign('tellafriend_texte', $tellafriend_texte);
+$xoopsTpl->assign('tellafriend_texte', $tellafriendText);
 
 // référencement
 // tags
 if ((1 == $helper->getConfig('usetag')) && is_dir('../tag')) {
     require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tags', true);
-    $xoopsTpl->assign('tagbar', tagBar($_REQUEST['lid'], 0));
+    $xoopsTpl->assign('tagbar', tagBar(\Xmf\Request::getInt('lid', 0, 'REQUEST'), 0));
 } else {
     $xoopsTpl->assign('tags', false);
 }
@@ -267,11 +263,11 @@ $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
 $xoopsTpl->assign('version', $viewDownloads->getVar('version'));
 //description
 if (false === mb_strpos($description, '[pagebreak]')) {
-    $description_short = mb_substr($description, 0, 400);
+    $descriptionShort = mb_substr($description, 0, 400);
 } else {
-    $description_short = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
+    $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
 }
-$xoTheme->addMeta('meta', 'description', strip_tags($description_short));
+$xoTheme->addMeta('meta', 'description', strip_tags($descriptionShort));
 //keywords
 $keywords = \Xmf\Metagen::generateKeywords($viewDownloads->getVar('description'), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));

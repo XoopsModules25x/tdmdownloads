@@ -48,7 +48,7 @@
 
         <!-- RSS logo -->
         <div class="tdmdownloads-rss">
-            <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=0"><img src="assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
+            <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=0"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
         </div>
         <{if $bl_affichage==1}>
             <!-- Start Summary informations -->

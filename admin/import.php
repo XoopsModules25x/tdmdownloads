@@ -13,7 +13,6 @@
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
@@ -25,7 +24,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //Action dans switch
 $op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
-    $op = $_REQUEST['op'];
+    $op = \Xmf\Request::getString('op', '', 'REQUEST');
 }
 
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
@@ -256,7 +255,6 @@ function importWfdownloads($shots = '', $catimg = '')
             }
             $successes[] = sprintf(_AM_TDMDOWNLOADS_IMPORT_DOWNLOADS_IMP, $donnees['title']);
             @copy($shots . $donnees['screenshot'], XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $donnees['screenshot']);
-
         }
         echo '<br>';
 
@@ -301,10 +299,10 @@ switch ($op) {
         break;
     // import Mydownloads
     case 'importMydownloads':
-        if ('' == $_REQUEST['path'] || '' == $_REQUEST['imgurl']) {
+        if ('' == \Xmf\Request::getString('path', '', 'REQUEST') || '' == \Xmf\Request::getString('imgurl', '', 'REQUEST')) {
             redirect_header('import.php?op=form_mydownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
-            importMydownloads($_REQUEST['path'], $_REQUEST['imgurl']);
+            importMydownloads(\Xmf\Request::getString('path', '', 'REQUEST'), \Xmf\Request::getString('imgurl', '', 'REQUEST'));
         }
         break;
     case 'form_mydownloads':
@@ -331,7 +329,7 @@ switch ($op) {
         if ($count_topic < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
         } else {
-            $check .= '<li>' . sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
+            $check .= '<li>' . sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
             $counter++;
         }
         $check .= '</ul>';
@@ -341,7 +339,7 @@ switch ($op) {
         // Form url
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_MYDOWNLOADS_URL, 'path', 100, 255, XOOPS_URL . '/modules/mydownloads/images/shots/'));
         // To execute
-        if (0 < $counter) {
+        if ($counter > 0) {
             $form->addElement(new \XoopsFormHidden('op', 'import_mydownloads'));
             $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         } else {
@@ -353,10 +351,10 @@ switch ($op) {
         break;
     // import WF-Downloads
     case 'importWfdownloads':
-        if ('' === $_REQUEST['shots'] || '' === $_REQUEST['catimg']) {
+        if ('' === \Xmf\Request::getString('shots') || '' === \Xmf\Request::getString('catimg')) {
             redirect_header('import.php?op=form_wfdownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
-            importWfdownloads($_REQUEST['shots'], $_REQUEST['catimg']);
+            importWfdownloads(\Xmf\Request::getString('shots'), \Xmf\Request::getString('catimg'));
         }
         break;
     case 'form_wfdownloads':
@@ -382,7 +380,7 @@ switch ($op) {
         if ($count_topic < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
         } else {
-            $check .= '<li>' . sprintf('<br/>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
+            $check .= '<li>' . sprintf('<br>' . _AM_TDMDOWNLOADS_IMPORT_NB_CAT, $count_topic) . '</li>';
             $counter++;
         }
         $check .= '</ul>';
@@ -392,7 +390,7 @@ switch ($op) {
         // Form url
         $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG, 'catimg', 100, 255, XOOPS_ROOT_PATH . '/modules/wfdownloads/assets/images/category/'));
         // To execute
-        if (0 < $counter) {
+        if ($counter > 0) {
             $form->addElement(new \XoopsFormHidden('op', 'import_mydownloads'));
             $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', '', false));
         } else {

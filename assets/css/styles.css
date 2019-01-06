@@ -114,52 +114,52 @@
 }
 
 .tdmdownloads-box #date {
-    background: url(../assets/images/icon/date.png) no-repeat left;
+    background: url(../assets/images/icons/16/date.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #author {
-    background: url(../assets/images/icon/author.png) no-repeat left;
+    background: url(../assets/images/icons/16/author.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #hits {
-    background: url(../assets/images/icon/hits.png) no-repeat left;
+    background: url(../assets/images/icons/16/hits.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #rating {
-    background: url(../assets/images/icon/votes.png) no-repeat left;
+    background: url(../assets/images/icons/16/votes.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #comments {
-    background: url(../assets/images/icon/comments.png) no-repeat left;
+    background: url(../assets/images/icons/16/comments.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #torate {
-    background: url(../assets/images/icon/torate.png) no-repeat left;
+    background: url(../assets/images/icons/16/torate.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #tomodify {
-    background: url(../assets/images/icon/tomodify.png) no-repeat left;
+    background: url(../assets/images/icons/16/tomodify.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #toreport {
-    background: url(../assets/images/icon/toreport.png) no-repeat left;
+    background: url(../assets/images/icons/16/toreport.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #totell {
-    background: url(../assets/images/icon/totell.png) no-repeat left;
+    background: url(../assets/images/icons/16/totell.png) no-repeat left;
     padding: 5px 20px;
 }
 
 .tdmdownloads-box #download {
-    background: url(../assets/images/icon/download-now.png) no-repeat left;
+    background: url(../assets/images/icons/16/download-now.png) no-repeat left;
     padding: 5px 25px;
     line-height: 1.6em;
     font-size: 1.1em;
