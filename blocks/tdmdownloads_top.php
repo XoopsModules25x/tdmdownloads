@@ -136,7 +136,6 @@ function b_tdmdownloads_top_edit($options)
     $moduleDirName = basename(dirname(__DIR__));
     $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
     $criteria = new \CriteriaCompo();
-    $criteria = new \CriteriaCompo();
     $criteria->setSort('cat_weight ASC, cat_title');
     $criteria->setOrder('ASC');
     $downloadscatArray = $categoryHandler->getAll($criteria);
