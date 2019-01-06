@@ -167,12 +167,10 @@ define('_AM_TDMDOWNLOADS_NOTAVAILABLE', "<span style='color : #ff0000;'>is not a
 define('_AM_TDMDOWNLOADS_NOTWRITABLE', "<span style='color : #ff0000;'>" . ' should have permission ( %1$d ), but it has ( %2$d )' . '</span>');
 define('_AM_TDMDOWNLOADS_CREATETHEDIR', 'Create it');
 define('_AM_TDMDOWNLOADS_SETMPERM', 'Set the permission');
-
 define('_AM_TDMDOWNLOADS_DIRCREATED', 'The directory has been created');
 define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'The directory can not be created');
 define('_AM_TDMDOWNLOADS_PERMSET', 'The permission has been set');
 define('_AM_TDMDOWNLOADS_PERMNOTSET', 'The permission can not be set');
-
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
 define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
@@ -180,12 +178,9 @@ define('_AM_TDMDOWNLOADS_ERROR_COLUMN', 'Could not create column in database : %
 define('_AM_TDMDOWNLOADS_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
 define('_AM_TDMDOWNLOADS_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
-
 define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
-
 // Error Msgs
 define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
-
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
