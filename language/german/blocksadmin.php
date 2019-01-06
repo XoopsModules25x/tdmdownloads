@@ -18,19 +18,20 @@
  */
 
 // Blocks & Groups Admin
-define('_AM_TOPPAGE', 'Top Page');
-define('_AM_ALLPAGES', 'All Pages');
-define('_AM_TITLE', 'Title');
-define('_AM_SIDE', 'Side');
-define('_AM_WEIGHT', 'Weight');
-define('_AM_VISIBLE', 'Visible');
-define('_AM_VISIBLEIN', 'Visible In');
-define('_AM_ACTION', 'Action');
+define('_AM_TOPPAGE', 'Startseite');
+define('_AM_ALLPAGES', 'Alle Seiten');
+define('_AM_TITLE', 'Titel');
+define('_AM_SIDE', 'Seite');
+define('_AM_WEIGHT', 'Reihung');
+define('_AM_VISIBLE', 'Sichtbar');
+define('_AM_VISIBLEIN', 'Sichtbar in');
+define('_AM_ACTION', 'Aktion');
+define('_AM_TITLE', 'Titel');
 define('_AM_BCACHETIME', 'Cache time');
-define('_AM_ACTIVERIGHTS', 'Module administration rights');
-define('_AM_ACCESSRIGHTS', 'Module access rights');
-define('_AM_BADMIN', 'Blocks administration');
-define('_AM_ADGS', 'Groups');
-define('_AM_ALLMODULEPAGES', 'Groups');
+define('_AM_ACTIVERIGHTS', 'Berechtigungen Modulverwaltung');
+define('_AM_ACCESSRIGHTS', 'Berechtigungen Modulzugriffe');
+define('_AM_BADMIN', 'Blockverwaltung');
+define('_AM_ADGS', 'Gruppen');
+define('_AM_ALLMODULEPAGES', 'Gruppen');
 define('_AM_SYSTEMLEVEL', '_AM_SYSTEMLEVEL');
 define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');
