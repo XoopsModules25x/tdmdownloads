@@ -201,10 +201,8 @@ $modversion['helpsection'] = [
 ];
 
 // Préférences
-
-$i                      = 1;
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL',
     'description' => '',
     'formtype'    => 'line_break',
@@ -308,7 +306,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER',
     'description' => '',
     'formtype'    => 'line_break',
@@ -493,7 +491,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN',
     'description' => '',
     'formtype'    => 'line_break',
@@ -511,7 +509,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS',
     'description' => '',
     'formtype'    => 'line_break',
@@ -560,13 +558,22 @@ $modversion['config'][] = [
     'name'        => 'mimetype',
     'title'       => '_MI_TDMDOWNLOADS_MIMETYPE',
     'description' => '_MI_TDMDOWNLOADS_MIMETYPE_DSC',
-    'formtype'    => 'textarea',
-    'valuetype'   => 'text',
-    'default'     => 'image/gif|image/jpeg|image/pjpeg|image/x-png|image/png|application/x-zip-compressed|application/zip|application/rar|application/pdf|
-                                            application/x-gtar|application/x-tar|application/msword|application/vnd.ms-excel|application/vnd.oasis.opendocument.text|
-                                            application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.presentation|
-                                            application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.chart|application/vnd.oasis.opendocument.formula|
-                                            application/vnd.oasis.opendocument.database|application/vnd.oasis.opendocument.image|application/vnd.oasis.opendocument.text-master',
+    'formtype'    => 'select_multi',
+    'valuetype'   => 'array',
+    'default'     => array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 
+                            'application/x-zip-compressed', 'application/zip', 'application/rar', 'application/pdf', 'application/x-gtar', 'application/x-tar', 
+                            'application/msword', 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.spreadsheet', 
+                            'application/vnd.oasis.opendocument.presentation', 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.chart', 
+                            'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.database', 'application/vnd.oasis.opendocument.image', 
+                            'application/vnd.oasis.opendocument.text-master'),
+    'options'     => array('image/gif' => 'image/gif', 'image/jpeg' =>'image/jpeg', 'image/pjpeg' => 'image/pjpeg', 'image/x-png' => 'image/x-png', 'image/png' => 'image/png', 
+                            'x-zip-compressed' => 'application/x-zip-compressed', 'application/zip' => 'application/zip', 'application/rar' => 'application/rar', 
+                            'application/pdf' => 'application/pdf', 'application/x-gtar' => 'application/x-gtar', 'application/x-tar' => 'application/x-tar', 
+                            'application/msword' => 'application/msword', 'application/vnd.ms-excel' => 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text' => 'application/vnd.oasis.opendocument.text', 
+                            'application/vnd.oasis.opendocument.spreadsheet' => 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.presentation' => 'application/vnd.oasis.opendocument.presentation', 
+                            'application/vnd.oasis.opendocument.graphics' => 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.chart' => 'application/vnd.oasis.opendocument.chart', 
+                            'application/vnd.oasis.opendocument.formula' => 'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.databas' => 'application/vnd.oasis.opendocument.database', 
+                            'application/vnd.oasis.opendocument.image' => 'application/vnd.oasis.opendocument.image', 'application/vnd.oasis.opendocument.text-master' => 'application/vnd.oasis.opendocument.text-master')
 ];
 
 $modversion['config'][] = [
@@ -616,7 +623,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL',
     'description' => '',
     'formtype'    => 'line_break',
@@ -676,7 +683,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
+    'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS',
     'description' => '',
     'formtype'    => 'line_break',
@@ -712,8 +719,8 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name'        => 'break' . $i,
-    'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI',
+    'name'        => 'break',
+    'title'       => '_MI_TDMDOWNLOADS_CONFCAT_OTHERS',
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
@@ -745,6 +752,14 @@ $modversion['config'][] = [
 ];
 
 // ------------------- Notifications -------------------
+$modversion['config'][] = [
+    'name'        => 'break',
+    'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI',
+    'description' => '',
+    'formtype'    => 'line_break',
+    'valuetype'   => 'textbox',
+    'default'     => 'head',
+];
 $modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
 $modversion['notification']['lookup_func'] = 'tdmdownloads_notify_iteminfo';
