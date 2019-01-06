@@ -19,7 +19,7 @@ require_once __DIR__ . '/header.php';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 // template d'affichage
-$moduleDirName = basename(__DIR__);
+$moduleDirName                           = basename(__DIR__);
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
@@ -40,18 +40,18 @@ $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
 //affichage des catégories
 $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));
-$count = 1;
+$count    = 1;
 $keywords = '';
 foreach (array_keys($downloadscatArray) as $i) {
     if (0 === $downloadscatArray[$i]->getVar('cat_pid')) {
-        $totaldownloads = $utility->getNumbersOfEntries($mytree, $categories, $downloads_arr, $downloadscatArray[$i]->getVar('cat_cid'));
+        $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloads_arr, $downloadscatArray[$i]->getVar('cat_cid'));
         $subcategories_arr = $mytree->getFirstChild($downloadscatArray[$i]->getVar('cat_cid'));
-        $chcount = 0;
-        $subcategories = '';
+        $chcount           = 0;
+        $subcategories     = '';
         //pour les mots clef
         $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
         foreach (array_keys($subcategories_arr) as $j) {
@@ -60,17 +60,17 @@ foreach (array_keys($downloadscatArray) as $i) {
                 break;
             }
             $subcategories .= '<li><a href="' . XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $subcategories_arr[$j]->getVar('cat_cid') . '">' . $subcategories_arr[$j]->getVar('cat_title') . '</a></li>';
-            $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
+            $keywords      .= $downloadscatArray[$i]->getVar('cat_title') . ',';
             ++$chcount;
         }
         $xoopsTpl->append('categories', [
-            'image' => $uploadurl . $downloadscatArray[$i]->getVar('cat_imgurl'),
-            'id' => $downloadscatArray[$i]->getVar('cat_cid'),
-            'title' => $downloadscatArray[$i]->getVar('cat_title'),
+            'image'            => $uploadurl . $downloadscatArray[$i]->getVar('cat_imgurl'),
+            'id'               => $downloadscatArray[$i]->getVar('cat_cid'),
+            'title'            => $downloadscatArray[$i]->getVar('cat_title'),
             'description_main' => $downloadscatArray[$i]->getVar('cat_description_main'),
-            'subcategories' => $subcategories,
-            'totaldownloads' => $totaldownloads,
-            'count' => $count,
+            'subcategories'    => $subcategories,
+            'totaldownloads'   => $totaldownloads,
+            'count'            => $count,
         ]);
         ++$count;
     }
@@ -94,9 +94,9 @@ if (1 == $helper->getConfig('bldate')) {
         }
         $date = formatTimestamp($downloads_arr_date[$i]->getVar('date'), 's');
         $xoopsTpl->append('bl_date', [
-            'id' => $downloads_arr_date[$i]->getVar('lid'),
-            'cid' => $downloads_arr_date[$i]->getVar('cid'),
-            'date' => $date,
+            'id'    => $downloads_arr_date[$i]->getVar('lid'),
+            'cid'   => $downloads_arr_date[$i]->getVar('cid'),
+            'date'  => $date,
             'title' => $title,
         ]);
     }
@@ -116,9 +116,9 @@ if (1 == $helper->getConfig('blpop')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
         $xoopsTpl->append('bl_pop', [
-            'id' => $downloads_arr_hits[$i]->getVar('lid'),
-            'cid' => $downloads_arr_hits[$i]->getVar('cid'),
-            'hits' => $downloads_arr_hits[$i]->getVar('hits'),
+            'id'    => $downloads_arr_hits[$i]->getVar('lid'),
+            'cid'   => $downloads_arr_hits[$i]->getVar('cid'),
+            'hits'  => $downloads_arr_hits[$i]->getVar('hits'),
             'title' => $title,
         ]);
     }
@@ -139,10 +139,10 @@ if (1 == $helper->getConfig('blrating')) {
         }
         $rating = number_format($downloads_arr_rating[$i]->getVar('rating'), 1);
         $xoopsTpl->append('bl_rating', [
-            'id' => $downloads_arr_rating[$i]->getVar('lid'),
-            'cid' => $downloads_arr_rating[$i]->getVar('cid'),
+            'id'     => $downloads_arr_rating[$i]->getVar('lid'),
+            'cid'    => $downloads_arr_rating[$i]->getVar('cid'),
             'rating' => $rating,
-            'title' => $title,
+            'title'  => $title,
         ]);
     }
 }
@@ -168,16 +168,16 @@ if ($helper->getConfig('newdownloads') > 0) {
     $criteria->add(new \Criteria('status', 0, '!='));
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
     $criteria->setLimit($helper->getConfig('newdownloads'));
-    $tblsort = [];
-    $tblsort[1] = 'date';
-    $tblsort[2] = 'date';
-    $tblsort[3] = 'hits';
-    $tblsort[4] = 'hits';
-    $tblsort[5] = 'rating';
-    $tblsort[6] = 'rating';
-    $tblsort[7] = 'title';
-    $tblsort[8] = 'title';
-    $tblorder = [];
+    $tblsort     = [];
+    $tblsort[1]  = 'date';
+    $tblsort[2]  = 'date';
+    $tblsort[3]  = 'hits';
+    $tblsort[4]  = 'hits';
+    $tblsort[5]  = 'rating';
+    $tblsort[6]  = 'rating';
+    $tblsort[7]  = 'title';
+    $tblsort[8]  = 'title';
+    $tblorder    = [];
     $tblorder[1] = 'DESC';
     $tblorder[2] = 'ASC';
     $tblorder[3] = 'DESC';
@@ -186,14 +186,14 @@ if ($helper->getConfig('newdownloads') > 0) {
     $tblorder[6] = 'ASC';
     $tblorder[7] = 'DESC';
     $tblorder[8] = 'ASC';
-    $sort = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
-    $order = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
+    $sort        = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
+    $order       = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
     $criteria->setSort($tblsort[$sort]);
     $criteria->setOrder($tblorder[$order]);
     $downloads_arr = $downloadsHandler->getAll($criteria);
-    $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
-    $item = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
-    $count = 1;
+    $categories    = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
+    $item          = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
+    $count         = 1;
     foreach (array_keys($downloads_arr) as $i) {
         if ('blank.gif' === $downloads_arr[$i]->getVar('logourl')) {
             $logourl = '';
@@ -201,8 +201,8 @@ if ($helper->getConfig('newdownloads') > 0) {
             $logourl = $downloads_arr[$i]->getVar('logourl');
             $logourl = $uploadurl_shots . $logourl;
         }
-        $datetime = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
-        $submitter = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
+        $datetime    = formatTimestamp($downloads_arr[$i]->getVar('date'), 's');
+        $submitter   = \XoopsUser::getUnameFromId($downloads_arr[$i]->getVar('submitter'));
         $description = $downloads_arr[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false === mb_strpos($description, '[pagebreak]')) {
@@ -246,18 +246,18 @@ if ($helper->getConfig('newdownloads') > 0) {
             }
         }
         $xoopsTpl->append('file', [
-            'id' => $downloads_arr[$i]->getVar('lid'),
-            'cid' => $downloads_arr[$i]->getVar('cid'),
-            'title' => $downloads_arr[$i]->getVar('title'),
-            'new' => $new,
-            'pop' => $pop,
-            'logourl' => $logourl,
-            'updated' => $datetime,
+            'id'                => $downloads_arr[$i]->getVar('lid'),
+            'cid'               => $downloads_arr[$i]->getVar('cid'),
+            'title'             => $downloads_arr[$i]->getVar('title'),
+            'new'               => $new,
+            'pop'               => $pop,
+            'logourl'           => $logourl,
+            'updated'           => $datetime,
             'description_short' => $description_short,
-            'adminlink' => $adminlink,
-            'submitter' => $submitter,
-            'perm_download' => $perm_download,
-            'count' => $count,
+            'adminlink'         => $adminlink,
+            'submitter'         => $submitter,
+            'perm_download'     => $perm_download,
+            'count'             => $count,
         ]);
         //pour les mots clef
         $keywords .= $downloads_arr[$i]->getVar('title') . ',';

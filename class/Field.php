@@ -85,11 +85,11 @@ class Field extends \XoopsObject
         }
         //image
         $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
-        $uploadirectory = '/uploads/' . $moduleDirName . '/images/field';
-        $imgtray = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
-        $imgpath = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
-        $topics_array = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $uploadirectory     = '/uploads/' . $moduleDirName . '/images/field';
+        $imgtray            = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
+        $imgpath            = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect        = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
+        $topics_array       = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }

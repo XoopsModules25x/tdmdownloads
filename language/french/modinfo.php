@@ -85,10 +85,8 @@ define('_MI_TDMDOWNLOADS_BOOKMARK_DSC', 'Afficher/masquer les icônes de marquag
 define('_MI_TDMDOWNLOADS_SOCIAL', 'Réseaux sociaux');
 define('_MI_TDMDOWNLOADS_SOCIAL_DSC', 'Afficher/masquer les icônes de réseau social');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT', 'Page de téléchargement flottante');
-define(
-    '_MI_TDMDOWNLOADS_DOWNLOADFLOAT_DSC',
-       "<ul> <li>De gauche à droite : Montrez la description des téléchargements du côté gauche et la colonne d'informations du côté droit </li> <li> De droite à gauche : Montrez la description des téléchargements du côté droit et la colonne d'informations du côté gauche </li> </ul>"
-);
+define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_DSC',
+       "<ul> <li>De gauche à droite : Montrez la description des téléchargements du côté gauche et la colonne d'informations du côté droit </li> <li> De droite à gauche : Montrez la description des téléchargements du côté droit et la colonne d'informations du côté gauche </li> </ul>");
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_LTR', 'De gauche à droite');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_RTL', 'De droite à gauche');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', 'Administration');

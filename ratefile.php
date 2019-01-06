@@ -23,8 +23,8 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString( 'op', 'list');
-$lid = \Xmf\Request::getInt('lid', 0,  'REQUEST');
+$op  = \Xmf\Request::getString('op', 'list');
+$lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
 //redirection si pas de permission de vote
 if (false === $perm_vote) {
@@ -53,7 +53,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         $downloadscatArray = $categoryHandler->getAll($criteria);
-        $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+        $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
         //navigation
         $navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
         $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> <a title="' . $viewDownloads->getVar('title') . '" href="singlefile.php?lid=' . $viewDownloads->getVar('lid') . '">' . $viewDownloads->getVar('title') . '</a>';
@@ -67,7 +67,7 @@ switch ($op) {
         //description
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $viewDownloads->getVar('title') . ')'));
         //Affichage du formulaire de notation des téléchargements
-        $obj = $ratingHandler->create();
+        $obj  = $ratingHandler->create();
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
@@ -101,7 +101,7 @@ switch ($op) {
         } else {
             // si c'est un utilisateur anonyme on vérifie qu'il ne vote pas 2 fois par jour
             $yesterday = (time() - 86400);
-            $criteria = new \CriteriaCompo();
+            $criteria  = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', $lid));
             $criteria->add(new \Criteria('ratinguser', 0));
             $criteria->add(new \Criteria('ratinghostname', getenv('REMOTE_ADDR')));
@@ -110,19 +110,19 @@ switch ($op) {
                 redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
             }
         }
-        $erreur = false;
+        $erreur         = false;
         $message_erreur = '';
         // Test avant la validation
         $rating = \Xmf\Request::getInt('rating', 0, 'POST');
         if ($rating < 0 || $rating > 10) {
             $message_erreur .= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
-            $erreur = true;
+            $erreur         = true;
         }
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $message_erreur .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur = true;
+            $erreur         = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('ratinguser', $ratinguser);
@@ -136,12 +136,12 @@ switch ($op) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $lid));
                 $downloadsvotes_arr = $ratingHandler->getAll($criteria);
-                $total_vote = $ratingHandler->getCount($criteria);
-                $total_rating = 0;
+                $total_vote         = $ratingHandler->getCount($criteria);
+                $total_rating       = 0;
                 foreach (array_keys($downloadsvotes_arr) as $i) {
                     $total_rating += $downloadsvotes_arr[$i]->getVar('rating');
                 }
-                $rating = $total_rating / $total_vote;
+                $rating       = $total_rating / $total_vote;
                 $objdownloads = $downloadsHandler->get($lid);
                 $objdownloads->setVar('rating', number_format($rating, 1));
                 $objdownloads->setVar('votes', $total_vote);

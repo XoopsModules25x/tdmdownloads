@@ -16,14 +16,14 @@
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 // Template Index
 $templateMain = 'tdmdownloads_admin_index.tpl';
 
 // compte le nombre de catégories
-$criteria = new \CriteriaCompo();
+$criteria      = new \CriteriaCompo();
 $nb_categories = $categoryHandler->getCount($criteria);
 // compte le nombre de téléchargements
 $criteria = new \CriteriaCompo();
@@ -93,7 +93,7 @@ $adminObject->displayNavigation(basename(__FILE__));
 
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
-    require  dirname(__DIR__) . '/testdata/index.php';
+    require dirname(__DIR__) . '/testdata/index.php';
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
 

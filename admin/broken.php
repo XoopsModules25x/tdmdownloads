@@ -22,7 +22,7 @@ $templateMain = 'tdmdownloads_admin_broken.tpl';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString( 'op', 'list');
+$op = \Xmf\Request::getString('op', 'list');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -35,15 +35,15 @@ switch ($op) {
 
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
-            $criteria->setLimit(\Xmf\Request::getInt('limit', 0,  'REQUEST'));
-            $limit = \Xmf\Request::getInt('limit', 0,  'REQUEST');
+            $criteria->setLimit(\Xmf\Request::getInt('limit', 0, 'REQUEST'));
+            $limit = \Xmf\Request::getInt('limit', 0, 'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
-            $criteria->setStart(\Xmf\Request::getInt('start', 0,  'REQUEST'));
-            $start = \Xmf\Request::getInt('start', 0,  'REQUEST');
+            $criteria->setStart(\Xmf\Request::getInt('start', 0, 'REQUEST'));
+            $start = \Xmf\Request::getInt('start', 0, 'REQUEST');
         } else {
             $criteria->setStart(0);
             $start = 0;
@@ -51,12 +51,12 @@ switch ($op) {
         $criteria->setSort('reportid');
         $criteria->setOrder('ASC');
         //pour faire une jointure de table
-        $brokenHandler->table_link = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
-        $brokenHandler->field_link = 'lid'; // champ de la table en jointure
+        $brokenHandler->table_link   = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
+        $brokenHandler->field_link   = 'lid'; // champ de la table en jointure
         $brokenHandler->field_object = 'lid'; // champ de la table courante
-        $downloadsbroken_arr = $brokenHandler->getByLink($criteria);
-        $numrows = $brokenHandler->getCount($criteria);
-        $pagenav = '';
+        $downloadsbroken_arr         = $brokenHandler->getByLink($criteria);
+        $numrows                     = $brokenHandler->getCount($criteria);
+        $pagenav                     = '';
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
             $pagenav = $pagenav->renderNav(4);
@@ -67,12 +67,12 @@ switch ($op) {
             $broken = [];
             foreach (array_keys($downloadsbroken_arr) as $i) {
                 $broken = [
-                    'lid' => $downloadsbroken_arr[$i]->getVar('lid'),
+                    'lid'      => $downloadsbroken_arr[$i]->getVar('lid'),
                     'reportid' => $downloadsbroken_arr[$i]->getVar('reportid'),
-                    'title' => $downloadsbroken_arr[$i]->getVar('title'),
-                    'cid' => $downloadsbroken_arr[$i]->getVar('cid'),
-                    'sender' => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
-                    'ip' => $downloadsbroken_arr[$i]->getVar('ip'),
+                    'title'    => $downloadsbroken_arr[$i]->getVar('title'),
+                    'cid'      => $downloadsbroken_arr[$i]->getVar('cid'),
+                    'sender'   => XoopsUser::getUnameFromId($downloadsbroken_arr[$i]->getVar('sender')),
+                    'ip'       => $downloadsbroken_arr[$i]->getVar('ip'),
                 ];
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
                 unset($broken);
@@ -83,8 +83,8 @@ switch ($op) {
         break;
     // permet de suprimmer le rapport de téléchargment brisé
     case 'del_brokendownloads':
-        $obj = $brokenHandler->get(\Xmf\Request::getInt('broken_id', 0,  'REQUEST'));
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0,  'REQUEST')) {
+        $obj = $brokenHandler->get(\Xmf\Request::getInt('broken_id', 0, 'REQUEST'));
+        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0, 'REQUEST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }

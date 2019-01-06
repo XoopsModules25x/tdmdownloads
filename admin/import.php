@@ -24,7 +24,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //Action dans switch
 $op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
-    $op = \Xmf\Request::getString('op', '',  'REQUEST');
+    $op = \Xmf\Request::getString('op', '', 'REQUEST');
 }
 
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
@@ -37,13 +37,13 @@ $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basen
 function importMydownloads($path = '', $imgurl = '')
 {
     $moduleDirName = basename(dirname(__DIR__));
-    $ok = \Xmf\Request::getInt('ok', 0, 'POST');
+    $ok            = \Xmf\Request::getInt('ok', 0, 'POST');
     global $xoopsDB;
     if (1 === $ok) {
         //Vider les tables
         $myTables = ['tdmdownloads_broken', 'tdmdownloads_cat', 'tdmdownloads_downloads', 'tdmdownloads_fielddata', 'tdmdownloads_modfielddata', 'tdmdownloads_votedata'];
-        $table = new \Xmf\Database\TableLoad();
-        $tables = new \Xmf\Database\Tables();
+        $table    = new \Xmf\Database\TableLoad();
+        $tables   = new \Xmf\Database\Tables();
         foreach ($myTables as $myTable) {
             if ($tables->useTable($myTable)) { // if this returns false, there is no table
                 $table::truncateTable($myTable);
@@ -60,7 +60,7 @@ function importMydownloads($path = '', $imgurl = '')
                 @copy($path . $img, XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/' . $img);
             }
 
-            $title = $donnees['title'];
+            $title  = $donnees['title'];
             $insert = $xoopsDB->queryF('INSERT INTO ' . $xoopsDB->prefix('tdmdownloads_cat') . " (cat_cid, cat_pid, cat_title, cat_imgurl, cat_description_main, cat_weight ) VALUES ('" . $donnees['cid'] . "', '" . $donnees['pid'] . "', '" . $title . "', '" . $img . "', '', '0')");
             if (!$insert) {
                 $errors[] = ['title' => _AM_TDMDOWNLOADS_IMPORT_ERROR_DATA, 'info' => $donnees['title']];
@@ -159,13 +159,13 @@ function importMydownloads($path = '', $imgurl = '')
 function importWfdownloads($shots = '', $catimg = '')
 {
     $moduleDirName = basename(dirname(__DIR__));
-    $ok = \Xmf\Request::getInt('ok', 0, 'POST');
+    $ok            = \Xmf\Request::getInt('ok', 0, 'POST');
     global $xoopsDB;
     if (1 === $ok) {
         //Vider les tables
         $myTables = ['tdmdownloads_broken', 'tdmdownloads_cat', 'tdmdownloads_downloads', 'tdmdownloads_fielddata', 'tdmdownloads_modfielddata', 'tdmdownloads_votedata'];
-        $table = new \Xmf\Database\TableLoad();
-        $tables = new \Xmf\Database\Tables();
+        $table    = new \Xmf\Database\TableLoad();
+        $tables   = new \Xmf\Database\Tables();
         foreach ($myTables as $myTable) {
             if ($tables->useTable($myTable)) { // if this returns false, there is no table
                 $table::truncateTable($myTable);
@@ -299,10 +299,10 @@ switch ($op) {
         break;
     // import Mydownloads
     case 'importMydownloads':
-        if ('' == \Xmf\Request::getString('path','', 'REQUEST') || '' == \Xmf\Request::getString('imgurl', '', 'REQUEST')) {
+        if ('' == \Xmf\Request::getString('path', '', 'REQUEST') || '' == \Xmf\Request::getString('imgurl', '', 'REQUEST')) {
             redirect_header('import.php?op=form_mydownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
-            importMydownloads( \Xmf\Request::getString('path', '', 'REQUEST'), \Xmf\Request::getString('imgurl', '', 'REQUEST'));
+            importMydownloads(\Xmf\Request::getString('path', '', 'REQUEST'), \Xmf\Request::getString('imgurl', '', 'REQUEST'));
         }
         break;
     case 'form_mydownloads':
@@ -312,7 +312,7 @@ switch ($op) {
         $form->setExtra('enctype="multipart/form-data"');
         // Form number
         $counter = 0;
-        $check = '<ul>';
+        $check   = '<ul>';
 
         global $xoopsDB;
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('mydownloads_downloads'));
@@ -365,7 +365,7 @@ switch ($op) {
         $form->setExtra('enctype="multipart/form-data"');
         // Form number
         $counter = 0;
-        $check = '<ul>';
+        $check   = '<ul>';
 
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('wfdownloads_downloads'));
         list($count_downloads) = $xoopsDB->fetchRow($sql);

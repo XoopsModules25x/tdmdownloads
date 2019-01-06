@@ -20,7 +20,7 @@ $templateMain = 'tdmdownloads_admin_category.tpl';
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString( 'op', 'list' );
+$op = \Xmf\Request::getString('op', 'list');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -30,7 +30,7 @@ switch ($op) {
         xoops_cp_header();
 
         $moduleDirName = basename(dirname(__DIR__));
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject   = \Xmf\Module\Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -45,17 +45,17 @@ switch ($op) {
         //        if (count($downloads_cat) > 0) {
         if (count($downloads_cat) > 0) {
             $GLOBALS['xoopsTpl']->assign('categories_count', count($downloads_cat));
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloads_cat, 'cat_cid', 'cat_pid');
+            $mytree             = new \XoopsModules\Tdmdownloads\Tree($downloads_cat, 'cat_cid', 'cat_pid');
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../assets/images/deco/arrow.gif">');
-            $category = [];
+            $category           = [];
             foreach (array_keys($category_ArrayTree) as $i) {
                 $category = [
-                    'cid' => $i,
-                    'title' => $downloads_cat[$i]->getVar('cat_title'),
-                    'category' => $category_ArrayTree[$i],
-                    'cat_imgurl' => $uploadurl . $downloads_cat[$i]->getVar('cat_imgurl'),
+                    'cid'                  => $i,
+                    'title'                => $downloads_cat[$i]->getVar('cat_title'),
+                    'category'             => $category_ArrayTree[$i],
+                    'cat_imgurl'           => $uploadurl . $downloads_cat[$i]->getVar('cat_imgurl'),
                     'cat_description_main' => $downloads_cat[$i]->getVar('cat_description_main'),
-                    'cat_weight' => $downloads_cat[$i]->getVar('cat_weight'),
+                    'cat_weight'           => $downloads_cat[$i]->getVar('cat_weight'),
                 ];
                 $GLOBALS['xoopsTpl']->append('categories_list', $category);
                 unset($category);
@@ -73,7 +73,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des catégories
-        $obj = $categoryHandler->create();
+        $obj  = $categoryHandler->create();
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
@@ -88,19 +88,19 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des catégories
-        $downloadscat_cid = \Xmf\Request::getInt( 'downloadscat_cid', 0,  'GET');
+        $downloadscat_cid = \Xmf\Request::getInt('downloadscat_cid', 0, 'GET');
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
-        $obj = $categoryHandler->get($downloadscat_cid);
+        $obj  = $categoryHandler->get($downloadscat_cid);
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('form', $form->render());
         break;
     // Pour supprimer une catégorie
     case 'del_cat':
         global $xoopsModule;
-        $downloadscat_cid = \Xmf\Request::getInt( 'downloadscat_cid', 0,  'GET');
+        $downloadscat_cid = \Xmf\Request::getInt('downloadscat_cid', 0, 'GET');
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
         $obj = $categoryHandler->get($downloadscat_cid);
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0,  'REQUEST')) {
+        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0, 'REQUEST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -143,7 +143,7 @@ switch ($op) {
                 if ((1 == $helper->getConfig('usetag')) && is_dir(dirname(dirname(__DIR__)) . '/tag')) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
-                    $criteria = new \CriteriaCompo();
+                    $criteria    = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_arr[$i]->getVar('lid')));
                     $downloads_tags = $linkHandler->getAll($criteria);
                     if (count($downloads_tags) > 0) {
@@ -167,8 +167,8 @@ switch ($op) {
                 $downloadsHandler->delete($objdownloads) || $objdownloads->getHtmlErrors();
             }
             // supression des sous catégories avec leurs téléchargements
-            $downloadscatArray = $categoryHandler->getAll();
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+            $downloadscatArray  = $categoryHandler->getAll();
+            $mytree             = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
             $downloads_childcat = $mytree->getAllChild($downloadscat_cid);
             foreach (array_keys($downloads_childcat) as $i) {
                 // supression de la catégorie
@@ -211,7 +211,7 @@ switch ($op) {
                     if ((1 == $helper->getConfig('usetag')) && is_dir('../../tag')) {
                         /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                         $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
-                        $criteria = new \CriteriaCompo();
+                        $criteria    = new \CriteriaCompo();
                         $criteria->add(new \Criteria('tag_itemid', $downloads_arr[$j]->getVar('lid')));
                         $downloads_tags = $linkHandler->getAll($criteria);
                         if (count($downloads_tags) > 0) {
@@ -239,7 +239,7 @@ switch ($op) {
                 $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
             }
         } else {
-            $message = '';
+            $message  = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('cid', $downloadscat_cid));
             $downloads_arr = $downloadsHandler->getAll($criteria);
@@ -249,13 +249,13 @@ switch ($op) {
                     $message .= '<span style="color : #ff0000">' . $downloads_arr[$i]->getVar('title') . '</span><br>';
                 }
             }
-            $downloadscatArray = $categoryHandler->getAll();
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+            $downloadscatArray  = $categoryHandler->getAll();
+            $mytree             = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
             $downloads_childcat = $mytree->getAllChild($downloadscat_cid);
             if (count($downloads_childcat) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELSOUSCAT . ' <br><br>';
                 foreach (array_keys($downloads_childcat) as $i) {
-                    $message .= '<b><span style="color : #ff0000">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
+                    $message  .= '<b><span style="color : #ff0000">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
                     $downloads_arr = $downloadsHandler->getAll($criteria);
@@ -277,9 +277,9 @@ switch ($op) {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
             xoops_confirm([
-                              'ok' => 1,
+                              'ok'               => 1,
                               'downloadscat_cid' => $downloadscat_cid,
-                              'op' => 'del_cat',
+                              'op'               => 'del_cat',
                           ], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message);
         }
 
@@ -298,7 +298,7 @@ switch ($op) {
         } else {
             $obj = $categoryHandler->create();
         }
-        $erreur = false;
+        $erreur         = false;
         $message_erreur = '';
         // Récupération des variables:
         // Pour l'image
@@ -328,12 +328,12 @@ switch ($op) {
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
         $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST')); //$_POST["cat_weight"]);
         if (0 === \Xmf\Request::getInt('cat_weight', 0, 'REQUEST')) {
-            $erreur = true;
+            $erreur         = true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if (\Xmf\Request::hasVar('cat_cid', 'REQUEST')) {
             if ($cat_cid === \Xmf\Request::getInt('cat_pid', 0, 'POST')) {
-                $erreur = true;
+                $erreur         = true;
                 $message_erreur .= _AM_TDMDOWNLOADS_ERREUR_CAT;
             }
         }
@@ -346,7 +346,7 @@ switch ($op) {
                 $perm_id = \Xmf\Request::hasVar('cat_cid', 'POST') ? $cat_cid : $newcat_cid;
                 /** @var \XoopsGroupPermHandler $grouppermHandler */
                 $grouppermHandler = xoops_getHandler('groupperm');
-                $criteria = new \CriteriaCompo();
+                $criteria         = new \CriteriaCompo();
                 $criteria->add(new \Criteria('gperm_itemid', $perm_id, '='));
                 $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_view', '='));
@@ -357,9 +357,9 @@ switch ($op) {
                     }
                 }
                 //permission pour editer
-                $perm_id = \Xmf\Request::getInt('cat_cid',  $newcat_cid, 'POST');
+                $perm_id          = \Xmf\Request::getInt('cat_cid', $newcat_cid, 'POST');
                 $grouppermHandler = xoops_getHandler('groupperm');
-                $criteria = new \CriteriaCompo();
+                $criteria         = new \CriteriaCompo();
                 $criteria->add(new \Criteria('gperm_itemid', $perm_id, '='));
                 $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                 $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_submit', '='));
@@ -371,9 +371,9 @@ switch ($op) {
                 }
                 //permission pour télécharger
                 if (1 == $helper->getConfig('permission_download')) {
-                    $perm_id = \Xmf\Request::getInt('cat_cid',  $newcat_cid, 'POST');
+                    $perm_id          = \Xmf\Request::getInt('cat_cid', $newcat_cid, 'POST');
                     $grouppermHandler = xoops_getHandler('groupperm');
-                    $criteria = new \CriteriaCompo();
+                    $criteria         = new \CriteriaCompo();
                     $criteria->add(new \Criteria('gperm_itemid', $perm_id, '='));
                     $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                     $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download', '='));
@@ -386,10 +386,10 @@ switch ($op) {
                 }
                 //notification
                 if (!\Xmf\Request::hasVar('categorie_modified', 'POST')) {
-                    $tags = [];
+                    $tags                  = [];
                     $tags['CATEGORY_NAME'] = \Xmf\Request::getString('cat_title', '', 'POST');
-                    $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $newcat_cid;
-                    $notificationHandler = xoops_getHandler('notification');
+                    $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $newcat_cid;
+                    $notificationHandler   = xoops_getHandler('notification');
                     $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);
                 }
                 redirect_header('category.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
