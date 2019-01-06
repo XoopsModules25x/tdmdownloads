@@ -19,8 +19,8 @@ require __DIR__ . '/header.php';
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
-$cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
+$lid = \Xmf\Request::getInt('lid', 0,  'REQUEST');
+$cid = \Xmf\Request::getInt( 'cid', 0,  'REQUEST');
 // redirection si le téléchargement n'existe pas
 $viewDownloads = $downloadsHandler->get($lid);
 if (is_array($viewDownloads) && 0 === count($viewDownloads)) {

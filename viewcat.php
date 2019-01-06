@@ -24,7 +24,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_viewcat.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
-$cid = $utility->cleanVars($_REQUEST, 'cid', 0, 'int');
+$cid = \Xmf\Request::getInt( 'cid', 0,  'REQUEST');
 
 // pour les permissions
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
@@ -196,29 +196,29 @@ if ($helper->getConfig('perpage') > 0) {
 
     // Pour un affichage sur plusieurs pages
     if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
-        $criteria->setLimit($_REQUEST['limit']);
-        $limit = $_REQUEST['limit'];
+        $criteria->setLimit(\Xmf\Request::getInt('limit', 0,  'REQUEST'));
+        $limit = \Xmf\Request::getInt('limit', 0,  'REQUEST');
     } else {
         $criteria->setLimit($helper->getConfig('perpage'));
         $limit = $helper->getConfig('perpage');
     }
     if (\Xmf\Request::hasVar('start', 'REQUEST')) {
-        $criteria->setStart($_REQUEST['start']);
-        $start = $_REQUEST['start'];
+        $criteria->setStart(\Xmf\Request::getInt('start', 0,  'REQUEST'));
+        $start = \Xmf\Request::getInt('start', 0,  'REQUEST');
     } else {
         $criteria->setStart(0);
         $start = 0;
     }
     if (\Xmf\Request::hasVar('sort', 'REQUEST')) {
-        $criteria->setSort($_REQUEST['sort']);
-        $sort = $_REQUEST['sort'];
+        $criteria->setSort(\Xmf\Request::getString('sort', '',  'REQUEST'));
+        $sort = \Xmf\Request::getString('sort', '',  'REQUEST');
     } else {
         $criteria->setSort('date');
         $sort = 'date';
     }
     if (\Xmf\Request::hasVar('order', 'REQUEST')) {
-        $criteria->setOrder($_REQUEST['order']);
-        $order = $_REQUEST['order'];
+        $criteria->setOrder(\Xmf\Request::getString('order', '', 'REQUEST'));
+        $order = \Xmf\Request::getString('order', '', 'REQUEST');
     } else {
         $criteria->setOrder('DESC');
         $order = 'DESC';

@@ -20,7 +20,7 @@ $templateMain = 'tdmdownloads_admin_category.tpl';
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = \Xmf\Request::getString( 'op', 'list' );
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -88,7 +88,7 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des catégories
-        $downloadscat_cid = $utility->cleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
+        $downloadscat_cid = \Xmf\Request::getInt( 'downloadscat_cid', 0,  'GET');
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
         $obj = $categoryHandler->get($downloadscat_cid);
         $form = $obj->getForm();
@@ -97,10 +97,10 @@ switch ($op) {
     // Pour supprimer une catégorie
     case 'del_cat':
         global $xoopsModule;
-        $downloadscat_cid = $utility->cleanVars($_REQUEST, 'downloadscat_cid', 0, 'int');
+        $downloadscat_cid = \Xmf\Request::getInt( 'downloadscat_cid', 0,  'GET');
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
         $obj = $categoryHandler->get($downloadscat_cid);
-        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == $_REQUEST['ok']) {
+        if (\Xmf\Request::hasVar('ok', 'REQUEST') && 1 == \Xmf\Request::getInt('ok', 0,  'REQUEST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
@@ -290,8 +290,10 @@ switch ($op) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         xoops_cp_header();
-        $cat_cid = \Xmf\Request::getInt('cat_cid', '', 'POST'); //$utility->cleanVars($_REQUEST, 'cat_cid', 0, 'int');
-        if (isset($cat_cid)) {
+        if (\Xmf\Request::hasVar('cat_cid', 'POST')) {
+            $cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
+        }
+        if (0 !== $cat_cid) {
             $obj = $categoryHandler->get($cat_cid);
         } else {
             $obj = $categoryHandler->create();
@@ -318,14 +320,14 @@ switch ($op) {
                 $obj->setVar('cat_imgurl', $uploader->getSavedFileName());
             }
         } else {
-            $obj->setVar('cat_imgurl', $_REQUEST['downloadscat_img']);
+            $obj->setVar('cat_imgurl', \Xmf\Request::getString('downloadscat_img', '', 'REQUEST'));
         }
         // Pour les autres variables
         $obj->setVar('cat_pid', \Xmf\Request::getInt('cat_pid', 0, 'POST')); //$_POST['cat_pid']);
         $obj->setVar('cat_title', \Xmf\Request::getString('cat_title', '', 'POST')); //$_POST['cat_title']);
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
         $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST')); //$_POST["cat_weight"]);
-        if (0 === \Xmf\Request::getInt('cat_weight', 0, 'REQUEST') && '0' !== $_REQUEST['cat_weight']) {
+        if (0 === \Xmf\Request::getInt('cat_weight', 0, 'REQUEST')) {
             $erreur = true;
             $message_erreur = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
@@ -341,7 +343,7 @@ switch ($op) {
             if ($categoryHandler->insert($obj)) {
                 $newcat_cid = $obj->getNewEnreg($db);
                 //permission pour voir
-                $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
+                $perm_id = \Xmf\Request::hasVar('cat_cid', 'POST') ? $cat_cid : $newcat_cid;
                 /** @var \XoopsGroupPermHandler $grouppermHandler */
                 $grouppermHandler = xoops_getHandler('groupperm');
                 $criteria = new \CriteriaCompo();
@@ -355,7 +357,7 @@ switch ($op) {
                     }
                 }
                 //permission pour editer
-                $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
+                $perm_id = \Xmf\Request::getInt('cat_cid',  $newcat_cid, 'POST');
                 $grouppermHandler = xoops_getHandler('groupperm');
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('gperm_itemid', $perm_id, '='));
@@ -369,7 +371,7 @@ switch ($op) {
                 }
                 //permission pour télécharger
                 if (1 == $helper->getConfig('permission_download')) {
-                    $perm_id = isset($_REQUEST['cat_cid']) ? $cat_cid : $newcat_cid;
+                    $perm_id = \Xmf\Request::getInt('cat_cid',  $newcat_cid, 'POST');
                     $grouppermHandler = xoops_getHandler('groupperm');
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('gperm_itemid', $perm_id, '='));
@@ -383,7 +385,7 @@ switch ($op) {
                     }
                 }
                 //notification
-                if (!isset($_REQUEST['categorie_modified'])) {
+                if (!\Xmf\Request::hasVar('categorie_modified', 'POST')) {
                     $tags = [];
                     $tags['CATEGORY_NAME'] = \Xmf\Request::getString('cat_title', '', 'POST');
                     $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $newcat_cid;

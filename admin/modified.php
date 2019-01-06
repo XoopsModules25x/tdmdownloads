@@ -22,7 +22,7 @@ $templateMain = 'tdmdownloads_admin_modified.tpl';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = \Xmf\Request::getString( 'op', 'list');
 
 xoops_cp_header();
 
@@ -34,15 +34,15 @@ switch ($op) {
 
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
-            $criteria->setLimit($_REQUEST['limit']);
-            $limit = $_REQUEST['limit'];
+            $criteria->setLimit(\Xmf\Request::getInt('limit', 0,  'REQUEST'));
+            $limit = \Xmf\Request::getInt('limit', 0,  'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
-            $criteria->setStart($_REQUEST['start']);
-            $start = $_REQUEST['start'];
+            $criteria->setStart(\Xmf\Request::getInt('start', 0,  'REQUEST'));
+            $start = \Xmf\Request::getInt('start', 0,  'REQUEST');
         } else {
             $criteria->setStart(0);
             $start = 0;
@@ -88,9 +88,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //information du téléchargement
-        $viewDownloads = $downloadsHandler->get($_REQUEST['downloads_lid']);
+        $viewDownloads = $downloadsHandler->get(\Xmf\Request::getInt('downloads_lid', 0,  'REQUEST'));
         //information du téléchargement modifié
-        $viewModdownloads = $modifiedHandler->get($_REQUEST['mod_id']);
+        $viewModdownloads = $modifiedHandler->get(\Xmf\Request::getInt('mod_id', 0,  'REQUEST'));
 
         // original
         $downloads_title = $viewDownloads->getVar('title');
@@ -149,7 +149,7 @@ switch ($op) {
                 //original
                 $contenu = '';
                 $criteria = new \CriteriaCompo();
-                $criteria->add(new \Criteria('lid', $_REQUEST['downloads_lid']));
+                $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('downloads_lid', 0,  'REQUEST')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
@@ -159,7 +159,7 @@ switch ($op) {
                 //proposé
                 $mod_contenu = '';
                 $criteria = new \CriteriaCompo();
-                $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
+                $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0,  'REQUEST')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
@@ -173,9 +173,9 @@ switch ($op) {
         //permet de savoir si le fichier est nouveau
         $new_file = ($downloads_url != $moddownloads_url);
         $buttons = [
-            myTextForm('modified.php?op=approve&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMAPPROVE),
-            myTextForm('downloads.php?op=edit_downloads&downloads_lid=' . $_REQUEST['downloads_lid'], _AM_TDMDOWNLOADS_FORMEDIT),
-            myTextForm('modified.php?op=del_moddownloads&mod_id=' . $_REQUEST['mod_id'] . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMIGNORE),
+            myTextForm('modified.php?op=approve&mod_id=' . \Xmf\Request::getInt('mod_id', 0,  'GET') . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMAPPROVE),
+            myTextForm('downloads.php?op=edit_downloads&downloads_lid=' . \Xmf\Request::getInt('downloads_lid', 0,  'GET'), _AM_TDMDOWNLOADS_FORMEDIT),
+            myTextForm('modified.php?op=del_moddownloads&mod_id=' . \Xmf\Request::getInt('mod_id', 0,  'GET') . '&new_file=' . $new_file, _AM_TDMDOWNLOADS_FORMIGNORE),
         ];
         $GLOBALS['xoopsTpl']->assign('compare_list', $compare);
         $GLOBALS['xoopsTpl']->assign('cbuttons', $buttons);
@@ -183,12 +183,13 @@ switch ($op) {
         break;
     // permet de suprimmer le téléchargment modifié
     case 'del_moddownloads':
-        $obj = $modifiedHandler->get($_REQUEST['mod_id']);
+        $obj = $modifiedHandler->get(\Xmf\Request::getInt('mod_id', 0,  'REQUEST'));
         if (1 === \Xmf\Request::getInt('ok', 0, 'POST')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-            if (true === $_REQUEST['new_file']) {
+
+            if (true === \Xmf\Request::getBool('new_file', false, 'REQUEST')) {
                 $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
                 // permet de donner le chemin du fichier
                 $urlfile = $uploaddir_downloads . $urlfile;
@@ -200,7 +201,7 @@ switch ($op) {
             }
             // supression des data des champs sup
             $criteria = new \CriteriaCompo();
-            $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
+            $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0,  'REQUEST')));
             $downloads_fielddata = $modifieddataHandler->getAll($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
                 $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
@@ -217,8 +218,8 @@ switch ($op) {
 
             xoops_confirm([
                               'ok' => 1,
-                              'mod_id' => $_REQUEST['mod_id'],
-                              'new_file' => $_REQUEST['new_file'],
+                              'mod_id' => \Xmf\Request::getInt('mod_id', 0,  'REQUEST'),
+                              'new_file' => \Xmf\Request::getString('new_file', 0,  'REQUEST'),
                               'op' => 'del_moddownloads',
                           ], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
         }
@@ -226,10 +227,10 @@ switch ($op) {
     // permet d'accépter la modification
     case 'approve':
         // choix du téléchargement:
-        $viewModdownloads = $modifiedHandler->get($_REQUEST['mod_id']);
+        $viewModdownloads = $modifiedHandler->get(\Xmf\Request::getInt('mod_id', 0,  'REQUEST'));
         $obj = $downloadsHandler->get($viewModdownloads->getVar('lid'));
-        // permet d'effacer le fichier actuel si un nouveau fichier proposé est accepté.
-        if (true === $_REQUEST['new_file']) {
+        // delete the current file if a new proposed file is accepted.
+        if (true === \Xmf\Request::getBool('new_file', false, 'REQUEST')) {
             $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
             // permet de donner le chemin du fichier
             $urlfile = $uploaddir_downloads . $urlfile;
@@ -286,11 +287,11 @@ switch ($op) {
             }
         }
         // supression du rapport de modification
-        $objmod = $modifiedHandler->get($_REQUEST['mod_id']);
+        $objmod = $modifiedHandler->get(\Xmf\Request::getInt('mod_id', 0,  'REQUEST'));
         $modifiedHandler->delete($objmod);
         // supression des data des champs sup
         $criteria = new \CriteriaCompo();
-        $criteria->add(new \Criteria('lid', $_REQUEST['mod_id']));
+        $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0,  'REQUEST')));
         $downloads_fielddata = $modifieddataHandler->getAll($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
@@ -302,6 +303,15 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
         break;
+}
+
+// Local icons path
+if (is_object($helper->getModule())) {
+    $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+    $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
+
+    $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+    $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 }
 
 require __DIR__ . '/admin_footer.php';

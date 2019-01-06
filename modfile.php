@@ -29,20 +29,20 @@ $moduleDirName = basename(__DIR__);
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = \Xmf\Request::getString( 'op', 'list');
 
 // redirection si pas de droit pour poster
 if (false === $perm_modif) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
+$lid = \Xmf\Request::getInt('lid', 0,  'REQUEST');
 
 //information du téléchargement
 $viewDownloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
-if (0 === count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
+if (!is_array($viewDownloads) || 0 === count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
 }
 
@@ -111,7 +111,7 @@ switch ($op) {
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 
         // erreur si la taille du fichier n'est pas un nombre
-        //        if (0 == (int)$_REQUEST['size']) {
+        //        if (0 == \Xmf\Request::getInt('size', 0, 'REQUEST')) {
         //            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
         if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {
             if ('0' == \Xmf\Request::getString('size', '', 'POST')
@@ -166,7 +166,7 @@ switch ($op) {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
-                    $obj->setVar('url', $_REQUEST['url']);
+                    $obj->setVar('url', \Xmf\Request::getString('url', '',  'REQUEST'));
                 }
             }
             // Pour l'image
@@ -188,7 +188,7 @@ switch ($op) {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
-                    $obj->setVar('logourl', $_REQUEST['logo_img']);
+                    $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '',  'REQUEST'));
                 }
             }
 
@@ -204,7 +204,7 @@ switch ($op) {
                         //$objdata = $modifiedfielddataHandler->create();
                         $objdata = $modifieddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                        $objdata->setVar('moddata', $_POST[$nom_champ]);
+                        $objdata->setVar('moddata', \Xmf\Request::getString($nom_champ, '', 'POST'));
                         $objdata->setVar('lid', $lidDownloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                         //$modifiedfielddataHandler->insert($objdata) || $objdata->getHtmlErrors();

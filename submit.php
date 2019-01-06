@@ -25,7 +25,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'list', 'string');
+$op = \Xmf\Request::getString( 'op', 'list');
 
 // redirection si pas de droit pour poster
 if (false === $perm_submit) {
@@ -88,8 +88,8 @@ switch ($op) {
         if ($xoopsUser) {
             if ($xoopsUser->isAdmin($xoopsModule->mid())) {
                 if (\Xmf\Request::hasVar('status', 'POST')) {
-                    $obj->setVar('status', $_POST['status']);
-                    $donnee['status'] = $_POST['status'];
+                    $obj->setVar('status', \Xmf\Request::getInt('status', 0, 'POST'));
+                    $donnee['status'] = \Xmf\Request::getInt('status', 0, 'POST');
                 } else {
                     $obj->setVar('status', 0);
                     $donnee['status'] = 0;
@@ -99,7 +99,7 @@ switch ($op) {
         $donnee['date_update'] = 0;
         // erreur si la taille du fichier n'est pas un nombre
         if (\Xmf\Request::hasVar('size', 'REQUEST')) {
-            if ('0' === $_REQUEST['size'] || '' === $_REQUEST['size']) {
+            if (0 === \Xmf\Request::getInt('size', 0,  'REQUEST')) {
                 $erreur = false;
             } else {
                 $erreur = true;
@@ -108,7 +108,7 @@ switch ($op) {
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
-            if (0 == $_REQUEST['cid']) {
+            if (\Xmf\Request::getInt('cid', 0,  'REQUEST')) {
                 $erreur = true;
                 $message_erreur .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
@@ -128,7 +128,7 @@ switch ($op) {
         foreach (array_keys($downloads_field) as $i) {
             if (0 === $downloads_field[$i]->getVar('status_def')) {
                 $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                $donnee[$nom_champ] = $_POST[$nom_champ];
+                $donnee[$nom_champ] = \Xmf\Request::getString($nom_champ, '', 'POST');
             }
         }
         // enregistrement temporaire des tags
@@ -138,7 +138,7 @@ switch ($op) {
         if (true === $erreur) {
             $xoopsTpl->assign('message_erreur', $message_erreur);
         } else {
-            $obj->setVar('size', $_POST['size'] . ' ' . $_POST['type_size']);
+            $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
                 $uploader = new \XoopsMediaUploader($uploaddir_downloads, explode('|', $helper->getConfig('mimetype')), $helper->getConfig('maxuploadsize'), null, null);
@@ -154,7 +154,7 @@ switch ($op) {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
-                    $obj->setVar('url', $_REQUEST['url']);
+                    $obj->setVar('url', \Xmf\Request::getString('url', '',  'REQUEST'));
                 }
             }
             // Pour l'image
@@ -176,7 +176,7 @@ switch ($op) {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
-                    $obj->setVar('logourl', $_REQUEST['logo_img']);
+                    $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '',  'REQUEST'));
                 }
             }
 
@@ -197,7 +197,7 @@ switch ($op) {
                     if (0 === $downloads_field[$i]->getVar('status_def')) {
                         $objdata = $fielddataHandler->create();
                         $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
-                        $objdata->setVar('data', $_POST[$nom_champ]);
+                        $objdata->setVar('data', \Xmf\Request::getString($nom_champ, '', 'POST'));
                         $objdata->setVar('lid', $lidDownloads);
                         $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
                         $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();

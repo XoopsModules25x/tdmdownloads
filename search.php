@@ -30,15 +30,11 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 
 if (\Xmf\Request::hasVar('title', 'REQUEST')) {
-    '' !== $_REQUEST['title'] ? $title = $_REQUEST['title'] : $title = '';
-} else {
-    $title = '';
+    $title = \Xmf\Request::getString('title', '', 'REQUEST') ;
 }
 
 if (\Xmf\Request::hasVar('cat', 'REQUEST')) {
-    0 !== $_REQUEST['cat'] ? $cat = $_REQUEST['cat'] : $cat = 0;
-} else {
-    $cat = 0;
+    $cat = \Xmf\Request::getInt('cat',  0, 'REQUEST');
 }
 // tableau ------
 $criteria_2 = new \CriteriaCompo();
@@ -79,9 +75,9 @@ foreach (array_keys($downloads_field) as $i) {
     $lid_arr = [];
     $nom_champ = 'champ' . $downloads_field[$i]->getVar('fid');
     $criteria = new \CriteriaCompo();
-    if (isset($_REQUEST[$nom_champ])) {
-        999 !== $_REQUEST[$nom_champ] ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = $_REQUEST[$nom_champ] : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
-        $arguments .= $nom_champ . '=' . $_REQUEST[$nom_champ] . '&amp;';
+    if (\Xmf\Request::hasVar($nom_champ, 'REQUEST')) {
+        999 !== \Xmf\Request::getInt($nom_champ, 0, 'REQUEST') ? $champ_contenu[$downloads_field[$i]->getVar('fid')] = \Xmf\Request::getInt($nom_champ, 0, 'REQUEST') : $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
+        $arguments .= $nom_champ . '=' . \Xmf\Request::getInt($nom_champ, 0, 'REQUEST') . '&amp;';
     } else {
         $champ_contenu[$downloads_field[$i]->getVar('fid')] = 999;
         $arguments .= $nom_champ . '=&amp;';
@@ -193,15 +189,15 @@ $criteria_2->setSort($tblsort[$sort]);
 $criteria_2->setOrder($tblorder[$order]);
 $numrows = $downloadsHandler->getCount($criteria_2);
 if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
-    $criteria_2->setLimit($_REQUEST['limit']);
-    $limit = $_REQUEST['limit'];
+    $criteria_2->setLimit(\Xmf\Request::getInt('limit', 0,  'REQUEST'));
+    $limit = \Xmf\Request::getInt('limit', 0,  'REQUEST');
 } else {
     $criteria_2->setLimit($helper->getConfig('perpageliste'));
     $limit = $helper->getConfig('perpageliste');
 }
 if (\Xmf\Request::hasVar('start', 'REQUEST')) {
-    $criteria_2->setStart($_REQUEST['start']);
-    $start = $_REQUEST['start'];
+    $criteria_2->setStart(\Xmf\Request::getInt('start', 0,  'REQUEST'));
+    $start = \Xmf\Request::getInt('start', 0,  'REQUEST');
 } else {
     $criteria_2->setStart(0);
     $start = 0;

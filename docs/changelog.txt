@@ -31,7 +31,8 @@
 - added Server stats (mamba)
 - added Blocks admin (mamba)
 - switch admin sites to template based (goffy)
-
+- converted 'cleanVars' to \Xmf\Request (mamba)
+- converted $_REQUEST to \Xmf\Request (mamba)
 
 TODO:
 - add test data

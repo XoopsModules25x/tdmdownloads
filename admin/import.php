@@ -24,7 +24,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //Action dans switch
 $op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
-    $op = $_REQUEST['op'];
+    $op = \Xmf\Request::getString('op', '',  'REQUEST');
 }
 
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
@@ -299,10 +299,10 @@ switch ($op) {
         break;
     // import Mydownloads
     case 'importMydownloads':
-        if ('' == $_REQUEST['path'] || '' == $_REQUEST['imgurl']) {
+        if ('' == \Xmf\Request::getString('path','', 'REQUEST') || '' == \Xmf\Request::getString('imgurl', '', 'REQUEST')) {
             redirect_header('import.php?op=form_mydownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
-            importMydownloads($_REQUEST['path'], $_REQUEST['imgurl']);
+            importMydownloads( \Xmf\Request::getString('path', '', 'REQUEST'), \Xmf\Request::getString('imgurl', '', 'REQUEST'));
         }
         break;
     case 'form_mydownloads':
@@ -351,10 +351,10 @@ switch ($op) {
         break;
     // import WF-Downloads
     case 'importWfdownloads':
-        if ('' === $_REQUEST['shots'] || '' === $_REQUEST['catimg']) {
+        if ('' === \Xmf\Request::getString('shots') || '' === \Xmf\Request::getString('catimg')) {
             redirect_header('import.php?op=form_wfdownloads', 3, _AM_TDMDOWNLOADS_IMPORT_ERREUR);
         } else {
-            importWfdownloads($_REQUEST['shots'], $_REQUEST['catimg']);
+            importWfdownloads(\Xmf\Request::getString('shots'), \Xmf\Request::getString('catimg'));
         }
         break;
     case 'form_wfdownloads':

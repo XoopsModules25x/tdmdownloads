@@ -23,8 +23,8 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = $utility->cleanVars($_REQUEST, 'op', 'liste', 'string');
-$lid = $utility->cleanVars($_REQUEST, 'lid', 0, 'int');
+$op = \Xmf\Request::getString( 'op', 'list');
+$lid = \Xmf\Request::getInt('lid', 0,  'REQUEST');
 
 //redirection si pas de permission de vote
 if (false === $perm_vote) {
@@ -45,8 +45,8 @@ if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
-    // Vue liste
-    case 'liste':
+    // Vue list
+    case 'list':
         //tableau des catégories
         $criteria = new \CriteriaCompo();
         $criteria->setSort('cat_weight ASC, cat_title');
