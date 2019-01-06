@@ -1,8 +1,16 @@
 -
-    fid: '1'
-    title: zzzzz
-    img: homepage.png
-    weight: '0'
-    status: '1'
-    search: '0'
-    status_def: '0'
+  fid: '1'
+  title: Platform
+  img: platform.png
+  weight: '5'
+  status: '1'
+  search: '1'
+  status_def: '0'
+-
+  fid: '3'
+  title: Size
+  img: size.png
+  weight: '1'
+  status: '1'
+  search: '1'
+  status_def: '0'
