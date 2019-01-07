@@ -2,7 +2,7 @@
 <{include file='db:tdmdownloads_admin_header.tpl'}>
 
 <{if $error}>
-    <div class='errorMsg'><strong><{$error}></strong></div>
+    <div class='errorMsg'><{$error}></div>
 <{/if}>
 
 <div align="right">

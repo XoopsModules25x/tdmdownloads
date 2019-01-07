@@ -50,7 +50,7 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         $obj  = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
-        $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('form', $form->render());
         break;
     // save
     case 'save_downloads':
@@ -108,17 +108,20 @@ switch ($op) {
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
-            if (\Xmf\Request::getInt('cid', 0, 'REQUEST')) {
+            if (0 === \Xmf\Request::getInt('cid', 0, 'REQUEST')) {
                 $erreur         = true;
                 $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
-        // erreur si le captcha est faux
-        xoops_load('xoopscaptcha');
-        $xoopsCaptcha = \XoopsCaptcha::getInstance();
-        if (!$xoopsCaptcha->verify()) {
-            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur         = true;
+        // get captcha (members are skipped in class/download.php getForm
+        if (!$xoopsUser) {
+            // erreur si le captcha est faux
+            xoops_load('xoopscaptcha');
+            $xoopsCaptcha = \XoopsCaptcha::getInstance();
+            if (!$xoopsCaptcha->verify()) {
+                $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
+                $erreur         = true;
+            }
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -136,7 +139,10 @@ switch ($op) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true === $erreur) {
-            $xoopsTpl->assign('errorMessage', $errorMessage);
+            $xoopsTpl->assign('error', $errorMessage);
+            $form = $obj->getForm($donnee, true);
+            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            break;
         } else {
             $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
@@ -154,6 +160,14 @@ switch ($op) {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
+                    if ( '' < $_FILES['attachedfile']['name'] ) { 
+                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                        $errorMessage .= $uploader->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        break;
+                    }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
                 }
             }
@@ -176,6 +190,14 @@ switch ($op) {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
+                    if ( '' < $_FILES['attachedimage']['name'] ) { 
+                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                        $errorMessage .= $uploader_2->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        break;
+                    }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
                 }
             }
@@ -243,11 +265,10 @@ switch ($op) {
                 redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED);
                 exit;
             }
-            echo $obj->getHtmlErrors();
+            $errors = $obj->getHtmlErrors();
         }
         $form = $obj->getForm($donnee, true);
-        $xoopsTpl->assign('themeForm', $form->render());
-
+        $xoopsTpl->assign('form', $form->render());
         break;
 }
 require XOOPS_ROOT_PATH . '/footer.php';

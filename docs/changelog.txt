@@ -33,6 +33,15 @@
 - switch admin sites to template based (goffy)
 - converted 'cleanVars' to \Xmf\Request (mamba)
 - converted $_REQUEST to \Xmf\Request (mamba)
+- cleaned up english and german language files (goffy)
+- transformed preference mimetypes from text to array (goffy)
+- acitvated file '/class/pagenav.php' (goffy)
+- fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
+- added show error when file size exceed maxuploadsize (goffy)
+- removed double entries for modversion/hasMain and hasSearch (goffy)
+- usage of same smarty names (error/form) (goffy)
+- added class for error message to styles.css (goffy)
+- fixed bug for checking category (goffy)
 
 TODO:
 - add test data

@@ -595,6 +595,9 @@ switch ($op) {
         if (1 == $erreur) {
             xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+            $form = $obj->getForm($donnee, true);
+            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            break;
         } else {
             $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
@@ -606,21 +609,23 @@ switch ($op) {
                     }
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
-                        $errors = $uploader->getErrors();
-                        $GLOBALS['xoopsTpl']->assign('error', $errors);
-                        redirect_header('javascript:history.go(-1)', 3, $errors);
+                        $errorMessage .= $uploader->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        break;
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
                     if ( '' < $_FILES['attachedfile']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
-                        $errors = $uploader->getErrors();
-                        $GLOBALS['xoopsTpl']->assign('error', $errors);
+                        $errorMessage .= $uploader->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
                         $form = $obj->getForm($donnee, true);
                         $GLOBALS['xoopsTpl']->assign('form', $form->render());
                         break;
-                    } 
+                    }
                     $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
                 }
             }
@@ -637,20 +642,23 @@ switch ($op) {
                     $uploader_2->setPrefix('downloads_');
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
-                        $errors = $uploader_2->getErrors();
-                        redirect_header('javascript:history.go(-1)', 3, $errors);
+                        $errorMessage .= $uploader_2->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        break;
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
                     if ( '' < $_FILES['attachedimage']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
-                        $errors = $uploader_2->getErrors();
-                        $GLOBALS['xoopsTpl']->assign('error', $errors);
+                        $errorMessage .= $uploader_2->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
                         $form = $obj->getForm($donnee, true);
                         $GLOBALS['xoopsTpl']->assign('form', $form->render());
                         break;
-                    } 
+                    }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
                 }
             }
