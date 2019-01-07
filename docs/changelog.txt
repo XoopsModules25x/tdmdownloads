@@ -42,6 +42,7 @@
 - usage of same smarty names (error/form) (goffy)
 - added class for error message to styles.css (goffy)
 - fixed bug for checking category (goffy)
+- transformed preference maxuploadsize from text to array (goffy)
 
 TODO:
 - add test data
