@@ -144,18 +144,6 @@ $modversion['blocks'][] = [
     'template'    => $moduleDirName . '_block_search.tpl',
 ];
 
-// Menu
-$modversion['hasMain']        = 1;
-$modversion['sub'][1]['name'] = _MI_TDMDOWNLOADS_SMNAME1;
-$modversion['sub'][1]['url']  = 'submit.php';
-$modversion['sub'][2]['name'] = _MI_TDMDOWNLOADS_SMNAME2;
-$modversion['sub'][2]['url']  = 'search.php';
-
-// Recherche
-$modversion['hasSearch']      = 1;
-$modversion['search']['file'] = 'include/search.inc.php';
-$modversion['search']['func'] = 'tdmdownloads_search';
-
 // Commentaires
 $modversion['hasComments']                     = 1;
 $modversion['comments']['itemName']            = 'lid';

@@ -80,7 +80,7 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         $obj  = $modifiedHandler->create();
         $form = $obj->getForm($lid, false, $donnee = []);
-        $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('form', $form->render());
         break;
     // save
     case 'save':
@@ -149,7 +149,7 @@ switch ($op) {
             }
         }
         if (true === $erreur) {
-            $xoopsTpl->assign('errorMessage', $errorMessage);
+            $xoopsTpl->assign('error', $errorMessage);
         } else {
             $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
@@ -223,7 +223,7 @@ switch ($op) {
         }
         //Affichage du formulaire de notation des téléchargements
         $form = $obj->getForm(\Xmf\Request::getInt('lid', 0, 'REQUEST'), true, $donnee);
-        $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('form', $form->render());
 
         break;
 }

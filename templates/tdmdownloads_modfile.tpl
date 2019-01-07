@@ -8,12 +8,11 @@
     <!-- Category path -->
     <div class="bold marg1 pad1"><{$navigation}></div>
 
-    <{if $errorMessage != ''}>
-        <!-- Error message-->
-        <div class="errorMsg"><{$errorMessage}></div>
+    <{if $error}>
+        <div class='errorMsg'><{$error}></div>
     <{/if}>
 
     <!-- Submit form -->
-    <div class="tdmdownloads-submitform"><{$themeForm}></div>
+    <div class="tdmdownloads-submitform"><{$form}></div>
 
 </div>

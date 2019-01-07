@@ -68,7 +68,7 @@ switch ($op) {
         //Affichage du formulaire de fichier brisé*/
         $obj  = $brokenHandler->create();
         $form = $obj->getForm($lid);
-        $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('form', $form->render());
         break;
     // save
     case 'save':
@@ -111,7 +111,7 @@ switch ($op) {
         $obj->setVar('sender', $ratinguser);
         $obj->setVar('ip', getenv('REMOTE_ADDR'));
         if (true === $erreur) {
-            $xoopsTpl->assign('errorMessage', $errorMessage);
+            $xoopsTpl->assign('error', $errorMessage);
         } else {
             if ($brokenHandler->insert($obj)) {
                 $tags                      = [];
@@ -125,7 +125,7 @@ switch ($op) {
         }
         //Affichage du formulaire de notation des téléchargements
         $form = $obj->getForm($lid);
-        $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('form', $form->render());
 
         break;
 }

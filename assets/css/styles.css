@@ -238,3 +238,17 @@
 .col_width5 {
     width: 20%;
 }
+
+/* error message, if class is not included in theme */
+.tdmdownloads-errorMsg {
+    background: #FBE3E4;
+    color: #D12F19;
+    text-align: center;
+    border: 2px solid #FBC2C4;
+    padding: 8px;
+    font-weight: bold;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    line-height: 140%;
+}

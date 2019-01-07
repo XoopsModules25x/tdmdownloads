@@ -92,7 +92,7 @@
 <{/if}>
 
 <{if $error}>
-    <div class='errorMsg'><strong><{$error}></strong></div>
+    <div class='errorMsg'><{$error}></div>
 <{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>

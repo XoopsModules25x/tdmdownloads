@@ -78,3 +78,16 @@ $uploadurl_shots = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/';
 // pour les images des champs:
 $uploaddir_field = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/field/';
 $uploadurl_field = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/field/';
+
+//permission
+/** @var \XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler = xoops_getHandler('groupperm');
+$groups           = XOOPS_GROUP_ANONYMOUS;
+if (is_object($xoopsUser)) {
+    $groups = $xoopsUser->getGroups();
+}
+$perm_submit      = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_modif       = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_vote        = $grouppermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_upload      = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_autoapprove = $grouppermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid')) ? true : false;
