@@ -43,6 +43,7 @@
 - added class for error message to styles.css (goffy)
 - fixed bug for checking category (goffy)
 - transformed preference maxuploadsize from text to array (goffy)
+- fixed bug block editing (goffy)
 
 TODO:
 - add test data

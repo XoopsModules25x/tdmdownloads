@@ -133,6 +133,7 @@ function b_tdmdownloads_top_show($options)
 function b_tdmdownloads_top_edit($options)
 {
     //appel de la class
+    var_dump($options);
     $moduleDirName   = basename(dirname(__DIR__));
     $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
     $criteria        = new \CriteriaCompo();
@@ -185,10 +186,11 @@ function b_tdmdownloads_top_edit($options)
     array_shift($options);
     array_shift($options);
     array_shift($options);
+     var_dump($options);
     $form .= _MB_TDMDOWNLOADS_CATTODISPLAY . "<br><select name=\"options[]\" multiple=\"multiple\" size=\"5\">\n";
-    $form .= '<option value="0" ' . (!in_array(0, $options, true) ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
+    $form .= '<option value="0" ' . (!in_array(0, $options, false) ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
     foreach (array_keys($downloadscatArray) as $i) {
-        $form .= '<option value="' . $downloadscatArray[$i]->getVar('cat_cid') . '" ' . (!in_array($downloadscatArray[$i]->getVar('cat_cid'), $options, true) ? '' : 'selected') . '>' . $downloadscatArray[$i]->getVar('cat_title') . "</option>\n";
+        $form .= '<option value="' . $downloadscatArray[$i]->getVar('cat_cid') . '" ' . (!in_array($downloadscatArray[$i]->getVar('cat_cid'), $options, false) ? '' : 'selected') . '>' . $downloadscatArray[$i]->getVar('cat_title') . "</option>\n";
     }
     $form .= "</select>\n";
 
