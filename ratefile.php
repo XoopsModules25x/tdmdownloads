@@ -69,7 +69,7 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         $obj  = $ratingHandler->create();
         $form = $obj->getForm($lid);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save':
@@ -130,7 +130,7 @@ switch ($op) {
         $obj->setVar('ratinghostname', getenv('REMOTE_ADDR'));
         $obj->setVar('ratingtimestamp', time());
         if (true === $erreur) {
-            $xoopsTpl->assign('error', $errorMessage);
+            $xoopsTpl->assign('message_erreur', $errorMessage);
         } else {
             if ($ratingHandler->insert($obj)) {
                 $criteria = new \CriteriaCompo();
@@ -154,7 +154,7 @@ switch ($op) {
         }
         //Affichage du formulaire de notation des téléchargements
         $form = $obj->getForm($lid);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
 
         break;
 }

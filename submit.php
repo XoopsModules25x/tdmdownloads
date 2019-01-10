@@ -50,15 +50,15 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         $obj  = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save_downloads':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $obj            = $downloadsHandler->create();
-        $erreur         = false;
+        $obj          = $downloadsHandler->create();
+        $erreur       = false;
         $errorMessage = '';
-        $donnee         = [];
+        $donnee       = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST'));
         $donnee['title'] = \Xmf\Request::getString('title', '', 'POST');
         $obj->setVar('cid', \Xmf\Request::getString('cid', '', 'POST'));
@@ -139,9 +139,9 @@ switch ($op) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true === $erreur) {
-            $xoopsTpl->assign('error', $errorMessage);
+            $xoopsTpl->assign('message_erreur', $errorMessage);
             $form = $obj->getForm($donnee, true);
-            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
         } else {
             $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
@@ -163,9 +163,9 @@ switch ($op) {
                     if ( '' < $_FILES['attachedfile']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
@@ -193,9 +193,9 @@ switch ($op) {
                     if ( '' < $_FILES['attachedimage']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader_2->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
@@ -268,7 +268,7 @@ switch ($op) {
             $errors = $obj->getHtmlErrors();
         }
         $form = $obj->getForm($donnee, true);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
         break;
 }
 require XOOPS_ROOT_PATH . '/footer.php';

@@ -38,8 +38,8 @@ define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'Waiting for approval');
 define('_AM_TDMDOWNLOADS_BROKEN_SENDER', 'Report Author');
 define('_AM_TDMDOWNLOADS_BROKEN_SURDEL', 'Are you sure you want to delete this report?');
 //modified.php
-define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Submitted by:');
-define('_AM_TDMDOWNLOADS_MODIFIED_ORIGINAL', 'Original');
+define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Modified version');
+define('_AM_TDMDOWNLOADS_MODIFIED_ORIGINAL', 'Original version');
 define('_AM_TDMDOWNLOADS_MODIFIED_SURDEL', 'Are you sure to delete this download modification request?');
 //field.php
 define('_AM_TDMDOWNLOADS_DELDATA', 'With the following data:');

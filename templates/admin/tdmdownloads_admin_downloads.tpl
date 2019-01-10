@@ -1,8 +1,8 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
 
-<{if $error}>
-    <div class='errorMsg'><{$error}></div>
+<{if $message_erreur}>
+    <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 
 <div align="right">
@@ -184,8 +184,8 @@
     </table>
 <{/if}>
 
-<{if $form}>
-    <{$form}>
+<{if $themeForm}>
+    <{$themeForm}>
 <{/if}>
 
 <br>

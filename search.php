@@ -229,7 +229,7 @@ foreach (array_keys($tdmdownloadsArray) as $i) {
     $contenu                    = '';
     foreach (array_keys($downloads_field) as $j) {
         if (1 == $downloads_field[$j]->getVar('status_def')) {
-            if (1 === $downloads_field[$j]->getVar('fid')) {
+            if (1 == $downloads_field[$j]->getVar('fid')) {
                 //page d'accueil
                 $contenu = $tdmdownloadsArray[$i]->getVar('homepage');
             }
@@ -259,13 +259,16 @@ foreach (array_keys($tdmdownloadsArray) as $i) {
                 $contenu = '';
             }
         }
+		
+		
         $tdmdownloadsTab['fielddata'][$j] = $contenu;
         unset($contenu);
     }
-    $xoopsTpl->append('downloads', $tdmdownloadsTab);
+    $xoopsTpl->append('search_list', $tdmdownloadsTab);
 
     $keywords .= $tdmdownloadsArray[$i]->getVar('title') . ',';
 }
+
 $xoopsTpl->assign('searchForm', $form->render());
 // référencement
 // titre de la page

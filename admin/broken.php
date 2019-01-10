@@ -78,7 +78,7 @@ switch ($op) {
                 unset($broken);
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', _AM_TDMDOWNLOADS_ERREUR_NOBROKENDOWNLOADS);
         }
         break;
     // permet de suprimmer le rapport de téléchargment brisé
@@ -91,7 +91,7 @@ switch ($op) {
             if ($brokenHandler->delete($obj)) {
                 redirect_header('broken.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         } else {
             //Affichage de la partie haute de l'administration de Xoops
             xoops_cp_header();

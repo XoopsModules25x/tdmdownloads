@@ -43,7 +43,7 @@ $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 $viewDownloads = $downloadsHandler->get($lid);
 
 // redirection si le téléchargement n'existe pas ou n'est pas activé
-if (!is_array($viewDownloads) || 0 === count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
+if (!is_object($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
 }
 
@@ -80,7 +80,7 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         $obj  = $modifiedHandler->create();
         $form = $obj->getForm($lid, false, $donnee = []);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save':
@@ -110,10 +110,13 @@ switch ($op) {
         $obj->setVar('description', \Xmf\Request::getString('description', '', 'POST')); //$_POST["description"]);
         $donnee['description'] = \Xmf\Request::getString('description', '', 'POST'); //$_POST["description"];
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
+		// if (true === $perm_autoapprove) {
+            // $obj->setVar('status', 1);
+        // } else {
+            // $obj->setVar('status', 0);
+        // }
 
         // erreur si la taille du fichier n'est pas un nombre
-        //        if (0 == \Xmf\Request::getInt('size', 0, 'REQUEST')) {
-        //            if ('0' == $_REQUEST['size'] || '' == $_REQUEST['size']) {
         if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {
             if ('0' == \Xmf\Request::getString('size', '', 'POST')
                 || '' === \Xmf\Request::getString('size', '', 'POST')) {
@@ -130,12 +133,15 @@ switch ($op) {
                 $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
-        // erreur si le captcha est faux
-        xoops_load('captcha');
-        $xoopsCaptcha = \XoopsCaptcha::getInstance();
-        if (!$xoopsCaptcha->verify()) {
-            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur         = true;
+		// get captcha (members are skipped in class/download.php getForm
+        if (!$xoopsUser) {
+            // erreur si le captcha est faux
+            xoops_load('xoopscaptcha');
+            $xoopsCaptcha = \XoopsCaptcha::getInstance();
+            if (!$xoopsCaptcha->verify()) {
+                $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
+                $erreur         = true;
+            }
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -149,7 +155,7 @@ switch ($op) {
             }
         }
         if (true === $erreur) {
-            $xoopsTpl->assign('error', $errorMessage);
+            $xoopsTpl->assign('message_erreur', $errorMessage);
         } else {
             $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
@@ -167,6 +173,14 @@ switch ($op) {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
+					if ( '' < $_FILES['attachedfile']['name'] ) { 
+                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                        $errorMessage .= $uploader->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                        break;
+                    }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
                 }
             }
@@ -189,7 +203,15 @@ switch ($op) {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
-                    $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
+                    if ( '' < $_FILES['attachedimage']['name'] ) { 
+                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                        $errorMessage .= $uploader_2->getErrors() . '<br>';
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                        $form = $obj->getForm($donnee, true);
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                        break;
+                    }
+					$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
                 }
             }
 
@@ -223,7 +245,7 @@ switch ($op) {
         }
         //Affichage du formulaire de notation des téléchargements
         $form = $obj->getForm(\Xmf\Request::getInt('lid', 0, 'REQUEST'), true, $donnee);
-        $xoopsTpl->assign('form', $form->render());
+        $xoopsTpl->assign('themeForm', $form->render());
 
         break;
 }

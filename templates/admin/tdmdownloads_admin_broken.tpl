@@ -35,12 +35,12 @@
     <{/if}>
 <{/if}>
 
-<{if $form}>
-    <{$form}>
+<{if $themeForm}>
+    <{$themeForm}>
 <{/if}>
 
-<{if $error}>
-    <div class='errorMsg'><{$error}></div>
+<{if $message_erreur}>
+    <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>
