@@ -34,7 +34,7 @@
 - converted 'cleanVars' to \Xmf\Request (mamba)
 - converted $_REQUEST to \Xmf\Request (mamba)
 - cleaned up english and german language files (goffy)
-- transformed preference mimetypes from text to array (goffy)
+- transformed preference mimetypes from text to array (goffy, mage)
 - acitvated file '/class/pagenav.php' (goffy)
 - fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
 - added show error when file size exceed maxuploadsize (goffy)
