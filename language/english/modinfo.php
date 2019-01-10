@@ -102,7 +102,7 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Prefix of files uploaded');
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', 'Only valid if the option to rename the uploaded files is yes');
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Max uploaded files size');
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Authorized mime types ');
-define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Enter the authorized mime types separated by a |');
+define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Enter the authorized mime types');
 define('_MI_TDMDOWNLOADS_CHECKHOST', 'Disallow direct download linking (leeching)?');
 define('_MI_TDMDOWNLOADS_REFERERS', 'These sites can link directly to your files. Separate each one with |');
 define('_MI_TDMDOWNLOADS_DOWNLIMIT', 'Download limit');

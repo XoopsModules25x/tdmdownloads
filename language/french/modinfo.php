@@ -101,7 +101,7 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Préfixe des fichiers téléchargés
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', "Valide uniquement si l'option pour renommer les fichiers téléchargés est oui");
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Taille maximum des fichiers de téléchargement');
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Types mime autorisés ');
-define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Entrer les types mime autorisés, séparés par un |');
+define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Entrer les types mime autorisés');
 define('_MI_TDMDOWNLOADS_CHECKHOST', 'Interdire le téléchargement direct par des liens externes (leeching) ?');
 define('_MI_TDMDOWNLOADS_REFERERS', 'Ces sites peuvent vous lier directement vers vos fichiers. Séparer par un  |');
 define('_MI_TDMDOWNLOADS_DOWNLIMIT', 'Limite de téléchargement');

@@ -98,7 +98,7 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Präfix für Dateiupload');
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', "Nur gültig, wenn die Option 'Hochgeladene Datei umbenennen' gewählt wurde.");
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Maximale Dateigröße für Datei-Upload');
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Zulässige Mime types ');
-define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Eingabe der zulässige Mime types, getrennt durch ein&nbsp;|');
+define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Eingabe der zulässige Mime types');
 define('_MI_TDMDOWNLOADS_CHECKHOST', 'Direktes Verlinken der Downloads (leeching) unterdrücken?');
 define('_MI_TDMDOWNLOADS_REFERERS', 'Diese Seiten dürfen Downloads direkt verlinken, getrennt durch ein&nbsp;|');
 define('_MI_TDMDOWNLOADS_DOWNLIMIT', 'Downloadlimit');
