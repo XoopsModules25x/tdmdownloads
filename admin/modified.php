@@ -78,7 +78,7 @@ switch ($op) {
                 unset($modified);
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', _AM_TDMDOWNLOADS_ERREUR_NOBMODDOWNLOADS);
         }
         break;
     // show a comparision of the versions
@@ -210,7 +210,7 @@ switch ($op) {
             if ($modifiedHandler->delete($obj)) {
                 redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         } else {
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
@@ -301,7 +301,7 @@ switch ($op) {
         if ($downloadsHandler->insert($obj)) {
             redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
-        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         break;
 }
 

@@ -173,7 +173,7 @@ switch ($op) {
                 unset($download);
             }
         } else {
-            $GLOBALS['xoopsTpl']->assign('error', _AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', _AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING);
         }
         break;
     // vue création
@@ -194,7 +194,7 @@ switch ($op) {
         /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj  = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour éditer un téléchargement
     case 'edit_downloads':
@@ -215,7 +215,7 @@ switch ($op) {
         $downloads_lid = \Xmf\Request::getInt('downloads_lid', 0, 'GET');
         $obj           = $downloadsHandler->get($downloads_lid);
         $form          = $obj->getForm($donnee = [], false);
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour supprimer un téléchargement
     case 'del_downloads':
@@ -276,7 +276,7 @@ switch ($op) {
                 }
                 redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+                $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
             }
         } else {
             //Affichage de la partie haute de l'administration de Xoops
@@ -479,9 +479,9 @@ switch ($op) {
                     redirect_header('downloads.php?op=view_downloads&downloads_lid=' . \Xmf\Request::getInt('lid'), 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
                 }
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
-        $GLOBALS['xoopsTpl']->assign('error', $objvotedata->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $objvotedata->getHtmlErrors());
         break;
     // Pour sauver un téléchargement
     case 'save_downloads':
@@ -594,9 +594,9 @@ switch ($op) {
 
         if (1 == $erreur) {
             xoops_cp_header();
-            $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
             $form = $obj->getForm($donnee, true);
-            $GLOBALS['xoopsTpl']->assign('form', $form->render());
+            $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
         } else {
             $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
@@ -610,9 +610,9 @@ switch ($op) {
                     $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
                     if (!$uploader->upload()) {
                         $errorMessage .= $uploader->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     } else {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
@@ -621,9 +621,9 @@ switch ($op) {
                     if ( '' < $_FILES['attachedfile']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     }
                     $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
@@ -643,9 +643,9 @@ switch ($op) {
                     $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
                     if (!$uploader_2->upload()) {
                         $errorMessage .= $uploader_2->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     } else {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
@@ -654,9 +654,9 @@ switch ($op) {
                     if ( '' < $_FILES['attachedimage']['name'] ) { 
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader_2->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
                         $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
@@ -729,10 +729,10 @@ switch ($op) {
                 }
                 redirect_header('downloads.php', 2, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm($donnee, true);
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // permet de valider un téléchargement proposé
     case 'update_status':
@@ -741,7 +741,7 @@ switch ($op) {
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
-        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         break;
     // permet de valider un téléchargement proposé
     case 'lock_status':
@@ -750,7 +750,7 @@ switch ($op) {
         if ($downloadsHandler->insert($obj)) {
             redirect_header('downloads.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DEACTIVATED);
         }
-        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         break;
 }
 

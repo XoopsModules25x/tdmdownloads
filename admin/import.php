@@ -346,7 +346,7 @@ switch ($op) {
             $form->addElement(new \XoopsFormHidden('op', 'cancel'));
             $form->addElement(new \XoopsFormButton('', 'submit', _CANCEL, 'submit'));
         }
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
 
         break;
     // import WF-Downloads
@@ -397,7 +397,7 @@ switch ($op) {
             $form->addElement(new \XoopsFormHidden('op', 'cancel'));
             $form->addElement(new \XoopsFormButton('', 'submit', _CANCEL, 'submit'));
         }
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
 
         break;
 }

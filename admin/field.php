@@ -67,7 +67,7 @@ switch ($op) {
         if ($fieldHandler->insert($obj)) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
-        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         break;
     case 'update_search':
         $obj = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'REQUEST'));
@@ -76,7 +76,7 @@ switch ($op) {
         if ($fieldHandler->insert($obj)) {
             redirect_header('field.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
         }
-        $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         break;
     // vue création
     case 'new_field':
@@ -90,7 +90,7 @@ switch ($op) {
         //Affichage du formulaire de création des champs
         $obj  = $fieldHandler->create();
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour éditer un champ
     case 'edit_field':
@@ -105,7 +105,7 @@ switch ($op) {
         //Affichage du formulaire de création des champs
         $obj  = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'GET'));
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour supprimer un champ
     case 'del_field':
@@ -127,7 +127,7 @@ switch ($op) {
             if ($fieldHandler->delete($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+                $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
             }
         } else {
             $downloadsfield = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'GET'));
@@ -202,15 +202,15 @@ switch ($op) {
             $errorMessage = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
         }
         if (true === $erreur) {
-            $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($fieldHandler->insert($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
 }
 

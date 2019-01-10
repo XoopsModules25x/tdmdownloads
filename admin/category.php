@@ -75,7 +75,7 @@ switch ($op) {
         //Affichage du formulaire de création des catégories
         $obj  = $categoryHandler->create();
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour éditer une catégorie
     case 'edit_cat':
@@ -92,7 +92,7 @@ switch ($op) {
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
         $obj  = $categoryHandler->get($categoryId);
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
     // Pour supprimer une catégorie
     case 'del_cat':
@@ -236,7 +236,7 @@ switch ($op) {
             if ($categoryHandler->delete($obj)) {
                 redirect_header('category.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             } else {
-                $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+                $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
             }
         } else {
             $message  = '';
@@ -338,7 +338,7 @@ switch ($op) {
             }
         }
         if (true === $erreur) {
-            $GLOBALS['xoopsTpl']->assign('error', $errorMessage);
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($categoryHandler->insert($obj)) {
                 $newcat_cid = $obj->getNewEnreg($db);
@@ -394,10 +394,10 @@ switch ($op) {
                 }
                 redirect_header('category.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
-            $GLOBALS['xoopsTpl']->assign('error', $obj->getHtmlErrors());
+            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm();
-        $GLOBALS['xoopsTpl']->assign('form', $form->render());
+        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
 }
 

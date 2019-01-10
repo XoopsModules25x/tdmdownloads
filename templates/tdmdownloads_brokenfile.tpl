@@ -16,11 +16,11 @@
         </ul>
     </div>
 
-    <{if $error}>
-        <div class='errorMsg'><{$error}></div>
+    <{if $message_erreur}>
+        <div class='errorMsg'><{$message_erreur}></div>
     <{/if}>
 
     <!-- Submit form -->
-    <div class="tdmdownloads-submitform"><{$form}></div>
+    <div class="tdmdownloads-submitform"><{$themeForm}></div>
 
 </div>

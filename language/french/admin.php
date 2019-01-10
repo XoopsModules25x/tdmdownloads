@@ -38,8 +38,8 @@ define('_AM_TDMDOWNLOADS_DOWNLOADS_WAIT', 'En attente de validation');
 define('_AM_TDMDOWNLOADS_BROKEN_SENDER', "Signaler à l'auteur");
 define('_AM_TDMDOWNLOADS_BROKEN_SURDEL', 'Êtes-vous sûr de que vouloir supprimer ce rapport ?');
 //modified.php
-define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Soumis par :');
-define('_AM_TDMDOWNLOADS_MODIFIED_ORIGINAL', 'Original');
+define('_AM_TDMDOWNLOADS_MODIFIED_MOD', 'Version modifiée');
+define('_AM_TDMDOWNLOADS_MODIFIED_ORIGINAL', 'Version originale');
 define('_AM_TDMDOWNLOADS_MODIFIED_SURDEL', 'Êtes-vous sûr de vouloir supprimer cette demande de modification de téléchargement ?');
 //field.php
 define('_AM_TDMDOWNLOADS_DELDATA', 'Avec les données suivantes :');

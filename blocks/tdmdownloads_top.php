@@ -40,7 +40,7 @@ function b_tdmdownloads_top_show($options)
     $use_description    = $options[4];
     $show_inforation    = $options[5];
     $logo_float         = $options[6];
-    $logo_white         = $options[7];
+    $logo_width         = $options[7];
     $lenght_description = $options[8];
 
     array_shift($options);
@@ -60,6 +60,7 @@ function b_tdmdownloads_top_show($options)
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
+	$helper->loadLanguage('main');
 
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     $criteria   = new \CriteriaCompo();
@@ -94,7 +95,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['lid']   = $downloadsArray[$i]->getVar('lid');
         $block[$i]['title'] = mb_strlen($downloadsArray[$i]->getVar('title')) > $lenght_title ? mb_substr($downloadsArray[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloadsArray[$i]->getVar('title');
         $descriptionShort  = '';
-        if (true === $use_description) {
+        if (true == $use_description) {
             $description = $downloadsArray[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
             if (false === mb_strpos($description, '[pagebreak]')) {
@@ -105,7 +106,7 @@ function b_tdmdownloads_top_show($options)
         }
         $block[$i]['description'] = $descriptionShort;
         $logourl                  = '';
-        if (true === $use_logo) {
+        if (true == $use_logo) {
             if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
                 $logourl = '';
             } else {
@@ -114,7 +115,7 @@ function b_tdmdownloads_top_show($options)
         }
         $block[$i]['logourl']       = $logourl;
         $block[$i]['logourl_class'] = $logo_float;
-        $block[$i]['logourl_width'] = $logo_white;
+        $block[$i]['logourl_width'] = $logo_width;
         $block[$i]['hits']          = $downloadsArray[$i]->getVar('hits');
         $block[$i]['rating']        = number_format($downloadsArray[$i]->getVar('rating'), 1);
         $block[$i]['date']          = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
@@ -143,7 +144,7 @@ function b_tdmdownloads_top_edit($options)
     $form              .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
     $form              .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";
     $form              .= _MB_TDMDOWNLOADS_CHARS . ' : <input name="options[2]" size="5" maxlength="255" value="' . $options[2] . "\" type=\"text\"><br>\n";
-    if (false === $options[3]) {
+    if (false == $options[3]) {
         $checked_yes = '';
         $checked_no  = 'checked';
     } else {
@@ -152,7 +153,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_LOGO . ' : <input name="options[3]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form .= '<input name="options[3]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
-    if (false === $options[4]) {
+    if (false == $options[4]) {
         $checked_yes = '';
         $checked_no  = 'checked';
     } else {
@@ -161,7 +162,7 @@ function b_tdmdownloads_top_edit($options)
     }
     $form .= _MB_TDMDOWNLOADS_DESCRIPTION . ' : <input name="options[4]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form .= '<input name="options[4]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br>\n";
-    if (false === $options[5]) {
+    if (false == $options[5]) {
         $checked_yes = '';
         $checked_no  = 'checked';
     } else {
