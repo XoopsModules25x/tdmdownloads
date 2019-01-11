@@ -569,20 +569,11 @@ $modversion['config'][] = [
     'description' => '_MI_TDMDOWNLOADS_MIMETYPE_DSC',
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
-    'default'     => array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png', 
-                            'application/x-zip-compressed', 'application/zip', 'application/rar', 'application/pdf', 'application/x-gtar', 'application/x-tar', 
+    'default'     => array('image/gif', 'image/jpeg', 'image/png', 
+                            'application/zip', 'application/rar', 'application/pdf', 'application/x-gtar', 'application/x-tar', 
                             'application/msword', 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.spreadsheet', 
-                            'application/vnd.oasis.opendocument.presentation', 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.chart', 
-                            'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.database', 'application/vnd.oasis.opendocument.image', 
-                            'application/vnd.oasis.opendocument.text-master'),
-    'options'     => array('image/gif' => 'image/gif', 'image/jpeg' =>'image/jpeg', 'image/pjpeg' => 'image/pjpeg', 'image/x-png' => 'image/x-png', 'image/png' => 'image/png', 
-                            'x-zip-compressed' => 'application/x-zip-compressed', 'application/zip' => 'application/zip', 'application/rar' => 'application/rar', 
-                            'application/pdf' => 'application/pdf', 'application/x-gtar' => 'application/x-gtar', 'application/x-tar' => 'application/x-tar', 
-                            'application/msword' => 'application/msword', 'application/vnd.ms-excel' => 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text' => 'application/vnd.oasis.opendocument.text', 
-                            'application/vnd.oasis.opendocument.spreadsheet' => 'application/vnd.oasis.opendocument.spreadsheet', 'application/vnd.oasis.opendocument.presentation' => 'application/vnd.oasis.opendocument.presentation', 
-                            'application/vnd.oasis.opendocument.graphics' => 'application/vnd.oasis.opendocument.graphics', 'application/vnd.oasis.opendocument.chart' => 'application/vnd.oasis.opendocument.chart', 
-                            'application/vnd.oasis.opendocument.formula' => 'application/vnd.oasis.opendocument.formula', 'application/vnd.oasis.opendocument.databas' => 'application/vnd.oasis.opendocument.database', 
-                            'application/vnd.oasis.opendocument.image' => 'application/vnd.oasis.opendocument.image', 'application/vnd.oasis.opendocument.text-master' => 'application/vnd.oasis.opendocument.text-master')
+                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+	'options'     => include $GLOBALS['xoops']->path('include/mimetypes.inc.php')
 ];
 
 $modversion['config'][] = [
