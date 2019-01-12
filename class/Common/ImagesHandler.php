@@ -13,20 +13,15 @@ namespace XoopsModules\Tdmdownloads\Common;
 */
 
 /**
- * wgGallery module for xoops
- *
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @since          1.0
- * @min_xoops      2.5.9
+ * @copyright      2019 XOOPS Project (https://xoops.org)
+ * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link           https://xoops.org
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
- * @version        $Id: 1.0 images.php 1 Mon 2018-03-19 10:04:51Z XOOPS Project (www.xoops.org) $
  */
 
 use XoopsModules\Tdmdownloads;
 
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
-
 
 /**
  * Class Object Handler Images
@@ -41,16 +36,6 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function __construct(\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'wggallery_images', Images::class, 'img_id', 'img_name');
-    }
-
-    /**
-     * @param bool $isNew
-     *
-     * @return object
-     */
-    public function create($isNew = true)
-    {
-        return parent::create($isNew);
     }
 
     /**
@@ -136,16 +121,16 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
      */
     public function unlinkImages($imageName)
     {
-        unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageName);
-        if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/large/' . $imageName)) {
+        unlink(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName);
+        if (file_exists(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName)) {
             return false;
         }
-        unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imageName);
-        if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/medium/' . $imageName)) {
+        unlink(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName);
+        if (file_exists(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName)) {
             return false;
         }
-        unlink(WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imageName);
-        if (file_exists(WGGALLERY_UPLOAD_IMAGE_PATH . '/thumbs/' . $imageName)) {
+        unlink(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName);
+        if (file_exists(constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName)) {
             return false;
         }
 

@@ -184,3 +184,5 @@ define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
+//multi-upload
+define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD', 'New Multi-upload');

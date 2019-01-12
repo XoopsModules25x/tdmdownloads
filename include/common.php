@@ -97,5 +97,5 @@ if (is_object($helper->getModule())) {
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
     $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
-    $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
+    $GLOBALS['xoopsTpl']->assign('pathModIcon32', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon32);
 }

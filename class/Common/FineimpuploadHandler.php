@@ -106,7 +106,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     {
         include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/header.php';
         include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/include/resizer.php';
-        $this->pathUpload = WGGALLERY_UPLOAD_IMAGE_PATH;
+        $this->pathUpload = constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');
 
 		$this->permUseralbum = 1; //TODO: handle an option, whether images should be online immediately or not
 
@@ -140,8 +140,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         if ( 0 < $wmId) {
             $watermarksObj = $watermarksHandler->get($wmId);
             $wmTarget = $watermarksObj->getVar('wm_target');
-            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_M === $wmTarget) {$wmTargetM = true;}
-            if ( WGGALLERY_WATERMARK_TARGET_A === $wmTarget || WGGALLERY_WATERMARK_TARGET_L === $wmTarget) {$wmTargetL = true;}
+            if ( constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_M') === $wmTarget) {$wmTargetM = true;}
+            if ( constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_L') === $wmTarget) {$wmTargetL = true;}
         }
         
         // create medium image

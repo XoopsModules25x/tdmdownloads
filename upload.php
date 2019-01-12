@@ -10,13 +10,12 @@
 */
 
 /**
- * @copyright      module for xoops
- * @license        GPL 2.0 or later
- * @package        wggallery
- * @since          1.0
- * @min_xoops      2.5.9
- * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
-  */
+ * @copyright       XOOPS Project https://xoops.org/
+ * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @link            https://xoops.org/
+ * @min_xoops       2.5.9
+ * @author          Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
+ */
 
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
@@ -29,23 +28,29 @@ $albId = Request::getInt('alb_id', 0);
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', WGGALLERY_ICONS_URL . '/16');
+$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '/16');
+
+$categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
 
 // Form Create
 if (isset($albId)) {
-    $albumsObj = $albumsHandler->get($albId);
+    $categoryObj = $categoryHandler->get($albId);
 } else {
-    $albumsObj = $albumsHandler->create();
+    $categoryObj = $categoryHandler->create();
 }
 
 if ($permissionsHandler->permGlobalSubmit()) {
-    $form = $albumsObj->getFormUploadToAlbum();
+//    $form = $categoryObj->getFormUploadToAlbum();
+
+    $form               = new XoopsModules\Tdmdownloads\Form\FieldForm();
+//    $form->display();
+
     $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
     if (0 < $albId) {
         $GLOBALS['xoopsTpl']->assign('albId', $albId);
 
-        $albumObj = $albumsHandler->get($albId);
+        $albumObj = $categoryHandler->get($albId);
         // get config for file type/extenstion
         $fileextions = $helper->getConfig('fileext');
         $mimetypes   = [];
@@ -106,7 +111,7 @@ if ($permissionsHandler->permGlobalSubmit()) {
             'aud'     => 'ajaxfineupload.php',
             'cat'     => $albId,
             'uid'     => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
-            'handler' => '\XoopsModules\\'. $moduleDirName .'\FineimpuploadHandler',
+            'handler' => '\XoopsModules\\' . $moduleDirName . '\FineimpuploadHandler',
             'moddir'  => $moduleDirName,
         ];
         $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
