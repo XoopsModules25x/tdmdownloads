@@ -19,7 +19,7 @@
     </div>
 
     <{if $message_erreur}>
-        <div class='errorMsg'><{message_erreur}></div>
+        <div class='errorMsg'><{$message_erreur}></div>
     <{/if}>
 
     <!-- Submit form -->

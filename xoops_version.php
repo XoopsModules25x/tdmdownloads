@@ -533,6 +533,13 @@ $modversion['config'][] = [
     'default'     => 'downloads_',
 ];
 
+$iniPostMaxSize = returnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
+$optionMaxsize = [];
+for ($i = 1; ; $i++) {
+    if ( min($iniPostMaxSize, $iniUploadMaxFileSize) < $i*1048576 ) break;
+    $optionMaxsize[$i." MB"] = $i*1048576;
+}
 $modversion['config'][] = [
     'name'        => 'maxuploadsize',
     'title'       => '_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE',
@@ -540,27 +547,7 @@ $modversion['config'][] = [
     'formtype'    => 'select',
     'valuetype'   => 'int',
     'default'     => 1048576,
-    'options'     => array('0.5 MB' => 524288,
-                        '1 MB' => 1048576,
-                        '1.5 MB' => 1572864,
-                        '2 MB' => 2097152,
-                        '2.5 MB' => 2621440,
-                        '3 MB' => 3145728,
-                        '3.5 MB' => 3670016,
-                        '4 MB' => 4194304,
-                        '4.5 MB' => 4718592,
-                        '5 MB' => 5242880,
-                        '5.5 MB' => 5767168,
-                        '6 MB' => 6291456,
-                        '6.5 MB' => 6815744,
-                        '7 MB' => 7340032,
-                        '7.5 MB' => 7864320,
-                        '8 MB' => 8388608,
-                        '8.5 MB' => 8912896,
-                        '9 MB' => 9437184,
-                        '9.5 MB' => 9961472,
-                        '10 MB' => 10485760,
-                        )
+    'options'     => $optionMaxsize
 ];
 
 $modversion['config'][] = [
@@ -873,3 +860,19 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'file_approve_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ,
 ];
+
+function returnBytes($val) {
+    switch (substr($val, -1)) {
+        case 'K':
+        case 'k':
+            return (int)$val * 1024;
+        case 'M':
+        case 'm':
+            return (int)$val * 1048576;
+        case 'G':
+        case 'g':
+            return (int)$val * 1073741824;
+        default:
+            return $val;
+    }
+}
