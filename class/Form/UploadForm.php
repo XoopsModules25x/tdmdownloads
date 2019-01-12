@@ -60,7 +60,7 @@ class UploadForm extends \XoopsThemeForm
         $hidden = new \XoopsFormHidden('fid', $this->targetObject->getVar('fid'));
         $this->addElement($hidden);
         unset($hidden);
-
+/*
         // Fid
         $this->addElement(new \XoopsFormLabel(AM_TDMDOWNLOADS_FIELD_FID, $this->targetObject->getVar('fid'), 'fid'));
         // Title
@@ -95,5 +95,6 @@ class UploadForm extends \XoopsThemeForm
 
         $this->addElement(new \XoopsFormHidden('op', 'save'));
         $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
+*/
     }
 }

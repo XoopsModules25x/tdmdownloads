@@ -28,7 +28,7 @@ $albId = Request::getInt('alb_id', 0);
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('wggallery_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '/16');
+$GLOBALS['xoopsTpl']->assign('tdmdownloads_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '/16'); //TODO
 
 $categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
 
@@ -51,7 +51,7 @@ if (isset($albId)) {
 
         $categoryObj = $categoryHandler->get($albId);
         // get config for file type/extenstion
-        $fileextions = $helper->getConfig('fileext');
+        $fileextions = $helper->getConfig('mimetype');
         $mimetypes   = [];
         foreach ($fileextions as $fe) {
             switch ($fe) {
@@ -131,4 +131,4 @@ if (isset($albId)) {
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => constant('CO_' . $moduleDirNameUpper . '_IMAGES_UPLOAD')];
-include __DIR__ . '/footer.php';
+//include __DIR__ . '/footer.php';
