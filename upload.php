@@ -39,18 +39,17 @@ if (isset($albId)) {
     $categoryObj = $categoryHandler->create();
 }
 
-if ($permissionsHandler->permGlobalSubmit()) {
-//    $form = $categoryObj->getFormUploadToAlbum();
+//if ($permissionsHandler->permGlobalSubmit()) {
+    //    $form = $categoryObj->getFormUploadToAlbum();
 
-    $form               = new XoopsModules\Tdmdownloads\Form\FieldForm();
-//    $form->display();
+    $form = new \XoopsModules\Tdmdownloads\Form\UploadForm($categoryObj);
 
     $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
     if (0 < $albId) {
         $GLOBALS['xoopsTpl']->assign('albId', $albId);
 
-        $albumObj = $categoryHandler->get($albId);
+        $categoryObj = $categoryHandler->get($albId);
         // get config for file type/extenstion
         $fileextions = $helper->getConfig('fileext');
         $mimetypes   = [];
@@ -74,6 +73,10 @@ if ($permissionsHandler->permGlobalSubmit()) {
                 case 'tif':
                     $mimetypes['image/tiff'] = 'image/tiff';
                     break;
+
+                case 'zip':
+                    $mimetypes['application/zip'] = 'application/zip';
+
                 case 'else':
                 default:
 
@@ -104,9 +107,9 @@ if ($permissionsHandler->permGlobalSubmit()) {
         $xoopsTpl->assign('img_maxsize', $helper->getConfig('maxsize'));
         $xoopsTpl->assign('img_maxwidth', $helper->getConfig('maxwidth'));
         $xoopsTpl->assign('img_maxheight', $helper->getConfig('maxheight'));
-        $xoopsTpl->assign('img_albname', $albumObj->getVar('alb_name'));
-        $xoopsTpl->assign('allowedfileext', $albumObj->getVar('allowedfileext'));
-        $xoopsTpl->assign('allowedmimetypes', $albumObj->getVar('allowedmimetypes'));
+        $xoopsTpl->assign('img_albname', $categoryObj->getVar('alb_name'));
+        $xoopsTpl->assign('allowedfileext', $categoryObj->getVar('allowedfileext'));
+        $xoopsTpl->assign('allowedmimetypes', $categoryObj->getVar('allowedmimetypes'));
         $payload = [
             'aud'     => 'ajaxfineupload.php',
             'cat'     => $albId,
@@ -124,7 +127,7 @@ if ($permissionsHandler->permGlobalSubmit()) {
         }
         $xoopsTpl->assign('fineup_debug', $fineup_debug);
     }
-}
+//}
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => constant('CO_' . $moduleDirNameUpper . '_IMAGES_UPLOAD')];

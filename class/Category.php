@@ -16,6 +16,9 @@ namespace XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads;
+
 defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -32,6 +35,9 @@ class Category extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
+        /** @var  Tdmdownloads\Helper $helper */
+        $this->helper     = Tdmdownloads\Helper::getInstance();
+        $this->permHelper = new \Xmf\Module\Helper\Permission();
         $this->initVar('cat_cid', XOBJ_DTYPE_INT, null, false, 5);
         $this->initVar('cat_pid', XOBJ_DTYPE_INT, null, false, 5);
         $this->initVar('cat_title', XOBJ_DTYPE_TXTBOX, null, false);

@@ -98,8 +98,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     public function __construct(\stdClass $claims)
     {
         parent::__construct($claims);
-        $this->allowedMimeTypes  = ['image/gif', 'image/jpeg', 'image/png'];
-        $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png'];
+        $this->allowedMimeTypes = array('image/gif', 'image/jpeg', 'image/png', 'application/zip');
+        $this->allowedExtensions = array('gif', 'jpeg', 'jpg', 'png', 'zip');
     }
 
     protected function storeUploadedFile($target, $mimeType, $uid)
@@ -230,6 +230,13 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             case'image/gif':
                 $img = imagecreatefromgif($this->imagePath);
                 break;
+
+            case'application/zip':
+                $this->imageWidth = 0;
+                $this->imageHeight = 0;
+                //                $img = imagecreatefromgif($this->imagePath);
+                break;
+
             default:
                 $this->imageWidth  = 0;
                 $this->imageHeight = 0;

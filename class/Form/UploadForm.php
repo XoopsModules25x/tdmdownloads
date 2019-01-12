@@ -36,7 +36,7 @@ xoops_load('XoopsFormLoader');
 /**
  * Class FieldForm
  */
-class FieldForm extends \XoopsThemeForm
+class UploadForm extends \XoopsThemeForm
 {
     public $targetObject;
 
