@@ -25,10 +25,15 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op  = \Xmf\Request::getString('op', 'list');
+$lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
 // redirection si pas de droit pour poster
 if (false === $perm_submit) {
+    redirect_header('index.php', 2, _NOPERM);
+}
+// user must have perm to autoapprove if he want to modify, otherwise modfile.php must be used
+if (false === $perm_autoapprove && 0 < $lid) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
@@ -55,7 +60,13 @@ switch ($op) {
     // save
     case 'save_downloads':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $obj          = $downloadsHandler->create();
+        $newUpload = true;
+        if (true === $perm_autoapprove && 0 < $lid) {
+            $obj = $downloadsHandler->get($lid);
+            $newUpload = false;
+        } else {
+            $obj = $downloadsHandler->create();
+        }
         $erreur       = false;
         $errorMessage = '';
         $donnee       = [];
@@ -113,15 +124,12 @@ switch ($op) {
                 $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
-        // get captcha (members are skipped in class/download.php getForm
-        if (!$xoopsUser) {
-            // erreur si le captcha est faux
-            xoops_load('xoopscaptcha');
-            $xoopsCaptcha = \XoopsCaptcha::getInstance();
-            if (!$xoopsCaptcha->verify()) {
-                $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-                $erreur         = true;
-            }
+        // erreur si le captcha est faux
+        xoops_load('xoopscaptcha');
+        $xoopsCaptcha = \XoopsCaptcha::getInstance();
+        if (!$xoopsCaptcha->verify()) {
+            $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
+            $erreur         = true;
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -203,7 +211,11 @@ switch ($op) {
             }
 
             if ($downloadsHandler->insert($obj)) {
-                $lidDownloads = $obj->getNewEnreg($db);
+                if ($newUpload) {
+                    $lidDownloads = $obj->getNewEnreg($db);
+                } else {
+                    $lidDownloads = $lid;
+                }
                 //tags
                 if ((1 === $helper->getConfig('usetag')) && is_dir('../tag')) {
                     /** @var \XoopsModules\Tag\TagHandler $tagHandler */

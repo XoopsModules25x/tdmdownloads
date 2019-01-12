@@ -290,7 +290,9 @@ switch ($op) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         xoops_cp_header();
-		$cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
+        if (\Xmf\Request::hasVar('cat_cid', 'POST')) {
+            $cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
+        }
         if (0 !== $cat_cid) {
             $obj = $categoryHandler->get($cat_cid);
         } else {
