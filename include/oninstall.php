@@ -133,10 +133,10 @@ function xoops_module_install_tdmdownloads()
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/blank.gif');
 
     //Copie des images pour les champs
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');
-    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icon/platform.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/platform.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');
+    copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/platform.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/platform.png');
 
     return true;
 }
