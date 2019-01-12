@@ -178,6 +178,9 @@ $modversion['templates'] = [
     ['file' => $moduleDirName . '_viewcat.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_liste.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_rss.tpl', 'description' => ''],
+    //uploads
+    ['file' => $moduleDirName . '_trigger_uploads.tpl', 'description' => ''],
+    ['file' => $moduleDirName . '_upload.tpl', 'description' => ''],
 ];
 
 // ------------------- Help files ------------------- //

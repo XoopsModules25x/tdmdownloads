@@ -122,3 +122,16 @@ define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
 
 define('CO_' . $moduleDirNameUpper . '_FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGES_UPLOAD', 'Upload Images');
+
+// ---------------- Errors ----------------
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_MEDIUM', 'Error when creating medium image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
+
+// Album buttons
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_ADD', 'Add Album');
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_EDIT', 'Edit Album');

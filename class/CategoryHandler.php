@@ -26,7 +26,7 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * CategoryHandler constructor.
-     * @param \XoopsDatabase $db
+     * @param \XoopsDatabase|null $db
      */
     public function __construct(\XoopsDatabase $db = null)
     {
