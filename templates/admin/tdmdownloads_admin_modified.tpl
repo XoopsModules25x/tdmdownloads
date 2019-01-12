@@ -7,7 +7,9 @@
         font-weight: bold;
     }
 </style>
-
+<{if $message_erreur}>
+    <div class='errorMsg'><{$message_erreur}></div>
+<{/if}>
 <{if $modified_list}>
     <table class='table table-bordered'>
         <thead>
@@ -91,8 +93,5 @@
     <{$themeForm}>
 <{/if}>
 
-<{if $message_erreur}>
-    <div class='errorMsg'><{$message_erreur}></div>
-<{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>

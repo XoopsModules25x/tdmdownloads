@@ -16,6 +16,9 @@
     }
 </style>
 <{include file='db:tdmdownloads_admin_header.tpl'}>
+<{if $message_erreur}>
+    <div class='errorMsg'><{$message_erreur}></div>
+<{/if}>
 
 <{if $successes}>
     <{foreach item=success from=$successes}>
@@ -38,8 +41,5 @@
     <{$themeForm}>
 <{/if}>
 
-<{if $message_erreur}>
-    <div class='errorMsg'><{$message_erreur}></div>
-<{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>

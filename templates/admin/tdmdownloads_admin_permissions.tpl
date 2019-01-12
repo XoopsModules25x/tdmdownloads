@@ -1,6 +1,8 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
-
+<{if $message_erreur}>
+    <div class='errorMsg'><{$message_erreur}></div>
+<{/if}>
 <{if $form_select}>
     <{$form_select}>
 <{/if}>
@@ -10,9 +12,5 @@
     <{$form_permissions}>
 <{/if}>
 
-
-<{if $message_erreur}>
-    <div class='errorMsg'><{$message_erreur}></div>
-<{/if}>
 <br>
 <!-- Footer --><{include file='db:tdmdownloads_admin_footer.tpl'}>
