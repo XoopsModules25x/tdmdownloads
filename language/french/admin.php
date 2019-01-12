@@ -159,33 +159,29 @@ define('_AM_TDMDOWNLOADS_MBYTES', 'Mo');
 define('_AM_TDMDOWNLOADS_GBYTES', 'Go');
 define('_AM_TDMDOWNLOADS_TBYTES', 'To');
 // ---------------- Admin Others ----------------
-define('_AM_TDMDOWNLOADS_MAINTAINEDBY', 'maintenues par');
+define('_AM_TDMDOWNLOADS_MAINTAINEDBY', 'maintained by');
 //2.00
 //directories
-define('_AM_TDMDOWNLOADS_AVAILABLE', "<span style='color : #008000;'>Available. </span>");
-define('_AM_TDMDOWNLOADS_NOTAVAILABLE', "<span style='color : #ff0000;'>is not available. </span>");
-define('_AM_TDMDOWNLOADS_NOTWRITABLE', "<span style='color : #ff0000;'>" . ' should have permission ( %1$d ), but it has ( %2$d )' . '</span>');
+define('_AM_TDMDOWNLOADS_AVAILABLE', "<span style='color : #008000;'>Disponible. </span>");
+define('_AM_TDMDOWNLOADS_NOTAVAILABLE', "<span style='color : #ff0000;'>n'est pas disponible. </span>");
+define('_AM_TDMDOWNLOADS_NOTWRITABLE', "<span style='color : #ff0000;'>" . ' devrait avoir la permission ( %1$d ), mais il a ( %2$d )' . '</span>');
 define('_AM_TDMDOWNLOADS_CREATETHEDIR', 'Create it');
-define('_AM_TDMDOWNLOADS_SETMPERM', 'Set the permission');
-
-define('_AM_TDMDOWNLOADS_DIRCREATED', 'The directory has been created');
-define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'The directory can not be created');
-define('_AM_TDMDOWNLOADS_PERMSET', 'The permission has been set');
-define('_AM_TDMDOWNLOADS_PERMNOTSET', 'The permission can not be set');
-
-define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
-define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Update failed - couldn't add new fields");
-define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Update failed - couldn't rename table '%s'");
-define('_AM_TDMDOWNLOADS_ERROR_COLUMN', 'Could not create column in database : %s');
-define('_AM_TDMDOWNLOADS_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
-define('_AM_TDMDOWNLOADS_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
-define('_AM_TDMDOWNLOADS_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
-
-define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
-
+define('_AM_TDMDOWNLOADS_SETMPERM', 'Définir la permission');
+define('_AM_TDMDOWNLOADS_DIRCREATED', 'Le répertoire a été créé');
+define('_AM_TDMDOWNLOADS_DIRNOTCREATED', 'Le répertoire ne peut pas être créé');
+define('_AM_TDMDOWNLOADS_PERMSET', 'La permission a été définie');
+define('_AM_TDMDOWNLOADS_PERMNOTSET', 'La permission ne peut pas être définie');
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED0', "La mise à jour a échoué - impossible de renommer le champ '%s'");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED1', "Échec de la mise à jour - impossible d'ajouter de nouveaux champs");
+define('_AM_TDMDOWNLOADS_UPGRADEFAILED2', "Échec de la mise à jour - impossible de renommer la table '%s'");
+define('_AM_TDMDOWNLOADS_ERROR_COLUMN', 'Impossible de créer la colonne dans la base de données : %s');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_XOOPS', 'Ce module nécessite XOOPS %s+ (%s installé)');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_PHP', 'Ce module nécessite la version PHP %s+ (%s installée)');
+define('_AM_TDMDOWNLOADS_ERROR_TAG_REMOVAL', 'Impossible de supprimer les balises du module de balises');
+define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Les dossiers de téléchargement ont été supprimés');
 // Error Msgs
-define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
-define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
-define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
-
-define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Impossible de supprimer le répertoire %s');
+define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Impossible de supprimer %s');
+define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Impossible de charger le plug-in');
+define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');
+define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');
