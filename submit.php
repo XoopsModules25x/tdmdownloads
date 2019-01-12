@@ -143,7 +143,7 @@ switch ($op) {
             }
         }
         // enregistrement temporaire des tags
-        if ((1 === $helper->getConfig('usetag')) && is_dir('../tag')) {
+        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\Tag')) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true === $erreur) {
@@ -217,7 +217,7 @@ switch ($op) {
                     $lidDownloads = $lid;
                 }
                 //tags
-                if ((1 === $helper->getConfig('usetag')) && is_dir('../tag')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\TagHandler')) {
                     /** @var \XoopsModules\Tag\TagHandler $tagHandler */
                     $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
                     $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);

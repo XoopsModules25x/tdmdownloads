@@ -254,16 +254,12 @@ class Downloads extends \XoopsObject
         $editorConfigs['editor'] = $helper->getConfig('editor');
         $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editorConfigs), true);
         //tag
-        $dir_tag_ok = false;
-        if (is_dir(dirname(__DIR__) . '/tag') || is_dir(dirname(dirname(__DIR__)) . '/tag')) {
-            $dir_tag_ok = true;
-        }
-        if ((1 == $helper->getConfig('usetag')) && $dir_tag_ok) {
+
+        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\FormTag')) {
             $tagId = $this->isNew() ? 0 : $this->getVar('lid');
             if (true === $erreur) {
                 $tagId = $donnee['TAG'];
             }
-            //            require_once XOOPS_ROOT_PATH.'/modules/tag/class/formtag.php';
             $form->addElement(new \XoopsModules\Tag\FormTag('tag', 60, 255, $tagId, 0));
         }
 
