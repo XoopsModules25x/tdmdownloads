@@ -1,3 +1,22 @@
+<h5>2.0 Alpha 1         [NOT RELEASED]</h5>
+<hr>
+- converted 'cleanVars' to \Xmf\Request (mamba)
+- converted $_REQUEST to \Xmf\Request (mamba)
+- cleaned up english and german language files (goffy)
+- transformed preference mimetypes from text to array (goffy, mage)
+- acitvated file '/class/pagenav.php' (goffy)
+- fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
+- added show error when file size exceed maxuploadsize (goffy)
+- removed double entries for modversion/hasMain and hasSearch (goffy)
+- usage of same smarty names (error/form) (goffy)
+- added class for error message to styles.css (goffy)
+- fixed bug for checking category (goffy)
+- transformed preference maxuploadsize from text to array (goffy)
+- fixed bug block editing (goffy)
+- usage of smarty names message_erreur/themeForm to have compatibility with existing themes (goffy)
+- adopted modfile.tpl (caused error if used together with blocks) (goffy)
+- skip captcha for xoopsUsers (members are skipped in class/download.php getForm)  (goffy)
+
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>
 - moved functions to Utility class (mamba)
@@ -31,22 +50,6 @@
 - added Server stats (mamba)
 - added Blocks admin (mamba)
 - switch admin sites to template based (goffy)
-- converted 'cleanVars' to \Xmf\Request (mamba)
-- converted $_REQUEST to \Xmf\Request (mamba)
-- cleaned up english and german language files (goffy)
-- transformed preference mimetypes from text to array (goffy, mage)
-- acitvated file '/class/pagenav.php' (goffy)
-- fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
-- added show error when file size exceed maxuploadsize (goffy)
-- removed double entries for modversion/hasMain and hasSearch (goffy)
-- usage of same smarty names (error/form) (goffy)
-- added class for error message to styles.css (goffy)
-- fixed bug for checking category (goffy)
-- transformed preference maxuploadsize from text to array (goffy)
-- fixed bug block editing (goffy)
-- usage of smarty names message_erreur/themeForm to have compatibility with existing themes (goffy)
-- adopted modfile.tpl (caused error if used together with blocks) (goffy)
-- skip captcha for xoopsUsers (members are skipped in class/download.php getForm)  (goffy)
 
 TODO:
 - add test data
