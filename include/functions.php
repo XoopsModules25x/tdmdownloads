@@ -14,7 +14,10 @@
 
 use XoopsModules\Tdmdownloads;
 
-
+/**
+ * @param $id
+ * @return bool
+ */
 function mpu_apagaPermissoes($id)
 {
     global $xoopsModule, $grouppermHandler;
@@ -32,6 +35,10 @@ function mpu_apagaPermissoes($id)
     return true;
 }
 
+/**
+ * @param $id
+ * @return bool
+ */
 function mpu_apagaPermissoesPai($id)
 {
     global $xoopsModule;
@@ -50,6 +57,11 @@ function mpu_apagaPermissoesPai($id)
     return false;
 }
 
+/**
+ * @param $id
+ * @param $grupos_ids
+ * @return bool
+ */
 function mpu_inserePermissao($id, $grupos_ids)
 {
     global $xoopsModule;
@@ -66,6 +78,10 @@ function mpu_inserePermissao($id, $grupos_ids)
     return true;
 }
 
+/**
+ * @param $content
+ * @return mixed|string|string[]|null
+ */
 function prepareContent($content)
 {
     global $xoopsUser, $xoopsConfig;
@@ -130,6 +146,11 @@ function prepareContent($content)
     return $content;
 }
 
+/**
+ * @param        $repository
+ * @param string $default
+ * @return string
+ */
 function getLatestTagUrl($repository, $default = 'master') {
     $file = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/releases", false,
                                             stream_context_create(['http' => ['header' => "User-Agent:Publisher\r\n"]])

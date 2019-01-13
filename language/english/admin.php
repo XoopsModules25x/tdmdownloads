@@ -193,7 +193,7 @@ define('MPU_ADM_MEDIAERROR', "Error! 'media' must have write permissions! (CHMOD
 define('MPU_ADM_YNAME', 'Your name');
 define('MPU_ADM_YEMAIL', 'Your Email');
 define('MPU_ADM_YSITE', 'Site');
-define('MPU_ADM_FEEDTYPE', "Feedback type<br><span style='font-size:10px; font-weight:normal'>* Testimonials will be publish at Mastop Publish main site page</span>");
+define('MPU_ADM_FEEDTYPE', "Feedback type<br><span style='font-size:10px; font-weight:normal'>* Testimonials will be publish at XOOPS main site page</span>");
 define('MPU_ADM_TBUGS', 'Bug');
 define('MPU_ADM_TESTIMONIAL', 'Testimonial');
 define('MPU_ADM_TSUGGESTION', 'Suggestions');
