@@ -2,6 +2,8 @@
 
 namespace XoopsModules\Tdmdownloads;
 
+use XoopsModules\Tag\FormTag;
+
 /**
  * TDMDownload
  *
@@ -255,7 +257,7 @@ class Downloads extends \XoopsObject
         $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXTDOWNLOADS, 'description', $editorConfigs), true);
         //tag
 
-        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\FormTag')) {
+        if ((1 == $helper->getConfig('usetag')) && class_exists(FormTag::class)) {
             $tagId = $this->isNew() ? 0 : $this->getVar('lid');
             if (true === $erreur) {
                 $tagId = $donnee['TAG'];
