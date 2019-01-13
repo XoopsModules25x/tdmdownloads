@@ -1,31 +1,8 @@
-LANGUAGE DIFFERENCES
-=====================
-
 Legend :
 + Added
 - Removed
 * Modified
--------------------------------------------------
-Version: 2.00
-Date:    ????
--------------------------------------------------
-admin.php
--------------
-- _AM_TDMDOWNLOADS_ERREUR_WEIGHT
 
-blocks.php
--------------
-+ _MB_TDMDOWNLOADS_BLOCKSTYLE
-
--------------------------------------------------
-Version: 1.67
-Date:    02.01.2019
--------------------------------------------------
-admin.php
--------------
-+ _AM_TDMDOWNLOADS_DOWNLOADS_VOTESTOTAL
-+ _AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING
-+ _AM_TDMDOWNLOADS_MAINTAINEDBY
 -------------------------------------------------
 Version: 1.6
 Date:    15.05.2011
