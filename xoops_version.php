@@ -556,11 +556,13 @@ $modversion['config'][] = [
     'description' => '_MI_TDMDOWNLOADS_MIMETYPE_DSC',
     'formtype'    => 'select_multi',
     'valuetype'   => 'array',
-    'default'     => array('image/gif', 'image/jpeg', 'image/png', 
-                            'application/zip', 'application/rar', 'application/pdf', 'application/x-gtar', 'application/x-tar', 
-                            'application/msword', 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.spreadsheet', 
-                            'application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
-	'options'     => include $GLOBALS['xoops']->path('include/mimetypes.inc.php')
+    'default'     => [
+        'image/gif', 'image/jpeg', 'image/png',
+        'application/zip', 'application/rar', 'application/pdf', 'application/x-gtar', 'application/x-tar',
+        'application/msword', 'application/vnd.ms-excel', 'application/vnd.oasis.opendocument.text', 'application/vnd.oasis.opendocument.spreadsheet',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ],
+    'options'     => include $GLOBALS['xoops']->path('include/mimetypes.inc.php')
 ];
 
 $modversion['config'][] = [
