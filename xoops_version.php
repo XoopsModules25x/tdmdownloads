@@ -538,7 +538,7 @@ $iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
 $optionMaxsize = [];
 for ($i = 1; ; $i++) {
     if ( min($iniPostMaxSize, $iniUploadMaxFileSize) < $i*1048576 ) break;
-    $optionMaxsize[$i." MB"] = $i*1048576;
+    $optionMaxsize[$i . ' MB'] = $i * 1048576;
 }
 $modversion['config'][] = [
     'name'        => 'maxuploadsize',
