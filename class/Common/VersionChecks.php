@@ -75,4 +75,47 @@ trait VersionChecks
 
         return $success;
     }
+
+    /**
+     *
+     * compares current module version with latest GitHub release
+     * @static
+     * @param \Xmf\Module\Helper $helper
+     * @param string             $location
+     * @param string             $default
+     *
+     * @return string link to the latest module version, if newer
+     */
+
+    public static function checkVerModule($helper, $location = 'github', $default = 'master')
+    {
+        $moduleDirName = basename(dirname(dirname(__DIR__)));
+        $update        = '';
+        $repository    = 'XoopsModules25x/' . $moduleDirName;
+        //        $repository    = 'XoopsModules25x/publisher'; //uncomment for testing
+        $ret = '';
+
+        if ('github' === $location) {
+            $file              = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/releases", false, stream_context_create(['http' => ['header' => "User-Agent:Publisher\r\n"]])));
+            $latestReleaseLink = sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->tag_name : $default);
+            $latestRelease     = substr(strrchr($latestReleaseLink, "/"), 1, -4);
+            if ('master' !== $latestRelease) {
+                $update = '<span><strong> Latest Release: </strong>' . '   <a href="' . $latestReleaseLink . '">' . $latestRelease . '</a> </span><br><br>';
+            }
+
+            $moduleVersion = round($helper->getConfig('version') / 100, 2);
+            //        $moduleVersion = '3.0'; //uncomment for testing
+
+            $ret .= "<div align='center'>";
+
+            //            $ret .= "<a href='https://xoops.org/'><img src='../assets/images/icons/32/xoopsmicrobutton.gif'></a><br>";
+            if (version_compare($moduleVersion, $latestRelease, '<')) {
+                //                $ret .= "| ";
+                $ret .= " <span style='color: #FF0000; font-size:11px' " . 'Latest Release: </span>' . $update . "<a href='https://github.com/XoopsModules25x/$moduleDirName/releases/'>";
+                $ret .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
+            }
+        }
+        $GLOBALS['xoopsTpl']->assign('latestModRelease', $ret);
+        return $ret;
+    }
 }
