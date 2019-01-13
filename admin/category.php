@@ -140,7 +140,7 @@ switch ($op) {
                     xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$i]->getVar('lid'));
                 }
                 //supression des tags
-                if ((1 == $helper->getConfig('usetag')) && is_dir(dirname(dirname(__DIR__)) . '/tag')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                     $criteria    = new \CriteriaCompo();
@@ -208,7 +208,7 @@ switch ($op) {
                         xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$j]->getVar('lid'));
                     }
                     //supression des tags
-                    if ((1 == $helper->getConfig('usetag')) && is_dir('../../tag')) {
+                    if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
                         /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                         $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                         $criteria    = new \CriteriaCompo();
@@ -290,9 +290,7 @@ switch ($op) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         xoops_cp_header();
-        if (\Xmf\Request::hasVar('cat_cid', 'POST')) {
-            $cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
-        }
+		$cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
         if (0 !== $cat_cid) {
             $obj = $categoryHandler->get($cat_cid);
         } else {

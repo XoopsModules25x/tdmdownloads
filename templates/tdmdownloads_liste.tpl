@@ -10,21 +10,18 @@
 
     <table width="100%" cellspacing="0" class="outer_sertec" border="1">
         <tr>
-            <td class="head" align="center" style="width: 40px; vertical-align: middle;">&nbsp;</td>
             <td class="head" align="left" style="vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_TITLE}></td>
-            <td class="head" align="left" style="width: 150px; vertical-align: middle;" colspan="2"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_CATEGORIES}></td>
+            <td class="head" align="left" style="min-width: 150px; vertical-align: middle;" colspan="2"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_CATEGORIES}></td>
             <{foreach item=field from=$field}>
                 <td class="head" align="left" style="vertical-align: middle;"><{$field}></td>
             <{/foreach}>
-            <td class="head" align="center" style="width: 100px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DATE}></td>
-            <td class="head" align="center" style="width: 60px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_NOTE}></td>
-            <td class="head" align="center" style="width: 60px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_HITS}></td>
+            <td class="head" align="center" style="min-width: 100px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DATE}></td>
+            <td class="head" align="center" style="min-width: 80px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_NOTE}></td>
+            <td class="head" align="center" style="min-width: 80px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_HITS}></td>
+            <td class="head" align="center" style="min-width: 40px; vertical-align: middle;">&nbsp;</td>
         </tr>
         <{foreach item=download from=$search_list}>
             <tr class='<{cycle values="odd,even"}>'>
-                <td align="center" style="vertical-align: middle;">
-					<a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" target="_blank"><img src="./assets/images/download.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>" title="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>"></a>
-				</td>
                 <td align="left" style="vertical-align: middle;">
 					<a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" title="<{$download.title}>"><{$download.title}></a>
 				</td>
@@ -40,6 +37,19 @@
                 <td align="center" style="vertical-align: middle;"><{$download.date}></td>
                 <td align="center" style="vertical-align: middle;"><{$download.rating}></td>
                 <td align="center" style="vertical-align: middle;"><{$download.hits}></td>
+                <td align="center" style="vertical-align: middle;">
+					<a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" target="_blank">
+                        <img src="<{$pathModIcon16}>/download-now.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>" title="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>">
+                    </a>
+                    <a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" title="<{$download.title}>">
+                        <img src="<{$pathModIcon16}>/view_mini.png" alt="<{$smarty.const._PREVIEW}><{$download.title}>" title="<{$smarty.const._PREVIEW}>">
+                    </a>
+                    <{if $perm_submit}>
+                        <a href="<{$xoops_url}>/modules/tdmdownloads/modfile.php?lid=<{$download.lid}>" title="<{$download.title}>">
+                            <img src="<{$pathModIcon16}>/edit.png" alt="<{$smarty.const._EDIT}><{$download.title}>" title="<{$smarty.const._EDIT}>">
+                        </a>
+                    <{/if}>
+				</td>
             </tr>
         <{/foreach}>
     </table>

@@ -101,6 +101,7 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_NAMEDSC', 'If the option is no; and you upload
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Prefix of files uploaded');
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', 'Only valid if the option to rename the uploaded files is yes');
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Max uploaded files size');
+define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_DESC', "The select is limited to the values of 'post_max_size' and 'upload_max_filesize' in your setting in php.ini<br>If you want to increase you have to increase these settings in php.ini first. Then you have to update the module.");
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Authorized mime types ');
 define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Enter the authorized mime types');
 define('_MI_TDMDOWNLOADS_CHECKHOST', 'Disallow direct download linking (leeching)?');

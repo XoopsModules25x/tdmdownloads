@@ -97,6 +97,7 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_NAMEDSC', "Wenn Sie die Option 'Nein' wählen,
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Präfix für Dateiupload');
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', "Nur gültig, wenn die Option 'Hochgeladene Datei umbenennen' gewählt wurde.");
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Maximale Dateigröße für Datei-Upload');
+define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_DESC', "Die Auswahlbox ist entsprechend den Einstellungen 'post_max_size' und 'upload_max_filesize' in der php.ini limitiert.<br>Wenn Sie diese Werte erhöhen möchten dann müssen Sie zuerst die Einstellungen in der php.ini erhöhen. Danach ist ein Update des Modules erforderlich.");
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Zulässige Mime types ');
 define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Eingabe der zulässige Mime types');
 define('_MI_TDMDOWNLOADS_CHECKHOST', 'Direktes Verlinken der Downloads (leeching) unterdrücken?');

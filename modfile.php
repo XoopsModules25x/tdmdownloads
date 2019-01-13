@@ -78,9 +78,15 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_MODIFY . ' (' . $viewDownloads->getVar('title') . ')'));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj  = $modifiedHandler->create();
-        $form = $obj->getForm($lid, false, $donnee = []);
+        if ( $perm_autoapprove ) {
+            $obj  = $downloadsHandler->get($lid);
+            $form = $obj->getForm($donnee = [], false, 'submit.php');
+        } else {
+            $obj  = $modifiedHandler->create();
+            $form = $obj->getForm($lid, false, $donnee = []);
+        }
         $xoopsTpl->assign('themeForm', $form->render());
+        $xoopsTpl->assign('message_erreur', false);
         break;
     // save
     case 'save':
@@ -110,11 +116,6 @@ switch ($op) {
         $obj->setVar('description', \Xmf\Request::getString('description', '', 'POST')); //$_POST["description"]);
         $donnee['description'] = \Xmf\Request::getString('description', '', 'POST'); //$_POST["description"];
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
-		// if (true === $perm_autoapprove) {
-            // $obj->setVar('status', 1);
-        // } else {
-            // $obj->setVar('status', 0);
-        // }
 
         // erreur si la taille du fichier n'est pas un nombre
         if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {

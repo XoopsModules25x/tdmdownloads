@@ -16,6 +16,10 @@
 - usage of smarty names message_erreur/themeForm to have compatibility with existing themes (goffy)
 - adopted modfile.tpl (caused error if used together with blocks) (goffy)
 - skip captcha for xoopsUsers (members are skipped in class/download.php getForm)  (goffy)
+- modified preference maxuploadsize(goffy/mage)
+- implemented perm_autoapprove also for modifying on user side (goffy/mage)
+- added description to preference maxuploadsize (goffy/mage)
+- rebuild file list in search.php (goffy/mage)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>

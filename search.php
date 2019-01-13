@@ -30,10 +30,12 @@ $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/
 
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 
+$title = '';
 if (\Xmf\Request::hasVar('title', 'REQUEST')) {
     $title = \Xmf\Request::getString('title', '', 'REQUEST');
 }
 
+$cat = 0;
 if (\Xmf\Request::hasVar('cat', 'REQUEST')) {
     $cat = \Xmf\Request::getInt('cat', 0, 'REQUEST');
 }
@@ -270,6 +272,9 @@ foreach (array_keys($tdmdownloadsArray) as $i) {
 }
 
 $xoopsTpl->assign('searchForm', $form->render());
+$xoopsTpl->assign('perm_submit', $perm_submit);
+$xoopsTpl->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+
 // référencement
 // titre de la page
 $titre = _MD_TDMDOWNLOADS_SEARCH_PAGETITLE . ' - ' . $xoopsModule->name();
