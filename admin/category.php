@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tag\LinkHandler;
+
 /**
  * TDMDownload
  *
@@ -140,7 +143,7 @@ switch ($op) {
                     xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$i]->getVar('lid'));
                 }
                 //supression des tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                     $criteria    = new \CriteriaCompo();
@@ -208,7 +211,7 @@ switch ($op) {
                         xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$j]->getVar('lid'));
                     }
                     //supression des tags
-                    if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
+                    if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                         /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                         $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                         $criteria    = new \CriteriaCompo();
@@ -324,7 +327,11 @@ switch ($op) {
         $obj->setVar('cat_pid', \Xmf\Request::getInt('cat_pid', 0, 'POST')); //$_POST['cat_pid']);
         $obj->setVar('cat_title', \Xmf\Request::getString('cat_title', '', 'POST')); //$_POST['cat_title']);
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
+<<<<<<< HEAD
         $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST')); //$_POST["cat_weight"]);
+=======
+		$obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
+>>>>>>> 601ce31163ec597d3628a3f6a3fcdcd6e045365e
         if (\Xmf\Request::hasVar('cat_cid', 'REQUEST')) {
             if ($cat_cid === \Xmf\Request::getInt('cat_pid', 0, 'POST')) {
                 $erreur         = true;

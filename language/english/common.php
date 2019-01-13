@@ -144,6 +144,13 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_FID', 'ID');
 define('CO_' . $moduleDirNameUpper . '_' . 'FORMIMAGE_PATH', 'Image Path');
 define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_IMG', 'Image  Field');
 
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMUPLOAD', 'Upload');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF', 'Title');
+
+
 
 
 

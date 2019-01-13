@@ -60,6 +60,8 @@ function b_tdmdownloads_top_show($options)
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
+    /** @var \XoopsModules\Tdmdownloads\Helper $helper */
+    $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 	$helper->loadLanguage('main');
 
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
