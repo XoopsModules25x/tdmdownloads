@@ -112,8 +112,10 @@ define('_MD_TDMDOWNLOADS_MOREDETAILS', 'weitere Details');
 define('_MD_TDMDOWNLOADS_DOWNLOAD', 'Download');
 define('_MD_TDMDOWNLOADS_RSS', 'RSS Feed');
 //visit.php
-define('_MD_TDMDOWNLOADS_NOPERMISETOLINK',
-       'This file does not belong to the website from where you are coming.<br><br>thanks to write an email to the webmaster of the website from where you are coming and tell him :<br><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br><br><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <b>registered</b>.');
+define(
+    '_MD_TDMDOWNLOADS_NOPERMISETOLINK',
+       'This file does not belong to the website from where you are coming.<br><br>thanks to write an email to the webmaster of the website from where you are coming and tell him :<br><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br><br><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <b>registered</b>.'
+);
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'Sie müssen eine Kategorie wählen!');
 define('_MD_TDMDOWNLOADS_ERREUR_SIZE', 'Die Dateigröße muss numerisch angegeben werden');

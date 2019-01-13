@@ -83,8 +83,10 @@ define('_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS', 'There are %s files to import');
 define('_AM_TDMDOWNLOADS_IMPORT_NUMBER', 'Data to import');
 define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Import successfully done!');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', "VOTES: '%s' imported;");
-define('_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied.");
+define(
+    '_AM_TDMDOWNLOADS_IMPORT_WARNING',
+       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied."
+);
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Import from WF Downloads (only for V3.23 RC5)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', 'Select Upload Directory (the path) for categories images of WF-Downloads');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS', 'Select Upload Directory (the path) for screen shots of WF-Downloads');
