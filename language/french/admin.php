@@ -144,7 +144,6 @@ define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Vous devez écrire une descript
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', "Il n'y a aucun fichier à télécharger");
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', "Il n'y a téléchargements en attente d'approbation");
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'la taille du fichier doit être un nombre');
-define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'le poids doit être un nombre');
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Supprimé avec succès ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', "Vous devez d'abord créer une catégorie");

@@ -324,11 +324,7 @@ switch ($op) {
         $obj->setVar('cat_pid', \Xmf\Request::getInt('cat_pid', 0, 'POST')); //$_POST['cat_pid']);
         $obj->setVar('cat_title', \Xmf\Request::getString('cat_title', '', 'POST')); //$_POST['cat_title']);
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
-        $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST')); //$_POST["cat_weight"]);
-        if (0 === \Xmf\Request::getInt('cat_weight', 0, 'REQUEST')) {
-            $erreur         = true;
-            $errorMessage = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
-        }
+		$obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
         if (\Xmf\Request::hasVar('cat_cid', 'REQUEST')) {
             if ($cat_cid === \Xmf\Request::getInt('cat_pid', 0, 'POST')) {
                 $erreur         = true;

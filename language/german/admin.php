@@ -144,7 +144,6 @@ define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Bitte Beschreibung angeben');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', 'Keine Dateien für Download vorhanden');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', 'Es warten keine Dateien auf Freigabe');
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'Die Dateigröße muss ein numerischer Wert sein');
-define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'Die Gewichtung muss ein numerischer Wert sein');
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Daten erfolgreich gelöscht ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', 'Sie müssen zuerst eine Kategorie erstellen');
