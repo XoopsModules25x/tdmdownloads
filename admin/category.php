@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tag\LinkHandler;
+
 /**
  * TDMDownload
  *
@@ -140,7 +143,7 @@ switch ($op) {
                     xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$i]->getVar('lid'));
                 }
                 //supression des tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                     $criteria    = new \CriteriaCompo();
@@ -208,7 +211,7 @@ switch ($op) {
                         xoops_comment_delete($xoopsModule->getVar('mid'), $downloadsArray[$j]->getVar('lid'));
                     }
                     //supression des tags
-                    if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
+                    if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                         /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                         $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                         $criteria    = new \CriteriaCompo();

@@ -1,4 +1,9 @@
 <?php
+
+use XoopsModules\Tag\LinkHandler;
+use XoopsModules\Tag\Tag;
+use XoopsModules\Tag\TagHandler;
+
 /**
  * TDMDownload
  *
@@ -263,7 +268,7 @@ switch ($op) {
                 // supression des commentaires
                 xoops_comment_delete($xoopsModule->getVar('mid'), $downloads_lid);
                 //supression des tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\LinkHandler')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
                     $criteria    = new \CriteriaCompo();
@@ -383,7 +388,7 @@ switch ($op) {
         }
         $download['fields_list'] = $fieldsList;
         // tags
-        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\Tag')) {
+        if ((1 == $helper->getConfig('usetag')) && class_exists(Tag::class)) {
             require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
             $tags_array = tagBar($downloads_lid, 0);
             if (!empty($tags_array)) {
@@ -588,7 +593,7 @@ switch ($op) {
             }
         }
         // enregistrement temporaire des tags
-        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\Tag')) {
+        if ((1 == $helper->getConfig('usetag')) && class_exists(Tag::class)) {
             $donnee['TAG'] = $_POST['tag'];
         }
 
@@ -670,7 +675,7 @@ switch ($op) {
                     $lidDownloads = \Xmf\Request::getInt('lid');
                 }
                 //tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\TagHandler')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists(TagHandler::class)) {
                     /** @var \XoopsModules\Tag\TagHandler $tagHandler */
                     $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
                     $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
