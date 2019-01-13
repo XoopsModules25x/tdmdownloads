@@ -31,3 +31,4 @@ define('_MB_TDMDOWNLOADS_FLOAT', 'Bildausrichtung: ');
 define('_MB_TDMDOWNLOADS_FLOAT_LEFT', 'Links');
 define('_MB_TDMDOWNLOADS_FLOAT_RIGHT', 'Rechts');
 define('_MB_TDMDOWNLOADS_WHITE', 'Weißes Bild');
+define('_MB_TDMDOWNLOADS_BLOCKSTYLE', 'Blockstil');

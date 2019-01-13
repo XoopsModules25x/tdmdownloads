@@ -1,4 +1,51 @@
 .endline {
     clear: both;
     width: 100%;
-} 
+}
+.tdmdownloads-blocktitle {
+    font-size:150%;
+    padding:0;
+}
+.tdmdownloads-blockdesc {
+    padding:0;
+}
+.tdmdownloads-blockbtn1 {
+    margin:3px 40px;
+}
+.tdmdownloads-blockbtn2 {
+    margin:3px;
+}
+.tdmdownloads-blockpanel {
+    margin: 0px;
+    padding: 5px;
+}
+.tdmdownloads-blockcard {
+    margin: 0px;
+    padding: 5px;
+    min-height: 220px;
+    border-color: #cccccc;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+}
+.tdmdownloads-blockcard-add {
+    margin: 0;
+    padding: 0;
+    min-height: 270px;
+    border: 1px solid #cccccc;
+}
+.tdmdownloads-blockcard-add  a{
+    margin: 0;
+    padding: 0;
+    color:#e2e2e2;
+    line-height: 270px;
+    font-size:125pt;
+}
+.tdmdownloads-blockcard-add  a:hover{
+    color:#333333;
+}
+.tdmdownloads-blockbtns {
+    border-color: #cccccc;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    height: 50px;
+}
