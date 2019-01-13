@@ -863,6 +863,10 @@ $modversion['notification']['event'][] = [
     'mail_subject'  => _MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ,
 ];
 
+/**
+ * @param $val
+ * @return float|int
+ */
 function returnBytes($val) {
     switch (substr($val, -1)) {
         case 'K':

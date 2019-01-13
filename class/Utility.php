@@ -342,20 +342,20 @@ class Utility
      */
     public function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
-        $category_parent = $mytree->getAllParent($key);
-        $category_parent = array_reverse($category_parent);
-        $Path            = '';
-        foreach (array_keys($category_parent) as $j) {
-            $Path .= $category_parent[$j]->getVar($title) . $prefix;
+        $categoryParent = $mytree->getAllParent($key);
+        $categoryParent = array_reverse($categoryParent);
+        $path            = '';
+        foreach (array_keys($categoryParent) as $j) {
+            $path .= $categoryParent[$j]->getVar($title) . $prefix;
         }
         if (array_key_exists($key, $category_array)) {
-            $first_category = $category_array[$key]->getVar($title);
+            $firstCategory = $category_array[$key]->getVar($title);
         } else {
-            $first_category = '';
+            $firstCategory = '';
         }
-        $Path .= $first_category;
+        $path .= $firstCategory;
 
-        return $Path;
+        return $path;
     }
 
     /**
@@ -372,48 +372,48 @@ class Utility
     public function getPathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
     {
         global $xoopsModule;
-        $category_parent = $mytree->getAllParent($key);
+        $categoryParent = $mytree->getAllParent($key);
         if ('ASC' === $order) {
-            $category_parent = array_reverse($category_parent);
+            $categoryParent = array_reverse($categoryParent);
             if (true === $link) {
-                $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
+                $path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
             } else {
-                $Path = $xoopsModule->name() . $prefix;
+                $path = $xoopsModule->name() . $prefix;
             }
         } else {
             if (array_key_exists($key, $category_array)) {
-                $first_category = $category_array[$key]->getVar($title);
+                $firstCategory = $category_array[$key]->getVar($title);
             } else {
-                $first_category = '';
+                $firstCategory = '';
             }
-            $Path = $first_category . $prefix;
+            $path = $firstCategory . $prefix;
         }
-        foreach (array_keys($category_parent) as $j) {
+        foreach (array_keys($categoryParent) as $j) {
             if (true === $link) {
-                $Path .= '<a href="viewcat.php?cid=' . $category_parent[$j]->getVar('cat_cid') . '">' . $category_parent[$j]->getVar($title) . '</a>' . $prefix;
+                $path .= '<a href="viewcat.php?cid=' . $categoryParent[$j]->getVar('cat_cid') . '">' . $categoryParent[$j]->getVar($title) . '</a>' . $prefix;
             } else {
-                $Path .= $category_parent[$j]->getVar($title) . $prefix;
+                $path .= $categoryParent[$j]->getVar($title) . $prefix;
             }
         }
         if ('ASC' === $order) {
             if (array_key_exists($key, $category_array)) {
                 if (true === $lasturl) {
-                    $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
+                    $firstCategory = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
                 } else {
-                    $first_category = $category_array[$key]->getVar($title);
+                    $firstCategory = $category_array[$key]->getVar($title);
                 }
             } else {
-                $first_category = '';
+                $firstCategory = '';
             }
-            $Path .= $first_category;
+            $path .= $firstCategory;
         } else {
             if (true === $link) {
-                $Path .= '<a href="index.php">' . $xoopsModule->name() . '</a>';
+                $path .= '<a href="index.php">' . $xoopsModule->name() . '</a>';
             } else {
-                $Path .= $xoopsModule->name();
+                $path .= $xoopsModule->name();
             }
         }
 
-        return $Path;
+        return $path;
     }
 }
