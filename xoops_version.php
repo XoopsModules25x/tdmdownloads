@@ -181,6 +181,8 @@ $modversion['templates'] = [
     //uploads
     ['file' => $moduleDirName . '_trigger_uploads.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_upload.tpl', 'description' => ''],
+    ['file' => $moduleDirName . '_header.tpl', 'description' => ''],
+    ['file' => $moduleDirName . '_footer.tpl', 'description' => ''],
 ];
 
 // ------------------- Help files ------------------- //

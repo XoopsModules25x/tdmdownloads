@@ -17,6 +17,7 @@
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $moduleDirName = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 //require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

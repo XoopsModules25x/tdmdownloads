@@ -135,3 +135,18 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE', 'Error when addin
 // Album buttons
 define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_ADD', 'Add Album');
 define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_EDIT', 'Edit Album');
+
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_ADD', 'Edit Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_EDIT', 'Add Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_TITLE', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_FID', 'ID');
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMIMAGE_PATH', 'Image Path');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_IMG', 'Image  Field');
+
+
+
+
+
+
+

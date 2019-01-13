@@ -104,6 +104,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
+        $moduleDirName      = basename(dirname(dirname(__DIR__)));
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/header.php';
         include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/include/resizer.php';
         $this->pathUpload = constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');

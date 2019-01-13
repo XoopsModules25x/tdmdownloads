@@ -35,7 +35,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
      */
     public function __construct(\XoopsDatabase $db = null)
     {
-        parent::__construct($db, 'wggallery_images', Images::class, 'img_id', 'img_name');
+        parent::__construct($db, 'tdmdownloads_images', Images::class, 'img_id', 'img_name');
     }
 
     /**

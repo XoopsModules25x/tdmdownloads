@@ -20,6 +20,9 @@
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
+$moduleDirName = basename(__DIR__);
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
 include_once __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'form');
@@ -43,7 +46,6 @@ if (isset($albId)) {
     //    $form = $categoryObj->getFormUploadToAlbum();
 
     $form = new \XoopsModules\Tdmdownloads\Form\UploadForm($categoryObj);
-
     $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
     if (0 < $albId) {
@@ -131,4 +133,6 @@ if (isset($albId)) {
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => constant('CO_' . $moduleDirNameUpper . '_IMAGES_UPLOAD')];
-//include __DIR__ . '/footer.php';
+include_once XOOPS_ROOT_PATH .'/footer.php';
+    //include __DIR__ . '/footer.php';
+

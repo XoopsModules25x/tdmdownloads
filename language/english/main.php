@@ -138,3 +138,6 @@ define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DESIGNFLOAT', 'Bookmark to Designfloat');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BALATARIN', 'Bookmark to Balatarin');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEPLUS', 'Bookmark to Google Plus');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEBOOKMARKS', 'Bookmark to Google Bookmarks');
+
+//module admin
+define('_MD_TDMDOWNLOADS_ADMIN', 'Module Admin');
