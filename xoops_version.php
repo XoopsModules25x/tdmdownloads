@@ -100,7 +100,7 @@ $modversion['blocks'][] = [
     'description' => _MI_TDMDOWNLOADS_BNAMEDSC1,
     'show_func'   => 'b_tdmdownloads_top_show',
     'edit_func'   => 'b_tdmdownloads_top_edit',
-    'options'     => 'date|10|19|1|1|1|left|90|400|0',
+    'options'     => 'date|10|19|1|1|1|left|90|400|default|0',
     'template'    => $moduleDirName . '_block_new.tpl',
 ];
 
@@ -110,7 +110,7 @@ $modversion['blocks'][] = [
     'description' => _MI_TDMDOWNLOADS_BNAMEDSC2,
     'show_func'   => 'b_tdmdownloads_top_show',
     'edit_func'   => 'b_tdmdownloads_top_edit',
-    'options'     => 'hits|10|19|1|1|1|left|90|400|0',
+    'options'     => 'hits|10|19|1|1|1|left|90|400|default|0',
     'template'    => $moduleDirName . '_block_top.tpl',
 ];
 
@@ -120,7 +120,7 @@ $modversion['blocks'][] = [
     'description' => _MI_TDMDOWNLOADS_BNAMEDSC3,
     'show_func'   => 'b_tdmdownloads_top_show',
     'edit_func'   => 'b_tdmdownloads_top_edit',
-    'options'     => 'rating|10|19|1|1|1|left|90|400|0',
+    'options'     => 'rating|10|19|1|1|1|left|90|400|default|0',
     'template'    => $moduleDirName . '_block_rating.tpl',
 ];
 
@@ -130,7 +130,7 @@ $modversion['blocks'][] = [
     'description' => _MI_TDMDOWNLOADS_BNAMEDSC4,
     'show_func'   => 'b_tdmdownloads_top_show',
     'edit_func'   => 'b_tdmdownloads_top_edit',
-    'options'     => 'random|10|19|1|1|1|left|90|400|0',
+    'options'     => 'random|10|19|1|1|1|left|90|400|default|0',
     'template'    => $moduleDirName . '_block_random.tpl',
 ];
 
@@ -167,6 +167,9 @@ $modversion['templates'] = [
     ['file' => $moduleDirName . '_admin_field.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => $moduleDirName . '_admin_import.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => $moduleDirName . '_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
+    // Blocks styles
+    ['file' => $moduleDirName . '_block_styledefault.tpl', 'description' => '', 'type' => 'block'],
+    ['file' => $moduleDirName . '_block_stylesimple.tpl', 'description' => '', 'type' => 'block'],
     // User
     ['file' => $moduleDirName . '_brokenfile.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_download.tpl', 'description' => ''],
