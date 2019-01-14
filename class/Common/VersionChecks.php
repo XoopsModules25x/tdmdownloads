@@ -64,7 +64,7 @@ trait VersionChecks
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        xoops_loadLanguage('admin', $module->dirname());
+        xoops_loadLanguage('admin', $moduleDirName);
         // check for minimum PHP version
         $success = true;
 
