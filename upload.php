@@ -31,7 +31,7 @@ $albId = Request::getInt('alb_id', 0);
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('tdmdownloads_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '/16'); //TODO
+$GLOBALS['xoopsTpl']->assign('tdmdownloads_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '16'); //TODO
 
 $categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
 
@@ -41,6 +41,9 @@ if (isset($albId)) {
 } else {
     $categoryObj = $categoryHandler->create();
 }
+
+$albId = 1; //for testing, comment out later
+$xoopsTpl->assign('multiupload', true);
 
 //if ($permissionsHandler->permGlobalSubmit()) {
     //    $form = $categoryObj->getFormUploadToAlbum();
@@ -128,6 +131,8 @@ if (isset($albId)) {
             $fineup_debug = 'true';
         }
         $xoopsTpl->assign('fineup_debug', $fineup_debug);
+
+        $xoopsTpl->assign('multiupload', true);
     }
 //}
 

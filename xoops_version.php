@@ -183,6 +183,7 @@ $modversion['templates'] = [
     ['file' => $moduleDirName . '_upload.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_header.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_footer.tpl', 'description' => ''],
+    ['file' => $moduleDirName . '_breadcrumbs.tpl', 'description' => ''],
 ];
 
 // ------------------- Help files ------------------- //

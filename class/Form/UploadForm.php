@@ -88,14 +88,14 @@ class UploadForm extends \XoopsThemeForm
         $fileseltray->addElement(new \XoopsFormLabel(''));
         $imgtray->addElement($fileseltray);
         $this->addElement($imgtray);
-        // Weight
-        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT'), 'weight', 50, 255, $this->targetObject->getVar('weight')), false);
-        // Status
-        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS'), 'status', 50, 255, $this->targetObject->getVar('status')), false);
-        // Search
-        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH'), 'search', 50, 255, $this->targetObject->getVar('search')), false);
-        // Status_def
-        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF'), 'status_def', 50, 255, $this->targetObject->getVar('status_def')), false);
+//        // Weight
+//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT'), 'weight', 50, 255, $this->targetObject->getVar('weight')), false);
+//        // Status
+//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS'), 'status', 50, 255, $this->targetObject->getVar('status')), false);
+//        // Search
+//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH'), 'search', 50, 255, $this->targetObject->getVar('search')), false);
+//        // Status_def
+//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF'), 'status_def', 50, 255, $this->targetObject->getVar('status_def')), false);
 
         $this->addElement(new \XoopsFormHidden('op', 'save'));
         $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));

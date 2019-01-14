@@ -5,7 +5,8 @@
 <{/if}>
 
 <{if $multiupload}>
-    <div class="clear">&nbsp;</div>
+
+    <{*<div class="clear">&nbsp;</div>*}>
     <{include file="db:tdmdownloads_trigger_uploads.tpl"}>
     <h2><{$img_albname}></h2>
     <div id="fine-uploader-manual-trigger"></div>
