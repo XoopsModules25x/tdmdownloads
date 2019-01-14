@@ -359,6 +359,7 @@ if ($helper->getConfig('perpage') > 0) {
         $xoopsTpl->assign('affichage_tri', sprintf(_MD_TDMDOWNLOADS_CAT_CURSORTBY, $displaySort));
     }
 }
+
 // référencement
 // titre de la page
 $pagetitle = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC');
@@ -368,5 +369,7 @@ $xoTheme->addMeta('meta', 'description', strip_tags($downloadscatArray[$cid]->ge
 //keywords
 $keywords = mb_substr($keywords, 0, -1);
 $xoTheme->addMeta('meta', 'keywords', $keywords);
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
 
 require XOOPS_ROOT_PATH . '/footer.php';
