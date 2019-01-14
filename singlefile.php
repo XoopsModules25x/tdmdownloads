@@ -139,11 +139,13 @@ $criteria = new \CriteriaCompo();
 $criteria->setSort('weight ASC, title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('status', 1));
+/** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
 $downloads_field = $fieldHandler->getAll($criteria);
 $nb_champ        = count($downloads_field);
 $champ_sup       = '';
 $champ_sup_vide  = 0;
 foreach (array_keys($downloads_field) as $i) {
+    /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
     if (1 == $downloads_field[$i]->getVar('status_def')) {
         if (1 == $downloads_field[$i]->getVar('fid')) {
             //page d'accueil
@@ -182,6 +184,7 @@ foreach (array_keys($downloads_field) as $i) {
         $downloadsfielddata = $fielddataHandler->getAll($criteria);
         $contenu            = '';
         foreach (array_keys($downloadsfielddata) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
             $contenu = $downloadsfielddata[$j]->getVar('data', 'n');
         }
         if ('' != $contenu) {
