@@ -600,7 +600,7 @@ switch ($op) {
             $donnee['TAG'] = $_POST['tag'];
         }
 
-        if (true == $erreur) {
+        if (true === $erreur) {
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
             $form = $obj->getForm($donnee, true);
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
