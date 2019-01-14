@@ -52,6 +52,7 @@ switch ($op) {
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../assets/images/deco/arrow.gif">');
             $category           = [];
             foreach (array_keys($category_ArrayTree) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Category[] $downloads_cat */
                 $category = [
                     'cid'                  => $i,
                     'title'                => $downloads_cat[$i]->getVar('cat_title'),
@@ -76,7 +77,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des catégories
-        $obj  = $categoryHandler->create();
+        /** @var \XoopsModules\Tdmdownloads\Category $obj */
+        $obj = $categoryHandler->create();
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
@@ -112,11 +115,13 @@ switch ($op) {
             $criteria->add(new \Criteria('cid', $categoryId));
             $downloadsArray = $downloadsHandler->getAll($criteria);
             foreach (array_keys($downloadsArray) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                 // supression des votes
                 $criteria_1 = new \CriteriaCompo();
                 $criteria_1->add(new \Criteria('lid', $downloadsArray[$i]->getVar('lid')));
                 $votedata = $ratingHandler->getAll($criteria_1);
                 foreach (array_keys($votedata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Rating[] $votedata */
                     $objvotedata = $ratingHandler->get($votedata[$j]->getVar('ratingid'));
                     $ratingHandler->delete($objvotedata) || $objvotedata->getHtmlErrors();
                 }
@@ -125,6 +130,7 @@ switch ($op) {
                 $criteria_2->add(new \Criteria('lid', $downloadsArray[$i]->getVar('lid')));
                 $downloads_broken = $brokenHandler->getAll($criteria_2);
                 foreach (array_keys($downloads_broken) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Broken[] $downloads_broken */
                     $objbroken = $brokenHandler->get($downloads_broken[$j]->getVar('reportid'));
                     $brokenHandler->delete($objbroken) || $objbroken->getHtmlErrors();
                 }
@@ -134,6 +140,7 @@ switch ($op) {
                 $downloads_fielddata = $fielddataHandler->getAll($criteria_3);
                 if ($fielddataHandler->getCount($criteria_3) > 0) {
                     foreach (array_keys($downloads_fielddata) as $j) {
+                        /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
                         $objfielddata = $fielddataHandler->get($downloads_fielddata[$j]->getVar('iddata'));
                         $fielddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
                     }
@@ -151,6 +158,7 @@ switch ($op) {
                     $downloadsTags = $linkHandler->getAll($criteria);
                     if (count($downloadsTags) > 0) {
                         foreach (array_keys($downloadsTags) as $j) {
+                            /** @var \XoopsModules\Tag\Link[] $downloadsTags */
                             $objtags = $linkHandler->get($downloadsTags[$j]->getVar('tl_id'));
                             $linkHandler->delete($objtags) || $objtags->getHtmlErrors();
                         }
@@ -174,6 +182,7 @@ switch ($op) {
             $mytree             = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
             $downloads_childcat = $mytree->getAllChild($categoryId);
             foreach (array_keys($downloads_childcat) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Category[] $downloads_childcat */
                 // supression de la catégorie
                 $objchild = $categoryHandler->get($downloads_childcat[$i]->getVar('cat_cid'));
                 $categoryHandler->delete($objchild) || $objchild->getHtmlErrors();
@@ -249,6 +258,7 @@ switch ($op) {
             if (count($downloadsArray) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDOWNLOADS . '<br>';
                 foreach (array_keys($downloadsArray) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                     $message .= '<span style="color : #ff0000">' . $downloadsArray[$i]->getVar('title') . '</span><br>';
                 }
             }
@@ -258,6 +268,7 @@ switch ($op) {
             if (count($downloads_childcat) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELSOUSCAT . ' <br><br>';
                 foreach (array_keys($downloads_childcat) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Category[] $downloads_childcat */
                     $message  .= '<b><span style="color : #ff0000">' . $downloads_childcat[$i]->getVar('cat_title') . '</span></b><br>';
                     $criteria = new \CriteriaCompo();
                     $criteria->add(new \Criteria('cid', $downloads_childcat[$i]->getVar('cat_cid')));
@@ -340,7 +351,8 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($categoryHandler->insert($obj)) {
-                $newcat_cid = $obj->getNewEnreg($db);
+                /** @var \XoopsModules\Tdmdownloads\Category $obj */
+                 $newcat_cid = $obj->getNewEnreg($db);
                 //permission pour voir
                 $perm_id = \Xmf\Request::hasVar('cat_cid', 'POST') ? $cat_cid : $newcat_cid;
                 /** @var \XoopsGroupPermHandler $grouppermHandler */
@@ -388,7 +400,8 @@ switch ($op) {
                     $tags                  = [];
                     $tags['CATEGORY_NAME'] = \Xmf\Request::getString('cat_title', '', 'POST');
                     $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $newcat_cid;
-                    $notificationHandler   = xoops_getHandler('notification');
+                    /** @var \XoopsNotificationHandler $notificationHandler */
+                    $notificationHandler = xoops_getHandler('notification');
                     $notificationHandler->triggerEvent('global', 0, 'new_category', $tags);
                 }
                 redirect_header('category.php?op=list', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);

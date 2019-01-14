@@ -94,6 +94,7 @@ function b_tdmdownloads_top_show($options)
     $criteria->setLimit($nb_entree);
     $downloadsArray = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloadsArray) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
         $block[$i]['lid']   = $downloadsArray[$i]->getVar('lid');
         $block[$i]['title'] = mb_strlen($downloadsArray[$i]->getVar('title')) > $lenght_title ? mb_substr($downloadsArray[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloadsArray[$i]->getVar('title');
         $descriptionShort  = '';
@@ -191,6 +192,7 @@ function b_tdmdownloads_top_edit($options)
     $form .= _MB_TDMDOWNLOADS_CATTODISPLAY . "<br><select name=\"options[]\" multiple=\"multiple\" size=\"5\">\n";
     $form .= '<option value="0" ' . (!in_array(0, $options, false) ? '' : 'selected="selected"') . '>' . _MB_TDMDOWNLOADS_ALLCAT . "</option>\n";
     foreach (array_keys($downloadscatArray) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Category[] $downloadscatArray */
         $form .= '<option value="' . $downloadscatArray[$i]->getVar('cat_cid') . '" ' . (!in_array($downloadscatArray[$i]->getVar('cat_cid'), $options, false) ? '' : 'selected') . '>' . $downloadscatArray[$i]->getVar('cat_title') . "</option>\n";
     }
     $form .= "</select>\n";

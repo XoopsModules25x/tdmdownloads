@@ -145,8 +145,10 @@ class Downloads extends \XoopsObject
         $criteria     = new \CriteriaCompo();
         $criteria->setSort('weight ASC, title');
         $criteria->setOrder('ASC');
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_field */
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
@@ -225,6 +227,7 @@ class Downloads extends \XoopsObject
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
                     if (true === $erreur) {
                         $contenu = $donnee[$fieldName];
                     } else {

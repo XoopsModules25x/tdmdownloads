@@ -36,7 +36,8 @@ function tdmdownloads_tag_iteminfo(&$items)
     }
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-    $items_obj   = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
+    /** @var \XoopsModules\Tdmdownloads\Downloads $item_obj */
+    $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {

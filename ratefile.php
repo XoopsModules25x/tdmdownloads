@@ -67,12 +67,15 @@ switch ($op) {
         //description
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SINGLEFILE_RATHFILE . ' (' . $viewDownloads->getVar('title') . ')'));
         //Affichage du formulaire de notation des téléchargements
-        $obj  = $ratingHandler->create();
+        /** @var \XoopsModules\Tdmdownloads\Rating $obj */
+        $obj = $ratingHandler->create();
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
     // save
     case 'save':
+        /** @var \XoopsModules\Tdmdownloads\Rating $obj */
         $obj = $ratingHandler->create();
         if (empty($xoopsUser)) {
             $ratinguser = 0;
@@ -85,6 +88,7 @@ switch ($op) {
             $criteria->add(new \Criteria('lid', $lid));
             $downloadsArray = $downloadsHandler->getAll($criteria);
             foreach (array_keys($downloadsArray) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                 if ($downloadsArray[$i]->getVar('submitter') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
                 }
@@ -94,6 +98,7 @@ switch ($op) {
             $criteria->add(new \Criteria('lid', $lid));
             $votesArray = $ratingHandler->getAll($criteria);
             foreach (array_keys($votesArray) as $i) {
+                /** @var \XoopsModules\Wfdownloads\Rating[] $votesArray */
                 if ($votesArray[$i]->getVar('ratinguser') === $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 }
