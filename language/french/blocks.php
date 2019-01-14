@@ -31,3 +31,4 @@ define('_MB_TDMDOWNLOADS_FLOAT', 'Image flottante : ');
 define('_MB_TDMDOWNLOADS_FLOAT_LEFT', 'Gauche');
 define('_MB_TDMDOWNLOADS_FLOAT_RIGHT', 'Droite');
 define('_MB_TDMDOWNLOADS_WHITE', 'Image blanche');
+define('_MB_TDMDOWNLOADS_BLOCKSTYLE', 'Style de bloc');
