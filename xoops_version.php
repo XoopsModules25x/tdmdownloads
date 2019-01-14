@@ -167,6 +167,9 @@ $modversion['templates'] = [
     ['file' => $moduleDirName . '_admin_field.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => $moduleDirName . '_admin_import.tpl', 'description' => '', 'type' => 'admin'],
     ['file' => $moduleDirName . '_admin_permissions.tpl', 'description' => '', 'type' => 'admin'],
+    // Blocks styles
+    ['file' => $moduleDirName . '_block_styledefault.tpl', 'description' => '', 'type' => 'block'],
+    ['file' => $moduleDirName . '_block_stylesimple.tpl', 'description' => '', 'type' => 'block'],
     // User
     ['file' => $moduleDirName . '_brokenfile.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_download.tpl', 'description' => ''],

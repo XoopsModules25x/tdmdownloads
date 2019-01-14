@@ -42,7 +42,9 @@ function b_tdmdownloads_top_show($options)
     $logo_float         = $options[6];
     $logo_width         = $options[7];
     $lenght_description = $options[8];
+    $blockstyle         = $options[9];
 
+    array_shift($options);
     array_shift($options);
     array_shift($options);
     array_shift($options);
@@ -60,8 +62,6 @@ function b_tdmdownloads_top_show($options)
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
-    /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-    $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 	$helper->loadLanguage('main');
 
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
@@ -124,8 +124,20 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['date']          = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
         $block[$i]['submitter']     = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
         $block[$i]['inforation']    = $show_inforation;
+        $block[$i]['blockstyle']    = $blockstyle;
     }
-
+    $GLOBALS['xoopsTpl']->assign('tdmblockstyle', $blockstyle);
+    
+    $grouppermHandler = xoops_getHandler('groupperm');
+    $groups           = XOOPS_GROUP_ANONYMOUS;
+    if (is_object($GLOBALS['xoopsUser'])) {
+        $groups = $GLOBALS['xoopsUser']->getGroups();
+    }
+    $perm_submit = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $mymodule->getVar('mid')) ? true : false;
+    $perm_modif  = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $mymodule->getVar('mid')) ? true : false;
+    $GLOBALS['xoopsTpl']->assign('perm_submit', $perm_submit);
+    $GLOBALS['xoopsTpl']->assign('perm_modif', $perm_modif);
+   
     return $block;
 }
 
@@ -174,12 +186,18 @@ function b_tdmdownloads_top_edit($options)
     }
     $form       .= _MB_TDMDOWNLOADS_INFORMATIONS . ' : <input name="options[5]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
     $form       .= '<input name="options[5]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br><br>\n";
-    $floatelect = new \XoopsFormSelect(_MB_TDMDOWNLOADS_FLOAT, 'options[6]', $options[6]);
-    $floatelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
-    $floatelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
-    $form .= _MB_TDMDOWNLOADS_FLOAT . ' : ' . $floatelect->render() . '<br>';
-    $form .= _MB_TDMDOWNLOADS_WHITE . ' : <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
-    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ' : <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
+    $floatSelect = new \XoopsFormSelect('', 'options[6]', $options[6]);
+    $floatSelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
+    $floatSelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
+    $form .= _MB_TDMDOWNLOADS_FLOAT . $floatSelect->render() . '<br>';
+    $form .= _MB_TDMDOWNLOADS_WHITE . ': <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
+    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";    
+    $styleSelect = new \XoopsFormSelect('', 'options[9]', $options[9]);
+    $styleSelect->addOption('default', 'default');
+    $styleSelect->addOption('simple1', 'simple1');
+    $styleSelect->addOption('simple4', 'simple4');
+    $form .= _MB_TDMDOWNLOADS_BLOCKSTYLE . ': ' . $styleSelect->render() . '<br>';
+    
     array_shift($options);
     array_shift($options);
     array_shift($options);
