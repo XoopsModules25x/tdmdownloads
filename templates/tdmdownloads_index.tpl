@@ -58,7 +58,7 @@
                     <{if $bl_date != ""}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icon/date.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>
+                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/date.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
@@ -75,7 +75,7 @@
                     <{if $bl_pop != ""}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icon/hits.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>
+                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/hits.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
@@ -92,7 +92,7 @@
                     <{if $bl_rating != ""}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icon/votes.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>
+                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/votes.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
