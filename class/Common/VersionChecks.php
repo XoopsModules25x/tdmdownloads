@@ -67,15 +67,10 @@ trait VersionChecks
         xoops_loadLanguage('admin', $module->dirname());
         // check for minimum PHP version
         $success = true;
-<<<<<<< HEAD
-        $verNum  = PHP_VERSION;
-        $reqVer  =& $module->getInfo('min_php');
-=======
 
-        $verNum  = PHP_VERSION;
-        $reqVer  =& $module->getInfo('min_php');
+        $verNum = PHP_VERSION;
+        $reqVer =& $module->getInfo('min_php');
 
->>>>>>> e3ca5ddff591831782692c19c43602fa39f58dd5
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
                 $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
