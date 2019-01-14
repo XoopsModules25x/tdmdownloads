@@ -62,6 +62,7 @@ switch ($op) {
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('modified_count', $numrows);
             foreach (array_keys($downloadsmod_arr) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsmod_arr */
                 $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
                 // pour savoir si le fichier est nouveau
                 $downloads_url    = $downloads->getVar('url');
@@ -128,6 +129,7 @@ switch ($op) {
         $criteria->add(new \Criteria('status', 1));
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
@@ -153,6 +155,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
                     //                    $contenu = $downloadsfielddata[$j]->getVar('data');
                     $contenu = $downloadsfielddata[$j]->getVar('data', 'e');
                 }
@@ -163,6 +166,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsfieldmoddata */
                     $contentModified = $downloadsfieldmoddata[$j]->getVar('moddata', 'e');
                 }
                 //                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $contentModified ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contentModified . '</small></td></tr>';
@@ -204,6 +208,7 @@ switch ($op) {
             $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
             $downloads_fielddata = $modifieddataHandler->getAll($criteria);
             foreach (array_keys($downloads_fielddata) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
                 $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
                 $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
             }
@@ -258,6 +263,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             $contenu = '';
             $iddata  = 0;
             if (0 == $downloads_field[$i]->getVar('status_def')) {
@@ -266,6 +272,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsfieldmoddata */
                     $contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
                 $criteria = new \CriteriaCompo();
@@ -273,6 +280,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
                 if (0 == $iddata) {
@@ -294,6 +302,7 @@ switch ($op) {
         $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
         $downloads_fielddata = $modifieddataHandler->getAll($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
             $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
             $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
         }

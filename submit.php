@@ -57,7 +57,9 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
 
         //Affichage du formulaire de notation des téléchargements
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj = $downloadsHandler->create();
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($donnee = [], false);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
@@ -65,6 +67,7 @@ switch ($op) {
     case 'save_downloads':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $newUpload = true;
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         if (true === $perm_autoapprove && $lid > 0) {
             $obj = $downloadsHandler->get($lid);
             $newUpload = false;
@@ -141,6 +144,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (0 === $downloads_field[$i]->getVar('status_def')) {
                 $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
@@ -152,6 +156,7 @@ switch ($op) {
         }
         if (true === $erreur) {
             $xoopsTpl->assign('message_erreur', $errorMessage);
+            /** @var \XoopsThemeForm $form */
             $form = $obj->getForm($donnee, true);
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
