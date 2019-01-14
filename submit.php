@@ -1,4 +1,8 @@
 <?php
+
+use XoopsModules\Tag\Tag;
+use XoopsModules\Tag\TagHandler;
+
 /**
  * TDMDownload
  *
@@ -25,7 +29,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op  = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getString('op', 'list');
 $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
 // redirection si pas de droit pour poster
@@ -33,7 +37,7 @@ if (false === $perm_submit) {
     redirect_header('index.php', 2, _NOPERM);
 }
 // user must have perm to autoapprove if he want to modify, otherwise modfile.php must be used
-if (false === $perm_autoapprove && 0 < $lid) {
+if (false === $perm_autoapprove && $lid > 0) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
@@ -53,7 +57,7 @@ switch ($op) {
         $xoTheme->addMeta('meta', 'description', strip_tags(_MD_TDMDOWNLOADS_SUBMIT_PROPOSER));
 
         //Affichage du formulaire de notation des téléchargements
-        $obj  = $downloadsHandler->create();
+        $obj = $downloadsHandler->create();
         $form = $obj->getForm($donnee = [], false);
         $xoopsTpl->assign('themeForm', $form->render());
         break;
@@ -61,15 +65,15 @@ switch ($op) {
     case 'save_downloads':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
         $newUpload = true;
-        if (true === $perm_autoapprove && 0 < $lid) {
+        if (true === $perm_autoapprove && $lid > 0) {
             $obj = $downloadsHandler->get($lid);
             $newUpload = false;
         } else {
             $obj = $downloadsHandler->create();
         }
-        $erreur       = false;
+        $erreur = false;
         $errorMessage = '';
-        $donnee       = [];
+        $donnee = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST'));
         $donnee['title'] = \Xmf\Request::getString('title', '', 'POST');
         $obj->setVar('cid', \Xmf\Request::getString('cid', '', 'POST'));
@@ -113,14 +117,14 @@ switch ($op) {
             if (0 === \Xmf\Request::getInt('size', 0, 'REQUEST')) {
                 $erreur = false;
             } else {
-                $erreur         = true;
+                $erreur = true;
                 $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
             }
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
             if (0 === \Xmf\Request::getInt('cid', 0, 'REQUEST')) {
-                $erreur         = true;
+                $erreur = true;
                 $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
@@ -129,7 +133,7 @@ switch ($op) {
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur         = true;
+            $erreur = true;
         }
         // pour enregistrer temporairement les valeur des champs sup
         $criteria = new \CriteriaCompo();
@@ -138,12 +142,12 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             if (0 === $downloads_field[$i]->getVar('status_def')) {
-                $fieldName          = 'champ' . $downloads_field[$i]->getVar('fid');
+                $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
             }
         }
         // enregistrement temporaire des tags
-        if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\Tag')) {
+        if ((1 == $helper->getConfig('usetag')) && class_exists(Tag::class)) {
             $donnee['TAG'] = $_POST['tag'];
         }
         if (true === $erreur) {
@@ -151,7 +155,7 @@ switch ($op) {
             $form = $obj->getForm($donnee, true);
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
-        } else {
+        }
             $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
@@ -168,7 +172,7 @@ switch ($op) {
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
-                    if ( '' < $_FILES['attachedfile']['name'] ) { 
+                    if ($_FILES['attachedfile']['name'] > '') {
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader->getErrors() . '<br>';
                         $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
@@ -198,7 +202,7 @@ switch ($op) {
                         $obj->setVar('logourl', $uploader_2->getSavedFileName());
                     }
                 } else {
-                    if ( '' < $_FILES['attachedimage']['name'] ) { 
+                    if ($_FILES['attachedimage']['name'] > '') {
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader_2->getErrors() . '<br>';
                         $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
@@ -217,7 +221,7 @@ switch ($op) {
                     $lidDownloads = $lid;
                 }
                 //tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\TagHandler')) {
+                if ((1 == $helper->getConfig('usetag')) && class_exists(TagHandler::class)) {
                     /** @var \XoopsModules\Tag\TagHandler $tagHandler */
                     $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
                     $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
@@ -229,7 +233,7 @@ switch ($op) {
                 $downloads_field = $fieldHandler->getAll($criteria);
                 foreach (array_keys($downloads_field) as $i) {
                     if (0 === $downloads_field[$i]->getVar('status_def')) {
-                        $objdata   = $fielddataHandler->create();
+                        $objdata = $fielddataHandler->create();
                         $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
                         $objdata->setVar('data', \Xmf\Request::getString($fieldName, '', 'POST'));
                         $objdata->setVar('lid', $lidDownloads);
@@ -243,7 +247,7 @@ switch ($op) {
                         if (1 == $helper->getConfig('permission_download')) {
                             /** @var \XoopsGroupPermHandler $grouppermHandler */
                             $grouppermHandler = xoops_getHandler('groupperm');
-                            $criteria         = new \CriteriaCompo();
+                            $criteria = new \CriteriaCompo();
                             $criteria->add(new \Criteria('gperm_itemid', $lidDownloads, '='));
                             $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
                             $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download_item', '='));
@@ -257,13 +261,13 @@ switch ($op) {
                     }
                 }
                 /** @var \XoopsNotificationHandler $notificationHandler */
-                $notificationHandler   = xoops_getHandler('notification');
-                $tags                  = [];
-                $tags['FILE_NAME']     = $donnee['title'];
-                $tags['FILE_URL']      = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lidDownloads;
-                $downloadscat_cat      = $categoryHandler->get($donnee['cid']);
+                $notificationHandler = xoops_getHandler('notification');
+                $tags = [];
+                $tags['FILE_NAME'] = $donnee['title'];
+                $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $donnee['cid'] . '&lid=' . $lidDownloads;
+                $downloadscat_cat = $categoryHandler->get($donnee['cid']);
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
-                $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
+                $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
 
                 if (true === $perm_autoapprove) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
@@ -278,7 +282,7 @@ switch ($op) {
                 exit;
             }
             $errors = $obj->getHtmlErrors();
-        }
+
         $form = $obj->getForm($donnee, true);
         $xoopsTpl->assign('themeForm', $form->render());
         break;

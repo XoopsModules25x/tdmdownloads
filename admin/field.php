@@ -197,16 +197,14 @@ switch ($op) {
         $obj->setVar('search', \Xmf\Request::getInt('search', 0, 'POST'));
         $obj->setVar('status_def', \Xmf\Request::getInt('status_def', 0, 'POST'));
 
-        if (0 === \Xmf\Request::getInt('weight', 0, 'POST') && '0' !== \Xmf\Request::getString('weight', '', 'POST')) {
-            $erreur         = true;
-            $errorMessage = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
-        }
         if (true === $erreur) {
+			xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($fieldHandler->insert($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
+			xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm();

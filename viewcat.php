@@ -56,8 +56,8 @@ $downloadsArray = $downloadsHandler->getAll($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloadsArray)));
 
 //navigation
-$nav_category = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
-$xoopsTpl->assign('category_path', $nav_category);
+$navCategory = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
+$xoopsTpl->assign('category_path', $navCategory);
 
 // info catégorie
 $xoopsTpl->assign('category_id', $cid);
