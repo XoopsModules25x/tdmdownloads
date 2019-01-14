@@ -36,7 +36,7 @@ if (0 === $cid || 0 === $categoryHandler->getCount($criteria)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
 }
 // pour les permissions (si pas de droit, redirection)
-if (!in_array((int)$cid, $categories, true)) {
+if (!in_array($cid, $categories, true)) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
