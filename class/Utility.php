@@ -286,10 +286,10 @@ class Utility
     }
 
     /**
-     * @param $size
+     * @param int $size
      * @return string
      */
-    public static function trans_size($size)
+    public static function prettifyBytes($size)
     {
         if ($size > 0) {
             $mb = 1024 * 1024;
