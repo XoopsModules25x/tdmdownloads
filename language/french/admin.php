@@ -83,8 +83,10 @@ define('_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS', 'Il y a %s fichiers à importer')
 define('_AM_TDMDOWNLOADS_IMPORT_NUMBER', 'Données à importer');
 define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Importation effectuée avec succès !');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', '« %s » votes importés ;');
-define('_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées.");
+define(
+    '_AM_TDMDOWNLOADS_IMPORT_WARNING',
+       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées."
+);
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Importation de WF Downloads (Version 3.23 RC5 uniquement)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', "Sélectionnez le répertoire Upload (le chemin d'accès) pour les images des catégories de WF-Downloads");
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS', "Sélectionnez le répertoire Upload (le chemin d'accès) pour les captures d'écran de WF-Downloads");
@@ -144,7 +146,6 @@ define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Vous devez écrire une descript
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', "Il n'y a aucun fichier à télécharger");
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', "Il n'y a téléchargements en attente d'approbation");
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'la taille du fichier doit être un nombre');
-define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'le poids doit être un nombre');
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Supprimé avec succès ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', "Vous devez d'abord créer une catégorie");

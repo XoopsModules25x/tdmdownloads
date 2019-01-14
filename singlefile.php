@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Tag\Tag;
+
 /**
  * TDMDownload
  *
@@ -247,7 +250,7 @@ $xoopsTpl->assign('tellafriend_texte', $tellafriendText);
 
 // référencement
 // tags
-if ((1 == $helper->getConfig('usetag')) && class_exists('\XoopsModules\Tag\Tag')) {
+if ((1 == $helper->getConfig('usetag')) && class_exists(Tag::class)) {
     require_once XOOPS_ROOT_PATH . '/modules/tag/include/tagbar.php';
     $xoopsTpl->assign('tags', true);
     $xoopsTpl->assign('tagbar', tagBar(\Xmf\Request::getInt('lid', 0, 'REQUEST'), 0));
