@@ -274,7 +274,7 @@ if ($helper->getConfig('perpage') > 0) {
                          . XOOPS_URL
                          . '/modules/'
                          . $moduleDirName
-                         . '/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="'
+                         . '/assets/images/icons/16/edit.png" width="16px" height="16px" border="0" alt="'
                          . _MD_TDMDOWNLOADS_EDITTHISDL
                          . '"></a>';
         }
