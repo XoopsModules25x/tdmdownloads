@@ -76,9 +76,12 @@ switch ($op) {
 
         //Affichage du formulaire de notation des téléchargements
         if ($perm_autoapprove) {
+            /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
             $obj = $downloadsHandler->get($lid);
+            /** @var \XoopsThemeForm $form */
             $form = $obj->getForm($donnee = [], false, 'submit.php');
         } else {
+            /** @var \XoopsModules\Tdmdownloads\Modified $obj */
             $obj = $modifiedHandler->create();
             $form = $obj->getForm($lid, false, $donnee = []);
         }
@@ -88,6 +91,7 @@ switch ($op) {
     // save
     case 'save':
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj = $modifiedHandler->create();
         $erreur = false;
         $errorMessage = '';
@@ -147,6 +151,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
@@ -175,6 +180,7 @@ switch ($op) {
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader->getErrors() . '<br>';
                         $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                        /** @var \XoopsThemeForm $form */
                         $form = $obj->getForm($donnee, true);
                         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
@@ -221,6 +227,7 @@ switch ($op) {
                 $criteria->setOrder('ASC');
                 $downloads_field = $fieldHandler->getAll($criteria);
                 foreach (array_keys($downloads_field) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
                     if (0 == $downloads_field[$i]->getVar('status_def')) {
                         //$objdata = $modifiedfielddataHandler->create();
                         $objdata = $modifieddataHandler->create();

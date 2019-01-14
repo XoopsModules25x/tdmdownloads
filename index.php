@@ -47,6 +47,7 @@ $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));
 $count    = 1;
 $keywords = '';
 foreach (array_keys($downloadscatArray) as $i) {
+    /** @var \XoopsModules\Tdmdownloads\Category[] $downloadscatArray */
     if (0 === $downloadscatArray[$i]->getVar('cat_pid')) {
         $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloadsArray, $downloadscatArray[$i]->getVar('cat_cid'));
         $subcategories_arr = $mytree->getFirstChild($downloadscatArray[$i]->getVar('cat_cid'));
@@ -55,6 +56,7 @@ foreach (array_keys($downloadscatArray) as $i) {
         //pour les mots clef
         $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
         foreach (array_keys($subcategories_arr) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Category[] $subcategories_arr */
             if ($chcount >= $helper->getConfig('nbsouscat')) {
                 $subcategories .= '<li>[<a href="' . XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $downloadscatArray[$i]->getVar('cat_cid') . '">+</a>]</li>';
                 break;
@@ -88,6 +90,7 @@ if (1 == $helper->getConfig('bldate')) {
     $criteria->setLimit($helper->getConfig('nbbl'));
     $downloads_arr_date = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_date) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_date */
         $title = $downloads_arr_date[$i]->getVar('title');
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
@@ -111,6 +114,7 @@ if (1 == $helper->getConfig('blpop')) {
     $criteria->setLimit($helper->getConfig('nbbl'));
     $downloads_arr_hits = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_hits) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_hits */
         $title = $downloads_arr_hits[$i]->getVar('title');
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
@@ -133,6 +137,7 @@ if (1 == $helper->getConfig('blrating')) {
     $criteria->setLimit($helper->getConfig('nbbl'));
     $downloads_arr_rating = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloads_arr_rating) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_rating */
         $title = $downloads_arr_rating[$i]->getVar('title');
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
@@ -195,6 +200,7 @@ if ($helper->getConfig('newdownloads') > 0) {
     $item          = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
     $count         = 1;
     foreach (array_keys($downloadsArray) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
         if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
             $logourl = '';
         } else {

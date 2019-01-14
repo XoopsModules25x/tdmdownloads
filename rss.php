@@ -80,6 +80,7 @@ if (!$xoopsTpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
     $xoopsTpl->assign('image_width', $width);
     $xoopsTpl->assign('image_height', $height);
     foreach (array_keys($downloadsArray) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
         $description = $downloadsArray[$i]->getVar('description');
         //permet d'afficher uniquement la description courte
         if (false === mb_strpos($description, '[pagebreak]')) {

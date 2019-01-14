@@ -66,12 +66,13 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('broken_count', $numrows);
             $broken = [];
             foreach (array_keys($brokenArray) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Broken[] $brokenArray */
                 $broken = [
                     'lid'      => $brokenArray[$i]->getVar('lid'),
                     'reportid' => $brokenArray[$i]->getVar('reportid'),
                     'title'    => $brokenArray[$i]->getVar('title'),
                     'cid'      => $brokenArray[$i]->getVar('cid'),
-                    'sender'   => XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
+                    'sender'   => \XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
                     'ip'       => $brokenArray[$i]->getVar('ip'),
                 ];
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);

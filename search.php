@@ -72,6 +72,7 @@ $downloads_field = $fieldHandler->getAll($criteria);
 
 $arguments = '';
 foreach (array_keys($downloads_field) as $i) {
+    /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
     $title_sup = '';
     $contentArray = [];
     $lid_arr = [];
@@ -118,6 +119,7 @@ foreach (array_keys($downloads_field) as $i) {
             $criteria->setOrder('ASC');
             $tdmdownloadsArray = $downloadsHandler->getAll($criteria);
             foreach (array_keys($tdmdownloadsArray) as $j) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */
                 $contentArray[$tdmdownloadsArray[$j]->getVar($fieldNameBase)] = $tdmdownloadsArray[$j]->getVar($fieldNameBase);
             }
             if (999 !== $fieldContent[$downloads_field[$i]->getVar('fid')]) {
@@ -131,6 +133,7 @@ foreach (array_keys($downloads_field) as $i) {
         $criteria->setOrder('ASC');
         $tdmdownloadsArray = $fielddataHandler->getAll($criteria);
         foreach (array_keys($tdmdownloadsArray) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */
             $contentArray[$tdmdownloadsArray[$j]->getVar('data', 'n')] = $tdmdownloadsArray[$j]->getVar('data');
         }
         if ('' !== $fieldContent[$downloads_field[$i]->getVar('fid')]) {
@@ -138,6 +141,7 @@ foreach (array_keys($downloads_field) as $i) {
             $criteria_1->add(new \Criteria('data', $fieldContent[$downloads_field[$i]->getVar('fid')]));
             $dataArray = $fielddataHandler->getAll($criteria_1);
             foreach (array_keys($dataArray) as $k) {
+                /** @var \XoopsModules\Tdmdownloads\Fielddata[] $dataArray */
                 $lid_arr[] = $dataArray[$k]->getVar('lid');
             }
         }
@@ -254,6 +258,7 @@ foreach (array_keys($tdmdownloadsArray) as $i) {
             $downloadsfielddata = $fielddataHandler->getAll($criteria);
             if (count($downloadsfielddata) > 0) {
                 foreach (array_keys($downloadsfielddata) as $k) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
                     $contenu = $downloadsfielddata[$k]->getVar('data', 'n');
                 }
             } else {

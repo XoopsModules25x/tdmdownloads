@@ -165,6 +165,7 @@ switch ($op) {
             $class = 'odd';
             $downloads = [];
             foreach (array_keys($downloadsArray) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                 $download = [
                     'category' => $utility->getPathTree($mytree, $downloadsArray[$i]->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
                     'cid' => $downloadsArray[$i]->getVar('cid'),
@@ -198,6 +199,7 @@ switch ($op) {
         //Affichage du formulaire de création des téléchargements
         /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj = $downloadsHandler->create();
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($donnee = [], false);
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
@@ -218,7 +220,8 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
         //Affichage du formulaire de création des téléchargements
         $downloads_lid = \Xmf\Request::getInt('downloads_lid', 0, 'GET');
-        $obj = $downloadsHandler->get($downloads_lid);
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
+        $obj  = $downloadsHandler->get($downloads_lid);
         $form = $obj->getForm($donnee = [], false);
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
@@ -246,6 +249,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $votedata = $ratingHandler->getAll($criteria);
                 foreach (array_keys($votedata) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Rating[] $votedata */
                     $objvotedata = $ratingHandler->get($votedata[$i]->getVar('ratingid'));
                     $ratingHandler->delete($objvotedata) || $objvotedata->getHtmlErrors();
                 }
@@ -254,6 +258,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $downloads_broken = $brokenHandler->getAll($criteria);
                 foreach (array_keys($downloads_broken) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Broken[] $downloads_broken */
                     $objbroken = $brokenHandler->get($downloads_broken[$i]->getVar('reportid'));
                     $brokenHandler->delete($objbroken) || $objbroken->getHtmlErrors();
                 }
@@ -262,6 +267,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $downloads_fielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloads_fielddata) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
                     $objfielddata = $fielddataHandler->get($downloads_fielddata[$i]->getVar('iddata'));
                     $fielddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
                 }
@@ -275,6 +281,7 @@ switch ($op) {
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));
                     $downloadsTags = $linkHandler->getAll($criteria);
                     foreach (array_keys($downloadsTags) as $i) {
+                        /** @var \XoopsModules\Tag\Link[] $downloadsTags */
                         $objtags = $linkHandler->get($downloadsTags[$i]->getVar('tl_id'));
                         $linkHandler->delete($objtags) || $objtags->getHtmlErrors();
                     }
@@ -350,6 +357,7 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         $fieldsList = [];
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
@@ -382,6 +390,7 @@ switch ($op) {
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
                 foreach (array_keys($downloadsfielddata) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
                     $contenu = $downloadsfielddata[$j]->getVar('data');
                 }
                 if ('' !== $contenu) {
@@ -430,6 +439,7 @@ switch ($op) {
         $ratings['user_total'] = $votesTotal;
         $userList = [];
         foreach (array_keys($votedataArray) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Rating[] $votedataArray */
             $userList[] = [
                 'ratinguser' => \XoopsUser::getUnameFromId($votedataArray[$i]->getVar('ratinguser')),
                 'ratinghostname' => $votedataArray[$i]->getVar('ratinghostname'),
@@ -478,6 +488,7 @@ switch ($op) {
             } else {
                 $ratingTotal = 0;
                 foreach (array_keys($votedataArray) as $i) {
+                    /** @var \XoopsModules\Tdmdownloads\Rating[] $votedataArray */
                     $ratingTotal += $votedataArray[$i]->getVar('rating');
                 }
                 $rating = $ratingTotal / $votesTotal;
@@ -499,6 +510,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
+        /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         if (\Xmf\Request::hasVar('lid')) {
             $obj = $downloadsHandler->get(\Xmf\Request::getInt('lid'));
         } else {
@@ -590,6 +602,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
+            /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
@@ -602,6 +615,8 @@ switch ($op) {
 
         if (true === $erreur) {
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+
+            /** @var \XoopsThemeForm $form */
             $form = $obj->getForm($donnee, true);
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;

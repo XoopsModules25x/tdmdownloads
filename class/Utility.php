@@ -206,6 +206,7 @@ class Utility
         if (in_array($cid, $categories, true)) {
             $child = $mytree->getAllChild($cid);
             foreach (array_keys($entries) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $entries */
                 if ($entries[$i]->getVar('cid') == $cid) {
                     $count++;
                 }
@@ -346,9 +347,11 @@ class Utility
         $categoryParent = array_reverse($categoryParent);
         $path            = '';
         foreach (array_keys($categoryParent) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
             $path .= $categoryParent[$j]->getVar($title) . $prefix;
         }
         if (array_key_exists($key, $category_array)) {
+            /** @var \XoopsModules\Tdmdownloads\Category[] $category_array */
             $firstCategory = $category_array[$key]->getVar($title);
         } else {
             $firstCategory = '';
@@ -382,6 +385,7 @@ class Utility
             }
         } else {
             if (array_key_exists($key, $category_array)) {
+                /** @var \XoopsModules\Tdmdownloads\Category[] $category_array */
                 $firstCategory = $category_array[$key]->getVar($title);
             } else {
                 $firstCategory = '';
@@ -389,6 +393,7 @@ class Utility
             $path = $firstCategory . $prefix;
         }
         foreach (array_keys($categoryParent) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
             if (true === $link) {
                 $path .= '<a href="viewcat.php?cid=' . $categoryParent[$j]->getVar('cat_cid') . '">' . $categoryParent[$j]->getVar($title) . '</a>' . $prefix;
             } else {
