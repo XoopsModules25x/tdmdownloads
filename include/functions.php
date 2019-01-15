@@ -47,7 +47,7 @@ function deletePermissions($id)
     $todos      = $mpu_classe->PegaTudo(new \Criteria('mpb_10_idpai', $id));
     if (!empty($todos)) {
         foreach ($todos as $v) {
-            mpu_apagaPermissoes($v->getVar('mpb_10_id'));
+            turnoffPermissions($v->getVar('mpb_10_id'));
             xoops_comment_delete($xoopsModule->getVar('mid'), $v->getVar('mpb_10_id'));
         }
 
