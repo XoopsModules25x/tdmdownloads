@@ -163,7 +163,7 @@ switch ($op) {
             $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
             if (isset($_POST['xoops_upload_file'][0])) {
-                $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetype'), $helper->getConfig('maxuploadsize'), null, null);
+                $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetypes'), $helper->getConfig('maxuploadsize'), null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($helper->getConfig('newnamedownload')) {
                         $uploader->setPrefix($helper->getConfig('prefixdownloads'));

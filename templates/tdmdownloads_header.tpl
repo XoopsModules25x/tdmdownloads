@@ -3,6 +3,6 @@
 <{/if}>
 
 <{if $ads != ''}>
-	<div class='center'>
+    <div class='center'>
 <{$ads}></div>
 <{/if}>

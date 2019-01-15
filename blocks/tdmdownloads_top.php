@@ -62,7 +62,8 @@ function b_tdmdownloads_top_show($options)
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
-	$helper->loadLanguage('main');
+    /** @var \XoopsModules\Tdmdownloads\Helper $helper */
+    $helper->loadLanguage('main');
 
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     $criteria   = new \CriteriaCompo();
@@ -127,7 +128,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['blockstyle']    = $blockstyle;
     }
     $GLOBALS['xoopsTpl']->assign('tdmblockstyle', $blockstyle);
-    
+
     $grouppermHandler = xoops_getHandler('groupperm');
     $groups           = XOOPS_GROUP_ANONYMOUS;
     if (is_object($GLOBALS['xoopsUser'])) {
@@ -137,7 +138,7 @@ function b_tdmdownloads_top_show($options)
     $perm_modif  = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $mymodule->getVar('mid')) ? true : false;
     $GLOBALS['xoopsTpl']->assign('perm_submit', $perm_submit);
     $GLOBALS['xoopsTpl']->assign('perm_modif', $perm_modif);
-   
+
     return $block;
 }
 
@@ -191,13 +192,13 @@ function b_tdmdownloads_top_edit($options)
     $floatSelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
     $form .= _MB_TDMDOWNLOADS_FLOAT . $floatSelect->render() . '<br>';
     $form .= _MB_TDMDOWNLOADS_WHITE . ': <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
-    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";    
+    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
     $styleSelect = new \XoopsFormSelect('', 'options[9]', $options[9]);
     $styleSelect->addOption('default', 'default');
     $styleSelect->addOption('simple1', 'simple1');
     $styleSelect->addOption('simple4', 'simple4');
     $form .= _MB_TDMDOWNLOADS_BLOCKSTYLE . ': ' . $styleSelect->render() . '<br>';
-    
+
     array_shift($options);
     array_shift($options);
     array_shift($options);

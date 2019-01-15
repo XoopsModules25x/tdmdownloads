@@ -26,7 +26,6 @@ define('_AM_WEIGHT', 'Weight');
 define('_AM_VISIBLE', 'Visible');
 define('_AM_VISIBLEIN', 'Visible In');
 define('_AM_ACTION', 'Action');
-define('_AM_TITLE', 'Title');
 define('_AM_BCACHETIME', 'Cache time');
 define('_AM_ACTIVERIGHTS', 'Module administration rights');
 define('_AM_ACCESSRIGHTS', 'Module access rights');

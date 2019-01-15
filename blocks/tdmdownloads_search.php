@@ -65,6 +65,7 @@ function b_tdmdownloads_search_show()
     $criteria->setSort('weight ASC, title');
     $criteria->setOrder('ASC');
     $downloads_field = $fieldHandler->getAll($criteria);
+    $fieldNameBase = '';
     foreach (array_keys($downloads_field) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
         $title_sup                                          = '';

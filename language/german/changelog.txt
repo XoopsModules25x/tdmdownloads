@@ -42,7 +42,7 @@ List of improvements:
 
 Informations
 
- - See the file "lang_diff.txt" for changes in language. 
+ - See the file "lang_diff.txt" for changes in language.
 
 Installation:
 
@@ -91,7 +91,7 @@ List of improvements:
 Informations:
 
  - Adding the suffix "cat_" in all fields of the table "tdmdownloads_cat.
- - See the file "lang_diff.txt" for changes in language. 
+ - See the file "lang_diff.txt" for changes in language.
 
 -------------------------------------------------
 Version: 1.10

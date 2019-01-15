@@ -26,6 +26,8 @@ class Utility
 
     use Common\FilesManagement; // Files Management Trait
 
+    use Common\ImageResizer; // ImageResizer Trait
+
     /**
      * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags
      * www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags
@@ -343,9 +345,10 @@ class Utility
      */
     public function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
+        /** @var \XoopsObjectTree $mytree */
         $categoryParent = $mytree->getAllParent($key);
         $categoryParent = array_reverse($categoryParent);
-        $path            = '';
+        $path           = '';
         foreach (array_keys($categoryParent) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
             $path .= $categoryParent[$j]->getVar($title) . $prefix;

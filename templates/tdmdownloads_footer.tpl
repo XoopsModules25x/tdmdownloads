@@ -1,5 +1,5 @@
 <{if $error}>
-	<div class='errorMsg'><strong><{$error}></strong></div>
+    <div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>
 <{if $xoops_isadmin}>

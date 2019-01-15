@@ -206,13 +206,13 @@ switch ($op) {
         $obj->setVar('status_def', \Xmf\Request::getInt('status_def', 0, 'POST'));
 
         if (true === $erreur) {
-			xoops_cp_header();
+            xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($fieldHandler->insert($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
-			xoops_cp_header();
+            xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm();

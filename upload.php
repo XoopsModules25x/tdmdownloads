@@ -20,43 +20,47 @@
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
-$moduleDirName = basename(__DIR__);
+include_once __DIR__ . '/header.php';
+
+$moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
-include_once __DIR__ . '/header.php';
 // It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'form');
-$albId = Request::getInt('alb_id', 0);
+$catId = Request::getInt('cat_cid', 0);
 // Template
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 include_once XOOPS_ROOT_PATH . '/header.php';
 
-$GLOBALS['xoopsTpl']->assign('tdmdownloads_icon_url_16', constant($moduleDirNameUpper . '_' . 'ICONS_URL') . '16'); //TODO
+$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
+$GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
 
 $categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
 
 // Form Create
-if (isset($albId)) {
-    $categoryObj = $categoryHandler->get($albId);
+if (isset($catId)) {
+    $categoryObj = $categoryHandler->get($catId);
 } else {
     $categoryObj = $categoryHandler->create();
 }
 
-$albId = 1; //for testing, comment out later
+$catId = 1; //for testing, comment out later
 $xoopsTpl->assign('multiupload', true);
 
-//if ($permissionsHandler->permGlobalSubmit()) {
-    //    $form = $categoryObj->getFormUploadToAlbum();
+$form = new \XoopsModules\Tdmdownloads\Form\UploadForm($categoryObj);
+$form->setExtra('enctype="multipart/form-data"');
+$GLOBALS['xoopsTpl']->assign('form', $form->render());
 
-    $form = new \XoopsModules\Tdmdownloads\Form\UploadForm($categoryObj);
-    $GLOBALS['xoopsTpl']->assign('form', $form->render());
+$permHelper->checkPermissionRedirect('tdmdownloads_submit', $catId, 'index.php', 3, 'You are not allowed to submit a file', false);
+$permissionUpload = $permHelper->checkPermission('tdmdownloads_submit', $catId, false);
+if ($permissionUpload) {
 
-    if (0 < $albId) {
-        $GLOBALS['xoopsTpl']->assign('albId', $albId);
+    if (0 < $catId) {
+        $GLOBALS['xoopsTpl']->assign('catId', $catId);
 
-        $categoryObj = $categoryHandler->get($albId);
+        $categoryObj = $categoryHandler->get($catId);
         // get config for file type/extenstion
-        $fileextions = $helper->getConfig('mimetype');
+        $fileextions = $helper->getConfig('mimetypes');
         $mimetypes   = [];
         foreach ($fileextions as $fe) {
             switch ($fe) {
@@ -81,6 +85,7 @@ $xoopsTpl->assign('multiupload', true);
 
                 case 'zip':
                     $mimetypes['application/zip'] = 'application/zip';
+                    break;
 
                 case 'else':
                 default:
@@ -98,6 +103,7 @@ $xoopsTpl->assign('multiupload', true);
             $allowedmimetypes = "'" . $allowedmimetypes . "'";
         }
         // Define Stylesheet
+        /** @var xos_opal_Theme $xoTheme */
         $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/fine-uploader-new.css');
         $xoTheme->addStylesheet(XOOPS_URL . '/media/fine-uploader/ManuallyTriggerUploads.css');
         $xoTheme->addStylesheet(XOOPS_URL . '/media/font-awesome/css/font-awesome.min.css');
@@ -109,17 +115,17 @@ $xoopsTpl->assign('multiupload', true);
         // Define Breadcrumb and tips
         $xoopsTpl->assign('multiupload', true);
         // echo $helper->getConfig('mimetypes');
-        $xoopsTpl->assign('img_maxsize', $helper->getConfig('maxsize'));
-        $xoopsTpl->assign('img_maxwidth', $helper->getConfig('maxwidth'));
-        $xoopsTpl->assign('img_maxheight', $helper->getConfig('maxheight'));
-        $xoopsTpl->assign('img_albname', $categoryObj->getVar('alb_name'));
+        $xoopsTpl->assign('file_maxsize', $helper->getConfig('maxuploadsize'));
+        $xoopsTpl->assign('img_maxwidth', $helper->getConfig('imageWidth'));
+        $xoopsTpl->assign('img_maxheight', $helper->getConfig('imageHeight'));
+        $xoopsTpl->assign('categoryname', $categoryObj->getVar('cat_title'));
         $xoopsTpl->assign('allowedfileext', $categoryObj->getVar('allowedfileext'));
         $xoopsTpl->assign('allowedmimetypes', $categoryObj->getVar('allowedmimetypes'));
         $payload = [
             'aud'     => 'ajaxfineupload.php',
-            'cat'     => $albId,
+            'cat'     => $catId,
             'uid'     => $xoopsUser instanceof \XoopsUser ? $xoopsUser->id() : 0,
-            'handler' => '\XoopsModules\\' . $moduleDirName . '\FineimpuploadHandler',
+            'handler' => '\XoopsModules\\' . ucfirst($moduleDirName) . '\Common\FineimpuploadHandler',
             'moddir'  => $moduleDirName,
         ];
         $jwt     = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
@@ -132,12 +138,11 @@ $xoopsTpl->assign('multiupload', true);
         }
         $xoopsTpl->assign('fineup_debug', $fineup_debug);
 
-        $xoopsTpl->assign('multiupload', true);
     }
-//}
+}
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => constant('CO_' . $moduleDirNameUpper . '_IMAGES_UPLOAD')];
-include_once XOOPS_ROOT_PATH .'/footer.php';
-    //include __DIR__ . '/footer.php';
+//include __DIR__ . '/footer.php';
+include_once XOOPS_ROOT_PATH . '/footer.php';
 

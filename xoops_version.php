@@ -551,6 +551,7 @@ for ($i = 1; ; $i++) {
     }
     $optionMaxsize[$i . ' MB'] = $i * 1048576;
 }
+
 $modversion['config'][] = [
     'name' => 'maxuploadsize',
     'title' => '_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE',
@@ -562,7 +563,7 @@ $modversion['config'][] = [
 ];
 
 $modversion['config'][] = [
-    'name' => 'mimetype',
+    'name' => 'mimetypes',
     'title' => '_MI_TDMDOWNLOADS_MIMETYPE',
     'description' => '_MI_TDMDOWNLOADS_MIMETYPE_DSC',
     'formtype' => 'select_multi',
@@ -575,6 +576,11 @@ $modversion['config'][] = [
     ],
     'options' => include $GLOBALS['xoops']->path('include/mimetypes.inc.php'),
 ];
+
+//---------------- picture -------------------------
+include_once __DIR__ . '/config/imageconfig.php';
+//---------------- picture -------------------------
+
 
 $modversion['config'][] = [
     'name' => 'check_host',

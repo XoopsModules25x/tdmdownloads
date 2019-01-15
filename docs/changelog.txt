@@ -20,6 +20,10 @@
 - implemented perm_autoapprove also for modifying on user side (goffy/mage)
 - added description to preference maxuploadsize (goffy/mage)
 - rebuild file list in search.php (goffy/mage)
+- added external config for images in /config/imageconfig.php (mamba)
+- added fineuploader based on Goffy's wggallery (mamba)
+- added ImageResizer trait based on Goffy's wggallery (mamba)
+
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>
@@ -134,7 +138,7 @@ List of improvements:
 
 Informations
 
- - See the file "lang_diff.txt" for changes in language. 
+ - See the file "lang_diff.txt" for changes in language.
 
 Installation:
 
@@ -182,7 +186,7 @@ List of improvements:
 Informations:
 
  - Adding the suffix "cat_" in all fields of the table "tdmdownloads_cat.
- - See the file "lang_diff.txt" for changes in language. 
+ - See the file "lang_diff.txt" for changes in language.
 
 
 <h5>1.10                [11.11.2009]</h5>

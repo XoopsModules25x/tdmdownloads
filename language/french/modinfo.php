@@ -126,7 +126,7 @@ define('_MI_TDMDOWNLOADS_PERPAGERSSDSCC', 'Nombre de téléchargements affichés
 define('_MI_TDMDOWNLOADS_TIMECACHERSS', 'Temps du cache RSS');
 define('_MI_TDMDOWNLOADS_TIMECACHERSSDSC', 'Temps de cache pour les pages RSS en minutes');
 define('_MI_TDMDOWNLOADS_LOGORSS', 'Logo du site pour les pages RSS');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', 'Commentaires et avis');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', 'Commentaires et avis');
 // Notifications
 define('_MI_TDMDOWNLOADS_GLOBAL_NOTIFY', 'Global');
 define('_MI_TDMDOWNLOADS_GLOBAL_NOTIFYDSC', 'Options de notification globales pour les téléchargements .');

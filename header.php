@@ -27,6 +27,8 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
+$permHelper = new \Xmf\Module\Helper\Permission();
+
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
 require __DIR__ . '/include/common.php';
 $myts = \MyTextSanitizer::getInstance();

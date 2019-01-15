@@ -119,3 +119,49 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FILENAME', 'File Name');
 
 //Menu
 define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
+define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGES_UPLOAD', 'Upload Files');
+
+// ---------------- Errors ----------------
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_MEDIUM', 'Error when creating medium image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
+
+// Album buttons
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_ADD', 'Add Category');
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_EDIT', 'Edit Category');
+
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_ADD', 'Edit Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_EDIT', 'Add Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_TITLE', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_FID', 'ID');
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMIMAGE_PATH', 'File Path');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_IMG', 'File  Field');
+
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMUPLOAD', 'Upload');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT', 'Weight');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS', 'Status');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH', 'Search');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF', 'Status Defi');
+
+// fine uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUBMIT', 'Submitting file: ');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUBMITTED', 'File successfully checked, please upload');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_UPLOAD', 'Upload file: ');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_FAILED', 'Errors occurred during uploading the file');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUCCEEDED', 'Successfully uploaded all files');
+
+//image config
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH', 'Image Display Width');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH_DSC', 'Display width for image');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT', 'Image Display Height');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT_DSC', 'Display height for image');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- EXTERNAL Image configuration ---</span> ');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC', '');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH', 'Image Upload path');
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC', 'Path for uploading images');

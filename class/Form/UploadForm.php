@@ -39,66 +39,67 @@ xoops_load('XoopsFormLoader');
 class UploadForm extends \XoopsThemeForm
 {
     public $targetObject;
+    public $helper;
 
     /**
      * Constructor
      *
-     * @param $target
+     * @param \XoopsModules\Tdmdownloads\Category $target
      */
     public function __construct($target)
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        //  global $helper;
+        /** @var  \XoopsModules\Tdmdownloads\Helper $this->helper */
         $this->helper       = $target->helper;
         $this->targetObject = $target;
 
         $title = $this->targetObject->isNew() ? sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_ADD')) : sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_EDIT'));
-        parent::__construct($title, 'form', xoops_getenv('PHP_SELF'), 'post', true);
+        parent::__construct('', 'form', xoops_getenv('PHP_SELF'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
         //include ID field, it's needed so the module knows if it is a new form or an edited form
 
-        $hidden = new \XoopsFormHidden('fid', $this->targetObject->getVar('fid'));
+        $hidden = new \XoopsFormHidden('fid', $this->targetObject->getVar('cat_cid'));
         $this->addElement($hidden);
         unset($hidden);
 
-        // Fid
-        $this->addElement(new \XoopsFormLabel(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_FID'), $this->targetObject->getVar('fid'), 'fid'));
-        // Title
-        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_TITLE'), 'title', 50, 255, $this->targetObject->getVar('title')), false);
-        // Img
-        $img = $this->targetObject->getVar('img') ?: 'blank.png';
 
-        $uploadDir   = '/uploads/tdmdownloads/images/';
-        $imgtray     = new \XoopsFormElementTray(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_IMG'), '<br>');
-        $imgpath     = sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'FORMIMAGE_PATH'), $uploadDir);
-        $imageselect = new \XoopsFormSelect($imgpath, 'img', $img);
-        $imageArray  = \XoopsLists::getImgListAsArray(XOOPS_ROOT_PATH . $uploadDir);
-        foreach ($imageArray as $image) {
-            $imageselect->addOption((string)$image, $image);
+        $categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
+        $start = Request::getInt('start', 0);
+        $catPaginationLimit = $this->helper->getConfig('userpager') ?: 10;
+
+        $criteria = new \CriteriaCompo();
+        $criteria->setOrder('DESC');
+        $criteria->setLimit($catPaginationLimit);
+        $criteria->setStart($start);
+
+        $catCount = $categoryHandler->getCount($criteria);
+        $catArray = $categoryHandler->getAll($criteria);
+
+        // Form Select Category
+        $categoryIdSelect = new \XoopsFormSelect( constant('CO_' . $moduleDirNameUpper . '_' . 'SELECT'), 'cat_title', $this->targetObject->getVar('cat_cid'));
+        $categoryIdSelect->setExtra('onchange="submit()"');
+//        $categoryIdSelect->addOption(0, '&nbsp;');
+
+        foreach(array_keys($catArray) as $i) {
+            $catName = $catArray[$i]->getVar('cat_title');
+            $catPid = $catArray[$i]->getVar('cat_pid');
+            if ( 0 < $catPid ) {
+                $categoryObj = $categoryHandler->get($catPid);
+                if (is_object( $categoryObj)) {
+                    $catName .= ' (' . $categoryObj->getVar('cat_title') . ')';
+                } else {
+                    $catName .= ' (' . constant('CO_' . $moduleDirNameUpper . '_' . 'ERROR_CATPID') . ')';
+                }
+            }
+            $categoryIdSelect->addOption($catArray[$i]->getVar('cat_cid'), $catName);
         }
 
+        $this->addElement($categoryIdSelect);
+        unset($categoryCriteria);
 
-        $imageselect->setExtra("onchange='showImgSelected(\"image_img\", \"img\", \"" . $uploadDir . '", "", "' . XOOPS_URL . "\")'");
-        $imgtray->addElement($imageselect);
-        $imgtray->addElement(new \XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/' . $uploadDir . '/' . $img . "' name='image_img' id='image_img' alt='' />"));
-        $fileseltray = new \XoopsFormElementTray('', '<br>');
-        $fileseltray->addElement(new \XoopsFormFile(constant('CO_' . $moduleDirNameUpper . '_' . 'FORMUPLOAD'), 'img', xoops_getModuleOption('maxsize')));
-        $fileseltray->addElement(new \XoopsFormLabel(''));
-        $imgtray->addElement($fileseltray);
-        $this->addElement($imgtray);
-//        // Weight
-//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT'), 'weight', 50, 255, $this->targetObject->getVar('weight')), false);
-//        // Status
-//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS'), 'status', 50, 255, $this->targetObject->getVar('status')), false);
-//        // Search
-//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH'), 'search', 50, 255, $this->targetObject->getVar('search')), false);
-//        // Status_def
-//        $this->addElement(new \XoopsFormText(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF'), 'status_def', 50, 255, $this->targetObject->getVar('status_def')), false);
-
-        $this->addElement(new \XoopsFormHidden('op', 'save'));
-        $this->addElement(new \XoopsFormButton('', 'submit', _SUBMIT, 'submit'));
-
+        $this->addElement(new \XoopsFormHidden('start', 0));
+        $this->addElement(new \XoopsFormHidden('limit', 0));
     }
 }

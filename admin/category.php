@@ -304,7 +304,7 @@ switch ($op) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         xoops_cp_header();
-		$cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
+        $cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
         if (0 !== $cat_cid) {
             $obj = $categoryHandler->get($cat_cid);
         } else {
@@ -338,7 +338,7 @@ switch ($op) {
         $obj->setVar('cat_pid', \Xmf\Request::getInt('cat_pid', 0, 'POST')); //$_POST['cat_pid']);
         $obj->setVar('cat_title', \Xmf\Request::getString('cat_title', '', 'POST')); //$_POST['cat_title']);
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
-		$obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
+        $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
 
 
         if (\Xmf\Request::hasVar('cat_cid', 'REQUEST')) {

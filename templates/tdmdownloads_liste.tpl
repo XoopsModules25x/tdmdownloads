@@ -23,14 +23,14 @@
         <{foreach item=download from=$search_list}>
             <tr class='<{cycle values="odd,even"}>'>
                 <td align="left" style="vertical-align: middle;">
-					<a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" title="<{$download.title}>"><{$download.title}></a>
-				</td>
+                    <a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" title="<{$download.title}>"><{$download.title}></a>
+                </td>
                 <td align="center" style="width: 32px; vertical-align: middle;">
-					<img src="<{$download.imgurl}>" alt="<{$download.cat}>" title="<{$download.cat}>" width="30">
-				</td>
+                    <img src="<{$download.imgurl}>" alt="<{$download.cat}>" title="<{$download.cat}>" width="30">
+                </td>
                 <td align="left" style="vertical-align: middle;">
-					<a href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$download.cid}>" target="_blank" title="<{$download.cat}>"><{$download.cat}></a>
-				</td>
+                    <a href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$download.cid}>" target="_blank" title="<{$download.cat}>"><{$download.cat}></a>
+                </td>
                 <{foreach item=fielddata from=$download.fielddata}>
                     <td align="left" style="vertical-align: middle;"><{$fielddata}></td>
                 <{/foreach}>
@@ -38,7 +38,7 @@
                 <td align="center" style="vertical-align: middle;"><{$download.rating}></td>
                 <td align="center" style="vertical-align: middle;"><{$download.hits}></td>
                 <td align="center" style="vertical-align: middle;">
-					<a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" target="_blank">
+                    <a href="<{$xoops_url}>/modules/tdmdownloads/visit.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" target="_blank">
                         <img src="<{$pathModIcon16}>/download-now.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>" title="<{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DOWNLOAD}><{$download.title}>">
                     </a>
                     <a href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$download.cid}>&amp;lid=<{$download.lid}>" title="<{$download.title}>">
@@ -49,7 +49,7 @@
                             <img src="<{$pathModIcon16}>/edit.png" alt="<{$smarty.const._EDIT}><{$download.title}>" title="<{$smarty.const._EDIT}>">
                         </a>
                     <{/if}>
-				</td>
+                </td>
             </tr>
         <{/foreach}>
     </table>
