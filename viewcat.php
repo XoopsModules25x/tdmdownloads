@@ -36,7 +36,7 @@ if (0 === $cid || 0 === $categoryHandler->getCount($criteria)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
 }
 // pour les permissions (si pas de droit, redirection)
-if (!in_array((int)$cid, $categories, true)) {
+if (!in_array($cid, $categories, true)) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
@@ -56,8 +56,8 @@ $downloadsArray = $downloadsHandler->getAll($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloadsArray)));
 
 //navigation
-$nav_category = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
-$xoopsTpl->assign('category_path', $nav_category);
+$navCategory = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
+$xoopsTpl->assign('category_path', $navCategory);
 
 // info catégorie
 $xoopsTpl->assign('category_id', $cid);
@@ -69,6 +69,7 @@ $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));
 $count    = 1;
 $keywords = '';
 foreach (array_keys($downloadscatArray) as $i) {
+    /** @var \XoopsModules\Tdmdownloads\Category[] $downloadscatArray */
     if ($downloadscatArray[$i]->getVar('cat_pid') == $cid) {
         $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloadsArray, $downloadscatArray[$i]->getVar('cat_cid'));
         $subcategories_arr = $mytree->getFirstChild($downloadscatArray[$i]->getVar('cat_cid'));
@@ -77,6 +78,7 @@ foreach (array_keys($downloadscatArray) as $i) {
         //pour les mots clef
         $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
         foreach (array_keys($subcategories_arr) as $j) {
+            /** @var \XoopsModules\Tdmdownloads\Category[] $subcategories_arr */
             if ($chcount >= $helper->getConfig('nbsouscat')) {
                 $subcategories .= '<li>[<a href="' . XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $downloadscatArray[$i]->getVar('cat_cid') . '">+</a>]</li>';
                 break;
@@ -111,6 +113,7 @@ if (1 == $helper->getConfig('bldate')) {
     $criteria->setLimit($helper->getConfig('nbbl'));
     $downloadsArray = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloadsArray) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
         $title = $downloadsArray[$i]->getVar('title');
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
@@ -271,7 +274,7 @@ if ($helper->getConfig('perpage') > 0) {
                          . XOOPS_URL
                          . '/modules/'
                          . $moduleDirName
-                         . '/assets/images/icon/edit.png" width="16px" height="16px" border="0" alt="'
+                         . '/assets/images/icons/16/edit.png" width="16px" height="16px" border="0" alt="'
                          . _MD_TDMDOWNLOADS_EDITTHISDL
                          . '"></a>';
         }
@@ -356,6 +359,7 @@ if ($helper->getConfig('perpage') > 0) {
         $xoopsTpl->assign('affichage_tri', sprintf(_MD_TDMDOWNLOADS_CAT_CURSORTBY, $displaySort));
     }
 }
+
 // référencement
 // titre de la page
 $pagetitle = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC');
@@ -365,5 +369,7 @@ $xoTheme->addMeta('meta', 'description', strip_tags($downloadscatArray[$cid]->ge
 //keywords
 $keywords = mb_substr($keywords, 0, -1);
 $xoTheme->addMeta('meta', 'keywords', $keywords);
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
 
 require XOOPS_ROOT_PATH . '/footer.php';

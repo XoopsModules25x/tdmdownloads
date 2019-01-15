@@ -66,6 +66,7 @@ function b_tdmdownloads_search_show()
     $criteria->setOrder('ASC');
     $downloads_field = $fieldHandler->getAll($criteria);
     foreach (array_keys($downloads_field) as $i) {
+        /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
         $title_sup                                          = '';
         $contentArray                                        = [];
         $lid_arr                                            = [];
@@ -105,6 +106,7 @@ function b_tdmdownloads_search_show()
                 $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
                 $tdmdownloadsArray = $downloadsHandler->getAll($criteria);
                 foreach (array_keys($tdmdownloadsArray) as $j) {
+                    /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */
                     $contentArray[$tdmdownloadsArray[$j]->getVar($fieldNameBase)] = $tdmdownloadsArray[$j]->getVar($fieldNameBase);
                 }
             }
@@ -117,13 +119,16 @@ function b_tdmdownloads_search_show()
             $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
             $tdmdownloadsArray = $fielddataHandler->getAll($criteria);
             foreach (array_keys($tdmdownloadsArray) as $j) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */
                 $contentArray[$tdmdownloadsArray[$j]->getVar('data', 'n')] = $tdmdownloadsArray[$j]->getVar('data');
             }
             if ('' != $fieldContent[$downloads_field[$i]->getVar('fid')]) {
                 $criteria_1 = new \CriteriaCompo();
                 $criteria_1->add(new \Criteria('data', $fieldContent[$downloads_field[$i]->getVar('fid')]));
+                /** @var \XoopsModules\Tdmdownloads\Fielddata $dataArray */
                 $dataArray = $fielddataHandler->getAll($criteria_1);
                 foreach (array_keys($dataArray) as $k) {
+                    /** @var \XoopsModules\Tdmdownloads\Fielddata[] $dataArray */
                     $lid_arr[] = $dataArray[$k]->getVar('lid');
                 }
             }

@@ -16,7 +16,7 @@
             <span class="itemPop"><{$down.pop}></span>
         <{/if}>
         <{if $down.perm_download != ""}>
-            <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icon/download-now.png"
+            <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/download-now.png"
                                                                                                                                                                                        alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"></a></span>
         <{/if}>
         <span class="itemPoster"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SUBMITDATE}><{$down.updated}></span>

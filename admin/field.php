@@ -45,6 +45,7 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('fields_count', $numrows);
 
             foreach (array_keys($downloads_field) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
                 $field = [
                     'title'      => $downloads_field[$i]->getVar('title'),
                     'img'        => $uploadurl_field . $downloads_field[$i]->getVar('img'),
@@ -88,7 +89,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des champs
+        /** @var \XoopsModules\Tdmdownloads\Field $obj */
         $obj  = $fieldHandler->create();
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
@@ -103,7 +106,9 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
         //Affichage du formulaire de création des champs
-        $obj  = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'GET'));
+        /** @var \XoopsModules\Tdmdownloads\Field $obj */
+        $obj = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'GET'));
+        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
@@ -120,6 +125,7 @@ switch ($op) {
             $criteria->add(new \Criteria('fid', \Xmf\Request::getInt('fid', 0)));
             $downloadsArray = $fielddataHandler->getAll($criteria);
             foreach (array_keys($downloadsArray) as $i) {
+                /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                 // supression de l'entrée
                 $objdownloadsfielddata = $fielddataHandler->get($downloadsArray[$i]->getVar('iddata'));
                 $fielddataHandler->delete($objdownloadsfielddata) || $objdownloads->getHtmlErrors();
@@ -137,6 +143,7 @@ switch ($op) {
             $message  = '';
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('fid', \Xmf\Request::getInt('fid', 0, 'GET')));
+            /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsArray */
             $downloadsArray = $fielddataHandler->getAll($criteria);
             if (count($downloadsArray) > 0) {
                 $message .= _AM_TDMDOWNLOADS_DELDATA . '<br>';
@@ -161,6 +168,7 @@ switch ($op) {
         if (!$GLOBALS['xoopsSecurity']->check()) {
             redirect_header('field.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
+        /** @var \XoopsModules\Tdmdownloads\Field $obj */
         if (\Xmf\Request::hasVar('fid', 'POST')) {
             $obj = $fieldHandler->get(\Xmf\Request::getInt('fid', 0, 'POST'));
         } else {
@@ -197,16 +205,14 @@ switch ($op) {
         $obj->setVar('search', \Xmf\Request::getInt('search', 0, 'POST'));
         $obj->setVar('status_def', \Xmf\Request::getInt('status_def', 0, 'POST'));
 
-        if (0 === \Xmf\Request::getInt('weight', 0, 'POST') && '0' !== \Xmf\Request::getString('weight', '', 'POST')) {
-            $erreur         = true;
-            $errorMessage = _AM_TDMDOWNLOADS_ERREUR_WEIGHT . '<br>';
-        }
         if (true === $erreur) {
+			xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
         } else {
             if ($fieldHandler->insert($obj)) {
                 redirect_header('field.php', 1, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
             }
+			xoops_cp_header();
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         }
         $form = $obj->getForm();

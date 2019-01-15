@@ -5,6 +5,17 @@ Legend :
 + Added
 - Removed
 * Modified
+-------------------------------------------------
+Version: 2.00
+Date:    ????
+-------------------------------------------------
+admin.php
+-------------
+- _AM_TDMDOWNLOADS_ERREUR_WEIGHT
+
+blocks.php
+-------------
++ _MB_TDMDOWNLOADS_BLOCKSTYLE
 
 -------------------------------------------------
 Version: 1.67

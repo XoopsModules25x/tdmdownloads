@@ -22,7 +22,7 @@
  * @param $items
  * @return bool|null
  */
-function TDMDownloads_tag_iteminfo(&$items)
+function tdmdownloads_tag_iteminfo(&$items)
 {
     if (empty($items) || !is_array($items)) {
         return false;
@@ -36,7 +36,8 @@ function TDMDownloads_tag_iteminfo(&$items)
     }
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-    $items_obj   = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
+    /** @var \XoopsModules\Tdmdownloads\Downloads $item_obj */
+    $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
@@ -61,7 +62,7 @@ function TDMDownloads_tag_iteminfo(&$items)
 /**
  * @param $mid
  */
-function TDMDownloads_tag_synchronization($mid)
+function tdmdownloads_tag_synchronization($mid)
 {
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');

@@ -83,8 +83,10 @@ define('_AM_TDMDOWNLOADS_IMPORT_NB_DOWNLOADS', 'Es sind %s Dateien zum Importier
 define('_AM_TDMDOWNLOADS_IMPORT_NUMBER', 'Daten zum Importieren');
 define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Import erfolgreich beendet!');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', "Abstimmungen: '%s' importiert;");
-define('_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Achtung !</span><br><br>Durch den Import werden alle Daten in TDMDownloads gelöscht. Es wird dringend empfohlen, zuerst ein Backup der Daten, wenn möglich der gesamten Webseite, zu erstellen.<br><br>TDM übernimmt keinerlei Haftung für verloren gegangene Daten.");
+define(
+    '_AM_TDMDOWNLOADS_IMPORT_WARNING',
+       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Achtung !</span><br><br>Durch den Import werden alle Daten in TDMDownloads gelöscht. Es wird dringend empfohlen, zuerst ein Backup der Daten, wenn möglich der gesamten Webseite, zu erstellen.<br><br>TDM übernimmt keinerlei Haftung für verloren gegangene Daten."
+);
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Import von WF Downloads(nur V3.2 RC2)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', 'Upload-Verzeichnis (Pfad) für Kategoriebilder von WF-Downloads angeben');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_SHOTS', 'Upload-Verzeichnis (Pfad) für Screenshots von WF-Downloads angeben');
@@ -144,7 +146,6 @@ define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Bitte Beschreibung angeben');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', 'Keine Dateien für Download vorhanden');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', 'Es warten keine Dateien auf Freigabe');
 define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'Die Dateigröße muss ein numerischer Wert sein');
-define('_AM_TDMDOWNLOADS_ERREUR_WEIGHT', 'Die Gewichtung muss ein numerischer Wert sein');
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Daten erfolgreich gelöscht ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', 'Sie müssen zuerst eine Kategorie erstellen');

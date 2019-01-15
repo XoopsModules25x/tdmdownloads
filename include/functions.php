@@ -18,7 +18,7 @@ use XoopsModules\Tdmdownloads;
  * @param $id
  * @return bool
  */
-function mpu_apagaPermissoes($id)
+function turnoffPermissions($id)
 {
     global $xoopsModule, $grouppermHandler;
     $criteria = new \CriteriaCompo();
@@ -39,7 +39,7 @@ function mpu_apagaPermissoes($id)
  * @param $id
  * @return bool
  */
-function mpu_apagaPermissoesPai($id)
+function deletePermissions($id)
 {
     global $xoopsModule;
 //    require_once XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/class/Publish.class.php';
@@ -62,7 +62,7 @@ function mpu_apagaPermissoesPai($id)
  * @param $grupos_ids
  * @return bool
  */
-function mpu_inserePermissao($id, $grupos_ids)
+function insertPermission($id, $grupos_ids)
 {
     global $xoopsModule;
     $grouppermHandler = xoops_getHandler('groupperm');
@@ -159,4 +159,3 @@ function getLatestTagUrl($repository, $default = 'master') {
     return sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->tag_name : $default);
 }
 
-// Módulo

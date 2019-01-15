@@ -20,6 +20,7 @@ namespace XoopsModules\Tdmdownloads\Common;
 trait VersionChecks
 {
     /**
+     *
      * Verifies XOOPS version meets minimum requirements for this module
      * @static
      * @param \XoopsModule|null $module
@@ -29,7 +30,8 @@ trait VersionChecks
      */
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)
     {
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName      = basename(dirname(dirname(__DIR__)));
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
         }
@@ -44,31 +46,34 @@ trait VersionChecks
 
         if (version_compare($currentVer, $requiredVer, '<')) {
             $success = false;
-            $module->setErrors(sprintf(_AM_WFL_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
+            $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS'), $requiredVer, $currentVer));
         }
 
         return $success;
     }
 
     /**
+     *
      * Verifies PHP version meets minimum requirements for this module
      * @static
-     * @param \XoopsModule $module
+     * @param \XoopsModule|null $module
      *
      * @return bool true if meets requirements, false if not
      */
-    public static function checkVerPhp(\XoopsModule $module)
+    public static function checkVerPhp(\XoopsModule $module = null)
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        xoops_loadLanguage('admin', $module->dirname());
+        xoops_loadLanguage('admin', $moduleDirName);
         // check for minimum PHP version
         $success = true;
-        $verNum  = PHP_VERSION;
-        $reqVer  = $module->getInfo('min_php');
+
+        $verNum = PHP_VERSION;
+        $reqVer =& $module->getInfo('min_php');
+
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(sprintf(_AM_WFL_ERROR_BAD_PHP, $reqVer, $verNum));
+                $module->setErrors(sprintf(constant('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP'), $reqVer, $verNum));
                 $success = false;
             }
         }
