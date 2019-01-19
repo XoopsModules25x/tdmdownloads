@@ -1,4 +1,11 @@
 .endline {
     clear: both;
     width: 100%;
-} 
+}
+.tdmdownloads-box {
+    border-radius:5px;
+}
+.tdmdownloads-blocktitle {
+    font-size: 150%;
+    padding: 0;
+}

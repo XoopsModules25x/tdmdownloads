@@ -27,6 +27,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_singlefile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
 
 $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
