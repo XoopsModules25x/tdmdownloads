@@ -105,3 +105,6 @@ define('CO_' . $moduleDirNameUpper . '_FILENAME', 'File Name');
 define('CO_' . $moduleDirNameUpper . '_ADMENU_MIGRATE', 'Migrate');
 define('CO_' . $moduleDirNameUpper . '_FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');

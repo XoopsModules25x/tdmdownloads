@@ -4,7 +4,7 @@
 - converted $_REQUEST to \Xmf\Request (mamba)
 - cleaned up english and german language files (goffy)
 - transformed preference mimetypes from text to array (goffy, mage)
-- acitvated file '/class/pagenav.php' (goffy)
+- activated file '/class/pagenav.php' (goffy)
 - fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
 - added show error when file size exceed maxuploadsize (goffy)
 - removed double entries for modversion/hasMain and hasSearch (goffy)
@@ -20,6 +20,7 @@
 - implemented perm_autoapprove also for modifying on user side (goffy/mage)
 - added description to preference maxuploadsize (goffy/mage)
 - rebuild file list in search.php (goffy/mage)
+- added check for latest version on GitHub (mamba)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>

@@ -95,9 +95,10 @@ trait VersionChecks
     public static function checkVerModule($helper, $location = 'github', $default = 'master')
     {
         $moduleDirName = basename(dirname(dirname(__DIR__)));
+        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         $update        = '';
         $repository    = 'XoopsModules25x/' . $moduleDirName;
-        //        $repository    = 'XoopsModules25x/publisher'; //for testing only
+        //$repository    = 'XoopsModules25x/publisher'; //for testing only
         $ret = '';
 
         if ('github' === $location) {
@@ -106,8 +107,9 @@ trait VersionChecks
             //            $latestVersion     = substr(strrchr($latestVersionLink, '/'), 1, -4);
             $latestVersion = $file[0]->tag_name;
             $prerelease    = $file[0]->prerelease;
+
             if ('master' !== $latestVersionLink) {
-                $update = '<span><strong> Latest Release: </strong>' . '   <a href="' . $latestVersionLink . '">' . $latestVersion . '</a> </span><br><br>';
+                $update = constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
             }
             //"PHP-standardized" version
             $latestVersion = mb_strtolower($latestVersion);
@@ -119,23 +121,16 @@ trait VersionChecks
             $moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
             //"PHP-standardized" version
             $moduleVersion = str_replace(' ', '', mb_strtolower($moduleVersion));
-            //          $moduleVersion = '3.0'; //for testing only
-            //          $moduleDirName = 'publisher'; //for testing only
+//                      $moduleVersion = '1.0'; //for testing only
+//                      $moduleDirName = 'publisher'; //for testing only
 
-            $ret .= "<div align='center'>";
-
-            //            $ret .= "<a href='https://xoops.org/'><img src='../assets/images/icons/32/xoopsmicrobutton.gif'></a><br>";
-            //            if (version_compare($moduleVersion, $latestVersion, '<')) {
             if (version_compare($moduleVersion, $latestVersion, '<') && !$prerelease) {
-                //                $ret .= "| ";
-                $ret .= " <span style='color: #FF0000; font-size:11px'  ";
-                $ret .= $update;
-                //                $ret .= "<a href='https://github.com/XoopsModules25x/$moduleDirName/releases/'>";
-                $ret .= '</span>';
-                $ret .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
+//                $downloadImage .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
+                $ret = [];
+                $ret[] = $update;
+                $ret[] = $latestVersionLink;
             }
         }
-        $GLOBALS['xoopsTpl']->assign('latestModRelease', $ret);
         return $ret;
     }
 }
