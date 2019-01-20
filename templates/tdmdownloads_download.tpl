@@ -1,8 +1,8 @@
 <div class="item tdmdownloads-item">
     <div class="itemHead">
-		<span class="itemTitle">
-			<strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
-		</span>
+        <span class="itemTitle">
+            <strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
+        </span>
         <br>
     </div>
     <div class="itemInfo">

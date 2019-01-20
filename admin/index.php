@@ -89,6 +89,12 @@ foreach (array_keys($configurator->uploadFolders) as $i) {
 
 $adminObject->displayNavigation(basename(__FILE__));
 
+//check for latest release
+$newRelease = $utility::checkVerModule($helper);
+if (!empty($newRelease)) {
+    $adminObject->addItemButton($newRelease[0], $newRelease[1], 'download', 'style="color : Red"');
+}
+
 //------------- Test Data ----------------------------
 
 if ($helper->getConfig('displaySampleButton')) {
@@ -101,10 +107,11 @@ if ($helper->getConfig('displaySampleButton')) {
 
     //    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
 
-    $adminObject->displayButton('left', '');
 }
 
 //------------- End Test Data ----------------------------
+
+$adminObject->displayButton('left', '');
 
 $adminObject->displayIndex();
 
@@ -112,3 +119,4 @@ echo $utility::getServerStats();
 
 //codeDump(__FILE__);
 require __DIR__ . '/admin_footer.php';
+

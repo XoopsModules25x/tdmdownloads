@@ -1,8 +1,8 @@
         <div class="item tdmdownloads-blockitem">
             <div class="itemHead">
-			<span class="itemTitle">
-				<h2><a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory"><{$downloads.title}></a></h2>
-			</span>
+            <span class="itemTitle">
+                <h2><a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory"><{$downloads.title}></a></h2>
+            </span>
             </div>
             <{if $downloads.inforation}>
                 <div class="itemInfo">

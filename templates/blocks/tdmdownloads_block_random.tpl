@@ -8,5 +8,5 @@
             <{include file='db:tdmdownloads_block_styledefault.tpl' downloads=$downloads}>
         <{/foreach}>
     <{/if}>
-    
+
 </div>
