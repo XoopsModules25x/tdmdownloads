@@ -98,38 +98,48 @@ trait VersionChecks
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
         $update             = '';
         $repository         = 'XoopsModules25x/' . $moduleDirName;
-        //        $repository    = 'XoopsModules25x/publisher'; //for testing only
+        //$repository         = 'XoopsModules25x/publisher'; //for testing only
         $ret = '';
-
+		$infoReleasesUrl = "https://api.github.com/repos/$repository/releases";
         if ('github' === $source) {
-            $file              = @json_decode(@file_get_contents("https://api.github.com/repos/$repository/releases", false, stream_context_create(['http' => ['header' => "User-Agent:Publisher\r\n"]])));
-            $latestVersionLink = sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->tag_name : $default);
-            //            $latestVersion     = substr(strrchr($latestVersionLink, '/'), 1, -4);
-            $latestVersion = $file[0]->tag_name;
-            $prerelease    = $file[0]->prerelease;
+			if (function_exists('curl_init') && false !== ($curlHandle  = curl_init())) {
+				curl_setopt($curlHandle, CURLOPT_URL, $infoReleasesUrl);
+				curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($curlHandle, CURLOPT_HTTPHEADER, array("User-Agent:Publisher\r\n"));				
+				$curlReturn = curl_exec($curlHandle);
+				if (false === $curlReturn) {
+					trigger_error(curl_error($curlHandle));
+				} else {
+					$file = json_decode($curlReturn, false);
+					$latestVersionLink = sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->tag_name : $default);
+					$latestVersion = $file[0]->tag_name;
+					$prerelease    = $file[0]->prerelease;
 
-            if ('master' !== $latestVersionLink) {
-                $update = constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
-            }
-            //"PHP-standardized" version
-            $latestVersion = mb_strtolower($latestVersion);
-            if (false !== mb_strpos($latestVersion, 'final')) {
-                $latestVersion = str_replace('_', '', mb_strtolower($latestVersion));
-                $latestVersion = str_replace('final', '', mb_strtolower($latestVersion));
-            }
+					if ('master' !== $latestVersionLink) {
+						$update = constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
+					}
+					//"PHP-standardized" version
+					$latestVersion = mb_strtolower($latestVersion);
+					if (false !== mb_strpos($latestVersion, 'final')) {
+						$latestVersion = str_replace('_', '', mb_strtolower($latestVersion));
+						$latestVersion = str_replace('final', '', mb_strtolower($latestVersion));
+					}
 
-            $moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
-            //"PHP-standardized" version
-            $moduleVersion = str_replace(' ', '', mb_strtolower($moduleVersion));
-            //                      $moduleVersion = '1.0'; //for testing only
-            //                      $moduleDirName = 'publisher'; //for testing only
+					$moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
+					//"PHP-standardized" version
+					$moduleVersion = str_replace(' ', '', mb_strtolower($moduleVersion));
+					//$moduleVersion = '1.0'; //for testing only
+					//$moduleDirName = 'publisher'; //for testing only
 
-            if (!$prerelease && version_compare($moduleVersion, $latestVersion, '<')) {
-                //                $downloadImage .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
-                $ret   = [];
-                $ret[] = $update;
-                $ret[] = $latestVersionLink;
-            }
+					if (!$prerelease && version_compare($moduleVersion, $latestVersion, '<')) {
+						$ret   = [];
+						$ret[] = $update;
+						$ret[] = $latestVersionLink;
+					}
+				}
+				curl_close($curlHandle);
+			}
         }
         return $ret;
     }
