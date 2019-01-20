@@ -17,6 +17,10 @@ blocks.php
 -------------
 + _MB_TDMDOWNLOADS_BLOCKSTYLE
 
+modinfo.php
+-------------
++ _MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB
+
 -------------------------------------------------
 Version: 1.67
 Date:    02.01.2019
