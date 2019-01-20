@@ -124,7 +124,7 @@ trait VersionChecks
             //                      $moduleVersion = '1.0'; //for testing only
             //                      $moduleDirName = 'publisher'; //for testing only
 
-            if (version_compare($moduleVersion, $latestVersion, '<') && !$prerelease) {
+            if (!$prerelease && version_compare($moduleVersion, $latestVersion, '<')) {
                 //                $downloadImage .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
                 $ret   = [];
                 $ret[] = $update;

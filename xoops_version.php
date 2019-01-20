@@ -540,37 +540,37 @@ $iniPostMaxSize = returnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
 $maxSize = min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
-	$increment = 500;
+    $increment = 500;
 }
 if ($maxSize <= 10000 * 1048576){
-	$increment = 200;
+    $increment = 200;
 }
 if ($maxSize <= 5000 * 1048576){
-	$increment = 100;
+    $increment = 100;
 }
 if ($maxSize <= 2500 * 1048576){
-	$increment = 50;
+    $increment = 50;
 }
 if ($maxSize <= 1000 * 1048576){
-	$increment = 20;
+    $increment = 20;
 }
 if ($maxSize <= 500 * 1048576){
-	$increment = 10;
+    $increment = 10;
 }
 if ($maxSize <= 100 * 1048576){
-	$increment = 2;
+    $increment = 2;
 }
 if ($maxSize <= 50 * 1048576){
-	$increment = 1;
+    $increment = 1;
 }
 if ($maxSize <= 25 * 1048576){
-	$increment = 0.5;
+    $increment = 0.5;
 }
 $optionMaxsize = [];
 $i = $increment;
 while ($i* 1048576 <= $maxSize) {
-	$optionMaxsize[$i . ' ' . _MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB] = $i * 1048576;
-	$i += $increment;
+    $optionMaxsize[$i . ' ' . _MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB] = $i * 1048576;
+    $i += $increment;
 }
 $modversion['config'][] = [
     'name' => 'maxuploadsize',
