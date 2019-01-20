@@ -86,19 +86,19 @@ trait VersionChecks
      * compares current module version with latest GitHub release
      * @static
      * @param \Xmf\Module\Helper $helper
-     * @param string|null             $source
-     * @param string|null             $default
+     * @param string|null        $source
+     * @param string|null        $default
      *
-     * @return string link to the latest module version, if newer
+     * @return string|array info about the latest module version, if newer
      */
 
     public static function checkVerModule($helper, $source = 'github', $default = 'master')
     {
-        $moduleDirName = basename(dirname(dirname(__DIR__)));
+        $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        $update        = '';
-        $repository    = 'XoopsModules25x/' . $moduleDirName;
-        $repository    = 'XoopsModules25x/publisher'; //for testing only
+        $update             = '';
+        $repository         = 'XoopsModules25x/' . $moduleDirName;
+        //        $repository    = 'XoopsModules25x/publisher'; //for testing only
         $ret = '';
 
         if ('github' === $source) {
@@ -121,12 +121,12 @@ trait VersionChecks
             $moduleVersion = ($helper->getModule()->getInfo('version') . '_' . $helper->getModule()->getInfo('module_status'));
             //"PHP-standardized" version
             $moduleVersion = str_replace(' ', '', mb_strtolower($moduleVersion));
-                      $moduleVersion = '1.0'; //for testing only
-                      $moduleDirName = 'publisher'; //for testing only
+            //                      $moduleVersion = '1.0'; //for testing only
+            //                      $moduleDirName = 'publisher'; //for testing only
 
             if (version_compare($moduleVersion, $latestVersion, '<') && !$prerelease) {
-//                $downloadImage .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
-                $ret = [];
+                //                $downloadImage .= "<img src='https://img.shields.io/github/release/XoopsModules25x/$moduleDirName.svg?style=flat'></a>";
+                $ret   = [];
                 $ret[] = $update;
                 $ret[] = $latestVersionLink;
             }
