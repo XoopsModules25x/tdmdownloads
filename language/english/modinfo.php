@@ -43,6 +43,8 @@ define('_MI_TDMDOWNLOADS_ADMENU6', 'Extra Fields');
 define('_MI_TDMDOWNLOADS_ADMENU7', 'Import');
 define('_MI_TDMDOWNLOADS_ADMENU8', 'Permissions');
 define('_MI_TDMDOWNLOADS_ADMENU9', 'About');
+define('_MI_TDMDOWNLOADS_ADMENU10', 'Feedback');
+
 // Préférences
 //define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', 'General');
 define('_MI_TDMDOWNLOADS_POPULAR', 'Number of hits for downloadable items to be marked as popular');
@@ -229,3 +231,12 @@ define('_MI_TDMDOWNLOADS_CONFCAT_SEARCH_DSC', '<span style="color: #FF0000; font
 
 //define('_MI_TDMDOWNLOADS_ADMENU5', 'Blocks Admin');
 
+//Feedback
+define('MPU_MOD_DIR', 'tdmdownloads');
+//Module Paths
+define('MPU_MEDIA_URL', XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/media');
+define('MPU_MEDIA_PATH', XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/media');
+define('MPU_FILES_URL', XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/files');
+define('MPU_FILES_PATH', XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/files');
+define('MPU_HTML_URL', XOOPS_URL . '/modules/' . MPU_MOD_DIR . '/html');
+define('MPU_HTML_PATH', XOOPS_ROOT_PATH . '/modules/' . MPU_MOD_DIR . '/html');

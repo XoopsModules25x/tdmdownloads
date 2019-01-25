@@ -98,6 +98,13 @@ if ($helper->getConfig('displayDeveloperTools')) {
 }
 
 $adminmenu[] = [
+    'title' => _MI_TDMDOWNLOADS_ADMENU10,
+    'link'  => 'admin/feedback.php',
+    'icon'  => $pathIcon32 . '/mail_foward.png',
+    //'menu' =>  "{$pathIcon32}/menu_permissions.png",
+];
+
+$adminmenu[] = [
     'title' => _MI_TDMDOWNLOADS_ADMENU9,
     'link'  => 'admin/about.php',
     'icon'  => "{$pathIcon32}/about.png",
