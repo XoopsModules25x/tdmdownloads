@@ -235,4 +235,102 @@ class Utility
 
         return $path;
     }
+	 /**
+     * Utility::SizeConvertString()
+     *
+     * @param mixed $sizeString
+     * @return mixed|string
+     */
+	public static function SizeConvertString($sizeString){
+		$mysizeString = '';
+		if ($sizeString != '') {
+			$size_value_arr = explode(' ', $sizeString);
+			if (array_key_exists (0, $size_value_arr) == true && array_key_exists (1, $size_value_arr) == true){
+				if ($size_value_arr[0] != ''){
+					$mysizeString = '';
+					switch ($size_value_arr[1]) {
+						case 'B':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_BYTES;
+							break;
+							
+						case 'K':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_KBYTES;
+							break;
+							
+						case 'M':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_MBYTES;
+							break;
+							
+						case 'G':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_GBYTES;
+							break;
+							
+						case 'T':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_TBYTES;
+							break;
+					}					
+					return $mysizeString;
+				}
+			}
+		}		
+		return $mysizeString;
+    }
+	
+	 /**
+     * Utility::GetFileSize()
+     *
+     * @param mixed $url
+     * @return mixed|string
+     */
+    public static function GetFileSize($url)
+    {
+		if (function_exists('curl_init') && false !== ($curlHandle  = curl_init($url))) {
+			curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curlHandle, CURLOPT_HEADER, TRUE);
+			curl_setopt($curlHandle, CURLOPT_NOBODY, TRUE);	
+			curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);			
+			$curlReturn = curl_exec($curlHandle);
+			if (false === $curlReturn) {
+				trigger_error(curl_error($curlHandle));
+				$size = 0;
+			} else {
+				$size = curl_getinfo($curlHandle, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+			}
+			curl_close($curlHandle);
+			if ($size <= 0){
+				return 0;
+			} else {			
+				return Utility::FileSizeConvert($size);
+			}
+		} else {
+			return 0;
+		}
+    }
+	
+	/**
+     * Utility::FileSizeConvert()
+     *
+     * @param mixed $size
+     * @return mixed|string
+     */
+	public static function FileSizeConvert($size){
+        if ($size > 0) {
+            $kb = 1024;
+            $mb = 1024*1024;
+            $gb = 1024*1024*1024;
+            if ($size >= $gb) {
+                $mysize = sprintf ("%01.2f",$size/$gb) . " " . 'G';
+            } elseif ($size >= $mb) {
+                $mysize = sprintf ("%01.2f",$size/$mb) . " " . 'M';
+            } elseif ($size >= $kb) {
+                $mysize = sprintf ("%01.2f",$size/$kb) . " " . 'K';
+            } else {
+                $mysize = sprintf ("%01.2f",$size) . " " . 'B';
+            }
+
+            return $mysize;
+        } else {
+            return '';
+        }
+    }
 }

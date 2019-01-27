@@ -166,7 +166,7 @@ foreach (array_keys($downloads_field) as $i) {
             //taille du fichier
             $size_value_arr = explode(' ', $viewDownloads->getVar('size'));
             if ('' != $size_value_arr[0]) {
-                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $viewDownloads->getVar('size');
+                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $utility::SizeConvertString($viewDownloads->getVar('size'));
                 ++$champ_sup_vide;
             }
         }

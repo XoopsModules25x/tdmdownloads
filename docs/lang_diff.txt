@@ -12,6 +12,8 @@ Date:    ????
 admin.php
 -------------
 - _AM_TDMDOWNLOADS_ERREUR_WEIGHT
+* _AM_TDMDOWNLOADS_ERREUR_SIZE
+* _AM_TDMDOWNLOADS_FORMSIZE
 
 blocks.php
 -------------
