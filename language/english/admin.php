@@ -185,35 +185,3 @@ define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
-
-//Feedback
-define('MPU_ADM_FILEERROR', "Error! 'files' must have write permissions! (CHMOD 777)");
-define('MPU_ADM_HTMLERROR', "Error! 'html' must have write permissions! (CHMOD 777)");
-define('MPU_ADM_MEDIAERROR', "Error! 'media' must have write permissions! (CHMOD 777)");
-
-define('MPU_ADM_YNAME', 'Your name');
-define('MPU_ADM_YEMAIL', 'Your Email');
-define('MPU_ADM_YSITE', 'Site');
-define('MPU_ADM_FEEDTYPE', "Feedback type<br><span style='font-size:10px; font-weight:normal'>* Testimonials will be publish at XOOPS main site page</span>");
-define('MPU_ADM_TBUGS', 'Bug');
-define('MPU_ADM_TESTIMONIAL', 'Testimonial');
-define('MPU_ADM_TSUGGESTION', 'Suggestions');
-define('MPU_ADM_TFEATURES', 'Resources');
-define('MPU_ADM_TOTHERS', 'Other');
-define('MPU_ADM_DESC', 'Description');
-define('MPU_ADM_FEEDSUCCESS', 'Feedback sent successfully!');
-
-define('MPU_ADM_FEEDBACK', 'Feedback');
-define('MPU_ADM_FEEDBACKN', 'Send Feedback');
-define('MPU_ADM_CHKVERSION', 'Check for updates');
-
-define('MPU_ADM_BROWSER_GER_IMG', 'Categories');
-define('MPU_ADM_BROWSER_GER_MED', 'Medias');
-define('MPU_ADM_BROWSER_GER_FIL', 'Files');
-
-define('MPU_ADM_CONTENTS', 'Contents');
-define('MPU_ADM_BLOCKS', 'Blocks');
-
-
-
-
