@@ -21,6 +21,7 @@
 - added description to preference maxuploadsize (goffy/mage)
 - rebuild file list in search.php (goffy/mage)
 - added check for latest version on GitHub (mamba)
+- Added an automatic size system for downloads. (mage)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>
