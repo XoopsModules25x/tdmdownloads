@@ -25,12 +25,66 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
     if ($prev_version < 167) {
         $ret = update_tdmdownloads_v167($module);
     }
+	if ($prev_version < 200) {
+        $ret = update_tdmdownloads_v200($module);
+    }
     $errors = $module->getErrors();
     if (!empty($errors)) {
         //        print_r($errors);
     }
 
     return $ret;
+}
+
+/**
+ * @param $module
+ *
+ * @return bool
+ */
+function update_tdmdownloads_v200(&$module)
+{
+	$db  = \XoopsDatabaseFactory::getDatabaseConnection();
+	$sql = 'SELECT lid, size FROM ' . $db->prefix('tdmdownloads_downloads');
+	$result = $db->query($sql);
+	$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+	$helper->loadLanguage('admin');
+	//print_r($result);
+	while (false !== ($myrow = $db->fetchArray($result))) {
+		$size_value_arr = explode(' ', $myrow['size']);
+		switch ($size_value_arr[1]) {
+			case _AM_TDMDOWNLOADS_BYTES:
+			case 'Bytes':
+				$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' B\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+				$db->query($sql);
+				break;
+				
+			case _AM_TDMDOWNLOADS_KBYTES:
+			case 'kB':
+				$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' K\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+				$db->query($sql);
+				break;
+				
+			case _AM_TDMDOWNLOADS_MBYTES:
+			case 'MB':
+				$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' M\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+				$db->query($sql);
+				break;
+				
+			case _AM_TDMDOWNLOADS_GBYTES:
+			case 'GB':
+				$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' G\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+				$db->query($sql);
+				break;
+				
+			case _AM_TDMDOWNLOADS_TBYTES:
+			case 'TB':
+				$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' T\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+				$db->query($sql);
+				break;
+		}
+		echo $myrow['lid'] . ': ' . $myrow['size'] . '<br>';
+	}
+	return true;	
 }
 
 /**
