@@ -236,6 +236,33 @@ class Utility
         return $path;
     }
 	 /**
+     * Utility::StringSizeConvert()
+     *
+     * @param mixed $stringSize
+     * @return mixed|int
+     */
+	public static function StringSizeConvert($stringSize){
+        if ($stringSize != '') {
+            $kb = 1024;
+            $mb = 1024*1024;
+            $gb = 1024*1024*1024;
+			$size_value_arr = explode(' ', $stringSize);
+			
+            if ($size_value_arr[1] == 'B') {
+                $mysize = $size_value_arr[0];
+            } elseif ($size_value_arr[1] == 'K') {
+                $mysize = $size_value_arr[0] * $kb;
+            } elseif ($size_value_arr[1] == 'M') {
+                $mysize = $size_value_arr[0] * $mb;
+            } else {
+                $mysize = $size_value_arr[0] * $gb;
+            }
+            return $mysize;
+        } else {
+            return 0;
+        }
+    }
+	 /**
      * Utility::SizeConvertString()
      *
      * @param mixed $sizeString

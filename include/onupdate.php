@@ -82,7 +82,6 @@ function update_tdmdownloads_v200(&$module)
 				$db->query($sql);
 				break;
 		}
-		echo $myrow['lid'] . ': ' . $myrow['size'] . '<br>';
 	}
 	return true;	
 }
