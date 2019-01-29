@@ -116,7 +116,6 @@ $adminObject->displayButton('left', '');
 $adminObject->displayIndex();
 
 echo $utility::getServerStats();
-
 //codeDump(__FILE__);
 require __DIR__ . '/admin_footer.php';
 

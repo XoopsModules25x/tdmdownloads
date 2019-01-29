@@ -113,7 +113,9 @@ $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoo
 $xoopsDB->queryF($sql);
 
 $url = $viewDownloads->getVar('url', 'n');
+$contentLength = $utility::StringSizeConvert($viewDownloads->getVar('size'));
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
+	header("Content-Length: $contentLength");
     header("Location: $url");
 }
 echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $url . '"></meta></head><body></body></html>';

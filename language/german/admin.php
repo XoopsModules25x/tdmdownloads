@@ -123,6 +123,7 @@ define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plattform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Eingesendet von ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Bewertung');
 define('_AM_TDMDOWNLOADS_FORMSIZE', 'Dateigröße');
+define('_AM_TDMDOWNLOADS_FORMSIZE', "Dateigröße<br><span style='font-size: small;'>Um das automatische System zur Berechnung der Dateigröße zu verwenden, lassen Sie dieses Feld leer.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Bestätigt');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Eingesendet von');
@@ -145,7 +146,7 @@ define('_AM_TDMDOWNLOADS_ERREUR_NOCAT', 'Bitte Kategorie wählen!');
 define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Bitte Beschreibung angeben');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', 'Keine Dateien für Download vorhanden');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', 'Es warten keine Dateien auf Freigabe');
-define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'Die Dateigröße muss ein numerischer Wert sein');
+define('_AM_TDMDOWNLOADS_ERREUR_SIZE', "<span style='color: #FF0000; font-weight: bold;'>Das System hat die Dateigröße nicht ermittelt, es ist notwendig, es manuell durchzuführen.</span>");
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Daten erfolgreich gelöscht ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', 'Sie müssen zuerst eine Kategorie erstellen');

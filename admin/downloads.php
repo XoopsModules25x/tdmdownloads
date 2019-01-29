@@ -523,8 +523,6 @@ switch ($op) {
         $obj->setVar('cid', \Xmf\Request::getInt('cid', 0, 'POST'));
         $obj->setVar('homepage', formatURL(\Xmf\Request::getUrl('homepage', '', 'POST')));
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST'));
-        $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST'));
-        $donnee['type_size'] = \Xmf\Request::getString('type_size', '', 'POST');
         $obj->setVar('paypal', \Xmf\Request::getString('paypal', '', 'POST'));
         if (\Xmf\Request::hasVar('platform', 'POST')) {
             $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST')));
@@ -573,15 +571,6 @@ switch ($op) {
             }
             //$donnee['date_update'] = $_POST['date_update']; //no more used later
         }
-        // erreur si la taille du fichier n'est pas un nombre
-        if (0 === \Xmf\Request::getInt('size')) {
-            if (0 == \Xmf\Request::getInt('size') || '' === \Xmf\Request::getString('size')) {
-                $erreur = false;
-            } else {
-                $erreur = true;
-                $errorMessage .= _AM_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
-            }
-        }
         // erreur si la description est vide
         if (\Xmf\Request::hasVar('description', 'POST')) {
             if ('' === \Xmf\Request::getString('description', '')) {
@@ -621,8 +610,8 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
         }
-            $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
+			$mediaSize = 0;
             if (isset($_POST['xoops_upload_file'][0])) {
                 $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetype'), $helper->getConfig('maxuploadsize'), null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -637,6 +626,7 @@ switch ($op) {
                         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;
                     }
+					$mediaSize = $uploader->getMediaSize();
                     $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                 } else {
                     if ($_FILES['attachedfile']['name'] > '') {
@@ -682,6 +672,16 @@ switch ($op) {
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
                 }
             }
+			//Automatic file size
+			if (Xmf\Request::getString('sizeValue', '') == ''){
+				if ($mediaSize == 0) {
+					$obj->setVar('size', $utility::GetFileSize(Xmf\Request::getUrl('url', '')));
+				} else {
+					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
+				}
+			} else {
+				$obj->setVar('size', Xmf\Request::getString('sizeValue', '') . ' ' . Xmf\Request::getString('sizeType', ''));
+			}
             // enregistrement
             if ($downloadsHandler->insert($obj)) {
                 if (!\Xmf\Request::hasVar('downloads_modified')) {
@@ -747,7 +747,13 @@ switch ($op) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
                     $notificationHandler->triggerEvent('category', \Xmf\Request::getInt('cid', 0, 'POST'), 'new_file', $tags);
                 }
-                redirect_header('downloads.php', 2, _AM_TDMDOWNLOADS_REDIRECT_SAVE);
+				$timeToRedirect = 2;
+				if ($obj->getVar('size') == 0){
+					$obj->setVar('size', '');
+					$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+					$timeToRedirect = 10;
+				}
+                redirect_header('downloads.php', $timeToRedirect, _AM_TDMDOWNLOADS_REDIRECT_SAVE . '<br><br>' . $error_message);
             }
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
 

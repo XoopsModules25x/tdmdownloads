@@ -122,7 +122,7 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Select groups that can download thi
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Platform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posted by ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', 'File size');
+define('_AM_TDMDOWNLOADS_FORMSIZE', "File Size<br><span style='font-size: small;'>To use the automatic system for calculating the file size, leave this field empty.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approved');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Posted by');
@@ -145,7 +145,7 @@ define('_AM_TDMDOWNLOADS_ERREUR_NOCAT', 'You have to choose a category!');
 define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'You have to write a description');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', 'There are no files to download');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', 'There are no files waiting for approval');
-define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'the file size must be a number');
+define('_AM_TDMDOWNLOADS_ERREUR_SIZE', "<span style='color: #FF0000; font-weight: bold;'>The system failed to determine the file size, it is necessary to do it manually.</span>");
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Successfully deleted ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', 'You have to create a category first');
