@@ -179,7 +179,7 @@ class Downloads extends \XoopsObject
 						$typeArray = [
 							'B' => _AM_TDMDOWNLOADS_BYTES,
 							'K' => _AM_TDMDOWNLOADS_KBYTES,
-							'M' => _AM_TDMDOWNLOADS_KBYTES,
+							'M' => _AM_TDMDOWNLOADS_MBYTES,
 							'G' => _AM_TDMDOWNLOADS_GBYTES,
 							'T' => _AM_TDMDOWNLOADS_TBYTES
 						];

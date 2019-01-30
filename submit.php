@@ -178,7 +178,9 @@ switch ($op) {
                     }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
                 }
-            }
+            } else {
+				$obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
+			}
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
                 $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, [
@@ -208,7 +210,9 @@ switch ($op) {
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
                 }
-            }
+            } else {
+				$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
+			}
 			//Automatic file size
 			if (Xmf\Request::getString('sizeValue', '') == ''){
 				if ($mediaSize == 0) {
@@ -217,9 +221,14 @@ switch ($op) {
 					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
 				}
 			} else {
-				$obj->setVar('size', Xmf\Request::getString('sizeValue', '') . ' ' . Xmf\Request::getString('sizeType', ''));
+				$obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
 			}
-
+			$timeToRedirect = 2;
+			if ($obj->getVar('size') == 0){
+				$obj->setVar('size', '');
+				$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+				$timeToRedirect = 10;
+			}
             if ($downloadsHandler->insert($obj)) {
                 if ($newUpload) {
                     $lidDownloads = $obj->getNewEnreg($db);
@@ -275,12 +284,6 @@ switch ($op) {
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
                 $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
 				
-				$timeToRedirect = 2;
-				if ($obj->getVar('size') == 0){
-					$obj->setVar('size', '');
-					$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
-					$timeToRedirect = 10;
-				}
                 if (true === $perm_autoapprove) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
                     $notificationHandler->triggerEvent('category', $donnee['cid'], 'new_file', $tags);

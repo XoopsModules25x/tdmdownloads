@@ -639,7 +639,9 @@ switch ($op) {
                     }
                     $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
                 }
-            }
+            } else {
+				$obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
+			}
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
                 $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, [
@@ -671,7 +673,9 @@ switch ($op) {
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
                 }
-            }
+            } else {
+				$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
+			}
 			//Automatic file size
 			if (Xmf\Request::getString('sizeValue', '') == ''){
 				if ($mediaSize == 0) {
@@ -680,7 +684,13 @@ switch ($op) {
 					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
 				}
 			} else {
-				$obj->setVar('size', Xmf\Request::getString('sizeValue', '') . ' ' . Xmf\Request::getString('sizeType', ''));
+				$obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
+			}
+			$timeToRedirect = 2;
+			if ($obj->getVar('size') == 0){
+				$obj->setVar('size', '');
+				$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+				$timeToRedirect = 10;
 			}
             // enregistrement
             if ($downloadsHandler->insert($obj)) {
@@ -747,12 +757,6 @@ switch ($op) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
                     $notificationHandler->triggerEvent('category', \Xmf\Request::getInt('cid', 0, 'POST'), 'new_file', $tags);
                 }
-				$timeToRedirect = 2;
-				if ($obj->getVar('size') == 0){
-					$obj->setVar('size', '');
-					$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
-					$timeToRedirect = 10;
-				}
                 redirect_header('downloads.php', $timeToRedirect, _AM_TDMDOWNLOADS_REDIRECT_SAVE . '<br><br>' . $error_message);
             }
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
