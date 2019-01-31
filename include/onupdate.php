@@ -43,12 +43,12 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
  */
 function update_tdmdownloads_v200(&$module)
 {
+	// Update size
 	$db  = \XoopsDatabaseFactory::getDatabaseConnection();
 	$sql = 'SELECT lid, size FROM ' . $db->prefix('tdmdownloads_downloads');
 	$result = $db->query($sql);
 	$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 	$helper->loadLanguage('admin');
-	//print_r($result);
 	while (false !== ($myrow = $db->fetchArray($result))) {
 		$size_value_arr = explode(' ', $myrow['size']);
 		switch ($size_value_arr[1]) {
@@ -83,6 +83,11 @@ function update_tdmdownloads_v200(&$module)
 				break;
 		}
 	}
+	// Update folder
+	rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads');
+	// Change TDMDownloads with tdmdownloads
+	$sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `url` = REPLACE(`url`, \'TDMDownloads\', \'tdmdownloads\') WHERE `url` LIKE \'%TDMDownloads%\'';
+	$result = $db->query($sql);	
 	return true;	
 }
 
