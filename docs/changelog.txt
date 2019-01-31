@@ -1,4 +1,4 @@
-<h5>2.0 Alpha 1         [NOT RELEASED]</h5>
+<h5>2.0 RC 1         [2019-01-29]</h5>
 <hr>
 - converted 'cleanVars' to \Xmf\Request (mamba)
 - converted $_REQUEST to \Xmf\Request (mamba)
@@ -20,7 +20,7 @@
 - implemented perm_autoapprove also for modifying on user side (goffy/mage)
 - added description to preference maxuploadsize (goffy/mage)
 - rebuild file list in search.php (goffy/mage)
-- added check for latest version on GitHub (mamba)
+- added check for latest version on GitHub (mamba/mage)
 - Added an automatic size system for downloads. (mage)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
@@ -56,11 +56,6 @@
 - added Server stats (mamba)
 - added Blocks admin (mamba)
 - switch admin sites to template based (goffy)
-
-TODO:
-- add test data
-- do more testing
-- update "update.php" file
 
 
 <h5>1.65 Final [2017/02/02]</h5>
