@@ -283,9 +283,6 @@ $modversion['config'][] = [
     'default' => 0,
 ];
 
-//xoops_load('xoopseditorhandler');
-//$editorHandler = \XoopsEditorHandler::getInstance();
-
 $modversion['config'][] = [
     'name' => 'editor',
     'title' => '_MI_TDMDOWNLOADS_FORM_OPTIONS',
@@ -537,8 +534,8 @@ $modversion['config'][] = [
 ];
 
 include_once 'include/xoops_version.inc.php';
-$iniPostMaxSize = returnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
+$iniPostMaxSize = tdmdownloadsReturnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = tdmdownloadsReturnBytes(ini_get('upload_max_filesize'));
 $maxSize = min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;

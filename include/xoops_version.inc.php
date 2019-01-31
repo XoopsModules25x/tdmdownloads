@@ -1,6 +1,6 @@
 <?php
 /**
- * tdmdownload
+ * tdmdownloads
  *
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -18,7 +18,7 @@
  * @param $val
  * @return float|int
  */
-function returnBytes($val)
+function tdmdownloadsReturnBytes($val)
 {
     switch (mb_substr($val, -1)) {
         case 'K':
