@@ -115,21 +115,21 @@ function update_tdmdownloads_v167(&$module)
     // unlink( XOOPS_ROOT_PATH.'/modules/tdmdownloads/admin/admin_header.php' );
 
     // clean template directory
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_brokenfile.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_download.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_index.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_modfile.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_ratefile.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_singlefile.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_submit.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_viewcat.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_liste.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_rss.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_new.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_random.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_rating.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_search.html');
-    unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_top.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_brokenfile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_download.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_index.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_modfile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_ratefile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_singlefile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_submit.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_viewcat.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_liste.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_rss.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_new.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_random.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_rating.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_search.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_top.html');
 
     return true;
 }
