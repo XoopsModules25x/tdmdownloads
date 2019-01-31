@@ -1,0 +1,11 @@
+Important information for updating a version below 2.0 !!!
+
+Step:
+
+1. Connect to your site and go to module administration.
+2. Delete the folder "modules/TDMDownloads"
+3. Copy the "tdmdownloads" folder (version greater than 2) to folder "modules/"
+4. Update the "tdmdownloads" module
+5. Go into the preferences of the module "tdmdownloads", choose "Max uploaded files size" and validate them.
+
+tdmdownloads is now up to date.

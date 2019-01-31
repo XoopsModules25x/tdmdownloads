@@ -283,9 +283,6 @@ $modversion['config'][] = [
     'default' => 0,
 ];
 
-//xoops_load('xoopseditorhandler');
-//$editorHandler = \XoopsEditorHandler::getInstance();
-
 $modversion['config'][] = [
     'name' => 'editor',
     'title' => '_MI_TDMDOWNLOADS_FORM_OPTIONS',
@@ -536,8 +533,9 @@ $modversion['config'][] = [
     'default' => 'downloads_',
 ];
 
-$iniPostMaxSize = returnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
+include_once 'include/xoops_version.inc.php';
+$iniPostMaxSize = tdmdownloadsReturnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = tdmdownloadsReturnBytes(ini_get('upload_max_filesize'));
 $maxSize = min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
@@ -894,24 +892,3 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'file_approve_notify',
     'mail_subject' => _MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ,
 ];
-
-/**
- * @param $val
- * @return float|int
- */
-function returnBytes($val)
-{
-    switch (mb_substr($val, -1)) {
-        case 'K':
-        case 'k':
-            return (int)$val * 1024;
-        case 'M':
-        case 'm':
-            return (int)$val * 1048576;
-        case 'G':
-        case 'g':
-            return (int)$val * 1073741824;
-        default:
-            return $val;
-    }
-}
