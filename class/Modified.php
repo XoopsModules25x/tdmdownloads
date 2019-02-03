@@ -142,7 +142,7 @@ class Modified extends \XoopsObject
             $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
         $downloadscatArray = $categoryHandler->getAll($criteria);
-        if (0 == count($downloadscatArray)) {
+        if (empty($downloadscatArray)) {
             redirect_header('index.php', 2, _NOPERM);
         }
         $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
