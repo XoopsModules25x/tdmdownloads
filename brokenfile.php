@@ -32,7 +32,7 @@ if (false === $perm_vote) {
 
 $viewDownloads = $downloadsHandler->get($lid);
 // redirection si le téléchargement n'existe pas ou n'est pas activ�
-if (0 == count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
+if (empty($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
 }
 
