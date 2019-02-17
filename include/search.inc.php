@@ -35,7 +35,8 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
 
     $utility    = new \XoopsModules\Tdmdownloads\Utility();
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-    if (is_array($categories) && count($categories) > 0) {
+//        if (is_array($categories) && count($categories) > 0) {
+    if ($categories && is_array($categories)) {
         $sql .= ' AND cid IN (' . implode(',', $categories) . ') ';
     } else {
         return null;
