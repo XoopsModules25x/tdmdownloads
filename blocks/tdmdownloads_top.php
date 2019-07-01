@@ -35,13 +35,13 @@ function b_tdmdownloads_top_show($options)
     $block              = [];
     $type_block         = $options[0];
     $nb_entree          = $options[1];
-    $lenght_title       = $options[2];
+    $lenght_title       = intval($options[2]);
     $use_logo           = $options[3];
     $use_description    = $options[4];
-    $show_inforation    = $options[5];
+    $show_information   = $options[5];
     $logo_float         = $options[6];
     $logo_width         = $options[7];
-    $lenght_description = $options[8];
+    $length_description = intval($options[8]);
     $blockstyle         = $options[9];
 
     array_shift($options);
@@ -96,21 +96,33 @@ function b_tdmdownloads_top_show($options)
     foreach (array_keys($downloadsArray) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
         $block[$i]['lid']   = $downloadsArray[$i]->getVar('lid');
-        $block[$i]['title'] = mb_strlen($downloadsArray[$i]->getVar('title')) > $lenght_title ? mb_substr($downloadsArray[$i]->getVar('title'), 0, $lenght_title) . '...' : $downloadsArray[$i]->getVar('title');
-        $descriptionShort  = '';
+        $titleFinal = $downloadsArray[$i]->getVar('title');
+        if ($lenght_title > 0) {
+            $titleFinal = mb_strlen($titleFinal) > $lenght_title ? mb_substr($titleFinal, 0, $lenght_title) . '...' : $titleFinal;
+        }
+        $block[$i]['title'] = $titleFinal;
+        $descriptionFinal  = '';
         if (true == $use_description) {
             $description = $downloadsArray[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
-            if (false === mb_strpos($description, '[pagebreak]')) {
-                $descriptionShort = mb_substr($description, 0, $lenght_description) . ' ...';
+            if ($length_description > 0) {
+                if (false === mb_strpos($description, '[pagebreak]')) {
+                    $descriptionFinal = mb_substr($description, 0, $length_description);
+                    if (mb_strlen($description) > mb_strlen($descriptionFinal)) {
+                        $descriptionFinal .= ' ...';
+                    }
+                } else {
+                    $descriptionFinal = mb_substr($description, 0, mb_strpos($description, '[pagebreak]')) . ' ...';
+                }
             } else {
-                $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]')) . ' ...';
+                $descriptionFinal = $description;
             }
         }
-        $block[$i]['description'] = $descriptionShort;
+        $block[$i]['description'] = $descriptionFinal;
         $logourl                  = '';
+        echo "<br>$titleFinal logourl".$downloadsArray[$i]->getVar('logourl');
         if (true == $use_logo) {
-            if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
+            if ('blank.gif' === $downloadsArray[$i]->getVar('logourl') || '' === $downloadsArray[$i]->getVar('logourl')) {
                 $logourl = '';
             } else {
                 $logourl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/' . $downloadsArray[$i]->getVar('logourl');
@@ -123,7 +135,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['rating']        = number_format($downloadsArray[$i]->getVar('rating'), 1);
         $block[$i]['date']          = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
         $block[$i]['submitter']     = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
-        $block[$i]['inforation']    = $show_inforation;
+        $block[$i]['inforation']    = $show_information;
         $block[$i]['blockstyle']    = $blockstyle;
     }
     $GLOBALS['xoopsTpl']->assign('tdmblockstyle', $blockstyle);
@@ -158,7 +170,7 @@ function b_tdmdownloads_top_edit($options)
     $form              = _MB_TDMDOWNLOADS_DISP . "&nbsp;\n";
     $form              .= '<input type="hidden" name="options[0]" value="' . $options[0] . "\">\n";
     $form              .= '<input name="options[1]" size="5" maxlength="255" value="' . $options[1] . '" type="text">&nbsp;' . _MB_TDMDOWNLOADS_FILES . "<br>\n";
-    $form              .= _MB_TDMDOWNLOADS_CHARS . ' : <input name="options[2]" size="5" maxlength="255" value="' . $options[2] . "\" type=\"text\"><br>\n";
+    $form              .= _MB_TDMDOWNLOADS_CHARS . ' (<small>' . _MB_TDMDOWNLOADS_CHARSDSC . '</small>): <input name="options[2]" size="5" maxlength="255" value="' . $options[2] . "\" type=\"text\"><br>\n";
     if (false == $options[3]) {
         $checked_yes = '';
         $checked_no  = 'checked';
@@ -190,11 +202,13 @@ function b_tdmdownloads_top_edit($options)
     $floatSelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
     $floatSelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
     $form .= _MB_TDMDOWNLOADS_FLOAT . $floatSelect->render() . '<br>';
-    $form .= _MB_TDMDOWNLOADS_WHITE . ': <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
-    $form .= _MB_TDMDOWNLOADS_CHARSDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
+    $form .= _MB_TDMDOWNLOADS_WIDTH . ' (<small>' . _MB_TDMDOWNLOADS_WIDTHDSC . '</small>): <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
+    $form .= _MB_TDMDOWNLOADS_DESCRIPTIONDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
     $styleSelect = new \XoopsFormSelect('', 'options[9]', $options[9]);
     $styleSelect->addOption('default', 'default');
     $styleSelect->addOption('simple1', 'simple1');
+    $styleSelect->addOption('simple2', 'simple2');
+    $styleSelect->addOption('simple3', 'simple3');
     $styleSelect->addOption('simple4', 'simple4');
     $form .= _MB_TDMDOWNLOADS_BLOCKSTYLE . ': ' . $styleSelect->render() . '<br>';
 

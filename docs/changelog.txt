@@ -22,6 +22,8 @@
 - rebuild file list in search.php (goffy/mage)
 - added check for latest version on GitHub (mamba/mage)
 - Added an automatic size system for downloads. (mage)
+- corrected typing errors (goffy)
+- modified block option "blockstyle" (goffy)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>
