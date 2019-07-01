@@ -16,8 +16,9 @@
 define('_MB_TDMDOWNLOADS_ALLCAT', 'Toutes les catégories');
 define('_MB_TDMDOWNLOADS_CATTODISPLAY', 'Sélectionnez les catégories affichées');
 define('_MB_TDMDOWNLOADS_CHARS', 'Longueur du titre');
-define('_MB_TDMDOWNLOADS_CHARSDSC', 'Longueur de la description');
+define('_MB_TDMDOWNLOADS_CHARSDSC', 'Longueur de la description. Laissez libre ou utiliser 0 pour longeur originale');
 define('_MB_TDMDOWNLOADS_DESCRIPTION', 'Utilisez la description ?');
+define('_MB_TDMDOWNLOADS_DESCRIPTIONDSC', 'Longueur de la description. Laissez libre ou utiliser 0 pour longeur originale');
 define('_MB_TDMDOWNLOADS_DISP', 'Afficher');
 define('_MB_TDMDOWNLOADS_FILES', 'Fichiers');
 define('_MB_TDMDOWNLOADS_LENGTH', 'Caractères');
@@ -30,5 +31,6 @@ define('_MB_TDMDOWNLOADS_HITS', 'Visites : ');
 define('_MB_TDMDOWNLOADS_FLOAT', 'Image flottante : ');
 define('_MB_TDMDOWNLOADS_FLOAT_LEFT', 'Gauche');
 define('_MB_TDMDOWNLOADS_FLOAT_RIGHT', 'Droite');
-define('_MB_TDMDOWNLOADS_WHITE', 'Image blanche');
+define('_MB_TDMDOWNLOADS_WIDTH', 'Image largeur');
+define('_MB_TDMDOWNLOADS_WIDTHDSC', 'Sélectionnez image largeur. Vous pouvez utiliser par exemple "100px" ou "30%". Laissez libre pour largeur originale.');
 define('_MB_TDMDOWNLOADS_BLOCKSTYLE', 'Style de bloc');
