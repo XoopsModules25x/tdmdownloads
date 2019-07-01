@@ -120,7 +120,7 @@ function b_tdmdownloads_top_show($options)
         }
         $block[$i]['description'] = $descriptionFinal;
         $logourl                  = '';
-        echo "<br>$titleFinal logourl".$downloadsArray[$i]->getVar('logourl');
+
         if (true == $use_logo) {
             if ('blank.gif' === $downloadsArray[$i]->getVar('logourl') || '' === $downloadsArray[$i]->getVar('logourl')) {
                 $logourl = '';
