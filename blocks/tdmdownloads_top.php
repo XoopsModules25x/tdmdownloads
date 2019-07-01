@@ -35,13 +35,13 @@ function b_tdmdownloads_top_show($options)
     $block              = [];
     $type_block         = $options[0];
     $nb_entree          = $options[1];
-    $lenght_title       = intval($options[2]);
+    $lenght_title       = (int)$options[2];
     $use_logo           = $options[3];
     $use_description    = $options[4];
     $show_information   = $options[5];
     $logo_float         = $options[6];
     $logo_width         = $options[7];
-    $length_description = intval($options[8]);
+    $length_description = (int)$options[8];
     $blockstyle         = $options[9];
 
     array_shift($options);
