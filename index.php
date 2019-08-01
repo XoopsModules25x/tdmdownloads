@@ -71,6 +71,7 @@ foreach (array_keys($downloadscatArray) as $i) {
             'title'            => $downloadscatArray[$i]->getVar('cat_title'),
             'description_main' => $downloadscatArray[$i]->getVar('cat_description_main'),
             'subcategories'    => $subcategories,
+            'countsubs'        => count($subcategories_arr),
             'totaldownloads'   => $totaldownloads,
             'count'            => $count,
         ]);
@@ -255,6 +256,8 @@ if ($helper->getConfig('newdownloads') > 0) {
             'id'                => $downloadsArray[$i]->getVar('lid'),
             'cid'               => $downloadsArray[$i]->getVar('cid'),
             'title'             => $downloadsArray[$i]->getVar('title'),
+            'rating'            => $downloadsArray[$i]->getVar('rating'),
+            'hits'              => $downloadsArray[$i]->getVar('hits'),
             'new'               => $new,
             'pop'               => $pop,
             'logourl'           => $logourl,

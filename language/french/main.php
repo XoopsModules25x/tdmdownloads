@@ -140,3 +140,8 @@ define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DESIGNFLOAT', 'Recommander sur Designfloat'
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BALATARIN', 'Recommander sur Balatarin');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEPLUS', 'Recommander sur Google Plus');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEBOOKMARKS', 'Recommander sur Google Bookmarks');
+//added by goffy
+define('_MD_TDMDOWNLOADS_DISPLAYMORE', 'plus de téléchargement');
+define('_MD_TDMDOWNLOADS_ADDNEW', 'Soumis  téléchargement');
+define('_MD_TDMDOWNLOADS_COUNTDL', 'téléchargement disponible');
+define('_MD_TDMDOWNLOADS_COUNTSUBS', 'Sous catégories');
