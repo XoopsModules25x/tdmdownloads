@@ -298,6 +298,8 @@ if ($helper->getConfig('perpage') > 0) {
             'id'                => $downloadsArray[$i]->getVar('lid'),
             'cid'               => $downloadsArray[$i]->getVar('cid'),
             'title'             => $downloadsArray[$i]->getVar('title'),
+            'rating'            => number_format($downloadsArray[$i]->getVar('rating'), 1),
+            'hits'              => $downloadsArray[$i]->getVar('hits'),
             'new'               => $new,
             'pop'               => $pop,
             'logourl'           => $logourl,
