@@ -36,7 +36,7 @@ if (0 === $cid || 0 === $categoryHandler->getCount($criteria)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_CAT_NONEXISTENT);
 }
 // pour les permissions (si pas de droit, redirection)
-if (!in_array($cid, $categories, true)) {
+if (!in_array($cid, $categories)) {
     redirect_header('index.php', 2, _NOPERM);
 }
 
@@ -281,11 +281,11 @@ if ($helper->getConfig('perpage') > 0) {
         //permission de télécharger
         $downloadPermission = true;
         if (1 === $helper->getConfig('permission_download')) {
-            if (!in_array($downloadsArray[$i]->getVar('cid'), $categories, true)) {
+            if (!in_array($downloadsArray[$i]->getVar('cid'), $categories)) {
                 $downloadPermission = false;
             }
         } else {
-            if (!in_array($downloadsArray[$i]->getVar('lid'), $item, true)) {
+            if (!in_array($downloadsArray[$i]->getVar('lid'), $item)) {
                 $downloadPermission = false;
             }
         }

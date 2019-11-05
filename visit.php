@@ -28,18 +28,18 @@ if (is_array($viewDownloads) && 0 === count($viewDownloads)) {
 }
 //redirection si pas de permission (cat)
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+if (!in_array($viewDownloads->getVar('cid'), $categories)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
 }
 //redirection si pas de permission (télécharger)
 if (2 == $helper->getConfig('permission_download')) {
     $item = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
-    if (!in_array($viewDownloads->getVar('lid'), $item, true)) {
+    if (!in_array($viewDownloads->getVar('lid'), $item)) {
         redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
     }
 } else {
     $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
-    if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+    if (!in_array($viewDownloads->getVar('cid'), $categories)) {
         redirect_header('singlefile.php?lid=' . $viewDownloads->getVar('lid'), 2, _MD_TDMDOWNLOADS_SINGLEFILE_NOPERMDOWNLOAD);
     }
 }

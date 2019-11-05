@@ -38,7 +38,7 @@ if (0 == count($viewDownloads) || 0 == $viewDownloads->getVar('status')) {
 
 //redirection si pas de permission (cat)
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+if (!in_array($viewDownloads->getVar('cid'), $categories)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
 }
 

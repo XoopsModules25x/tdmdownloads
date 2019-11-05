@@ -34,7 +34,7 @@ if ($com_itemid > 0) {
     if ($result) {
         $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
         $row        = $xoopsDB->fetchArray($result);
-        if (!in_array($row['cid'], $categories, true)) {
+        if (!in_array($row['cid'], $categories)) {
             redirect_header(XOOPS_URL, 2, _NOPERM);
         }
         $com_replytitle = $row['title'];

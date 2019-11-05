@@ -51,7 +51,7 @@ switch ($op) {
         //navigation
         $view_category = $categoryHandler->get($viewDownloads->getVar('cid'));
         $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-        if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+        if (!in_array($viewDownloads->getVar('cid'), $categories)) {
             redirect_header('index.php', 2, _NOPERM);
         }
         //tableau des catégories

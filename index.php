@@ -243,11 +243,11 @@ if ($helper->getConfig('newdownloads') > 0) {
 
         $downloadPermission = true;
         if (1 === $helper->getConfig('permission_download')) {
-            if (!in_array($downloadsArray[$i]->getVar('cid'), $categories, true)) {
+            if (!in_array($downloadsArray[$i]->getVar('cid'), $categories)) {
                 $downloadPermission = false;
             }
         } else {
-            if (!in_array($downloadsArray[$i]->getVar('lid'), $item, true)) {
+            if (!in_array($downloadsArray[$i]->getVar('lid'), $item)) {
                 $downloadPermission = false;
             }
         }

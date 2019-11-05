@@ -205,7 +205,7 @@ class Utility
     {
         $count     = 0;
         $child_arr = [];
-        if (in_array($cid, $categories, true)) {
+        if (in_array($cid, $categories)) {
             $child = $mytree->getAllChild($cid);
             foreach (array_keys($entries) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $entries */

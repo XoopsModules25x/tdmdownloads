@@ -40,7 +40,7 @@ if ((is_array($viewDownloads) && 0 == count($viewDownloads)) || 0 == $viewDownlo
 
 // pour les permissions
 $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+if (!in_array($viewDownloads->getVar('cid'), $categories)) {
     redirect_header(XOOPS_URL, 2, _NOPERM);
 }
 
@@ -211,13 +211,13 @@ $xoopsTpl->assign('perm_modif', $perm_modif);
 $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
 $item       = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
 if (1 == $helper->getConfig('permission_download')) {
-    if (!in_array($viewDownloads->getVar('cid'), $categories, true)) {
+    if (!in_array($viewDownloads->getVar('cid'), $categories)) {
         $xoopsTpl->assign('perm_download', false);
     } else {
         $xoopsTpl->assign('perm_download', true);
     }
 } else {
-    if (!in_array($viewDownloads->getVar('lid'), $item, true)) {
+    if (!in_array($viewDownloads->getVar('lid'), $item)) {
         $xoopsTpl->assign('perm_download', false);
     } else {
         $xoopsTpl->assign('perm_download', true);
