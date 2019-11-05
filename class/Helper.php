@@ -74,7 +74,7 @@ class Helper extends \Xmf\Module\Helper
     {
         $ret   = false;
         $db    = \XoopsDatabaseFactory::getDatabaseConnection();
-        $class = '\\XoopsModules\\' . ucfirst(mb_strtolower(basename(dirname(__DIR__)))) . '\\' . $name . 'Handler';
+        $class = __NAMESPACE__ . '\\' . ucfirst($name) . 'Handler';
         $ret   = new $class($db);
 
         return $ret;
