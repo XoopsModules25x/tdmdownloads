@@ -533,7 +533,7 @@ $modversion['config'][] = [
     'default' => 'downloads_',
 ];
 
-include_once 'include/xoops_version.inc.php';
+include_once XOOPS_ROOT_PATH . '/modules/tdmdownloads/include/xoops_version.inc.php';
 $iniPostMaxSize = tdmdownloadsReturnBytes(ini_get('post_max_size'));
 $iniUploadMaxFileSize = tdmdownloadsReturnBytes(ini_get('upload_max_filesize'));
 $maxSize = min($iniPostMaxSize, $iniUploadMaxFileSize);
