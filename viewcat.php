@@ -229,6 +229,7 @@ if ($helper->getConfig('perpage') > 0) {
 
     $downloadsArray = $downloadsHandler->getAll($criteria);
     if ($numrows > $limit) {
+        require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
         $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'limit=' . $limit . '&cid=' . \Xmf\Request::getInt('cid', 0, 'REQUEST') . '&sort=' . $sort . '&order=' . $order);
         $pagenav = $pagenav->renderNav(4);
     } else {

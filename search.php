@@ -214,6 +214,7 @@ $downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
 $downloadsHandler->field_object = 'cid'; // champ de la table courante
 $tdmdownloadsArray = $downloadsHandler->getByLink($criteria_2);
 if ($numrows > $limit) {
+    require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
     $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', $arguments);
     $pagenav = $pagenav->renderNav(4);
 } else {
