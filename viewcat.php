@@ -63,6 +63,18 @@ $xoopsTpl->assign('category_path', $navCategory);
 $xoopsTpl->assign('category_id', $cid);
 $cat_info = $categoryHandler->get($cid);
 $xoopsTpl->assign('cat_description', $cat_info->getVar('cat_description_main'));
+$uploadurl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/cats/';
+$categoryObject = $categoryHandler->get($cid);
+$tempCategory = [
+    'image'            => $cat_info->getVar('cat_imgurl'),
+    'id'               => $cat_info->getVar('cat_cid'),
+    'title'            => $cat_info->getVar('cat_title'),
+    'description_main' => $cat_info->getVar('cat_description_main'),
+];
+if (!empty($tempCategory['image'])) {
+    $tempCategory['image'] = $uploadurl . $tempCategory['image'];
+}
+$xoopsTpl->assign('category', $tempCategory);
 
 //affichage des catégories
 $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));
