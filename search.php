@@ -145,7 +145,6 @@ foreach (array_keys($downloads_field) as $i) {
                 $lid_arr[] = $dataArray[$k]->getVar('lid');
             }
         }
-        $form->addElement($select_sup);
     }
     if (count($lid_arr) > 0) {
         $criteria_2->add(new \Criteria('lid', '(' . implode(',', $lid_arr) . ')', 'IN'));
