@@ -105,9 +105,6 @@ switch ($op) {
         $donnee['homepage'] = \Xmf\Request::getString('homepage', '', 'POST'); //formatURL($_POST["homepage"]);
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST')); //$_POST["version"]);
         $donnee['version'] = \Xmf\Request::getString('version', '', 'POST'); //$_POST["version"];
-        $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST')); //$_POST["size"]);
-        $donnee['size'] = \Xmf\Request::getString('size', '', 'POST'); //$_POST["size"];
-        $donnee['type_size'] = \Xmf\Request::getString('type_size', '', 'POST'); //$_POST['type_size'];
         if (\Xmf\Request::hasVar('platform', 'POST')) {
             $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST'))); //$_POST['platform']));
             $donnee['platform'] = implode('|', \Xmf\Request::getString('platform', '', 'POST')); //$_POST["platform"]);
@@ -118,16 +115,6 @@ switch ($op) {
         $donnee['description'] = \Xmf\Request::getString('description', '', 'POST'); //$_POST["description"];
         $obj->setVar('modifysubmitter', !empty($xoopsUser) ? $xoopsUser->getVar('uid') : 0);
 
-        // erreur si la taille du fichier n'est pas un nombre
-        if (\Xmf\Request::hasVar('size') && 0 == \Xmf\Request::getInt('size')) {
-            if ('0' == \Xmf\Request::getString('size', '', 'POST')
-                || '' === \Xmf\Request::getString('size', '', 'POST')) {
-                $erreur = false;
-            } else {
-                $erreur = true;
-                $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
-            }
-        }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid')) {
             if (0 == \Xmf\Request::getInt('cid', 0, 'POST')) {
@@ -160,8 +147,8 @@ switch ($op) {
         if (true === $erreur) {
             $xoopsTpl->assign('message_erreur', $errorMessage);
         } else {
-            $obj->setVar('size', \Xmf\Request::getInt('size', 0, 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
+			$mediaSize = 0;
             if (isset($_POST['xoops_upload_file'][0])) {
                 $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetypes'), $helper->getConfig('maxuploadsize'), null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -173,6 +160,7 @@ switch ($op) {
                         $errors = $uploader->getErrors();
                         redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
+						$mediaSize = $uploader->getMediaSize();
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
@@ -187,7 +175,9 @@ switch ($op) {
                     }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
                 }
-            }
+            } else {
+				$obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
+			}
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
                 $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, [
@@ -217,8 +207,25 @@ switch ($op) {
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
                 }
-            }
-
+            } else {
+				$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
+			}
+			//Automatic file size
+			if (Xmf\Request::getString('sizeValue', '') == ''){
+				if ($mediaSize == 0) {
+					$obj->setVar('size', $utility::GetFileSize(Xmf\Request::getUrl('url', '')));
+				} else {
+					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
+				}
+			} else {
+				$obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
+			}
+			$timeToRedirect = 2;
+			if ($obj->getVar('size') == 0){
+				$obj->setVar('size', '');
+				$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+				$timeToRedirect = 10;
+			}
             if ($modifiedHandler->insert($obj)) {
                 $lidDownloads = $obj->getNewEnreg($db);
                 // Récupération des champs supplémentaires:
@@ -244,7 +251,7 @@ switch ($op) {
                 /** @var \XoopsNotificationHandler $notificationHandler */
                 $notificationHandler = xoops_getHandler('notification');
                 $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);
-                redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'), 1, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO);
+                redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'), timeToRedirect, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO  . '<br><br>' . $error_message);
             }
             echo $obj->getHtmlErrors();
         }

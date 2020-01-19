@@ -122,7 +122,7 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Sélectionnez les groupes qui peuve
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plateforme :');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posté par ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', 'Taille du fichier');
+define('_AM_TDMDOWNLOADS_FORMSIZE', "Taille du fichier<br><span style='font-size: small;'>Pour utiliser le système automatique de calcul de la taille du fichier, laissez ce champ vide.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'État du téléchargement');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approuvé');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Posté par');
@@ -145,7 +145,7 @@ define('_AM_TDMDOWNLOADS_ERREUR_NOCAT', 'Vous devez choisir une catégorie !');
 define('_AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION', 'Vous devez écrire une description');
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADS', "Il n'y a aucun fichier à télécharger");
 define('_AM_TDMDOWNLOADS_ERREUR_NODOWNLOADSWAITING', "Il n'y a téléchargements en attente d'approbation");
-define('_AM_TDMDOWNLOADS_ERREUR_SIZE', 'la taille du fichier doit être un nombre');
+define('_AM_TDMDOWNLOADS_ERREUR_SIZE', "<span style='color: #FF0000; font-weight: bold;'>Le système n'a pas réussi à déterminer la taille du fichier, il est nécessaire de le faire manuellement.</span>");
 //Message de redirection
 define('_AM_TDMDOWNLOADS_REDIRECT_DELOK', 'Supprimé avec succès ');
 define('_AM_TDMDOWNLOADS_REDIRECT_NOCAT', "Vous devez d'abord créer une catégorie");
@@ -184,4 +184,5 @@ define('_AM_TDMDOWNLOADS_FOLDERS_DELETED_OK', 'Les dossiers de téléchargement 
 define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Impossible de supprimer le répertoire %s');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Impossible de supprimer %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Impossible de charger le plug-in');
+define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');

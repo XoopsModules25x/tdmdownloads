@@ -26,8 +26,6 @@ class Utility
 
     use Common\FilesManagement; // Files Management Trait
 
-    use Common\ImageResizer; // ImageResizer Trait
-
     /**
      * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags
      * www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags
@@ -348,7 +346,7 @@ class Utility
         /** @var \XoopsObjectTree $mytree */
         $categoryParent = $mytree->getAllParent($key);
         $categoryParent = array_reverse($categoryParent);
-        $path           = '';
+        $path            = '';
         foreach (array_keys($categoryParent) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
             $path .= $categoryParent[$j]->getVar($title) . $prefix;
@@ -424,25 +422,129 @@ class Utility
 
         return $path;
     }
-
-    /**
-     * @param $val
-     * @return float|int
+	 /**
+     * Utility::StringSizeConvert()
+     *
+     * @param mixed $stringSize
+     * @return mixed|int
      */
-    public static function returnBytes($val)
+	public static function StringSizeConvert($stringSize){
+        if ($stringSize != '') {
+            $kb = 1024;
+            $mb = 1024*1024;
+            $gb = 1024*1024*1024;
+			$size_value_arr = explode(' ', $stringSize);
+			
+            if ($size_value_arr[1] == 'B') {
+                $mysize = $size_value_arr[0];
+            } elseif ($size_value_arr[1] == 'K') {
+                $mysize = $size_value_arr[0] * $kb;
+            } elseif ($size_value_arr[1] == 'M') {
+                $mysize = $size_value_arr[0] * $mb;
+            } else {
+                $mysize = $size_value_arr[0] * $gb;
+            }
+            return $mysize;
+        } else {
+            return 0;
+        }
+    }
+	 /**
+     * Utility::SizeConvertString()
+     *
+     * @param mixed $sizeString
+     * @return mixed|string
+     */
+	public static function SizeConvertString($sizeString){
+		$mysizeString = '';
+		if ($sizeString != '') {
+			$size_value_arr = explode(' ', $sizeString);
+			if (array_key_exists (0, $size_value_arr) == true && array_key_exists (1, $size_value_arr) == true){
+				if ($size_value_arr[0] != ''){
+					$mysizeString = '';
+					switch ($size_value_arr[1]) {
+						case 'B':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_BYTES;
+							break;
+							
+						case 'K':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_KBYTES;
+							break;
+							
+						case 'M':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_MBYTES;
+							break;
+							
+						case 'G':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_GBYTES;
+							break;
+							
+						case 'T':
+							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_TBYTES;
+							break;
+					}					
+					return $mysizeString;
+				}
+			}
+		}		
+		return $mysizeString;
+    }
+	
+	 /**
+     * Utility::GetFileSize()
+     *
+     * @param mixed $url
+     * @return mixed|string
+     */
+    public static function GetFileSize($url)
     {
-        switch (mb_substr($val, -1)) {
-            case 'K':
-            case 'k':
-                return (int)$val * 1024;
-            case 'M':
-            case 'm':
-                return (int)$val * 1048576;
-            case 'G':
-            case 'g':
-                return (int)$val * 1073741824;
-            default:
-                return $val;
+		if (function_exists('curl_init') && false !== ($curlHandle  = curl_init($url))) {
+			curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, TRUE);
+			curl_setopt($curlHandle, CURLOPT_HEADER, TRUE);
+			curl_setopt($curlHandle, CURLOPT_NOBODY, TRUE);	
+			curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);			
+			$curlReturn = curl_exec($curlHandle);
+			if (false === $curlReturn) {
+				trigger_error(curl_error($curlHandle));
+				$size = 0;
+			} else {
+				$size = curl_getinfo($curlHandle, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+			}
+			curl_close($curlHandle);
+			if ($size <= 0){
+				return 0;
+			} else {			
+				return Utility::FileSizeConvert($size);
+			}
+		} else {
+			return 0;
+		}
+    }
+	
+	/**
+     * Utility::FileSizeConvert()
+     *
+     * @param mixed $size
+     * @return mixed|string
+     */
+	public static function FileSizeConvert($size){
+        if ($size > 0) {
+            $kb = 1024;
+            $mb = 1024*1024;
+            $gb = 1024*1024*1024;
+            if ($size >= $gb) {
+                $mysize = sprintf ("%01.2f",$size/$gb) . " " . 'G';
+            } elseif ($size >= $mb) {
+                $mysize = sprintf ("%01.2f",$size/$mb) . " " . 'M';
+            } elseif ($size >= $kb) {
+                $mysize = sprintf ("%01.2f",$size/$kb) . " " . 'K';
+            } else {
+                $mysize = sprintf ("%01.2f",$size) . " " . 'B';
+            }
+
+            return $mysize;
+        } else {
+            return '';
         }
     }
 }

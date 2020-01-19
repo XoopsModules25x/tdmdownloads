@@ -140,6 +140,12 @@ define('_MD_TDMDOWNLOADS_BOOKMARK_TO_DESIGNFLOAT', 'Bookmark to Designfloat');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_BALATARIN', 'Bookmark to Balatarin');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEPLUS', 'Bookmark to Google Plus');
 define('_MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEBOOKMARKS', 'Bookmark to Google Bookmarks');
+//added by goffy
+define('_MD_TDMDOWNLOADS_DISPLAYMORE', 'Show more downloads');
+define('_MD_TDMDOWNLOADS_ADDNEW', 'Add new download');
+define('_MD_TDMDOWNLOADS_COUNTDL', 'Available downloads');
+define('_MD_TDMDOWNLOADS_COUNTSUBS', 'Subcategories');
+
 
 //module admin
 define('_MD_TDMDOWNLOADS_ADMIN', 'Module Admin');

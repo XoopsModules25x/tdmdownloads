@@ -83,8 +83,6 @@ switch ($op) {
         $donnee['cid'] = \Xmf\Request::getString('cid', '', 'POST');
         $obj->setVar('homepage', formatURL(\Xmf\Request::getString('homepage', '', 'POST')));
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST'));
-        $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST'));
-        $donnee['type_size'] = \Xmf\Request::getString('type_size', '', 'POST');
         $obj->setVar('paypal', \Xmf\Request::getString('paypal', '', 'POST'));
         if (\Xmf\Request::hasVar('platform', 'POST')) {
             $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST')));
@@ -115,15 +113,6 @@ switch ($op) {
             }
         }
         $donnee['date_update'] = 0;
-        // erreur si la taille du fichier n'est pas un nombre
-        if (\Xmf\Request::hasVar('size', 'REQUEST')) {
-            if (0 === \Xmf\Request::getInt('size', 0, 'REQUEST')) {
-                $erreur = false;
-            } else {
-                $erreur = true;
-                $errorMessage .= _MD_TDMDOWNLOADS_ERREUR_SIZE . '<br>';
-            }
-        }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'REQUEST')) {
             if (0 === \Xmf\Request::getInt('cid', 0, 'REQUEST')) {
@@ -163,6 +152,7 @@ switch ($op) {
         }
             $obj->setVar('size', \Xmf\Request::getString('size', '', 'POST') . ' ' . \Xmf\Request::getString('type_size', '', 'POST'));
             // Pour le fichier
+			$mediaSize = 0;
             if (isset($_POST['xoops_upload_file'][0])) {
                 $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetypes'), $helper->getConfig('maxuploadsize'), null, null);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -174,6 +164,7 @@ switch ($op) {
                         $errors = $uploader->getErrors();
                         redirect_header('javascript:history.go(-1)', 3, $errors);
                     } else {
+						$mediaSize = $uploader->getMediaSize();
                         $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
                     }
                 } else {
@@ -187,7 +178,9 @@ switch ($op) {
                     }
                     $obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
                 }
-            }
+            } else {
+				$obj->setVar('url', \Xmf\Request::getString('url', '', 'REQUEST'));
+			}
             // Pour l'image
             if (isset($_POST['xoops_upload_file'][1])) {
                 $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, [
@@ -217,8 +210,25 @@ switch ($op) {
                     }
                     $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
                 }
-            }
-
+            } else {
+				$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
+			}
+			//Automatic file size
+			if (Xmf\Request::getString('sizeValue', '') == ''){
+				if ($mediaSize == 0) {
+					$obj->setVar('size', $utility::GetFileSize(Xmf\Request::getUrl('url', '')));
+				} else {
+					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
+				}
+			} else {
+				$obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
+			}
+			$timeToRedirect = 2;
+			if ($obj->getVar('size') == 0){
+				$obj->setVar('size', '');
+				$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+				$timeToRedirect = 10;
+			}
             if ($downloadsHandler->insert($obj)) {
                 if ($newUpload) {
                     $lidDownloads = $obj->getNewEnreg($db);
@@ -273,17 +283,17 @@ switch ($op) {
                 $downloadscat_cat = $categoryHandler->get($donnee['cid']);
                 $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
                 $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $donnee['cid'];
-
+				
                 if (true === $perm_autoapprove) {
                     $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
                     $notificationHandler->triggerEvent('category', $donnee['cid'], 'new_file', $tags);
-                    redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br>' . _MD_TDMDOWNLOADS_SUBMIT_ISAPPROVED . '');
+                    redirect_header('index.php', $timeToRedirect, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br>' . _MD_TDMDOWNLOADS_SUBMIT_ISAPPROVED . '<br><br>' . $error_message);
                     exit;
                 }
                 $tags['WAITINGFILES_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/index.php?op=listNewDownloads';
                 $notificationHandler->triggerEvent('global', 0, 'file_submit', $tags);
                 $notificationHandler->triggerEvent('category', $donnee['cid'], 'file_submit', $tags);
-                redirect_header('index.php', 2, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED);
+                redirect_header('index.php', $timeToRedirect, _MD_TDMDOWNLOADS_SUBMIT_RECEIVED . '<br><br>' . $error_message);
                 exit;
             }
             $errors = $obj->getHtmlErrors();

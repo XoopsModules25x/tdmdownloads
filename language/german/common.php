@@ -95,16 +95,25 @@ define('CO_' . $moduleDirNameUpper . '_BLOCKS_ADDBLOCK', 'Add a new block');
 define('CO_' . $moduleDirNameUpper . '_BLOCKS_EDITBLOCK', 'Edit a block');
 define('CO_' . $moduleDirNameUpper . '_BLOCKS_CLONEBLOCK', 'Clone a block');
 //myblocksadmin
-define('CO_' . $moduleDirNameUpper . '_AGDS', 'Admin Groups');
-define('CO_' . $moduleDirNameUpper . '_BCACHETIME', 'Cache Time');
+define('CO_' . $moduleDirNameUpper . '_' . 'AGDS', 'Admin Groups');
+define('CO_' . $moduleDirNameUpper . '_' . 'BCACHETIME', 'Cache Time');
+define('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS_ADMIN', 'Blocks Admin');
+
 //Template Admin
-define('CO_' . $moduleDirNameUpper . '_TPLSETS', 'Template Management');
-define('CO_' . $moduleDirNameUpper . '_GENERATE', 'Generate');
-define('CO_' . $moduleDirNameUpper . '_FILENAME', 'File Name');
+define('CO_' . $moduleDirNameUpper . '_' . 'TPLSETS', 'Template Management');
+define('CO_' . $moduleDirNameUpper . '_' . 'GENERATE', 'Generate');
+define('CO_' . $moduleDirNameUpper . '_' . 'FILENAME', 'File Name');
+
 //Menu
 define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS', 'Show Development Tools Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
+
+
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
 
 
 //Uploader
@@ -150,3 +159,4 @@ define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG', '<span style="color: 
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC', '');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH', 'Image Upload path');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC', 'Path for uploading images');
+

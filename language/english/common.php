@@ -111,6 +111,7 @@ define('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS_CLONEBLOCK', 'Clone a block')
 //myblocksadmin
 define('CO_' . $moduleDirNameUpper . '_' . 'AGDS', 'Admin Groups');
 define('CO_' . $moduleDirNameUpper . '_' . 'BCACHETIME', 'Cache Time');
+define('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS_ADMIN', 'Blocks Admin');
 
 //Template Admin
 define('CO_' . $moduleDirNameUpper . '_' . 'TPLSETS', 'Template Management');
@@ -121,6 +122,14 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FILENAME', 'File Name');
 define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS', 'Show Development Tools Button?');
+define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_DEV_TOOLS_DESC', 'If yes, the "Migrate" Tab and other Development tools will be visible to the Admin.');
+
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
+
+define('CO_' . $moduleDirNameUpper . '_FOLDER_YES', 'Folder "%s" exist');
+define('CO_' . $moduleDirNameUpper . '_FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
 
 //Uploader
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGES_UPLOAD', 'Upload Files');
@@ -173,3 +182,4 @@ define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG', '<span style="color: 
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC', '');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH', 'Image Upload path');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC', 'Path for uploading images');
+

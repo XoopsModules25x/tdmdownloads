@@ -27,6 +27,7 @@ $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_singlefile.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var \xos_opal_Theme $xoTheme */
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
 
 $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 
@@ -165,7 +166,7 @@ foreach (array_keys($downloads_field) as $i) {
             //taille du fichier
             $size_value_arr = explode(' ', $viewDownloads->getVar('size'));
             if ('' != $size_value_arr[0]) {
-                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $viewDownloads->getVar('size');
+                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $utility::SizeConvertString($viewDownloads->getVar('size'));
                 ++$champ_sup_vide;
             }
         }

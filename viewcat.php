@@ -63,6 +63,18 @@ $xoopsTpl->assign('category_path', $navCategory);
 $xoopsTpl->assign('category_id', $cid);
 $cat_info = $categoryHandler->get($cid);
 $xoopsTpl->assign('cat_description', $cat_info->getVar('cat_description_main'));
+$uploadurl = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/cats/';
+$categoryObject = $categoryHandler->get($cid);
+$tempCategory = [
+    'image'            => $cat_info->getVar('cat_imgurl'),
+    'id'               => $cat_info->getVar('cat_cid'),
+    'title'            => $cat_info->getVar('cat_title'),
+    'description_main' => $cat_info->getVar('cat_description_main'),
+];
+if (!empty($tempCategory['image'])) {
+    $tempCategory['image'] = $uploadurl . $tempCategory['image'];
+}
+$xoopsTpl->assign('category', $tempCategory);
 
 //affichage des catégories
 $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));
@@ -229,6 +241,7 @@ if ($helper->getConfig('perpage') > 0) {
 
     $downloadsArray = $downloadsHandler->getAll($criteria);
     if ($numrows > $limit) {
+        require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
         $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'limit=' . $limit . '&cid=' . \Xmf\Request::getInt('cid', 0, 'REQUEST') . '&sort=' . $sort . '&order=' . $order);
         $pagenav = $pagenav->renderNav(4);
     } else {
@@ -298,6 +311,8 @@ if ($helper->getConfig('perpage') > 0) {
             'id'                => $downloadsArray[$i]->getVar('lid'),
             'cid'               => $downloadsArray[$i]->getVar('cid'),
             'title'             => $downloadsArray[$i]->getVar('title'),
+            'rating'            => number_format($downloadsArray[$i]->getVar('rating'), 1),
+            'hits'              => $downloadsArray[$i]->getVar('hits'),
             'new'               => $new,
             'pop'               => $pop,
             'logourl'           => $logourl,

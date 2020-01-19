@@ -1,10 +1,16 @@
-<h5>2.0 Alpha 1         [NOT RELEASED]</h5>
+<h5>2.0 RC 2         [NOT RELEASED]</h5>
+<hr>
+- added hits and ratings and for output of download in index.php (goffy)
+- added number of subcategories for output of category in index.php (goffy)
+- added new lang vars (goffy)
+
+<h5>2.0 RC 1         [2019-01-29]</h5>
 <hr>
 - converted 'cleanVars' to \Xmf\Request (mamba)
 - converted $_REQUEST to \Xmf\Request (mamba)
 - cleaned up english and german language files (goffy)
 - transformed preference mimetypes from text to array (goffy, mage)
-- acitvated file '/class/pagenav.php' (goffy)
+- activated file '/class/pagenav.php' (goffy)
 - fixed bug in admin/downloads.php: date of submitting was not set in case of new submit (goffy)
 - added show error when file size exceed maxuploadsize (goffy)
 - removed double entries for modversion/hasMain and hasSearch (goffy)
@@ -20,10 +26,10 @@
 - implemented perm_autoapprove also for modifying on user side (goffy/mage)
 - added description to preference maxuploadsize (goffy/mage)
 - rebuild file list in search.php (goffy/mage)
-- added external config for images in /config/imageconfig.php (mamba)
-- added fineuploader based on Goffy's wggallery (mamba)
-- added ImageResizer trait based on Goffy's wggallery (mamba)
-
+- added check for latest version on GitHub (mamba/mage)
+- Added an automatic size system for downloads. (mage)
+- corrected typing errors (goffy)
+- modified block option "blockstyle" (goffy)
 
 <h5>2.0 Alpha 1         [2019-01-05]</h5>
 <hr>
@@ -138,7 +144,7 @@ List of improvements:
 
 Informations
 
- - See the file "lang_diff.txt" for changes in language.
+ - See the file "lang_diff.txt" for changes in language. 
 
 Installation:
 
@@ -186,7 +192,7 @@ List of improvements:
 Informations:
 
  - Adding the suffix "cat_" in all fields of the table "tdmdownloads_cat.
- - See the file "lang_diff.txt" for changes in language.
+ - See the file "lang_diff.txt" for changes in language. 
 
 
 <h5>1.10                [11.11.2009]</h5>

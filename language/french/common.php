@@ -122,6 +122,10 @@ define('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE', 'Migrate');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_YES', 'Folder "%s" exist');
 define('CO_' . $moduleDirNameUpper . '_' . 'FOLDER_NO', 'Folder "%s" does not exist. Create the specified folder with CHMOD 777.');
 
+//Latest Version Check
+define('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION', 'New Version: ');
+
+
 //Uploader
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGES_UPLOAD', 'Upload Files');
 
@@ -165,3 +169,4 @@ define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG', '<span style="color: 
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC', '');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH', 'Image Upload path');
 define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC', 'Path for uploading images');
+

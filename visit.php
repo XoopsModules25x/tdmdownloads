@@ -23,7 +23,7 @@ $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 $cid = \Xmf\Request::getInt('cid', 0, 'REQUEST');
 // redirection si le téléchargement n'existe pas
 $viewDownloads = $downloadsHandler->get($lid);
-if (is_array($viewDownloads) && 0 === count($viewDownloads)) {
+if (empty($viewDownloads)) {
     redirect_header('index.php', 3, _MD_TDMDOWNLOADS_SINGLEFILE_NONEXISTENT);
 }
 //redirection si pas de permission (cat)
@@ -113,7 +113,9 @@ $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoo
 $xoopsDB->queryF($sql);
 
 $url = $viewDownloads->getVar('url', 'n');
+$contentLength = $utility::StringSizeConvert($viewDownloads->getVar('size'));
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
+	header("Content-Length: $contentLength");
     header("Location: $url");
 }
 echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $url . '"></meta></head><body></body></html>';

@@ -96,7 +96,6 @@ class Modified extends \XoopsObject
             $d_cid         = $donnee['cid'];
             $d_homepage    = $donnee['homepage'];
             $d_version     = $donnee['version'];
-            $d_size        = $donnee['size'];
             $d_platform    = $donnee['platform'];
             $d_description = $donnee['description'];
         } else {
@@ -104,7 +103,6 @@ class Modified extends \XoopsObject
             $d_cid         = $viewDownloads->getVar('cid');
             $d_homepage    = $viewDownloads->getVar('homepage');
             $d_version     = $viewDownloads->getVar('version');
-            $d_size        = $viewDownloads->getVar('size');
             $d_platform    = $viewDownloads->getVar('platform');
             $d_description = $viewDownloads->getVar('description', 'e');
         }
@@ -144,7 +142,7 @@ class Modified extends \XoopsObject
             $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
         }
         $downloadscatArray = $categoryHandler->getAll($criteria);
-        if (0 == count($downloadscatArray)) {
+        if (empty($downloadscatArray)) {
             redirect_header('index.php', 2, _NOPERM);
         }
         $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
@@ -177,34 +175,24 @@ class Modified extends \XoopsObject
                 }
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
-                    /*if ($downloads_field[$i]->getVar('status') == 1) {
-                        $form->addElement(new \XoopsFormText(_AM_TDMDOWNLOADS_FORMSIZE, 'size', 10, 255, $d_size));
-                    } else {
-                        $form->addElement(new \XoopsFormHidden('size', ''));
-                    }*/
-
                     if (1 == $downloads_field[$i]->getVar('status')) {
-                        $size_value_arr = explode(' ', $viewDownloads->getVar('size'));
-                        $sizeValue     = $size_value_arr[0];
-                        if (false === $erreur) {
-                            $typeValue = $size_value_arr[1];
-                        } else {
-                            $typeValue = $donnee['type_size'];
-                        }
-                        $aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
-                        $aff_size->addElement(new \XoopsFormText('', 'size', 10, 255, $sizeValue));
-                        $type = new \XoopsFormSelect('', 'type_size', $typeValue);
-                        //$typeArray = array('[o]' => _AM_TDMDOWNLOADS_BYTES, '[Ko]' => _AM_TDMDOWNLOADS_KBYTES, '[Mo]' => _AM_TDMDOWNLOADS_MBYTES, '[Go]' => _AM_TDMDOWNLOADS_GBYTES, '[To]' => _AM_TDMDOWNLOADS_TBYTES);
-                        $typeArray = [
-                            _AM_TDMDOWNLOADS_BYTES  => '[' . _AM_TDMDOWNLOADS_BYTES . ']',
-                            _AM_TDMDOWNLOADS_KBYTES => '[' . _AM_TDMDOWNLOADS_KBYTES . ']',
-                            _AM_TDMDOWNLOADS_MBYTES => '[' . _AM_TDMDOWNLOADS_MBYTES . ']',
-                            _AM_TDMDOWNLOADS_GBYTES => '[' . _AM_TDMDOWNLOADS_GBYTES . ']',
-                            _AM_TDMDOWNLOADS_TBYTES => '[' . _AM_TDMDOWNLOADS_TBYTES . ']',
-                        ];
-                        $type->addOptionArray($typeArray);
-                        $aff_size->addElement($type);
-                        $form->addElement($aff_size);
+						$size_value_arr = explode(' ', $viewDownloads->getVar('size'));
+						$aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
+						$aff_size->addElement(new \XoopsFormText('', 'sizeValue', 13, 13, $size_value_arr[0]));
+						if (array_key_exists (1, $size_value_arr) == false){
+							$size_value_arr[1] = 'K';
+						}
+						$type     = new \XoopsFormSelect('', 'sizeType', $size_value_arr[1]);
+						$typeArray = [
+							'B' => _AM_TDMDOWNLOADS_BYTES,
+							'K' => _AM_TDMDOWNLOADS_KBYTES,
+							'M' => _AM_TDMDOWNLOADS_MBYTES,
+							'G' => _AM_TDMDOWNLOADS_GBYTES,
+							'T' => _AM_TDMDOWNLOADS_TBYTES
+						];
+						$type->addOptionArray($typeArray);
+						$aff_size->addElement($type);
+						$form->addElement($aff_size);
                     } else {
                         $form->addElement(new \XoopsFormHidden('size', ''));
                         $form->addElement(new \XoopsFormHidden('type_size', ''));

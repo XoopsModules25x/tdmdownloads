@@ -145,7 +145,6 @@ foreach (array_keys($downloads_field) as $i) {
                 $lid_arr[] = $dataArray[$k]->getVar('lid');
             }
         }
-        $form->addElement($select_sup);
     }
     if (count($lid_arr) > 0) {
         $criteria_2->add(new \Criteria('lid', '(' . implode(',', $lid_arr) . ')', 'IN'));
@@ -214,6 +213,7 @@ $downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
 $downloadsHandler->field_object = 'cid'; // champ de la table courante
 $tdmdownloadsArray = $downloadsHandler->getByLink($criteria_2);
 if ($numrows > $limit) {
+    require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
     $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', $arguments);
     $pagenav = $pagenav->renderNav(4);
 } else {
