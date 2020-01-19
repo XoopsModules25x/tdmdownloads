@@ -1,0 +1,294 @@
+tdmdownloads_broken:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: reportid
+            attributes: ' int(5)  NOT NULL auto_increment'
+        -
+            name: lid
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: sender
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: ip
+            attributes: ' varchar(20)  NOT NULL  DEFAULT '''' '
+    keys:
+        ip:
+            columns: ip
+            unique: false
+        lid:
+            columns: lid
+            unique: false
+        PRIMARY:
+            columns: reportid
+            unique: true
+        sender:
+            columns: sender
+            unique: false
+tdmdownloads_cat:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: cat_cid
+            attributes: ' int(5) unsigned  NOT NULL auto_increment'
+        -
+            name: cat_pid
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: cat_title
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: cat_imgurl
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: cat_description_main
+            attributes: ' text  NOT NULL '
+        -
+            name: cat_weight
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        cat_pid:
+            columns: cat_pid
+            unique: false
+        PRIMARY:
+            columns: cat_cid
+            unique: true
+tdmdownloads_downloads:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: lid
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: cid
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: title
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: url
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: homepage
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: version
+            attributes: ' varchar(20)  NOT NULL  DEFAULT '''' '
+        -
+            name: size
+            attributes: ' varchar(15)  NOT NULL  DEFAULT '''' '
+        -
+            name: platform
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: description
+            attributes: ' text  NOT NULL '
+        -
+            name: logourl
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: submitter
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: status
+            attributes: ' tinyint(2)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: date
+            attributes: ' int(10)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: hits
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: rating
+            attributes: ' double(6,4)  NOT NULL  DEFAULT ''0.0000'' '
+        -
+            name: votes
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: comments
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: top
+            attributes: ' tinyint(2)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: paypal
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+    keys:
+        cid:
+            columns: cid
+            unique: false
+        PRIMARY:
+            columns: lid
+            unique: true
+        status:
+            columns: status
+            unique: false
+        title:
+            columns: 'title (40)'
+            unique: false
+tdmdownloads_mod:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: requestid
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: lid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: cid
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: title
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: url
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: homepage
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: version
+            attributes: ' varchar(20)  NOT NULL  DEFAULT '''' '
+        -
+            name: size
+            attributes: ' varchar(15)  NOT NULL  DEFAULT '''' '
+        -
+            name: platform
+            attributes: ' varchar(50)  NOT NULL  DEFAULT '''' '
+        -
+            name: logourl
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: description
+            attributes: ' text  NOT NULL '
+        -
+            name: modifysubmitter
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: requestid
+            unique: true
+tdmdownloads_votedata:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: ratingid
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: lid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: ratinguser
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: rating
+            attributes: ' tinyint(3) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: ratinghostname
+            attributes: ' varchar(60)  NOT NULL  DEFAULT '''' '
+        -
+            name: ratingtimestamp
+            attributes: ' int(10)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        lid:
+            columns: lid
+            unique: false
+        PRIMARY:
+            columns: ratingid
+            unique: true
+        ratinghostname:
+            columns: ratinghostname
+            unique: false
+        ratinguser:
+            columns: ratinguser
+            unique: false
+tdmdownloads_field:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: fid
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: title
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: img
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+        -
+            name: weight
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: status
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: search
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: status_def
+            attributes: ' int(5) unsigned  NOT NULL  DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: fid
+            unique: true
+tdmdownloads_fielddata:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: iddata
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: fid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: lid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: data
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+    keys:
+        PRIMARY:
+            columns: iddata
+            unique: true
+tdmdownloads_modfielddata:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: modiddata
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: fid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: lid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: moddata
+            attributes: ' varchar(255)  NOT NULL  DEFAULT '''' '
+    keys:
+        PRIMARY:
+            columns: modiddata
+            unique: true
+tdmdownloads_downlimit:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: downlimit_id
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: downlimit_lid
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: downlimit_uid
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: downlimit_hostname
+            attributes: ' varchar(60)  NOT NULL  DEFAULT '''' '
+        -
+            name: downlimit_date
+            attributes: ' int(10)  NOT NULL  DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: downlimit_id
+            unique: true

@@ -343,7 +343,7 @@ class Utility
      * @param string $prefix
      * @return string
      */
-    public function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
+    public static function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
         /** @var \XoopsObjectTree $mytree */
         $categoryParent = $mytree->getAllParent($key);
@@ -375,7 +375,7 @@ class Utility
      * @param bool                            $lasturl
      * @return string
      */
-    public function getPathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
+    public static function getPathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
     {
         global $xoopsModule;
         $categoryParent = $mytree->getAllParent($key);
@@ -423,5 +423,26 @@ class Utility
         }
 
         return $path;
+    }
+
+    /**
+     * @param $val
+     * @return float|int
+     */
+    public static function returnBytes($val)
+    {
+        switch (mb_substr($val, -1)) {
+            case 'K':
+            case 'k':
+                return (int)$val * 1024;
+            case 'M':
+            case 'm':
+                return (int)$val * 1048576;
+            case 'G':
+            case 'g':
+                return (int)$val * 1073741824;
+            default:
+                return $val;
+        }
     }
 }

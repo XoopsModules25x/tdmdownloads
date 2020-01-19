@@ -21,6 +21,7 @@ $moduleDirName = basename(__DIR__);
 xoops_load('xoopseditorhandler');
 $editorHandler = \XoopsEditorHandler::getInstance();
 $xoopsUrl = parse_url(XOOPS_URL);
+$utility = new \XoopsModules\Tdmdownloads\Utility();
 
 $modversion = [
     'name' => _MI_TDMDOWNLOADS_NAME,
@@ -28,8 +29,8 @@ $modversion = [
     'module_status' => 'Beta 1',
     'release_date' => '2019/01/12',
     'description' => _MI_TDMDOWNLOADS_DESC,
-    'credits' => 'G. Mage, Mamba, Goffy',
-    'author' => 'G. Mage',
+    'credits' => 'Mage, Mamba, Goffy',
+    'author' => 'Mage',
     'nickname' => 'Mage',
     'module_website_url' => 'www.xoops.org',
     'module_website_name' => 'Support site',
@@ -542,8 +543,8 @@ $modversion['config'][] = [
     'default' => 'downloads_',
 ];
 
-$iniPostMaxSize = returnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize = returnBytes(ini_get('upload_max_filesize'));
+$iniPostMaxSize = $utility::returnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize = $utility::returnBytes(ini_get('upload_max_filesize'));
 $optionMaxsize = [];
 for ($i = 1; ; $i++) {
     if (min($iniPostMaxSize, $iniUploadMaxFileSize) < $i * 1048576) {
@@ -884,19 +885,19 @@ $modversion['notification']['event'][] = [
  * @param $val
  * @return float|int
  */
-function returnBytes($val)
-{
-    switch (mb_substr($val, -1)) {
-        case 'K':
-        case 'k':
-            return (int)$val * 1024;
-        case 'M':
-        case 'm':
-            return (int)$val * 1048576;
-        case 'G':
-        case 'g':
-            return (int)$val * 1073741824;
-        default:
-            return $val;
-    }
-}
+//function returnBytes($val)
+//{
+//    switch (mb_substr($val, -1)) {
+//        case 'K':
+//        case 'k':
+//            return (int)$val * 1024;
+//        case 'M':
+//        case 'm':
+//            return (int)$val * 1048576;
+//        case 'G':
+//        case 'g':
+//            return (int)$val * 1073741824;
+//        default:
+//            return $val;
+//    }
+//}

@@ -49,7 +49,7 @@ switch ($op) {
         if (1 == $statusMenu) {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
 
-            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD, '../upload.php?op=list&amp;alb_id=' . $albId, 'add');
+            $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD, '../upload.php?op=list&amp;cat_cid=' . $catId, 'add');
 
             if (0 == $downloads_waiting) {
                 $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_WAIT, 'downloads.php?op=list&statut_display=0', 'add');
