@@ -14,6 +14,7 @@
  * @author      Gregory Mage (Aka Mage)
  */
 require_once __DIR__ . '/header.php';
+$xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 global $xoopsModuleConfig;
