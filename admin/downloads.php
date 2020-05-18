@@ -523,7 +523,7 @@ switch ($op) {
         $download['date']      = formatTimestamp($viewDownloads->getVar('date'));
         $download['submitter'] = XoopsUser::getUnameFromId($viewDownloads->getVar('submitter'));
         $download['hits']      = $viewDownloads->getVar('hits');
-        $download['rating']    = number_format($viewDownloads->getVar('rating'), 1);
+        $download['rating']    = number_format((float)$viewDownloads->getVar('rating'), 1);
         $download['votes']     = $viewDownloads->getVar('votes');
 
         if (true === $helper->getConfig('use_paypal') && '' !== $viewDownloads->getVar('paypal')) {
@@ -608,7 +608,7 @@ switch ($op) {
 
                 $rating = $ratingTotal / $votesTotal;
 
-                $obj->setVar('rating', number_format($rating, 1));
+                $obj->setVar('rating', number_format((float)$rating, 1));
 
                 $obj->setVar('votes', $votesTotal);
 

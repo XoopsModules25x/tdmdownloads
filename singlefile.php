@@ -121,7 +121,7 @@ $xoopsTpl->assign('adminlink', $adminlink);
 $xoopsTpl->assign('date', formatTimestamp($viewDownloads->getVar('date'), 's'));
 $xoopsTpl->assign('author', \XoopsUser::getUnameFromId($viewDownloads->getVar('submitter')));
 $xoopsTpl->assign('hits', sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_NBTELECH, $viewDownloads->getVar('hits')));
-$xoopsTpl->assign('rating', number_format($viewDownloads->getVar('rating'), 1));
+$xoopsTpl->assign('rating', number_format((float)$viewDownloads->getVar('rating'), 1));
 $xoopsTpl->assign('votes', sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_VOTES, $viewDownloads->getVar('votes')));
 $xoopsTpl->assign('nb_comments', sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_COMMENTS, $viewDownloads->getVar('comments')));
 $xoopsTpl->assign('show_bookmark', $helper->getConfig('show_bookmark'));

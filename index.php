@@ -198,7 +198,7 @@ if (1 == $helper->getConfig('blrating')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
 
-        $rating = number_format($downloads_arr_rating[$i]->getVar('rating'), 1);
+        $rating = number_format((float)$downloads_arr_rating[$i]->getVar('rating'), 1);
 
         $xoopsTpl->append(
             'bl_rating',
@@ -212,7 +212,7 @@ if (1 == $helper->getConfig('blrating')) {
     }
 }
 $bl_affichage = 1;
-if (0 == $helper->getConfig('bldate') && 0 == $helper->getConfig('blpop') && 0 == $helper->getConfig('blrating')) {
+if (0 === $helper->getConfig('bldate') && 0 === $helper->getConfig('blpop') && 0 === $helper->getConfig('blrating')) {
     $bl_affichage = 0;
 }
 $xoopsTpl->assign('bl_affichage', $bl_affichage);

@@ -233,7 +233,7 @@ if (1 == $helper->getConfig('blrating')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
 
-        $rating = number_format($downloadsArray[$i]->getVar('rating'), 1);
+        $rating = number_format((float)$downloadsArray[$i]->getVar('rating'), 1);
 
         $xoopsTpl->append(
             'bl_rating',
@@ -422,7 +422,7 @@ if ($helper->getConfig('perpage') > 0) {
                 'id'                => $downloadsArray[$i]->getVar('lid'),
                 'cid'               => $downloadsArray[$i]->getVar('cid'),
                 'title'             => $downloadsArray[$i]->getVar('title'),
-                'rating'            => number_format($downloadsArray[$i]->getVar('rating'), 1),
+                'rating'            => number_format((float)$downloadsArray[$i]->getVar('rating'), 1),
                 'hits'              => $downloadsArray[$i]->getVar('hits'),
                 'new'               => $new,
                 'pop'               => $pop,

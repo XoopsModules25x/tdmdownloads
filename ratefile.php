@@ -176,7 +176,7 @@ switch ($op) {
 
                 $objdownloads = $downloadsHandler->get($lid);
 
-                $objdownloads->setVar('rating', number_format($rating, 1));
+                $objdownloads->setVar('rating', number_format((float)$rating, 1));
 
                 $objdownloads->setVar('votes', $votesTotal);
 

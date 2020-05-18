@@ -293,7 +293,7 @@ foreach (array_keys($tdmdownloadsArray) as $i) {
 
     $tdmdownloadsTab['date'] = formatTimestamp($tdmdownloadsArray[$i]->getVar('date'), 'd/m/Y');
 
-    $tdmdownloadsTab['rating'] = number_format($tdmdownloadsArray[$i]->getVar('rating'), 0);
+    $tdmdownloadsTab['rating'] = number_format((float)$tdmdownloadsArray[$i]->getVar('rating'), 0);
 
     $tdmdownloadsTab['hits'] = $tdmdownloadsArray[$i]->getVar('hits');
 
