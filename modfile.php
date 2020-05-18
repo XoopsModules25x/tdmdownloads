@@ -319,7 +319,7 @@ switch ($op) {
 
                 $notificationHandler->triggerEvent('global', 0, 'file_modify', $tags);
 
-                redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'), timeToRedirect, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO . '<br><br>' . $error_message);
+                redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST'), $timeToRedirect, _MD_TDMDOWNLOADS_MODFILE_THANKSFORINFO . '<br><br>' . $error_message);
             }
 
             echo $obj->getHtmlErrors();
