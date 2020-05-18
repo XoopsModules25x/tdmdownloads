@@ -267,7 +267,7 @@ class Downloads extends \XoopsObject
             $imageselect    = new \XoopsFormSelect($imgpath, 'logo_img', $categoryImage);
             $topics_array   = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
             foreach ($topics_array as $image) {
-                $imageselect->addOption((string)$image, $image);
+                $imageselect->addOption($image, $image);
             }
             $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"logo_img\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
             $imgtray->addElement($imageselect, false);
