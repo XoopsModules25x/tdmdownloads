@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -15,9 +15,6 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-use XoopsModules\Tdmdownloads;
-use XoopsModules\Tdmdownloads\Utility;
-
 /**
  * Prepares system prior to attempting to install module
  * @param \XoopsModule $module {@link XoopsModule}
@@ -27,19 +24,24 @@ use XoopsModules\Tdmdownloads\Utility;
 function xoops_module_pre_install_tdmdownloads(\XoopsModule $module)
 {
     require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+
     require_once __DIR__ . '/common.php';
 
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
+
     $utility = new \XoopsModules\Tdmdownloads\Utility();
 
     $xoopsSuccess0 = $utility::checkVerXoops($module);
-    $xoopsSuccess  = $utility::checkVerXoops($module);
+
+    $xoopsSuccess = $utility::checkVerXoops($module);
 
     $phpSuccess0 = $utility::checkVerPhp($module);
-    $phpSuccess  = $utility::checkVerPhp($module);
 
-    if (false !== $xoopsSuccess && false !== $phpSuccess) {
+    $phpSuccess = $utility::checkVerPhp($module);
+
+    if ($xoopsSuccess && $phpSuccess) {
         $mod_tables = &$module->getInfo('tables');
+
         foreach ($mod_tables as $table) {
             $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
         }
@@ -47,127 +49,196 @@ function xoops_module_pre_install_tdmdownloads(\XoopsModule $module)
 
     return $xoopsSuccess && $phpSuccess;
 }
+
 /**
  * @return bool
  */
 function xoops_module_install_tdmdownloads()
 {
     global $xoopsModule, $xoopsConfig, $xoopsDB;
+
     $moduleDirName = basename(dirname(__DIR__));
 
     $namemodule = $moduleDirName;
+
     if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
         require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
         require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';
     }
+
     $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-    $obj          = $fieldHandler->create();
+
+    $obj = $fieldHandler->create();
+
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMHOMEPAGE);
+
     $obj->setVar('img', 'homepage.png');
+
     $obj->setVar('weight', 1);
+
     $obj->setVar('search', 0);
+
     $obj->setVar('status', 1);
+
     $obj->setVar('status_def', 1);
+
     $fieldHandler->insert($obj);
+
     $obj = $fieldHandler->create();
+
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMVERSION);
+
     $obj->setVar('img', 'version.png');
+
     $obj->setVar('weight', 2);
+
     $obj->setVar('search', 0);
+
     $obj->setVar('status', 1);
+
     $obj->setVar('status_def', 1);
+
     $fieldHandler->insert($obj);
+
     $obj = $fieldHandler->create();
+
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMSIZE);
+
     $obj->setVar('img', 'size.png');
+
     $obj->setVar('weight', 3);
+
     $obj->setVar('search', 0);
+
     $obj->setVar('status', 1);
+
     $obj->setVar('status_def', 1);
+
     $fieldHandler->insert($obj);
+
     $obj = $fieldHandler->create();
+
     $obj->setVar('title', _AM_TDMDOWNLOADS_FORMPLATFORM);
+
     $obj->setVar('img', 'platform.png');
+
     $obj->setVar('weight', 4);
+
     $obj->setVar('search', 0);
+
     $obj->setVar('status', 1);
+
     $obj->setVar('status_def', 1);
+
     $fieldHandler->insert($obj);
 
     //File creation ".$namemodule."/
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //File creation ".$namemodule."/images/
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //File creation ".$namemodule."/images/cat
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //File creation ".$namemodule."/images/shots
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //File creation ".$namemodule."/images/field
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //File creation ".$namemodule."/downloads
+
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads';
+
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $dir));
         }
     }
+
     chmod($dir, 0777);
 
     //Copy index.html
+
     $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.html';
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.html');
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/index.html');
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/index.html');
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/index.html');
+
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads/index.html');
 
     //Copy blank.gif
+
     $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';
+
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/blank.gif');
+
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/blank.gif');
+
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/blank.gif');
 
     //Copy images for fields
+
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
+
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
+
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');
+
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/platform.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/platform.png');
 
     return true;

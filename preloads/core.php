@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /*
  You may not change or alter any portion of this comment or credits
  of supporting developers from this source code or any supporting source code
@@ -14,13 +15,13 @@
  * @license         GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          XOOPS Project <www.xoops.org> <www.xoops.ir>
  */
+
 /**
  * Class TdmdownloadsCorePreload
  */
 class TdmdownloadsCorePreload extends \XoopsPreloadItem
 {
     // to add PSR-4 autoloader
-
     /**
      * @param $args
      */

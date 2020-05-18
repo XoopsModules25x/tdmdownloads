@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -86,32 +86,49 @@ switch ($op) {
         // si c'est un membre on vérifie qu'il ne vote pas pour son fichier
         if (0 !== $ratinguser) {
             $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', $lid));
+
             $downloadsArray = $downloadsHandler->getAll($criteria);
+
             foreach (array_keys($downloadsArray) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
+
                 if ($downloadsArray[$i]->getVar('submitter') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_CANTVOTEOWN);
                 }
             }
+
             // si c'est un membre on vérifie qu'il ne vote pas 2 fois
+
             $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', $lid));
+
             $votesArray = $ratingHandler->getAll($criteria);
+
             foreach (array_keys($votesArray) as $i) {
                 /** @var \XoopsModules\Wfdownloads\Rating[] $votesArray */
+
                 if ($votesArray[$i]->getVar('ratinguser') === $ratinguser) {
                     redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
                 }
             }
         } else {
             // si c'est un utilisateur anonyme on vérifie qu'il ne vote pas 2 fois par jour
-            $yesterday = (time() - 86400);
-            $criteria  = new \CriteriaCompo();
+
+            $yesterday = time() - 86400;
+
+            $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', $lid));
+
             $criteria->add(new \Criteria('ratinguser', 0));
+
             $criteria->add(new \Criteria('ratinghostname', getenv('REMOTE_ADDR')));
+
             $criteria->add(new \Criteria('ratingtimestamp', $yesterday, '>'));
+
             if ($ratingHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
             }
@@ -122,13 +139,15 @@ switch ($op) {
         $rating = \Xmf\Request::getInt('rating', 0, 'POST');
         if ($rating < 0 || $rating > 10) {
             $errorMessage .= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
-            $erreur       = true;
+
+            $erreur = true;
         }
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur       = true;
+
+            $erreur = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('ratinguser', $ratinguser);
@@ -140,22 +159,34 @@ switch ($op) {
         } else {
             if ($ratingHandler->insert($obj)) {
                 $criteria = new \CriteriaCompo();
+
                 $criteria->add(new \Criteria('lid', $lid));
-                $votesArray  = $ratingHandler->getAll($criteria);
-                $votesTotal  = $ratingHandler->getCount($criteria);
+
+                $votesArray = $ratingHandler->getAll($criteria);
+
+                $votesTotal = $ratingHandler->getCount($criteria);
+
                 $ratingTotal = 0;
+
                 foreach (array_keys($votesArray) as $i) {
                     $ratingTotal += $votesArray[$i]->getVar('rating');
                 }
-                $rating       = $ratingTotal / $votesTotal;
+
+                $rating = $ratingTotal / $votesTotal;
+
                 $objdownloads = $downloadsHandler->get($lid);
+
                 $objdownloads->setVar('rating', number_format($rating, 1));
+
                 $objdownloads->setVar('votes', $votesTotal);
+
                 if ($downloadsHandler->insert($objdownloads)) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEOK);
                 }
+
                 echo $objdownloads->getHtmlErrors();
             }
+
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements

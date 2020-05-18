@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -19,17 +19,19 @@ class Utilities
 {
     protected $db;
     protected $helper;
-
     /**
-     * @param \XoopsDatabase|null $db
-     * @param                     $helper
-     * @param mixed               $permtype
-     * @param mixed               $dirname
+     * @param mixed $permtype
+     * @param mixed $dirname
      */
+
     //    public static function __construct(\XoopsDatabase $db = null, $helper = null)
+
     //    {
+
     //        $this->db     = $db;
+
     //        $this->helper = $helper;
+
     //    }
 
     /**
@@ -40,17 +42,22 @@ class Utilities
     public static function getItemIds($permtype, $dirname)
     {
         global $xoopsUser;
+
         $permissions = [];
+
         if (\is_array($permissions) && \array_key_exists($permtype, $permissions)) {
             return $permissions[$permtype];
         }
-        $moduleHandler    = \xoops_getHandler('module');
-        $tdmModule        = $moduleHandler->getByDirname($dirname);
-        $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $grouppermHandler = \xoops_getHandler('groupperm');
-        $categories       = $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
 
-        return $categories;
+        $moduleHandler = \xoops_getHandler('module');
+
+        $tdmModule = $moduleHandler->getByDirname($dirname);
+
+        $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+
+        $grouppermHandler = \xoops_getHandler('groupperm');
+
+        return $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
     }
 
     /**
@@ -65,14 +72,18 @@ class Utilities
      */
     public static function getNumbersOfEntries($mytree, $categories, $entries, $cid)
     {
-        $count     = 0;
+        $count = 0;
+
         $child_arr = [];
+
         if (\in_array($cid, $categories)) {
             $child = $mytree->getAllChild($cid);
+
             foreach (\array_keys($entries) as $i) {
                 if ($entries[$i]->getVar('cid') === $cid) {
                     ++$count;
                 }
+
                 foreach (\array_keys($child) as $j) {
                     if ($entries[$i]->getVar('cid') === $j) {
                         ++$count;
@@ -93,20 +104,29 @@ class Utilities
     public static function getStatusImage($time, $status)
     {
         $moduleDirName = \basename(\dirname(__DIR__));
+
         /** @var Tdmdownloads\Helper $helper */
+
         $helper = Tdmdownloads\Helper::getInstance();
 
-        $count     = 7;
-        $new       = '';
-        $startdate = (\time() - (86400 * $count));
+        $count = 7;
+
+        $new = '';
+
+        $startdate = \time() - (86400 * $count);
+
         if (1 == $helper->getConfig('showupdated')) {
             if ($startdate < $time) {
                 $language = $GLOBALS['xoopsConfig']['language'];
+
                 if (!\is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
                     $language = 'english';
                 }
+
                 $img_path = XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/';
-                $img_url  = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
+
+                $img_url = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
+
                 if (1 == $status) {
                     if (\is_readable($img_path . 'new.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
@@ -134,17 +154,24 @@ class Utilities
     public static function getPopularImage($hits)
     {
         /** @var Tdmdownloads\Helper $helper */
+
         $helper = Tdmdownloads\Helper::getInstance();
 
         $moduleDirName = \basename(\dirname(__DIR__));
-        $pop           = '';
+
+        $pop = '';
+
         if ($hits >= $helper->getConfig('popular')) {
             $language = $GLOBALS['xoopsConfig']['language'];
+
             if (!\is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
                 $language = 'english';
             }
+
             $img_path = XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/';
-            $img_url  = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
+
+            $img_url = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
+
             if (\is_readable($img_path . 'popular.png')) {
                 $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             } else {
@@ -156,7 +183,6 @@ class Utilities
     }
 
     /**
-     * @param       $size
      * @param mixed $global
      * @param mixed $key
      * @param mixed $default
@@ -164,22 +190,37 @@ class Utilities
      *
      * @return string
      */
+
     //    public static function convertFileSize($size)
+
     //    {
+
     //        if ($size > 0) {
+
     //            $mb = 1024 * 1024;
+
     //            if ($size > $mb) {
+
     //                $mysize = sprintf("%01.2f", $size / $mb) . " MB";
+
     //            } elseif ($size >= 1024) {
+
     //                $mysize = sprintf("%01.2f", $size / 1024) . " KB";
+
     //            } else {
+
     //                $mysize = sprintf(_AM_TDMDOWNLOADS_NUMBYTES, $size);
+
     //            }
-    //
+
     //            return $mysize;
+
     //        } else {
+
     //            return '';
+
     //        }
+
     //    }
 
     /**
@@ -205,6 +246,7 @@ class Utilities
                 $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_NUMBER_INT) : $default;
                 break;
         }
+
         if (false === $ret) {
             return $default;
         }
@@ -224,15 +266,21 @@ class Utilities
     public static function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
         $category_parent = $mytree->getAllParent($key);
+
         $category_parent = \array_reverse($category_parent);
-        $Path            = '';
+
+        $Path = '';
+
         foreach (\array_keys($category_parent) as $j) {
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
         }
+
         $first_category = '';
+
         if (\array_key_exists($key, $category_array)) {
             $first_category = $category_array[$key]->getVar($title);
         }
+
         $Path .= $first_category;
 
         return $Path;
@@ -261,31 +309,38 @@ class Utilities
         $lasturl = false
     ) {
         global $xoopsModule;
+
         $category_parent = $mytree->getAllParent($key);
+
         if ('ASC' === $order) {
             $category_parent = \array_reverse($category_parent);
-            if (true === $link) {
+
+            if ($link) {
                 $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
             } else {
                 $Path = $xoopsModule->name() . $prefix;
             }
         } else {
             $first_category = '';
+
             if (\array_key_exists($key, $category_array)) {
                 $first_category = $category_array[$key]->getVar($title);
             }
+
             $Path = $first_category . $prefix;
         }
+
         foreach (\array_keys($category_parent) as $j) {
-            if (true === $link) {
+            if ($link) {
                 $Path .= '<a href="viewcat.php?cid=' . $category_parent[$j]->getVar('cat_cid') . '">' . $category_parent[$j]->getVar($title) . '</a>' . $prefix;
             } else {
                 $Path .= $category_parent[$j]->getVar($title) . $prefix;
             }
         }
+
         if ('ASC' === $order) {
             if (\array_key_exists($key, $category_array)) {
-                if (true === $lasturl) {
+                if ($lasturl) {
                     $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
                 } else {
                     $first_category = $category_array[$key]->getVar($title);
@@ -293,9 +348,10 @@ class Utilities
             } else {
                 $first_category = '';
             }
+
             $Path .= $first_category;
         } else {
-            if (true === $link) {
+            if ($link) {
                 $Path .= '<a href="index.php">' . $xoopsModule->name() . '</a>';
             } else {
                 $Path .= $xoopsModule->name();
@@ -319,6 +375,7 @@ class Utilities
         }
 
         file_put_contents($path . '/index.html', '<script>history.go(-1);</script>');
+
         if (!empty($fileSource) && !empty($fileTarget)) {
             @\copy($fileSource, $fileTarget);
         }
@@ -335,17 +392,22 @@ class Utilities
     {
         if (\is_dir($pathSource)) {
             // Create new dir
+
             if (!\mkdir($pathTarget) && !\is_dir($pathTarget)) {
                 throw new \RuntimeException(\sprintf('Unable to create the %s directory', $pathTarget));
             }
+
             // check all files in dir, and process it
+
             $handle = \opendir($pathSource);
+
             if ($handle) {
                 while ($file = \readdir($handle)) {
                     if ('.' !== $file && '..' !== $file) {
                         self::cloneFolder("$pathSource/$file", "$pathTarget/$file");
                     }
                 }
+
                 \closedir($handle);
             }
         } else {
@@ -365,6 +427,7 @@ class Utilities
         if (!@\mkdir($folder) && !\is_dir($folder)) {
             throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
         }
+
         file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
     }
 }

@@ -3,7 +3,8 @@
 <{/if}>
 <br>
 <{if $xoops_isadmin}>
-   <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MD_TDMDOWNLOADS_ADMIN}></a></div><br>
+    <div class="text-center bold"><a href="<{$admin}>"><{$smarty.const._MD_TDMDOWNLOADS_ADMIN}></a></div>
+    <br>
 <{/if}>
 <div class="pad2 marg2">
     <{if $comment_mode == "flat"}>
@@ -19,5 +20,5 @@
 <{include file='db:system_notification_select.tpl'}>
 <div class='clear spacer'></div>
 <{if $copyright}>
-<div class="pull-left"><{$copyright}></div>
+    <div class="pull-left"><{$copyright}></div>
 <{/if}>

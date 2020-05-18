@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -13,6 +14,5 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Hossein Azizabadi (Aka Voltan)
  */
-
 require __DIR__ . '/header.php';
 require XOOPS_ROOT_PATH . '/modules/tag/list.tag.php';

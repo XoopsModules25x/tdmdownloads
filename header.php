@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -13,7 +14,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $moduleDirName      = basename(__DIR__);
@@ -49,6 +49,7 @@ $helper->loadLanguage('admin');
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require $GLOBALS['xoops']->path('class/template.php');
+
     $xoopsTpl = new XoopsTpl();
 }
 

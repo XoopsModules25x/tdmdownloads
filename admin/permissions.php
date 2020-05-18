@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -62,10 +62,12 @@ switch ($permission) {
         $formTitle = _AM_TDMDOWNLOADS_PERM_DOWNLOAD;
         if (1 == $helper->getConfig('permission_download')) {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC;
-            $permissionName        = 'tdmdownloads_download';
+
+            $permissionName = 'tdmdownloads_download';
         } else {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC2;
-            $permissionName        = 'tdmdownloads_download_item';
+
+            $permissionName = 'tdmdownloads_download_item';
         }
         break;
     case 4:
@@ -89,16 +91,20 @@ if (4 === $permission) {
     }
 } else {
     if (3 === $permission && 2 === $helper->getConfig('permission_download')) {
-        $sql    = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
+        $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
+
         $result = $xoopsDB->query($sql);
+
         if ($result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['lid'], $row['title']);
             }
         }
     } else {
-        $sql    = 'SELECT cat_cid, cat_pid, cat_title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' ORDER BY cat_title';
+        $sql = 'SELECT cat_cid, cat_pid, cat_title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' ORDER BY cat_title';
+
         $result = $xoopsDB->query($sql);
+
         if ($result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['cat_cid'], $row['cat_title'], $row['cat_pid']);

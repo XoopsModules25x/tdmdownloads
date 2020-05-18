@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -49,23 +49,36 @@ $count    = 1;
 $keywords = '';
 foreach (array_keys($downloadscatArray) as $i) {
     /** @var \XoopsModules\Tdmdownloads\Category[] $downloadscatArray */
+
     if (0 === $downloadscatArray[$i]->getVar('cat_pid')) {
-        $totaldownloads    = $utility->getNumbersOfEntries($mytree, $categories, $downloadsArray, $downloadscatArray[$i]->getVar('cat_cid'));
+        $totaldownloads = $utility->getNumbersOfEntries($mytree, $categories, $downloadsArray, $downloadscatArray[$i]->getVar('cat_cid'));
+
         $subcategories_arr = $mytree->getFirstChild($downloadscatArray[$i]->getVar('cat_cid'));
-        $chcount           = 0;
-        $subcategories     = '';
+
+        $chcount = 0;
+
+        $subcategories = '';
+
         //pour les mots clef
+
         $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
+
         foreach (array_keys($subcategories_arr) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $subcategories_arr */
+
             if ($chcount >= $helper->getConfig('nbsouscat')) {
                 $subcategories .= '<li>[<a href="' . XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $downloadscatArray[$i]->getVar('cat_cid') . '">+</a>]</li>';
+
                 break;
             }
+
             $subcategories .= '<li><a href="' . XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . $subcategories_arr[$j]->getVar('cat_cid') . '">' . $subcategories_arr[$j]->getVar('cat_title') . '</a></li>';
-            $keywords      .= $downloadscatArray[$i]->getVar('cat_title') . ',';
+
+            $keywords .= $downloadscatArray[$i]->getVar('cat_title') . ',';
+
             ++$chcount;
         }
+
         $xoopsTpl->append(
             'categories',
             [
@@ -79,6 +92,7 @@ foreach (array_keys($downloadscatArray) as $i) {
                 'count'            => $count,
             ]
         );
+
         ++$count;
     }
 }
@@ -88,19 +102,30 @@ foreach (array_keys($downloadscatArray) as $i) {
 //téléchargements récents
 if (1 == $helper->getConfig('bldate')) {
     $criteria = new \CriteriaCompo();
+
     $criteria->add(new \Criteria('status', 0, '!='));
+
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+
     $criteria->setSort('date');
+
     $criteria->setOrder('DESC');
+
     $criteria->setLimit($helper->getConfig('nbbl'));
+
     $downloads_arr_date = $downloadsHandler->getAll($criteria);
+
     foreach (array_keys($downloads_arr_date) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_date */
+
         $title = $downloads_arr_date[$i]->getVar('title');
+
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
+
         $date = formatTimestamp($downloads_arr_date[$i]->getVar('date'), 's');
+
         $xoopsTpl->append(
             'bl_date',
             [
@@ -115,18 +140,28 @@ if (1 == $helper->getConfig('bldate')) {
 //plus téléchargés
 if (1 == $helper->getConfig('blpop')) {
     $criteria = new \CriteriaCompo();
+
     $criteria->add(new \Criteria('status', 0, '!='));
+
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+
     $criteria->setSort('hits');
+
     $criteria->setOrder('DESC');
+
     $criteria->setLimit($helper->getConfig('nbbl'));
+
     $downloads_arr_hits = $downloadsHandler->getAll($criteria);
+
     foreach (array_keys($downloads_arr_hits) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_hits */
+
         $title = $downloads_arr_hits[$i]->getVar('title');
+
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
+
         $xoopsTpl->append(
             'bl_pop',
             [
@@ -141,19 +176,30 @@ if (1 == $helper->getConfig('blpop')) {
 //mieux notés
 if (1 == $helper->getConfig('blrating')) {
     $criteria = new \CriteriaCompo();
+
     $criteria->add(new \Criteria('status', 0, '!='));
+
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+
     $criteria->setSort('rating');
+
     $criteria->setOrder('DESC');
+
     $criteria->setLimit($helper->getConfig('nbbl'));
+
     $downloads_arr_rating = $downloadsHandler->getAll($criteria);
+
     foreach (array_keys($downloads_arr_rating) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloads_arr_rating */
+
         $title = $downloads_arr_rating[$i]->getVar('title');
+
         if (mb_strlen($title) >= $helper->getConfig('longbl')) {
             $title = mb_substr($title, 0, $helper->getConfig('longbl')) . '...';
         }
+
         $rating = number_format($downloads_arr_rating[$i]->getVar('rating'), 1);
+
         $xoopsTpl->append(
             'bl_rating',
             [
@@ -177,65 +223,112 @@ $xoopsTpl->assign('show_latest_files', $helper->getConfig('show_latest_files'));
 // affichage des téléchargements
 if ($helper->getConfig('newdownloads') > 0) {
     $xoopsTpl->assign('nb_dowcol', $helper->getConfig('nb_dowcol'));
+
     //Utilisation d'une copie d'écran avec la largeur selon les préférences
+
     if (1 == $helper->getConfig('useshots')) {
         $xoopsTpl->assign('shotwidth', $helper->getConfig('shotwidth'));
+
         $xoopsTpl->assign('show_screenshot', true);
+
         $xoopsTpl->assign('img_float', $helper->getConfig('img_float'));
     }
+
     $criteria = new \CriteriaCompo();
+
     $criteria->add(new \Criteria('status', 0, '!='));
+
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
+
     $criteria->setLimit($helper->getConfig('newdownloads'));
-    $tblsort     = [];
-    $tblsort[1]  = 'date';
-    $tblsort[2]  = 'date';
-    $tblsort[3]  = 'hits';
-    $tblsort[4]  = 'hits';
-    $tblsort[5]  = 'rating';
-    $tblsort[6]  = 'rating';
-    $tblsort[7]  = 'title';
-    $tblsort[8]  = 'title';
-    $tblorder    = [];
+
+    $tblsort = [];
+
+    $tblsort[1] = 'date';
+
+    $tblsort[2] = 'date';
+
+    $tblsort[3] = 'hits';
+
+    $tblsort[4] = 'hits';
+
+    $tblsort[5] = 'rating';
+
+    $tblsort[6] = 'rating';
+
+    $tblsort[7] = 'title';
+
+    $tblsort[8] = 'title';
+
+    $tblorder = [];
+
     $tblorder[1] = 'DESC';
+
     $tblorder[2] = 'ASC';
+
     $tblorder[3] = 'DESC';
+
     $tblorder[4] = 'ASC';
+
     $tblorder[5] = 'DESC';
+
     $tblorder[6] = 'ASC';
+
     $tblorder[7] = 'DESC';
+
     $tblorder[8] = 'ASC';
-    $sort        = $helper->getConfig('toporder') ?? 1;
-    $order       = $helper->getConfig('toporder') ?? 1;
+
+    $sort = $helper->getConfig('toporder') ?? 1;
+
+    $order = $helper->getConfig('toporder') ?? 1;
+
     $criteria->setSort($tblsort[$sort]);
+
     $criteria->setOrder($tblorder[$order]);
+
     $downloadsArray = $downloadsHandler->getAll($criteria);
-    $categories     = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
-    $item           = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
-    $count          = 1;
+
+    $categories = $utility->getItemIds('tdmdownloads_download', $moduleDirName);
+
+    $item = $utility->getItemIds('tdmdownloads_download_item', $moduleDirName);
+
+    $count = 1;
+
     foreach (array_keys($downloadsArray) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
+
         if ('blank.gif' === $downloadsArray[$i]->getVar('logourl')) {
             $logourl = '';
         } else {
             $logourl = $downloadsArray[$i]->getVar('logourl');
+
             $logourl = $uploadurl_shots . $logourl;
         }
-        $datetime    = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
-        $submitter   = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
+
+        $datetime = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
+
+        $submitter = \XoopsUser::getUnameFromId($downloadsArray[$i]->getVar('submitter'));
+
         $description = $downloadsArray[$i]->getVar('description');
+
         //permet d'afficher uniquement la description courte
+
         if (false === mb_strpos($description, '[pagebreak]')) {
             $descriptionShort = $description;
         } else {
             $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
+
         // pour les vignettes "new" et "mis à jour"
+
         $new = $utility->getStatusImage($downloadsArray[$i]->getVar('date'), $downloadsArray[$i]->getVar('status'));
+
         $pop = $utility->getPopularImage($downloadsArray[$i]->getVar('hits'));
 
         // Défini si la personne est un admin
+
         $adminlink = '';
+
         if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
             $adminlink = '<a href="'
                          . XOOPS_URL
@@ -253,9 +346,11 @@ if ($helper->getConfig('newdownloads') > 0) {
                          . _MD_TDMDOWNLOADS_EDITTHISDL
                          . '"></a>';
         }
+
         //permission de télécharger
 
         $downloadPermission = true;
+
         if (1 === $helper->getConfig('permission_download')) {
             if (!in_array($downloadsArray[$i]->getVar('cid'), $categories)) {
                 $downloadPermission = false;
@@ -265,6 +360,7 @@ if ($helper->getConfig('newdownloads') > 0) {
                 $downloadPermission = false;
             }
         }
+
         $xoopsTpl->append(
             'file',
             [
@@ -284,8 +380,11 @@ if ($helper->getConfig('newdownloads') > 0) {
                 'count'             => $count,
             ]
         );
+
         //pour les mots clef
+
         $keywords .= $downloadsArray[$i]->getVar('title') . ',';
+
         ++$count;
     }
 }

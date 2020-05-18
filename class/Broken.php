@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -16,6 +16,7 @@ namespace XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 /**
  * Class Broken
  * @package XoopsModules\Tdmdownloads
@@ -27,12 +28,19 @@ class Broken extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
+
         $this->initVar('reportid', \XOBJ_DTYPE_INT, null, false, 5);
+
         $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+
         $this->initVar('sender', \XOBJ_DTYPE_INT, null, false, 11);
+
         $this->initVar('ip', \XOBJ_DTYPE_TXTBOX, null, false);
+
         //pour les jointures:
+
         $this->initVar('title', \XOBJ_DTYPE_TXTBOX, null, false);
+
         $this->initVar('cid', \XOBJ_DTYPE_INT, null, false, 5);
     }
 
@@ -45,18 +53,27 @@ class Broken extends \XoopsObject
     public function getForm($lid, $action = false)
     {
         //        global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
-        if (false === $action) {
+
+        if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
         }
 
         $form = new \XoopsThemeForm(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'brokenform', 'brokenfile.php', 'post');
+
         $form->setExtra('enctype="multipart/form-data"');
+
         $form->addElement(new \XoopsFormCaptcha(), true);
+
         $form->addElement(new \XoopsFormHidden('op', 'save'));
+
         $form->addElement(new \XoopsFormHidden('lid', $lid));
+
         // Submit button
+
         $buttonTray = new \XoopsFormElementTray(_MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, '', '');
+
         $buttonTray->addElement(new \XoopsFormButton('', 'post', _MD_TDMDOWNLOADS_BROKENFILE_REPORTBROKEN, 'submit'));
+
         $form->addElement($buttonTray);
 
         return $form;

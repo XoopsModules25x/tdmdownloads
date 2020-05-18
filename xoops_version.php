@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -545,7 +545,7 @@ $modversion['config'][] = [
 ];
 
 $iniPostMaxSize       = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize =  \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('upload_max_filesize'));
+$iniUploadMaxFileSize = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('upload_max_filesize'));
 $maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
@@ -578,7 +578,8 @@ $optionMaxsize = [];
 $i             = $increment;
 while ($i * 1048576 <= $maxSize) {
     $optionMaxsize[$i . ' ' . _MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB] = $i * 1048576;
-    $i                                                            += $increment;
+
+    $i += $increment;
 }
 $modversion['config'][] = [
     'name'        => 'maxuploadsize',

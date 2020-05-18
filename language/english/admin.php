@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -188,5 +189,3 @@ define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
 //multi-upload
 define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD', 'New Multi-upload');
-
-

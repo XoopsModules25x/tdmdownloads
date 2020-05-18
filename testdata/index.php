@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -23,7 +24,7 @@ use XoopsModules\Tdmdownloads\Common;
 use XoopsModules\Tdmdownloads\Utility;
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
-require  dirname(__DIR__) . '/preloads/autoloader.php';
+require dirname(__DIR__) . '/preloads/autoloader.php';
 $op                 = Request::getCmd('op', '');
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
@@ -36,9 +37,11 @@ switch ($op) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('../admin/index.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
-        loadSampleData();
+
+            loadSampleData();
         } else {
             xoops_cp_header();
+
             xoops_confirm(
                 [
                     'ok' => 1,
@@ -51,6 +54,7 @@ switch ($op) {
                 ),
                 true
             );
+
             xoops_cp_footer();
         }
         break;
@@ -64,36 +68,50 @@ switch ($op) {
 function loadSampleData()
 {
     global $xoopsConfig;
-    $moduleDirName      = basename(dirname(__DIR__));
+
+    $moduleDirName = basename(dirname(__DIR__));
+
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    $utility            = new Tdmdownloads\Utility();
-    $configurator       = new Common\Configurator();
-    $tables             = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
-    $language           = 'english/';
+
+    $utility = new Tdmdownloads\Utility();
+
+    $configurator = new Common\Configurator();
+
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+
+    $language = 'english/';
+
     if (is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
+
     foreach ($tables as $table) {
         $tabledata = Yaml::readWrapped($language . $table . '.yml');
+
         if (is_array($tabledata)) {
             TableLoad::truncateTable($table);
+
             TableLoad::loadTableFromArray($table, $tabledata);
         }
     }
 
     //  ---  COPY test folder files ---------------
+
     if (is_array($configurator->copyTestFolders)
         && count(
                $configurator->copyTestFolders
            ) > 0) {
         //        $file =  dirname(__DIR__) . '/testdata/images/';
+
         foreach (
             array_keys(
                 $configurator->copyTestFolders
             ) as $i
         ) {
-            $src  = $configurator->copyTestFolders[$i][0];
+            $src = $configurator->copyTestFolders[$i][0];
+
             $dest = $configurator->copyTestFolders[$i][1];
+
             $utility::rcopy($src, $dest);
         }
     }
@@ -104,19 +122,29 @@ function loadSampleData()
 function saveSampleData()
 {
     global $xoopsConfig;
-    $moduleDirName      = basename(dirname(__DIR__));
+
+    $moduleDirName = basename(dirname(__DIR__));
+
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-    $tables             = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
-    $language           = 'english/';
+
+    $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+
+    $language = 'english/';
+
     if (is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
+
     $languageFolder = __DIR__ . '/' . $language;
+
     if (!file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
     }
+
     $exportFolder = $languageFolder . '/Exports-' . date('Y-m-d-H-i-s') . '/';
+
     Utility::createFolder($exportFolder);
+
     foreach ($tables as $table) {
         TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
     }
@@ -126,8 +154,10 @@ function saveSampleData()
 
 function exportSchema()
 {
-        $moduleDirName      = basename(dirname(__DIR__));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirName = basename(dirname(__DIR__));
+
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
     try {
         // TODO set exportSchema
         //        $migrate = new Tdmdownloads\Migrate($moduleDirName);

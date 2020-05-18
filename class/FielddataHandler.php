@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -16,6 +16,7 @@ namespace XoopsModules\Tdmdownloads;
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 /**
  * Class FielddataHandler
  * @package XoopsModules\Tdmdownloads
@@ -26,7 +27,7 @@ class FielddataHandler extends \XoopsPersistableObjectHandler
      * FielddataHandler constructor.
      * @param \XoopsDatabase|null $db
      */
-    public function __construct(\XoopsDatabase $db = null)
+    public function __construct(?\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'tdmdownloads_fielddata', Fielddata::class, 'iddata', 'data');
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -37,16 +37,20 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
             $criteria->setLimit(\Xmf\Request::getInt('limit', 0, 'REQUEST'));
+
             $limit = \Xmf\Request::getInt('limit', 0, 'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
+
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
             $criteria->setStart(\Xmf\Request::getInt('start', 0, 'REQUEST'));
+
             $start = \Xmf\Request::getInt('start', 0, 'REQUEST');
         } else {
             $criteria->setStart(0);
+
             $start = 0;
         }
         $criteria->setSort('reportid');
@@ -60,14 +64,18 @@ switch ($op) {
         $pagenav                     = '';
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
+
             $pagenav = $pagenav->renderNav(4);
         }
         //Affichage du tableau des téléchargements brisés
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('broken_count', $numrows);
+
             $broken = [];
+
             foreach (array_keys($brokenArray) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Broken[] $brokenArray */
+
                 $broken = [
                     'lid'      => $brokenArray[$i]->getVar('lid'),
                     'reportid' => $brokenArray[$i]->getVar('reportid'),
@@ -76,7 +84,9 @@ switch ($op) {
                     'sender'   => \XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
                     'ip'       => $brokenArray[$i]->getVar('ip'),
                 ];
+
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
+
                 unset($broken);
             }
         } else {
@@ -90,17 +100,25 @@ switch ($op) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
+
             if ($brokenHandler->delete($obj)) {
                 redirect_header('broken.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
+
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         } else {
             //Affichage de la partie haute de l'administration de Xoops
+
             xoops_cp_header();
+
             $adminObject = \Xmf\Module\Admin::getInstance();
+
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('broken.php'));
+
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU4, 'broken.php?op=list', 'list');
+
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+
             xoops_confirm(['ok' => 1, 'broken_id' => \Xmf\Request::getInt('broken_id', 0, 'REQUEST'), 'op' => 'del_brokendownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
         }
         break;
@@ -108,9 +126,11 @@ switch ($op) {
 // Local icons path
 if (is_object($helper->getModule())) {
     $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
     $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+
     $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 }
 //Affichage de la partie basse de l'administration de Xoops

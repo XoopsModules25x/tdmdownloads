@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -13,6 +14,5 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 require XOOPS_ROOT_PATH . '/include/notification_update.php';

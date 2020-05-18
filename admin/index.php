@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -85,6 +85,7 @@ $utility = new \XoopsModules\Tdmdownloads\Utility();
 
 foreach (array_keys($configurator->uploadFolders) as $i) {
     $utility::createFolder($configurator->uploadFolders[$i]);
+
     $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
 }
 
@@ -100,13 +101,13 @@ $adminObject->displayNavigation(basename(__FILE__));
 
 if ($helper->getConfig('displaySampleButton')) {
     xoops_loadLanguage('admin/modulesadmin', 'system');
+
     require dirname(__DIR__) . '/testdata/index.php';
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'ADD_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=load', 'add');
 
     $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA'), '__DIR__ . /../../testdata/index.php?op=save', 'add');
     //    $adminObject->addItemButton(constant('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA'), '__DIR__ . /../../testdata/index.php?op=exportschema', 'add');
-
 }
 
 //------------- End Test Data ----------------------------
@@ -118,4 +119,3 @@ $adminObject->displayIndex();
 echo $utility::getServerStats();
 //codeDump(__FILE__);
 require __DIR__ . '/admin_footer.php';
-

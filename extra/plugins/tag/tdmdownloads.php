@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -9,7 +10,6 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @param $items
  *
  * @return bool|null
  * @author      Gregory Mage (Aka Mage)
@@ -29,20 +29,26 @@ function tdmdownloads_tag_iteminfo(&$items)
     }
 
     $items_id = [];
+
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
             $items_id[] = (int)$item_id;
         }
     }
+
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
+
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+
     /** @var \XoopsModules\Tdmdownloads\Downloads $item_obj */
+
     $items_obj = $itemHandler->getObjects(new \Criteria('lid', '(' . implode(', ', $items_id) . ')', 'IN'), true);
 
     foreach (array_keys($items) as $cat_id) {
         foreach (array_keys($items[$cat_id]) as $item_id) {
             if (isset($items_obj[$item_id])) {
-                $item_obj                 = $items_obj[$item_id];
+                $item_obj = $items_obj[$item_id];
+
                 $items[$cat_id][$item_id] = [
                     'title'   => $item_obj->getVar('title'),
                     'uid'     => $item_obj->getVar('submitter'),
@@ -54,6 +60,7 @@ function tdmdownloads_tag_iteminfo(&$items)
             }
         }
     }
+
     unset($items_obj);
 
     return null;
@@ -65,12 +72,16 @@ function tdmdownloads_tag_iteminfo(&$items)
 function tdmdownloads_tag_synchronization($mid)
 {
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
+
     $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+
     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
+
     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
 
     /* clear tag-item links */
-    if (version_compare($GLOBALS['xoopsDB']->getServerVersion(), '4.1.0', 'ge')):
+
+    if (version_compare($GLOBALS['xoopsDB']->getServerVersion(), '4.1.0', 'ge')) :
         $sql = "    DELETE FROM {$linkHandler->table}"
                . '    WHERE '
                . "        tag_modid = {$mid}"
@@ -81,7 +92,7 @@ function tdmdownloads_tag_synchronization($mid)
                . "                WHERE {$itemHandler->table}.status > 0"
                . '            ) '
                . '        )';
-    else:
+    else :
         $sql = "    DELETE {$linkHandler->table} FROM {$linkHandler->table}"
                . "    LEFT JOIN {$itemHandler->table} AS aa ON {$linkHandler->table}.tag_itemid = aa.{$itemHandler->keyName} "
                . '    WHERE '
@@ -91,6 +102,7 @@ function tdmdownloads_tag_synchronization($mid)
                . '            OR aa.status < 1'
                . '        )';
     endif;
+
     if (!$result = $linkHandler->db->queryF($sql)) {
         //xoops_error($linkHandler->db->error());
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -84,21 +84,31 @@ switch ($op) {
         }
         if (0 !== $ratinguser) {
             // si c'est un membre on vérifie qu'il n'envoie pas 2 fois un rapport
+
             $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', $lid));
+
             $brokenArray = $brokenHandler->getAll($criteria);
+
             foreach (array_keys($brokenArray) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Broken[] $brokenArray */
+
                 if ($brokenArray[$i]->getVar('sender') == $ratinguser) {
                     redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
                 }
             }
         } else {
             // si c'est un utilisateur anonyme on vérifie qu'il n'envoie pas 2 fois un rapport
+
             $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', $lid));
+
             $criteria->add(new \Criteria('sender', 0));
+
             $criteria->add(new \Criteria('ip', getenv('REMOTE_ADDR')));
+
             if ($brokenHandler->getCount($criteria) >= 1) {
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_ALREADYREPORTED);
             }
@@ -110,7 +120,8 @@ switch ($op) {
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur       = true;
+
+            $erreur = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('sender', $ratinguser);
@@ -119,13 +130,19 @@ switch ($op) {
             $xoopsTpl->assign('message_erreur', $errorMessage);
         } else {
             if ($brokenHandler->insert($obj)) {
-                $tags                      = [];
+                $tags = [];
+
                 $tags['BROKENREPORTS_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/admin/broken.php';
+
                 /** @var \XoopsNotificationHandler $notificationHandler */
+
                 $notificationHandler = xoops_getHandler('notification');
+
                 $notificationHandler->triggerEvent('global', 0, 'file_broken', $tags);
+
                 redirect_header('singlefile.php?lid=' . $lid, 2, _MD_TDMDOWNLOADS_BROKENFILE_THANKSFORINFO);
             }
+
             echo $obj->getHtmlErrors();
         }
         //Affichage du formulaire de notation des téléchargements

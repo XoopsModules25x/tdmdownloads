@@ -2,7 +2,9 @@
 <div class="center smallsmall italic pad5"><strong>TDMDownloads</strong> <{$smarty.const._AM_TDMDOWNLOADS_MAINTAINEDBY}>
     <a href="https://xoops.org" title="Xoops Support Team" class="tooltip" rel="external">Xoops Support Team</a>
     <{if $latestModRelease}>
-        <br><br><br>
+        <br>
+        <br>
+        <br>
         <{$latestModRelease}>
     <{/if}>
 </div>

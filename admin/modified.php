@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -36,16 +36,20 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
             $criteria->setLimit(\Xmf\Request::getInt('limit', 0, 'REQUEST'));
+
             $limit = \Xmf\Request::getInt('limit', 0, 'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
+
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
             $criteria->setStart(\Xmf\Request::getInt('start', 0, 'REQUEST'));
+
             $start = \Xmf\Request::getInt('start', 0, 'REQUEST');
         } else {
             $criteria->setStart(0);
+
             $start = 0;
         }
         $criteria->setSort('requestid');
@@ -55,6 +59,7 @@ switch ($op) {
         $numrows = $modifiedHandler->getCount(); //Ggoffy
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=liste&limit=' . $limit);
+
             $GLOBALS['xoopsTpl']->assign('pagenav', $pagenav->renderNav(4));
         } else {
             $pagenav = '';
@@ -62,21 +67,30 @@ switch ($op) {
         //Affichage du tableau des téléchargements modifiés
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('modified_count', $numrows);
+
             foreach (array_keys($downloadsmod_arr) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsmod_arr */
+
                 $downloads = $downloadsHandler->get($downloadsmod_arr[$i]->getVar('lid'));
+
                 // pour savoir si le fichier est nouveau
-                $downloads_url    = $downloads->getVar('url');
+
+                $downloads_url = $downloads->getVar('url');
+
                 $moddownloads_url = $downloadsmod_arr[$i]->getVar('url');
-                $new_file         = ($downloads_url != $moddownloads_url);
-                $modified         = [
+
+                $new_file = ($downloads_url != $moddownloads_url);
+
+                $modified = [
                     'lid'             => $downloadsmod_arr[$i]->getVar('lid'),
                     'requestid'       => $downloadsmod_arr[$i]->getVar('requestid'),
                     'new_file'        => $new_file,
                     'download_title'  => $downloads->getVar('title'),
                     'modifysubmitter' => XoopsUser::getUnameFromId($downloadsmod_arr[$i]->getVar('modifysubmitter')),
                 ];
+
                 $GLOBALS['xoopsTpl']->append('modified_list', $modified);
+
                 unset($modified);
             }
         } else {
@@ -131,46 +145,72 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
+
             if (1 == $downloads_field[$i]->getVar('status_def')) {
                 if (1 == $downloads_field[$i]->getVar('fid')) {
                     //page d'accueil
+
                     $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMHOMEPAGE, 'current' => $downloads_homepage, 'modified' => $moddownloads_homepage];
                 }
+
                 if (2 == $downloads_field[$i]->getVar('fid')) {
                     //version
+
                     $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMVERSION, 'current' => $downloads_version, 'modified' => $moddownloads_version];
                 }
+
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
+
                     $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMSIZE, 'current' => $downloads_size, 'modified' => $moddownloads_size];
                 }
+
                 if (4 == $downloads_field[$i]->getVar('fid')) {
                     //plateforme
+
                     $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMPLATFORM, 'current' => $downloads_platform, 'modified' => $moddownloads_platform];
                 }
             } else {
                 //original
-                $contenu  = '';
+
+                $contenu = '';
+
                 $criteria = new \CriteriaCompo();
+
                 $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('downloads_lid', 0, 'REQUEST')));
+
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
+
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
+
                 foreach (array_keys($downloadsfielddata) as $j) {
                     /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
+
                     //                    $contenu = $downloadsfielddata[$j]->getVar('data');
+
                     $contenu = $downloadsfielddata[$j]->getVar('data', 'e');
                 }
+
                 //proposé
+
                 $contentModified = '';
-                $criteria        = new \CriteriaCompo();
+
+                $criteria = new \CriteriaCompo();
+
                 $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
+
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
+
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
+
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsfieldmoddata */
+
                     $contentModified = $downloadsfieldmoddata[$j]->getVar('moddata', 'e');
                 }
+
                 //                echo '<tr><td valign="top" width="40%"><small><span class="' . ($contenu == $contentModified ? 'style_ide' : 'style_dif') . '">' . $downloads_field[$i]->getVar('title') . '</span>: ' . $contentModified . '</small></td></tr>';
+
                 $compare['cfields'][] = ['info' => $downloads_field[$i]->getVar('title'), 'current' => $contenu, 'modified' => $contentModified];
             }
         }
@@ -196,30 +236,46 @@ switch ($op) {
 
             if (true === \Xmf\Request::getBool('new_file', false, 'REQUEST')) {
                 $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
+
                 // permet de donner le chemin du fichier
+
                 $urlfile = $uploaddir_downloads . $urlfile;
+
                 // si le fichier est sur le serveur il es détruit
+
                 if (is_file($urlfile)) {
                     chmod($urlfile, 0777);
+
                     unlink($urlfile);
                 }
             }
+
             // supression des data des champs sup
+
             $criteria = new \CriteriaCompo();
+
             $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
+
             $downloads_fielddata = $modifieddataHandler->getAll($criteria);
+
             foreach (array_keys($downloads_fielddata) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
+
                 $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
+
                 $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
             }
+
             if ($modifiedHandler->delete($obj)) {
                 redirect_header('modified.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
+
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         } else {
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
+
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
+
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
             xoops_confirm(
@@ -242,11 +298,16 @@ switch ($op) {
         // delete the current file if a new proposed file is accepted.
         if (true === \Xmf\Request::getBool('new_file', false, 'REQUEST')) {
             $urlfile = substr_replace($obj->getVar('url'), '', 0, mb_strlen($uploadurl_downloads));
+
             // permet de donner le chemin du fichier
+
             $urlfile = $uploaddir_downloads . $urlfile;
+
             // si le fichier est sur le serveur il es détruit
+
             if (is_file($urlfile)) {
                 chmod($urlfile, 0777);
+
                 unlink($urlfile);
             }
         }
@@ -269,33 +330,52 @@ switch ($op) {
         $downloads_field = $fieldHandler->getAll($criteria);
         foreach (array_keys($downloads_field) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
+
             $contenu = '';
-            $iddata  = 0;
+
+            $iddata = 0;
+
             if (0 == $downloads_field[$i]->getVar('status_def')) {
                 $criteria = new \CriteriaCompo();
+
                 $criteria->add(new \Criteria('lid', $viewModdownloads->getVar('requestid')));
+
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
+
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
+
                 foreach (array_keys($downloadsfieldmoddata) as $j) {
                     /** @var \XoopsModules\Tdmdownloads\Modified[] $downloadsfieldmoddata */
+
                     $contenu = $downloadsfieldmoddata[$j]->getVar('moddata');
                 }
+
                 $criteria = new \CriteriaCompo();
+
                 $criteria->add(new \Criteria('lid', $viewModdownloads->getVar('lid')));
+
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
+
                 $downloadsfielddata = $fielddataHandler->getAll($criteria);
+
                 foreach (array_keys($downloadsfielddata) as $j) {
                     /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloadsfielddata */
+
                     $iddata = $downloadsfielddata[$j]->getVar('iddata');
                 }
+
                 if (0 == $iddata) {
                     $objdata = $fielddataHandler->create();
+
                     $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
+
                     $objdata->setVar('lid', $viewModdownloads->getVar('lid'));
                 } else {
                     $objdata = $fielddataHandler->get($iddata);
                 }
+
                 $objdata->setVar('data', $contenu);
+
                 $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
             }
         }
@@ -308,7 +388,9 @@ switch ($op) {
         $downloads_fielddata = $modifieddataHandler->getAll($criteria);
         foreach (array_keys($downloads_fielddata) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Fielddata[] $downloads_fielddata */
+
             $objfielddata = $modifieddataHandler->get($downloads_fielddata[$i]->getVar('modiddata'));
+
             $modifieddataHandler->delete($objfielddata) || $objvfielddata->getHtmlErrors();
         }
         // enregistrement
@@ -322,9 +404,11 @@ switch ($op) {
 // Local icons path
 if (is_object($helper->getModule())) {
     $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
     $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+
     $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 }
 

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 //
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -74,9 +75,11 @@ switch ($op) {
         $queue = $migrator->getSynchronizeDDL();
         if (!empty($queue)) {
             echo "<pre>\n";
+
             foreach ($queue as $line) {
                 echo $line . ";\n";
             }
+
             echo "</pre>\n";
         }
         break;
@@ -90,6 +93,7 @@ switch ($op) {
     case 'confirmwrite':
         if ($GLOBALS['xoopsSecurity']->check()) {
             $migrator->saveCurrentSchema();
+
             $message = 'Current schema file written';
         }
         break;

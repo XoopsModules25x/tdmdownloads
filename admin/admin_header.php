@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -40,6 +41,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 if ($xoopsUser) {
     $xoopsModule = \XoopsModule::getByDirname($moduleDirName);
+
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
         redirect_header(XOOPS_URL . '/', 3, _NOPERM);
     }
@@ -49,6 +51,7 @@ if ($xoopsUser) {
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
+
     $xoopsTpl = new \XoopsTpl();
 }
 
@@ -62,6 +65,7 @@ $helper->loadLanguage('common');
 
 if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
     require_once $GLOBALS['xoops']->path('class/theme.php');
+
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
 }
 

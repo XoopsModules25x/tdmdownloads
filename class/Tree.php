@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -48,10 +48,13 @@ class Tree extends \XoopsObjectTree
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
-            $value       = $this->tree[$key]['obj']->getVar($this->myId);
+            $value = $this->tree[$key]['obj']->getVar($this->myId);
+
             $ret[$value] = $prefix_curr . $this->tree[$key]['obj']->getVar($fieldName);
+
             $prefix_curr .= $prefix_orig;
         }
+
         if (isset($this->tree[$key]['child']) && !empty($this->tree[$key]['child'])) {
             foreach ($this->tree[$key]['child'] as $childKey) {
                 $this->makeArrayTreeOptions($fieldName, $childKey, $ret, $prefix_orig, $prefix_curr);
@@ -69,6 +72,7 @@ class Tree extends \XoopsObjectTree
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0)
     {
         $ret = [];
+
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;
