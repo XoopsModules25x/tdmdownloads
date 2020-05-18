@@ -517,6 +517,7 @@ switch ($op) {
 
                 $perm_id = \Xmf\Request::getInt('cat_cid', $newcat_cid, 'POST');
 
+                /** @var \XoopsGroupPermHandler $grouppermHandler */
                 $grouppermHandler = xoops_getHandler('groupperm');
 
                 $criteria = new \CriteriaCompo();
