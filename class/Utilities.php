@@ -49,12 +49,14 @@ class Utilities
             return $permissions[$permtype];
         }
 
+        /** @var \XoopsModuleHandler $moduleHandler */
         $moduleHandler = \xoops_getHandler('module');
 
         $tdmModule = $moduleHandler->getByDirname($dirname);
 
         $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
+        /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = \xoops_getHandler('groupperm');
 
         return $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));

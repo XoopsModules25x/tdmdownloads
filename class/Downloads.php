@@ -474,11 +474,10 @@ class Downloads extends \XoopsObject
 
                 if (2 == $helper->getConfig('permission_download')) {
                     /** @var \XoopsMemberHandler $memberHandler */
-
                     $memberHandler = \xoops_getHandler('member');
-
                     $group_list = $memberHandler->getGroupList();
 
+                    /** @var \XoopsGroupPermHandler $grouppermHandler */
                     $grouppermHandler = \xoops_getHandler('groupperm');
 
                     $full_list = \array_keys($group_list);
