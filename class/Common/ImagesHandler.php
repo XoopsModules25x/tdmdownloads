@@ -52,7 +52,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
      * get inserted id
      *
      * @param null
-     * @return integer reference to the {@link Get} object
+     * @return int reference to the {@link Get} object
      */
     public function getInsertId()
     {
