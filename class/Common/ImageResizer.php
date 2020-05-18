@@ -123,7 +123,7 @@ trait ImageResizer
      * @param     $dest_w
      * @param     $dest_h
      * @param int $quality
-     * @return bool
+     * @return bool|string
      */
     public function resizeAndCrop($src_url, $src_mimetype, $dest_url, $dest_w, $dest_h, $quality = 90)
     {
