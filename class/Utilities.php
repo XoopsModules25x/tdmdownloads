@@ -195,9 +195,9 @@ class Utilities
         switch ($type) {
             case 'string':
                 if (\defined('FILTER_SANITIZE_ADD_SLASHES')) {
-                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_ADD_SLASHES) : $default;
+                    $ret = isset($global[$key]) ? \filter_var($global[$key]) : $default;
                 } else {
-                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_MAGIC_QUOTES) : $default;
+                    $ret = isset($global[$key]) ? \filter_var($global[$key]) : $default;
                 }
                 break;
             case 'int':
