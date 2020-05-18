@@ -1,6 +1,6 @@
 <?php
 
-namespace XoopsModules\Tdmdownloads\Common;
+namespace XoopsModules\Tdmdownloads;
 
 /*
  * You may not change or alter any portion of this comment or credits
@@ -19,7 +19,7 @@ namespace XoopsModules\Tdmdownloads\Common;
  * @since
  * @author       XOOPS Development Team
  */
-class ModuleConstants
+class Constants
 {
     /**#@+
      * Constant definition

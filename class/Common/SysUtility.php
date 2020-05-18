@@ -27,6 +27,7 @@ use MyTextSanitizer;
 use XoopsFormDhtmlTextArea;
 use XoopsFormTextArea;
 use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Helper;
 
 /**
  * Class SysUtility
