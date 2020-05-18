@@ -23,7 +23,7 @@ $templateMain = 'tdmdownloads_admin_modified.tpl';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getCmd('op', 'list');
 
 xoops_cp_header();
 

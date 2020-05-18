@@ -29,7 +29,7 @@ $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 $myts = \MyTextSanitizer::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getCmd('op', 'list');
 
 // compte le nombre de téléchargement non validé
 $criteria = new \CriteriaCompo();

@@ -28,7 +28,7 @@ $moduleDirName = basename(__DIR__);
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/styles.css', null);
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getCmd('op', 'list');
 
 // redirection si pas de droit pour poster
 if (false === $perm_modif) {

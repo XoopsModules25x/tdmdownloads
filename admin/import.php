@@ -25,7 +25,7 @@ $adminObject = \Xmf\Module\Admin::getInstance();
 //Action dans switch
 $op = 'index';
 if (\Xmf\Request::hasVar('op', 'REQUEST')) {
-    $op = \Xmf\Request::getString('op', '', 'REQUEST');
+    $op = \Xmf\Request::getCmd('op', '', 'REQUEST');
 }
 
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));

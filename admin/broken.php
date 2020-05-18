@@ -23,7 +23,7 @@ $templateMain = 'tdmdownloads_admin_broken.tpl';
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getCmd('op', 'list');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
