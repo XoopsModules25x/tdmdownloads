@@ -26,6 +26,8 @@ use XoopsModules\Tdmdownloads;
 class Category extends \XoopsObject
 {
     // constructor
+    public $helper;
+    public $permHelper;
 
     /**
      * Category constructor.
