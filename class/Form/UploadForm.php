@@ -52,7 +52,7 @@ class UploadForm extends \XoopsThemeForm
     {
         $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-        /** @var  \XoopsModules\Tdmdownloads\Helper $this ->helper */
+        /** @var  \XoopsModules\Tdmdownloads\Helper $this->helper */
         $this->helper       = $target->helper;
         $this->targetObject = $target;
 
