@@ -195,7 +195,7 @@ function b_tdmdownloads_top_show($options)
 
         $block[$i]['hits'] = $downloadsArray[$i]->getVar('hits');
 
-        $block[$i]['rating'] = number_format($downloadsArray[$i]->getVar('rating'), 1);
+        $block[$i]['rating'] = number_format((float)$downloadsArray[$i]->getVar('rating'), 1);
 
         $block[$i]['date'] = formatTimestamp($downloadsArray[$i]->getVar('date'), 's');
 
@@ -208,6 +208,7 @@ function b_tdmdownloads_top_show($options)
 
     $GLOBALS['xoopsTpl']->assign('tdmblockstyle', $blockstyle);
 
+    /** @var \XoopsGroupPermHandler $grouppermHandler */
     $grouppermHandler = xoops_getHandler('groupperm');
 
     $groups = XOOPS_GROUP_ANONYMOUS;

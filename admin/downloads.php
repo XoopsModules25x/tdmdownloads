@@ -208,7 +208,7 @@ switch ($op) {
                     'lid'            => $i,
                     'title'          => $downloadsArray[$i]->getVar('title'),
                     'hits'           => $downloadsArray[$i]->getVar('hits'),
-                    'rating'         => number_format($downloadsArray[$i]->getVar('rating'), 1),
+                    'rating'         => number_format((float)$downloadsArray[$i]->getVar('rating'), 1),
                     'statut_display' => $statusDisplay,
                 ];
 
