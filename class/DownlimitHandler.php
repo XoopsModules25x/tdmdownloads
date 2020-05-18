@@ -13,11 +13,9 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage) and Hossein Azizabadi (Aka voltan)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage) and Hossein Azizabadi (Aka voltan)
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
-
 /**
  * Class DownlimitHandler
  * @package XoopsModules\Tdmdownloads

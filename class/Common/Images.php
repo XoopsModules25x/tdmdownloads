@@ -13,15 +13,13 @@ namespace XoopsModules\Tdmdownloads\Common;
 */
 
 /**
- * @copyright      2019 XOOPS Project (https://xoops.org)
- * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @copyright      2020 XOOPS Project (https://xoops.org)
+ * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @link           https://xoops.org
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
 
 use XoopsModules\Tdmdownloads;
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Object Images
@@ -88,7 +86,7 @@ class Images extends \XoopsObject
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        $helper = Tdmdownloads\Helper::getInstance();
+        $helper             = Tdmdownloads\Helper::getInstance();
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }

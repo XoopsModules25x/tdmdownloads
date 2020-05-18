@@ -1,6 +1,6 @@
 <?php
 
-$moduleDirName = basename(dirname(__DIR__));
+$moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
@@ -14,7 +14,7 @@ $modversion['config'][] = [
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head'
+    'default'     => 'head',
 ];
 
 $modversion['config'][] = [
@@ -23,7 +23,7 @@ $modversion['config'][] = [
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH_DSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 1200
+    'default'     => 1200,
 ]; // =1024/16
 
 $modversion['config'][] = [
@@ -32,7 +32,7 @@ $modversion['config'][] = [
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT_DSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'int',
-    'default'     => 800
+    'default'     => 800,
 ]; // =768/16
 
 $modversion['config'][] = [
@@ -41,6 +41,6 @@ $modversion['config'][] = [
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => 'uploads/' . $modversion['dirname'] . '/images'
+    'default'     => 'uploads/' . $modversion['dirname'] . '/images',
 ];
 

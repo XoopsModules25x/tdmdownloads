@@ -103,7 +103,7 @@
     <{if $catId}>
         <div class='col-xs-12 col-sm-12 right'>
             <a class='btn btn-default wgg-btn' href='admin/category.php?op=edit_cat&amp;downloadscat_cid=<{$catId}>' title='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>'>
-                <span class = "wgg-btn-icon"><img class='' src='<{$pathIcon16}>/edit.png' alt='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>' /></span><{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>
+                <span class = "wgg-btn-icon"><img class='' src='<{$pathIcon16}>/edit.png' alt='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>' ></span><{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>
             </a>
         </div>
     <{/if}>

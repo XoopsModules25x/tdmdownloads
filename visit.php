@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TDMDownload
  *
@@ -10,7 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 error_reporting(0);
@@ -94,8 +95,8 @@ if (1 == $helper->getConfig('downlimit')) {
 @$xoopsLogger->activated = false;
 error_reporting(0);
 if ($helper->getConfig('check_host')) {
-    $goodhost     = 0;
-    $referer      = parse_url(xoops_getenv('HTTP_REFERER'));
+    $goodhost    = 0;
+    $referer     = parse_url(xoops_getenv('HTTP_REFERER'));
     $refererHost = $referer['host'];
     foreach ($helper->getConfig('referers') as $ref) {
         if (!empty($ref) && preg_match('/' . $ref . '/i', $refererHost)) {
@@ -112,10 +113,10 @@ if ($helper->getConfig('check_host')) {
 $sql = sprintf('UPDATE %s SET hits = hits+1 WHERE lid = %u AND status > 0', $xoopsDB->prefix('tdmdownloads_downloads'), $lid);
 $xoopsDB->queryF($sql);
 
-$url = $viewDownloads->getVar('url', 'n');
-$contentLength = $utility::StringSizeConvert($viewDownloads->getVar('size'));
+$url           = $viewDownloads->getVar('url', 'n');
+$contentLength = $utility::convertStringToSize($viewDownloads->getVar('size'));
 if (!preg_match("/^ed2k*:\/\//i", $url)) {
-	header("Content-Length: $contentLength");
+    header("Content-Length: $contentLength");
     header("Location: $url");
 }
 echo '<html><head><meta http-equiv="Refresh" content="0; URL=' . $url . '"></meta></head><body></body></html>';

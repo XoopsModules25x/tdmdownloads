@@ -11,7 +11,7 @@
 
 /**
  * @copyright       XOOPS Project https://xoops.org/
- * @license         GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @link            https://xoops.org/
  * @min_xoops       2.5.9
  * @author          Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
@@ -20,7 +20,7 @@
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
-include_once __DIR__ . '/header.php';
+require_once __DIR__ . '/header.php';
 
 $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = mb_strtoupper($moduleDirName);
@@ -30,7 +30,7 @@ $op    = Request::getString('op', 'form');
 $catId = Request::getInt('cat_cid', 0);
 // Template
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 
 $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 $GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
@@ -54,7 +54,6 @@ $GLOBALS['xoopsTpl']->assign('form', $form->render());
 $permHelper->checkPermissionRedirect('tdmdownloads_submit', $catId, 'index.php', 3, 'You are not allowed to submit a file', false);
 $permissionUpload = $permHelper->checkPermission('tdmdownloads_submit', $catId, false);
 if ($permissionUpload) {
-
     if (0 < $catId) {
         $GLOBALS['xoopsTpl']->assign('catId', $catId);
 
@@ -137,12 +136,11 @@ if ($permissionUpload) {
             $fineup_debug = 'true';
         }
         $xoopsTpl->assign('fineup_debug', $fineup_debug);
-
     }
 }
 
 // Breadcrumbs
 $xoBreadcrumbs[] = ['title' => constant('CO_' . $moduleDirNameUpper . '_IMAGES_UPLOAD')];
-//include __DIR__ . '/footer.php';
-include_once XOOPS_ROOT_PATH . '/footer.php';
+//require __DIR__ . '/footer.php';
+require_once XOOPS_ROOT_PATH . '/footer.php';
 

@@ -21,8 +21,6 @@ namespace XoopsModules\Tdmdownloads\Common;
  * @since       1.05
  */
 
-// require_once dirname(dirname(__DIR__)) . '/include/common.php';
-
 /**
  * Class Configurator
  */
@@ -38,17 +36,14 @@ class Configurator
     public $oldFolders      = [];
     public $renameTables    = [];
     public $modCopyright;
+    public $icons;
 
     /**
      * Configurator constructor.
      */
     public function __construct()
     {
-        $moduleDirName      = basename(dirname(dirname(__DIR__)));
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-
-        require_once dirname(dirname(__DIR__)) . '/include/config.php';
-        $config = getConfig();
+        $config = include dirname(dirname(__DIR__)) . '/config/config.php';
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;
@@ -60,5 +55,8 @@ class Configurator
         $this->oldFolders      = $config->oldFolders;
         $this->renameTables    = $config->renameTables;
         $this->modCopyright    = $config->modCopyright;
+
+        $this->icons = include dirname(dirname(__DIR__)) . '/config/icons.php';
+        $this->paths = include dirname(dirname(__DIR__)) . '/config/paths.php';
     }
 }

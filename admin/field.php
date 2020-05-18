@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TDMDownload
  *
@@ -10,7 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require __DIR__ . '/admin_header.php';
@@ -90,7 +91,7 @@ switch ($op) {
 
         //Affichage du formulaire de création des champs
         /** @var \XoopsModules\Tdmdownloads\Field $obj */
-        $obj  = $fieldHandler->create();
+        $obj = $fieldHandler->create();
         /** @var \XoopsThemeForm $form */
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
@@ -174,18 +175,20 @@ switch ($op) {
         } else {
             $obj = $fieldHandler->create();
         }
-        $erreur         = false;
+        $erreur       = false;
         $errorMessage = '';
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $uploader = new \XoopsMediaUploader($uploaddir_field, [
+        $uploader = new \XoopsMediaUploader(
+            $uploaddir_field, [
             'image/gif',
             'image/jpeg',
             'image/pjpeg',
             'image/x-png',
             'image/png',
-        ], $helper->getConfig('maxuploadsize'), 16, null);
+        ], $helper->getConfig('maxuploadsize'), 16, null
+        );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_');
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);

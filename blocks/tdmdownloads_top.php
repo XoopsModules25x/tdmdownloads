@@ -9,11 +9,11 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author      Gregory Mage (Aka Mage)
  * @param $options
  * @return array
+ * @author      Gregory Mage (Aka Mage)
+ * @copyright   Gregory Mage (Aka Mage)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  */
 
 /**
@@ -57,13 +57,14 @@ function b_tdmdownloads_top_show($options)
 
     // Add styles
     global $xoTheme;
+    $db = null;
 
     /** @var \xos_opal_Theme $xoTheme */
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
     /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-	$helper->loadLanguage('main');
+    $helper->loadLanguage('main');
 
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     $criteria   = new \CriteriaCompo();
@@ -96,28 +97,28 @@ function b_tdmdownloads_top_show($options)
     $downloadsArray = $downloadsHandler->getAll($criteria);
     foreach (array_keys($downloadsArray) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
-        $block[$i]['lid']   = $downloadsArray[$i]->getVar('lid');
-        $titleFinal = $downloadsArray[$i]->getVar('title');
+        $block[$i]['lid'] = $downloadsArray[$i]->getVar('lid');
+        $titleFinal       = $downloadsArray[$i]->getVar('title');
         if ($lenght_title > 0) {
             $titleFinal = mb_strlen($titleFinal) > $lenght_title ? mb_substr($titleFinal, 0, $lenght_title) . '...' : $titleFinal;
         }
         $block[$i]['title'] = $titleFinal;
-        $descriptionFinal  = '';
+        $descriptionFinal   = '';
         if (true == $use_description) {
             $description = $downloadsArray[$i]->getVar('description');
             //permet d'afficher uniquement la description courte
             if ($length_description > 0) {
-            if (false === mb_strpos($description, '[pagebreak]')) {
+                if (false === mb_strpos($description, '[pagebreak]')) {
                     $descriptionFinal = mb_substr($description, 0, $length_description);
                     if (mb_strlen($description) > mb_strlen($descriptionFinal)) {
                         $descriptionFinal .= ' ...';
                     }
-            } else {
+                } else {
                     $descriptionFinal = mb_substr($description, 0, mb_strpos($description, '[pagebreak]')) . ' ...';
-            }
+                }
             } else {
                 $descriptionFinal = $description;
-        }
+            }
         }
         $block[$i]['description'] = $descriptionFinal;
         $logourl                  = '';
@@ -140,7 +141,7 @@ function b_tdmdownloads_top_show($options)
         $block[$i]['blockstyle']    = $blockstyle;
     }
     $GLOBALS['xoopsTpl']->assign('tdmblockstyle', $blockstyle);
-    
+
     $grouppermHandler = xoops_getHandler('groupperm');
     $groups           = XOOPS_GROUP_ANONYMOUS;
     if (is_object($GLOBALS['xoopsUser'])) {
@@ -150,7 +151,7 @@ function b_tdmdownloads_top_show($options)
     $perm_modif  = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $mymodule->getVar('mid')) ? true : false;
     $GLOBALS['xoopsTpl']->assign('perm_submit', $perm_submit);
     $GLOBALS['xoopsTpl']->assign('perm_modif', $perm_modif);
-   
+
     return $block;
 }
 
@@ -197,14 +198,14 @@ function b_tdmdownloads_top_edit($options)
         $checked_yes = 'checked';
         $checked_no  = '';
     }
-    $form       .= _MB_TDMDOWNLOADS_INFORMATIONS . ' : <input name="options[5]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
-    $form       .= '<input name="options[5]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br><br>\n";
+    $form        .= _MB_TDMDOWNLOADS_INFORMATIONS . ' : <input name="options[5]" value="1" type="radio" ' . $checked_yes . '>' . _YES . "&nbsp;\n";
+    $form        .= '<input name="options[5]" value="0" type="radio" ' . $checked_no . '>' . _NO . "<br><br>\n";
     $floatSelect = new \XoopsFormSelect('', 'options[6]', $options[6]);
     $floatSelect->addOption('left', _MB_TDMDOWNLOADS_FLOAT_LEFT);
     $floatSelect->addOption('right', _MB_TDMDOWNLOADS_FLOAT_RIGHT);
-    $form .= _MB_TDMDOWNLOADS_FLOAT . $floatSelect->render() . '<br>';
-    $form .= _MB_TDMDOWNLOADS_WIDTH . ' (<small>' . _MB_TDMDOWNLOADS_WIDTHDSC . '</small>): <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
-    $form .= _MB_TDMDOWNLOADS_DESCRIPTIONDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
+    $form        .= _MB_TDMDOWNLOADS_FLOAT . $floatSelect->render() . '<br>';
+    $form        .= _MB_TDMDOWNLOADS_WIDTH . ' (<small>' . _MB_TDMDOWNLOADS_WIDTHDSC . '</small>): <input name="options[7]" size="5" maxlength="255" value="' . $options[7] . "\" type=\"text\"><br>\n";
+    $form        .= _MB_TDMDOWNLOADS_DESCRIPTIONDSC . ': <input name="options[8]" size="5" maxlength="255" value="' . $options[8] . "\" type=\"text\"><br>\n";
     $styleSelect = new \XoopsFormSelect('', 'options[9]', $options[9]);
     $styleSelect->addOption('default', 'default');
     $styleSelect->addOption('simple1', 'simple1');
@@ -212,7 +213,7 @@ function b_tdmdownloads_top_edit($options)
     $styleSelect->addOption('simple3', 'simple3');
     $styleSelect->addOption('simple4', 'simple4');
     $form .= _MB_TDMDOWNLOADS_BLOCKSTYLE . ': ' . $styleSelect->render() . '<br>';
-    
+
     array_shift($options);
     array_shift($options);
     array_shift($options);

@@ -30,5 +30,6 @@
                     <guid><{$item.guid}></guid>
                 </item>
             <{/foreach}>
+        </atom:link>
     </channel>
 </rss>

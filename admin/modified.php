@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TDMDownload
  *
@@ -10,7 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require __DIR__ . '/admin_header.php';
@@ -161,7 +162,7 @@ switch ($op) {
                 }
                 //proposé
                 $contentModified = '';
-                $criteria    = new \CriteriaCompo();
+                $criteria        = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('mod_id', 0, 'REQUEST')));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
                 $downloadsfieldmoddata = $modifieddataHandler->getAll($criteria);
@@ -221,12 +222,16 @@ switch ($op) {
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU5, 'modified.php', 'list');
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
-            xoops_confirm([
-                              'ok'       => 1,
-                              'mod_id'   => \Xmf\Request::getInt('mod_id', 0, 'REQUEST'),
-                              'new_file' => \Xmf\Request::getString('new_file', 0, 'REQUEST'),
-                              'op'       => 'del_moddownloads',
-                          ], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>');
+            xoops_confirm(
+                [
+                    'ok'       => 1,
+                    'mod_id'   => \Xmf\Request::getInt('mod_id', 0, 'REQUEST'),
+                    'new_file' => \Xmf\Request::getString('new_file', 0, 'REQUEST'),
+                    'op'       => 'del_moddownloads',
+                ],
+                $_SERVER['REQUEST_URI'],
+                _AM_TDMDOWNLOADS_MODIFIED_SURDEL . '<br>'
+            );
         }
         break;
     // permet d'accépter la modification

@@ -21,7 +21,6 @@ namespace XoopsModules\Tdmdownloads\Common;
  * @min_xoops      2.5.9
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
-
 trait ImageResizer
 {
 
@@ -32,7 +31,7 @@ trait ImageResizer
      * @param int    $max_width
      * @param int    $max_height
      * @param        $imageMimetype
-     * @return string|boolean
+     * @return string|bool
      */
 
     public function resizeImage($sourcefile, $endfile, $max_width, $max_height, $imageMimetype)
@@ -65,7 +64,7 @@ trait ImageResizer
                     $divisor    = $width / $new_width;
                     $new_height = floor($height / $divisor);
                 }
-            } else if ($height < $max_height) {
+            } elseif ($height < $max_height) {
                 $new_height = $height;
             } else {
                 $new_height = $max_height;
@@ -192,7 +191,7 @@ trait ImageResizer
         $dest = imagecreatefromjpeg($dest_url);
         $src  = imagecreatefromjpeg($src_url);
         // ImageCopy ( resource $dst_im , resource $src_im , int $dst_x , int $dst_y , int $src_x , int $src_y , int $src_w , int $src_h )
-//        $src = imagecreatefromjpeg($src_url);
+        //        $src = imagecreatefromjpeg($src_url);
         if (4 == $of) {
             switch ($pos) {
                 case 1:
@@ -242,7 +241,7 @@ trait ImageResizer
      * @param string $endfile
      * @param int    $max_width
      * @param int    $max_height
-     * @return string|boolean
+     * @return string|bool
      */
     /*     private function resizeImageSave($endfile, $max_width, $max_height){
             // check file extension

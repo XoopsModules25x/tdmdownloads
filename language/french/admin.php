@@ -10,9 +10,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'Il y a %s rapports de fichiers brisés');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'Il existe %s catégories');
@@ -85,7 +86,7 @@ define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Importation effectuée avec succès !');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', '« %s » votes importés ;');
 define(
     '_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées."
+    "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées."
 );
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Importation de WF Downloads (Version 3.23 RC5 uniquement)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', "Sélectionnez le répertoire Upload (le chemin d'accès) pour les images des catégories de WF-Downloads");

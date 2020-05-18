@@ -10,9 +10,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_MD_TDMDOWNLOADS_INDEX_BLDATE', 'Téléchargements récents :');
 define('_MD_TDMDOWNLOADS_INDEX_BLNAME', 'Résumé');
@@ -114,7 +115,7 @@ define('_MD_TDMDOWNLOADS_RSS', 'Flux RSS');
 //visit.php
 define(
     '_MD_TDMDOWNLOADS_NOPERMISETOLINK',
-       "Ce fichier n'appartient pas au site d'où vous venez.<br><br>Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br><strong>Définition de leecher : </strong> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br><br><strong>Vous êtes déjà enregistré</strong>"
+    "Ce fichier n'appartient pas au site d'où vous venez.<br><br>Merci d'écrire un courrier électronique au webmestre du site d'où vous venez et dites-lui : <br><strong>VOUS N'ÊTES PAS PROPRIÉTAIRE DE LIENS PROVENANT D'AUTRES SITES ! (LEECH)</strong><br><strong>Définition de leecher : </strong> Quelqu'un qui est trop paresseux pour afficher et héberger des liens sur son propre serveur ou vole le dur travail fait par d'autres personnes.<br><br><strong>Vous êtes déjà enregistré</strong>"
 );
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'Vous devez choisir une catégorie !');

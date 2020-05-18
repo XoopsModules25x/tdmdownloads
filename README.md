@@ -1,7 +1,7 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## TdmDownloads module for  [XOOPS CMS 2.5.9+](https://xoops.org)
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
-[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](http://www.gnu.org/licenses/gpl-2.0.html)
+[![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
 
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/tdmdownloads.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/tdmdownloads/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/95b12220e0ac4056b9af52af708379c9)](https://www.codacy.com/app/mambax7/tdmdownloads_2)

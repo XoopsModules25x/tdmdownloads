@@ -15,156 +15,15 @@ namespace XoopsModules\Tdmdownloads;
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
 
+use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Common;
+use XoopsModules\Tdmdownloads\Constants;
+
 /**
  * Class Utility
  */
-class Utility
+class Utility extends Common\SysUtility
 {
-    use Common\VersionChecks; //checkVerXoops, checkVerPhp Traits
-
-    use Common\ServerStats; // getServerStats Trait
-
-    use Common\FilesManagement; // Files Management Trait
-
-    /**
-     * truncateHtml can truncate a string up to a number of characters while preserving whole words and HTML tags
-     * www.gsdesign.ro/blog/cut-html-string-without-breaking-the-tags
-     * www.cakephp.org
-     *
-     * @param string $text         String to truncate.
-     * @param int    $length       Length of returned string, including ellipsis.
-     * @param string $ending       Ending to be appended to the trimmed string.
-     * @param bool   $exact        If false, $text will not be cut mid-word
-     * @param bool   $considerHtml If true, HTML tags would be handled correctly
-     *
-     * @return string Trimmed string.
-     */
-    public static function truncateHtml($text, $length = 100, $ending = '...', $exact = false, $considerHtml = true)
-    {
-        $open_tags    = [];
-        if ($considerHtml) {
-            // if the plain text is shorter than the maximum length, return the whole text
-            if (mb_strlen(preg_replace('/<.*?' . '>/', '', $text)) <= $length) {
-                return $text;
-            }
-            // splits all html-tags to scanable lines
-            preg_match_all('/(<.+?' . '>)?([^<>]*)/s', $text, $lines, PREG_SET_ORDER);
-            $total_length = mb_strlen($ending);
-            $truncate     = '';
-            foreach ($lines as $line_matchings) {
-                // if there is any html-tag in this line, handle it and add it (uncounted) to the output
-                if (!empty($line_matchings[1])) {
-                    // if it's an "empty element" with or without xhtml-conform closing slash
-                    if (preg_match('/^<(\s*.+?\/\s*|\s*(img|br|input|hr|area|base|basefont|col|frame|isindex|link|meta|param)(\s.+?)?)>$/is', $line_matchings[1])) {
-                        // do nothing
-                        // if tag is a closing tag
-                    } elseif (preg_match('/^<\s*\/([^\s]+?)\s*>$/s', $line_matchings[1], $tag_matchings)) {
-                        // delete tag from $open_tags list
-                        $pos = array_search($tag_matchings[1], $open_tags, true);
-                        if (false !== $pos) {
-                            unset($open_tags[$pos]);
-                        }
-                        // if tag is an opening tag
-                    } elseif (preg_match('/^<\s*([^\s>!]+).*?' . '>$/s', $line_matchings[1], $tag_matchings)) {
-                        // add tag to the beginning of $open_tags list
-                        array_unshift($open_tags, mb_strtolower($tag_matchings[1]));
-                    }
-                    // add html-tag to $truncate'd text
-                    $truncate .= $line_matchings[1];
-                }
-                // calculate the length of the plain text part of the line; handle entities as one character
-                $content_length = mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', ' ', $line_matchings[2]));
-                if ($total_length + $content_length > $length) {
-                    // the number of characters which are left
-                    $left            = $length - $total_length;
-                    $entities_length = 0;
-                    // search for html entities
-                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|[0-9a-f]{1,6};/i', $line_matchings[2], $entities, PREG_OFFSET_CAPTURE)) {
-                        // calculate the real length of all entities in the legal range
-                        foreach ($entities[0] as $entity) {
-                            if ($left >= $entity[1] + 1 - $entities_length) {
-                                $left--;
-                                $entities_length += mb_strlen($entity[0]);
-                            } else {
-                                // no more characters left
-                                break;
-                            }
-                        }
-                    }
-                    $truncate .= mb_substr($line_matchings[2], 0, $left + $entities_length);
-                    // maximum lenght is reached, so get off the loop
-                    break;
-                }
-                $truncate     .= $line_matchings[2];
-                $total_length += $content_length;
-
-                // if the maximum length is reached, get off the loop
-                if ($total_length >= $length) {
-                    break;
-                }
-            }
-        } else {
-            if (mb_strlen($text) <= $length) {
-                return $text;
-            }
-            $truncate = mb_substr($text, 0, $length - mb_strlen($ending));
-        }
-        // if the words shouldn't be cut in the middle...
-        if (!$exact) {
-            // ...search the last occurance of a space...
-            $spacepos = mb_strrpos($truncate, ' ');
-            if (isset($spacepos)) {
-                // ...and cut the text in this position
-                $truncate = mb_substr($truncate, 0, $spacepos);
-            }
-        }
-        // add the defined ending to the text
-        $truncate .= $ending;
-        if ($considerHtml) {
-            // close all unclosed html-tags
-            foreach ($open_tags as $tag) {
-                $truncate .= '</' . $tag . '>';
-            }
-        }
-
-        return $truncate;
-    }
-
-    /**
-     * @param \Xmf\Module\Helper $helper
-     * @param array|null         $options
-     * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
-     */
-    public static function getEditor($helper = null, $options = null)
-    {
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-        if (null === $options) {
-            $options           = [];
-            $options['name']   = 'Editor';
-            $options['value']  = 'Editor';
-            $options['rows']   = 10;
-            $options['cols']   = '100%';
-            $options['width']  = '100%';
-            $options['height'] = '400px';
-        }
-
-        $isAdmin = $helper->isUserAdmin();
-
-        if (class_exists('XoopsFormEditor')) {
-            if ($isAdmin) {
-                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
-            } else {
-                $descEditor = new \XoopsFormEditor(ucfirst($options['name']), $helper->getConfig('editorUser'), $options, $nohtml = false, $onfailure = 'textarea');
-            }
-        } else {
-            $descEditor = new \XoopsFormDhtmlTextArea(ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');
-        }
-
-        //        $form->addElement($descEditor);
-
-        return $descEditor;
-    }
-
     //--------------- Custom module methods -----------------------------
 
     /**
@@ -315,7 +174,7 @@ class Utility
      * @param string $type
      * @return mixed|string
      */
-    public static function cleanVars(&$global, $key, $default = '', $type = 'int')
+    public static function cleanVars($global, $key, $default = '', $type = 'int')
     {
         switch ($type) {
             case 'string':
@@ -346,7 +205,7 @@ class Utility
         /** @var \XoopsObjectTree $mytree */
         $categoryParent = $mytree->getAllParent($key);
         $categoryParent = array_reverse($categoryParent);
-        $path            = '';
+        $path           = '';
         foreach (array_keys($categoryParent) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
             $path .= $categoryParent[$j]->getVar($title) . $prefix;
@@ -422,19 +281,21 @@ class Utility
 
         return $path;
     }
-	 /**
-     * Utility::StringSizeConvert()
+
+    /**
+     * Utility::convertStringToSize()
      *
      * @param mixed $stringSize
      * @return mixed|int
      */
-	public static function StringSizeConvert($stringSize){
+    public static function convertStringToSize($stringSize)
+    {
         if ($stringSize != '') {
-            $kb = 1024;
-            $mb = 1024*1024;
-            $gb = 1024*1024*1024;
-			$size_value_arr = explode(' ', $stringSize);
-			
+            $kb             = 1024;
+            $mb             = 1024 * 1024;
+            $gb             = 1024 * 1024 * 1024;
+            $size_value_arr = explode(' ', $stringSize);
+
             if ($size_value_arr[1] == 'B') {
                 $mysize = $size_value_arr[0];
             } elseif ($size_value_arr[1] == 'K') {
@@ -449,102 +310,126 @@ class Utility
             return 0;
         }
     }
-	 /**
-     * Utility::SizeConvertString()
+
+    /**
+     * Utility::convertSizeToString()
      *
      * @param mixed $sizeString
      * @return mixed|string
      */
-	public static function SizeConvertString($sizeString){
-		$mysizeString = '';
-		if ($sizeString != '') {
-			$size_value_arr = explode(' ', $sizeString);
-			if (array_key_exists (0, $size_value_arr) == true && array_key_exists (1, $size_value_arr) == true){
-				if ($size_value_arr[0] != ''){
-					$mysizeString = '';
-					switch ($size_value_arr[1]) {
-						case 'B':
-							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_BYTES;
-							break;
-							
-						case 'K':
-							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_KBYTES;
-							break;
-							
-						case 'M':
-							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_MBYTES;
-							break;
-							
-						case 'G':
-							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_GBYTES;
-							break;
-							
-						case 'T':
-							$mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_TBYTES;
-							break;
-					}					
-					return $mysizeString;
-				}
-			}
-		}		
-		return $mysizeString;
+    public static function convertSizeToString($sizeString)
+    {
+        $mysizeString = '';
+        if ($sizeString != '') {
+            $size_value_arr = explode(' ', $sizeString);
+            if (array_key_exists(0, $size_value_arr) === true && array_key_exists(1, $size_value_arr) === true) {
+                if ($size_value_arr[0] != '') {
+                    $mysizeString = '';
+                    switch ($size_value_arr[1]) {
+                        case 'B':
+                            $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_BYTES;
+                            break;
+
+                        case 'K':
+                            $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_KBYTES;
+                            break;
+
+                        case 'M':
+                            $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_MBYTES;
+                            break;
+
+                        case 'G':
+                            $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_GBYTES;
+                            break;
+
+                        case 'T':
+                            $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_TBYTES;
+                            break;
+                    }
+                    return $mysizeString;
+                }
+            }
+        }
+        return $mysizeString;
     }
-	
-	 /**
-     * Utility::GetFileSize()
+
+    /**
+     * Utility::getFileSize()
      *
      * @param mixed $url
      * @return mixed|string
      */
-    public static function GetFileSize($url)
+    public static function getFileSize($url)
     {
-		if (function_exists('curl_init') && false !== ($curlHandle  = curl_init($url))) {
-			curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, TRUE);
-			curl_setopt($curlHandle, CURLOPT_HEADER, TRUE);
-			curl_setopt($curlHandle, CURLOPT_NOBODY, TRUE);	
-			curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, false);			
-			$curlReturn = curl_exec($curlHandle);
-			if (false === $curlReturn) {
-				trigger_error(curl_error($curlHandle));
-				$size = 0;
-			} else {
-				$size = curl_getinfo($curlHandle, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
-			}
-			curl_close($curlHandle);
-			if ($size <= 0){
-				return 0;
-			} else {			
-				return Utility::FileSizeConvert($size);
-			}
-		} else {
-			return 0;
-		}
+        if (function_exists('curl_init') && false !== ($curlHandle = curl_init($url))) {
+            curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curlHandle, CURLOPT_HEADER, true);
+            curl_setopt($curlHandle, CURLOPT_NOBODY, true);
+            curl_setopt($curlHandle, CURLOPT_SSL_VERIFYPEER, true); //TODO: how to avoid an error when 'Peer's Certificate issuer is not recognized'
+            $curlReturn = curl_exec($curlHandle);
+            if (false === $curlReturn) {
+                trigger_error(curl_error($curlHandle));
+                $size = 0;
+            } else {
+                $size = curl_getinfo($curlHandle, CURLINFO_CONTENT_LENGTH_DOWNLOAD);
+            }
+            curl_close($curlHandle);
+            if ($size <= 0) {
+                return 0;
+            } else {
+                return self::convertFileSize($size);
+            }
+        } else {
+            return 0;
+        }
     }
-	
-	/**
-     * Utility::FileSizeConvert()
+
+    /**
+     * Utility::convertFileSize()
      *
      * @param mixed $size
      * @return mixed|string
      */
-	public static function FileSizeConvert($size){
+    public static function convertFileSize($size)
+    {
         if ($size > 0) {
             $kb = 1024;
-            $mb = 1024*1024;
-            $gb = 1024*1024*1024;
+            $mb = 1024 * 1024;
+            $gb = 1024 * 1024 * 1024;
             if ($size >= $gb) {
-                $mysize = sprintf ("%01.2f",$size/$gb) . " " . 'G';
+                $mysize = sprintf("%01.2f", $size / $gb) . " " . 'G';
             } elseif ($size >= $mb) {
-                $mysize = sprintf ("%01.2f",$size/$mb) . " " . 'M';
+                $mysize = sprintf("%01.2f", $size / $mb) . " " . 'M';
             } elseif ($size >= $kb) {
-                $mysize = sprintf ("%01.2f",$size/$kb) . " " . 'K';
+                $mysize = sprintf("%01.2f", $size / $kb) . " " . 'K';
             } else {
-                $mysize = sprintf ("%01.2f",$size) . " " . 'B';
+                $mysize = sprintf("%01.2f", $size) . " " . 'B';
             }
 
             return $mysize;
         } else {
             return '';
+        }
+    }
+
+    /**
+     * @param $val
+     * @return float|int
+     */
+    public static function returnBytes($val)
+    {
+        switch (mb_substr($val, -1)) {
+            case 'K':
+            case 'k':
+                return (int)$val * 1024;
+            case 'M':
+            case 'm':
+                return (int)$val * 1048576;
+            case 'G':
+            case 'g':
+                return (int)$val * 1073741824;
+            default:
+                return $val;
         }
     }
 }

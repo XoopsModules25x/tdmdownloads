@@ -14,7 +14,7 @@ namespace XoopsModules\Tdmdownloads\Common;
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
@@ -28,17 +28,17 @@ class ModuleConstants
     //    const MODULE_DIRNAME0 = basename(__DIR__);
     //    static $moddir = basename(dirname(__DIR__));
 
-    public static $moduleDirName;
-    public static $mydirname2; //set in constructor
+    public static $moduleDirName = null;
+    public static $mydirname2    = null; //set in constructor
 
-    public static $moduleUrl;
-    public static $modulePath;
-    public static $imagesUrl;
-    public static $imagesPath;
-    public static $adminUrl;
-    public static $adminPath;
-    public static $uploadsUrl;
-    public static $uploadsPath;
+    public static $moduleUrl   = null;
+    public static $modulePath  = null;
+    public static $imagesUrl   = null;
+    public static $imagesPath  = null;
+    public static $adminUrl    = null;
+    public static $adminPath   = null;
+    public static $uploadsUrl  = null;
+    public static $uploadsPath = null;
 
     //    const ROOT = $_SERVER['DOCUMENT_ROOT']."project/";
     //    const MODULE_DIRNAME = basename(dirname(__DIR__));
@@ -77,119 +77,119 @@ class ModuleConstants
     /**
      *  do not allow
      */
-    const DISALLOW = 0;
+    public const DISALLOW = 0;
     /**
      *  allow
      */
-    const ALLOW = 1;
+    public const ALLOW = 1;
     /**
      *  top level Category ID
      */
-    const ALLOW_MEMBERS = 2;
+    public const ALLOW_MEMBERS = 2;
     /**
      *  top level Category ID
      */
-    const TOP_LEVEL_CID = 0;
+    public const TOP_LEVEL_CID = 0;
     /**
      *  indicates default number of feed items to show
      */
-    const DEFAULT_FEED_COUNT = 10;
+    public const DEFAULT_FEED_COUNT = 10;
     /**
      *  maximum number of characters for feed description
      */
-    const MAX_FEED_DESC_COUNT = 1000;
+    public const MAX_FEED_DESC_COUNT = 1000;
     /**
      *  feed image height default
      */
-    const FEED_IMG_HEIGHT_DEFAULT = 31;
+    public const FEED_IMG_HEIGHT_DEFAULT = 31;
     /**
      *  feed image height maximum
      */
-    const FEED_IMG_HEIGHT_MAX = 400;
+    public const FEED_IMG_HEIGHT_MAX = 400;
     /**
      *  feed image width default
      */
-    const FEED_IMG_WIDTH_DEFAULT = 88;
+    public const FEED_IMG_WIDTH_DEFAULT = 88;
     /**
      *  feed image width maximum
      */
-    const FEED_IMG_WIDTH_MAX = 144;
+    public const FEED_IMG_WIDTH_MAX = 144;
     /**
      *  google magic used for page rank
      */
-    const GOOGLE_MAGIC = 0xE6359A60;
+    public const GOOGLE_MAGIC = 0xE6359A60;
     /**
      *  anonymous user's ID
      */
-    const ANON_USER_ID = 0;
+    public const ANON_USER_ID = 0;
     /**
      *  default feed type
      */
-    const DEFAULT_FEED_TYPE = 'RSS';
+    public const DEFAULT_FEED_TYPE = 'RSS';
     /**
      *  number of subcategories to display
      */
-    const SHOW_SUBCAT_COUNT = 5;
+    public const SHOW_SUBCAT_COUNT = 5;
     /**
      * allow HTML in WYSIWYG editor
      */
-    const ALLOW_HTML = 1;
+    public const ALLOW_HTML = 1;
     /**
      * do not allow HTML in WYSIWYG editor
      */
-    const DISALLOW_HTML = 0;
+    public const DISALLOW_HTML = 0;
     /**
      * no delay XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_NONE = 0;
+    public const REDIRECT_DELAY_NONE = 0;
     /**
      * short XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_SHORT = 1;
+    public const REDIRECT_DELAY_SHORT = 1;
     /**
      * medium XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_MEDIUM = 3;
+    public const REDIRECT_DELAY_MEDIUM = 3;
     /**
      * long XOOPS redirect delay (in seconds)
      */
-    const REDIRECT_DELAY_LONG = 7;
+    public const REDIRECT_DELAY_LONG = 7;
     /**
      * maximum acceptable rating
      */
-    const RATING_MAX = 10;
+    public const RATING_MAX = 10;
     /**
      * minimum acceptable rating
      */
-    const RATING_MIN = 1;
+    public const RATING_MIN = 1;
     /**
      * days between ratings from single IP
      */
-    const RATING_WAIT = 1;
+    public const RATING_WAIT = 1;
     /**
      * sort list by popularity
      */
-    const SORT_BY_POPULARITY = 1;
+    public const SORT_BY_POPULARITY = 1;
     /**
      * sort list by rating
      */
-    const SORT_BY_RATING = 2;
+    public const SORT_BY_RATING = 2;
     /**
      * sort list by most recent
      */
-    const SORT_BY_MOST_RECENT = 3;
+    public const SORT_BY_MOST_RECENT = 3;
     /**
      * link status - inactive
      */
-    const STATUS_INACTIVE = 0;
+    public const STATUS_INACTIVE = 0;
     /**
      * new link status
      */
-    const STATUS_NEW = 1;
+    public const STATUS_NEW = 1;
     /**
      * modified link status
      */
-    const STATUS_UPDATED = 1;
+    public const STATUS_UPDATED = 1;
 
     /**#@-*/
 

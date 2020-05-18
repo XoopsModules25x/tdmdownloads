@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TDMDownload
  *
@@ -10,7 +11,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require_once __DIR__ . '/header.php';
@@ -115,19 +116,19 @@ switch ($op) {
                 redirect_header('singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0), 2, _MD_TDMDOWNLOADS_RATEFILE_VOTEONCE);
             }
         }
-        $erreur         = false;
+        $erreur       = false;
         $errorMessage = '';
         // Test avant la validation
         $rating = \Xmf\Request::getInt('rating', 0, 'POST');
         if ($rating < 0 || $rating > 10) {
             $errorMessage .= _MD_TDMDOWNLOADS_RATEFILE_NORATING . '<br>';
-            $erreur         = true;
+            $erreur       = true;
         }
         xoops_load('captcha');
         $xoopsCaptcha = \XoopsCaptcha::getInstance();
         if (!$xoopsCaptcha->verify()) {
             $errorMessage .= $xoopsCaptcha->getMessage() . '<br>';
-            $erreur         = true;
+            $erreur       = true;
         }
         $obj->setVar('lid', $lid);
         $obj->setVar('ratinguser', $ratinguser);
@@ -140,9 +141,9 @@ switch ($op) {
             if ($ratingHandler->insert($obj)) {
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $lid));
-                $votesArray = $ratingHandler->getAll($criteria);
-                $votesTotal         = $ratingHandler->getCount($criteria);
-                $ratingTotal       = 0;
+                $votesArray  = $ratingHandler->getAll($criteria);
+                $votesTotal  = $ratingHandler->getCount($criteria);
+                $ratingTotal = 0;
                 foreach (array_keys($votesArray) as $i) {
                     $ratingTotal += $votesArray[$i]->getVar('rating');
                 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * TDMDownload
  *
@@ -10,10 +11,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require_once __DIR__ . '/header.php';
+$xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 global $xoopsModuleConfig;
@@ -21,7 +23,7 @@ global $xoopsModuleConfig;
 $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
 $itemsCount = $helper->getConfig('perpagerss');
-$cid         = \Xmf\Request::getInt('cid', 0, 'GET');
+$cid        = \Xmf\Request::getInt('cid', 0, 'GET');
 if (function_exists('mb_http_output')) {
     mb_http_output('pass');
 }
@@ -88,13 +90,16 @@ if (!$xoopsTpl->is_cached('db:tdmdownloads_rss.tpl', $cid)) {
         } else {
             $descriptionShort = mb_substr($description, 0, mb_strpos($description, '[pagebreak]'));
         }
-        $xoopsTpl->append('items', [
-            'title'       => htmlspecialchars($downloadsArray[$i]->getVar('title'), ENT_QUOTES),
-            'link'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
-            'guid'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
-            'pubdate'     => formatTimestamp($downloadsArray[$i]->getVar('date'), 'rss'),
-            'description' => htmlspecialchars($descriptionShort, ENT_QUOTES),
-        ]);
+        $xoopsTpl->append(
+            'items',
+            [
+                'title'       => htmlspecialchars($downloadsArray[$i]->getVar('title'), ENT_QUOTES),
+                'link'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
+                'guid'        => XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . $downloadsArray[$i]->getVar('cid') . '&amp;lid=' . $downloadsArray[$i]->getVar('lid'),
+                'pubdate'     => formatTimestamp($downloadsArray[$i]->getVar('date'), 'rss'),
+                'description' => htmlspecialchars($descriptionShort, ENT_QUOTES),
+            ]
+        );
     }
 }
 header('Content-Type:text/xml; charset=' . _CHARSET);

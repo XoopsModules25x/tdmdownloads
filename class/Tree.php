@@ -13,7 +13,7 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require_once $GLOBALS['xoops']->path('www/class/tree.php');
@@ -33,7 +33,7 @@ class Tree extends \XoopsObjectTree
      * @param      $parentId
      * @param null $rootId
      */
-    public function __construct(&$objectArr, $myId, $parentId, $rootId = null)
+    public function __construct($objectArr, $myId, $parentId, $rootId = null)
     {
         parent::__construct($objectArr, $myId, $parentId, $rootId);
     }
@@ -92,7 +92,7 @@ class Tree extends XoopsObjectTree {
     }
 
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0) {
-        $ret = array();
+        $ret = [];
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;

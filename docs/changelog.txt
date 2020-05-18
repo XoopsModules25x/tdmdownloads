@@ -3,6 +3,14 @@
 - added hits and ratings and for output of download in index.php (goffy)
 - added number of subcategories for output of category in index.php (goffy)
 - added new lang vars (goffy)
+- Undefined variable $select_sup (geekwright)
+- Class 'XoopsPageNav' not found error (geekwright)
+- Add some category detail for theme use  (geekwright)
+- Turn off logger (geekwright)
+- Fix xml (geekwright)
+- add extra fields visibility (heyula)
+- refactor Utility (mamba)
+
 
 <h5>2.0 RC 1         [2019-01-29]</h5>
 <hr>

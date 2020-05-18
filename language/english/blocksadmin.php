@@ -11,7 +11,7 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
@@ -26,7 +26,10 @@ define('_AM_WEIGHT', 'Weight');
 define('_AM_VISIBLE', 'Visible');
 define('_AM_VISIBLEIN', 'Visible In');
 define('_AM_ACTION', 'Action');
+define('_AM_LATESTNEWS_TITLE', 'Title');
+define('_AM_LATESTNEWS_WEIGHT', 'Weight');
 define('_AM_BCACHETIME', 'Cache time');
+define('_AM_LATESTNEWS_ACTION', 'Action');
 define('_AM_ACTIVERIGHTS', 'Module administration rights');
 define('_AM_ACCESSRIGHTS', 'Module access rights');
 define('_AM_BADMIN', 'Blocks administration');

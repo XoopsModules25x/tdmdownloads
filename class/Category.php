@@ -13,13 +13,11 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 
 use XoopsModules\Tdmdownloads;
-
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Category
@@ -98,12 +96,12 @@ class Category extends \XoopsObject
         $editorConfigs['editor'] = $helper->getConfig('editor');
         $form->addElement(new \XoopsFormEditor(_AM_TDMDOWNLOADS_FORMTEXT, 'cat_description_main', $editorConfigs), false);
         //image
-        $categoryImage = $this->getVar('cat_imgurl') ?: 'blank.gif';
-        $uploadirectory   = '/uploads/' . $moduleDirName . '/images/cats';
-        $imgtray          = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
-        $imgpath          = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
-        $imageselect      = new \XoopsFormSelect($imgpath, 'downloadscat_img', $categoryImage);
-        $topics_array     = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
+        $categoryImage  = $this->getVar('cat_imgurl') ?: 'blank.gif';
+        $uploadirectory = '/uploads/' . $moduleDirName . '/images/cats';
+        $imgtray        = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMG, '<br>');
+        $imgpath        = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imageselect    = new \XoopsFormSelect($imgpath, 'downloadscat_img', $categoryImage);
+        $topics_array   = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
             $imageselect->addOption((string)$image, $image);
         }

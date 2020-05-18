@@ -11,10 +11,42 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Utility;
+
+/**
+ * Prepares system prior to attempting to install module
+ * @param \XoopsModule $module {@link XoopsModule}
+ *
+ * @return bool true if ready to install, false if not
+ */
+function xoops_module_pre_install_tdmdownloads(\XoopsModule $module)
+{
+    require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
+    require_once __DIR__ . '/common.php';
+
+    /** @var \XoopsModules\Tdmdownloads\Utility $utility */
+    $utility = new \XoopsModules\Tdmdownloads\Utility();
+
+    $xoopsSuccess0 = $utility::checkVerXoops($module);
+    $xoopsSuccess  = $utility::checkVerXoops($module);
+
+    $phpSuccess0 = $utility::checkVerPhp($module);
+    $phpSuccess  = $utility::checkVerPhp($module);
+
+    if (false !== $xoopsSuccess && false !== $phpSuccess) {
+        $mod_tables = &$module->getInfo('tables');
+        foreach ($mod_tables as $table) {
+            $GLOBALS['xoopsDB']->queryF('DROP TABLE IF EXISTS ' . $GLOBALS['xoopsDB']->prefix($table) . ';');
+        }
+    }
+
+    return $xoopsSuccess && $phpSuccess;
+}
 /**
  * @return bool
  */
@@ -63,7 +95,7 @@ function xoops_module_install_tdmdownloads()
     $obj->setVar('status_def', 1);
     $fieldHandler->insert($obj);
 
-    //Creation du fichier ".$namemodule."/
+    //File creation ".$namemodule."/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -72,7 +104,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Creation du fichier ".$namemodule."/images/
+    //File creation ".$namemodule."/images/
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -81,7 +113,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Creation du fichier ".$namemodule."/images/cat
+    //File creation ".$namemodule."/images/cat
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -90,7 +122,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Creation du fichier ".$namemodule."/images/shots
+    //File creation ".$namemodule."/images/shots
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -99,7 +131,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Creation du fichier ".$namemodule."/images/field
+    //File creation ".$namemodule."/images/field
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -108,7 +140,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Creation du fichier ".$namemodule."/downloads
+    //File creation ".$namemodule."/downloads
     $dir = XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads';
     if (!is_dir($dir)) {
         if (!mkdir($dir, 0777) && !is_dir($dir)) {
@@ -117,7 +149,7 @@ function xoops_module_install_tdmdownloads()
     }
     chmod($dir, 0777);
 
-    //Copie des index.html
+    //Copy index.html
     $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.html';
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.html');
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
@@ -126,13 +158,13 @@ function xoops_module_install_tdmdownloads()
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/index.html');
     copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads/index.html');
 
-    //Copie des blank.gif
+    //Copy blank.gif
     $blankFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/blank.gif';
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/blank.gif');
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/blank.gif');
     copy($blankFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/blank.gif');
 
-    //Copie des images pour les champs
+    //Copy images for fields
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/homepage.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/homepage.png');
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/version.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/version.png');
     copy(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/assets/images/icons/16/size.png', XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/size.png');

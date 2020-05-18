@@ -10,9 +10,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_MD_TDMDOWNLOADS_INDEX_BLDATE', 'Aktuelle Downloads:');
 define('_MD_TDMDOWNLOADS_INDEX_BLNAME', 'Zusammenfassung');
@@ -114,7 +115,7 @@ define('_MD_TDMDOWNLOADS_RSS', 'RSS Feed');
 //visit.php
 define(
     '_MD_TDMDOWNLOADS_NOPERMISETOLINK',
-       'This file does not belong to the website from where you are coming.<br><br>thanks to write an email to the webmaster of the website from where you are coming and tell him :<br><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br><br><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <b>registered</b>.'
+    'This file does not belong to the website from where you are coming.<br><br>thanks to write an email to the webmaster of the website from where you are coming and tell him :<br><b>NO OWNERSHIP OF LINKS FROM OTHER SITES !! (LEECH)</b><br><br><b>Leecher definition :</b> Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <b>registered</b>.'
 );
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'Sie müssen eine Kategorie wählen!');

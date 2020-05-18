@@ -15,7 +15,7 @@ use XoopsModules\Tag\TagHandler;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require __DIR__ . '/admin_header.php';
@@ -62,9 +62,9 @@ switch ($op) {
         }
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
 
-        $limit = $helper->getConfig('perpageadmin');
+        $limit         = $helper->getConfig('perpageadmin');
         $categoryArray = $categoryHandler->getAll();
-        $numrowscat = count($categoryArray);
+        $numrowscat    = count($categoryArray);
 
         // redirection si il n'y a pas de catégories
         if (0 === $numrowscat) {
@@ -84,7 +84,7 @@ switch ($op) {
             $criteria->add(new \Criteria('status', 0, '!='));
             $statusDisplay = 1;
         }
-        $documentSort = 1;
+        $documentSort  = 1;
         $documentOrder = 1;
         if (\Xmf\Request::hasVar('document_tri')) {
             if (1 == \Xmf\Request::getInt('document_tri')) {
@@ -126,11 +126,11 @@ switch ($op) {
         $criteria->setStart($start);
         $criteria->setLimit($limit);
         //pour faire une jointure de table
-        $downloadsHandler->table_link = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
-        $downloadsHandler->field_link = 'cat_cid'; // champ de la table en jointure
+        $downloadsHandler->table_link   = $downloadsHandler->db->prefix('tdmdownloads_cat'); // Nom de la table en jointure
+        $downloadsHandler->field_link   = 'cat_cid'; // champ de la table en jointure
         $downloadsHandler->field_object = 'cid'; // champ de la table courante
-        $downloadsArray = $downloadsHandler->getByLink($criteria);
-        $numrows = $downloadsHandler->getCount($criteria);
+        $downloadsArray                 = $downloadsHandler->getByLink($criteria);
+        $numrows                        = $downloadsHandler->getCount($criteria);
 
         $pagenav = '';
         if ($numrows > $limit) {
@@ -164,18 +164,18 @@ switch ($op) {
             $selectOrder .= '</select> ';
             $GLOBALS['xoopsTpl']->assign('selectOrder', $selectOrder);
 
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
-            $class = 'odd';
+            $mytree    = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
+            $class     = 'odd';
             $downloads = [];
             foreach (array_keys($downloadsArray) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
                 $download = [
-                    'category' => $utility->getPathTree($mytree, $downloadsArray[$i]->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
-                    'cid' => $downloadsArray[$i]->getVar('cid'),
-                    'lid' => $i,
-                    'title' => $downloadsArray[$i]->getVar('title'),
-                    'hits' => $downloadsArray[$i]->getVar('hits'),
-                    'rating' => number_format($downloadsArray[$i]->getVar('rating'), 1),
+                    'category'       => $utility->getPathTree($mytree, $downloadsArray[$i]->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
+                    'cid'            => $downloadsArray[$i]->getVar('cid'),
+                    'lid'            => $i,
+                    'title'          => $downloadsArray[$i]->getVar('title'),
+                    'hits'           => $downloadsArray[$i]->getVar('hits'),
+                    'rating'         => number_format($downloadsArray[$i]->getVar('rating'), 1),
                     'statut_display' => $statusDisplay,
                 ];
                 $GLOBALS['xoopsTpl']->append('downloads_list', $download);
@@ -232,7 +232,7 @@ switch ($op) {
     case 'del_downloads':
         global $xoopsModule;
         $downloads_lid = \Xmf\Request::getInt('downloads_lid', 0, 'GET');
-        $obj = $downloadsHandler->get($downloads_lid);
+        $obj           = $downloadsHandler->get($downloads_lid);
         if (\Xmf\Request::hasVar('ok') && 1 == \Xmf\Request::getInt('ok')) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
@@ -280,7 +280,7 @@ switch ($op) {
                 if ((1 == $helper->getConfig('usetag')) && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
                     $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
-                    $criteria = new \CriteriaCompo();
+                    $criteria    = new \CriteriaCompo();
                     $criteria->add(new \Criteria('tag_itemid', $downloads_lid));
                     $downloadsTags = $linkHandler->getAll($criteria);
                     foreach (array_keys($downloadsTags) as $i) {
@@ -310,7 +310,7 @@ switch ($op) {
             xoops_confirm(
                 ['ok' => 1, 'downloads_lid' => $downloads_lid, 'op' => 'del_downloads'],
                 $_SERVER['REQUEST_URI'],
-                          sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>'
+                sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('title')) . '<br><br>' . _AM_TDMDOWNLOADS_FORMWITHFILE . ' <b><a href="' . $obj->getVar('url') . '">' . $obj->getVar('url') . '</a></b><br>'
             );
         }
         break;
@@ -336,9 +336,9 @@ switch ($op) {
         //catégorie
         //$view_category = $categoryHandler->get($viewDownloads->getVar('cid'));
         $categoryArray = $categoryHandler->getAll();
-        $mytree = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
+        $mytree        = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
         // sortie des informations
-        $downloads_title = $viewDownloads->getVar('title');
+        $downloads_title       = $viewDownloads->getVar('title');
         $downloads_description = $viewDownloads->getVar('description');
         //permet d'enlever [pagebreak] du texte
         $downloads_description = str_replace('[pagebreak]', '', $downloads_description);
@@ -346,11 +346,11 @@ switch ($op) {
         $category = $utility->getPathTree($mytree, $viewDownloads->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
         // affichages des informations du téléchargement
         $download = [
-            'title' => $downloads_title,
+            'title'       => $downloads_title,
             'description' => $downloads_description,
-            'cid' => $viewDownloads->getVar('cid'),
-            'lid' => $downloads_lid,
-            'category' => $category,
+            'cid'         => $viewDownloads->getVar('cid'),
+            'lid'         => $downloads_lid,
+            'category'    => $category,
         ];
 
         $criteria = new \CriteriaCompo();
@@ -358,7 +358,7 @@ switch ($op) {
         $criteria->setOrder('ASC');
         $criteria->add(new \Criteria('status', 1));
         $downloads_field = $fieldHandler->getAll($criteria);
-        $fieldsList = [];
+        $fieldsList      = [];
         foreach (array_keys($downloads_field) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (1 == $downloads_field[$i]->getVar('status_def')) {
@@ -387,7 +387,7 @@ switch ($op) {
                     }
                 }
             } else {
-                $contenu = '';
+                $contenu  = '';
                 $criteria = new \CriteriaCompo();
                 $criteria->add(new \Criteria('lid', $downloads_lid));
                 $criteria->add(new \Criteria('fid', $downloads_field[$i]->getVar('fid')));
@@ -419,11 +419,11 @@ switch ($op) {
                 $download['logourl'] = $viewDownloads->getVar('logourl');
             }
         }
-        $download['date'] = formatTimestamp($viewDownloads->getVar('date'));
+        $download['date']      = formatTimestamp($viewDownloads->getVar('date'));
         $download['submitter'] = XoopsUser::getUnameFromId($viewDownloads->getVar('submitter'));
-        $download['hits'] = $viewDownloads->getVar('hits');
-        $download['rating'] = number_format($viewDownloads->getVar('rating'), 1);
-        $download['votes'] = $viewDownloads->getVar('votes');
+        $download['hits']      = $viewDownloads->getVar('hits');
+        $download['rating']    = number_format($viewDownloads->getVar('rating'), 1);
+        $download['votes']     = $viewDownloads->getVar('votes');
 
         if (true === $helper->getConfig('use_paypal') && '' !== $viewDownloads->getVar('paypal')) {
             $download['paypal'] = $viewDownloads->getVar('paypal');
@@ -433,22 +433,22 @@ switch ($op) {
         $GLOBALS['xoopsTpl']->assign('download', $download);
 
         // Utilisateur enregistré
-        $ratings = [];
+        $ratings  = [];
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0, '!='));
-        $votedataArray = $ratingHandler->getAll($criteria);
-        $votesTotal = count($votedataArray);
+        $votedataArray         = $ratingHandler->getAll($criteria);
+        $votesTotal            = count($votedataArray);
         $ratings['user_total'] = $votesTotal;
-        $userList = [];
+        $userList              = [];
         foreach (array_keys($votedataArray) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Rating[] $votedataArray */
             $userList[] = [
-                'ratinguser' => \XoopsUser::getUnameFromId($votedataArray[$i]->getVar('ratinguser')),
-                'ratinghostname' => $votedataArray[$i]->getVar('ratinghostname'),
-                'rating' => $votedataArray[$i]->getVar('rating'),
+                'ratinguser'      => \XoopsUser::getUnameFromId($votedataArray[$i]->getVar('ratinguser')),
+                'ratinghostname'  => $votedataArray[$i]->getVar('ratinghostname'),
+                'rating'          => $votedataArray[$i]->getVar('rating'),
                 'ratingtimestamp' => formatTimestamp($votedataArray[$i]->getVar('ratingtimestamp')),
-                'myTextForm' => myTextForm('downloads.php?op=del_vote&lid=' . $votedataArray[$i]->getVar('lid') . '&rid=' . $votedataArray[$i]->getVar('ratingid'), 'X'),
+                'myTextForm'      => myTextForm('downloads.php?op=del_vote&lid=' . $votedataArray[$i]->getVar('lid') . '&rid=' . $votedataArray[$i]->getVar('ratingid'), 'X'),
             ];
         }
         $ratings['user_list'] = $userList;
@@ -456,19 +456,19 @@ switch ($op) {
         $criteria = new \CriteriaCompo();
         $criteria->add(new \Criteria('lid', $downloads_lid));
         $criteria->add(new \Criteria('ratinguser', 0));
-        $votedataArray = $ratingHandler->getAll($criteria);
-        $votesTotal = count($votedataArray);
+        $votedataArray         = $ratingHandler->getAll($criteria);
+        $votesTotal            = count($votedataArray);
         $ratings['anon_total'] = $votesTotal;
-        $anon_list = [];
+        $anon_list             = [];
         foreach (array_keys($votedataArray) as $i) {
             $anon_list[] = [
-                'ratinghostname' => $votedataArray[$i]->getVar('ratinghostname'),
-                'rating' => $votedataArray[$i]->getVar('rating'),
+                'ratinghostname'  => $votedataArray[$i]->getVar('ratinghostname'),
+                'rating'          => $votedataArray[$i]->getVar('rating'),
                 'ratingtimestamp' => formatTimestamp($votedataArray[$i]->getVar('ratingtimestamp')),
-                'myTextForm' => myTextForm('downloads.php?op=del_vote&lid=' . $votedataArray[$i]->getVar('lid') . '&rid=' . $votedataArray[$i]->getVar('ratingid'), 'X'),
+                'myTextForm'      => myTextForm('downloads.php?op=del_vote&lid=' . $votedataArray[$i]->getVar('lid') . '&rid=' . $votedataArray[$i]->getVar('ratingid'), 'X'),
             ];
         }
-        $ratings['anon_list'] = $anon_list;
+        $ratings['anon_list']   = $anon_list;
         $ratings['votes_total'] = $ratings['user_total'] + $ratings['anon_total'];
         $GLOBALS['xoopsTpl']->assign('ratings', $ratings);
         $GLOBALS['xoopsTpl']->assign('download_detail', true);
@@ -480,8 +480,8 @@ switch ($op) {
             $criteria = new \CriteriaCompo();
             $criteria->add(new \Criteria('lid', \Xmf\Request::getInt('lid')));
             $votedataArray = $ratingHandler->getAll($criteria);
-            $votesTotal = $ratingHandler->getCount($criteria);
-            $obj = $downloadsHandler->get(\Xmf\Request::getInt('lid'));
+            $votesTotal    = $ratingHandler->getCount($criteria);
+            $obj           = $downloadsHandler->get(\Xmf\Request::getInt('lid'));
             if (0 === $votesTotal) {
                 $obj->setVar('rating', number_format(0, 1));
                 $obj->setVar('votes', 0);
@@ -519,9 +519,9 @@ switch ($op) {
         } else {
             $obj = $downloadsHandler->create();
         }
-        $erreur = false;
+        $erreur       = false;
         $errorMessage = '';
-        $donnee = [];
+        $donnee       = [];
         $obj->setVar('title', \Xmf\Request::getString('title', '', 'POST'));
         $obj->setVar('cid', \Xmf\Request::getInt('cid', 0, 'POST'));
         $obj->setVar('homepage', formatURL(\Xmf\Request::getUrl('homepage', '', 'POST')));
@@ -577,14 +577,14 @@ switch ($op) {
         // erreur si la description est vide
         if (\Xmf\Request::hasVar('description', 'POST')) {
             if ('' === \Xmf\Request::getString('description', '')) {
-                $erreur = true;
+                $erreur       = true;
                 $errorMessage .= _AM_TDMDOWNLOADS_ERREUR_NODESCRIPTION . '<br>';
             }
         }
         // erreur si la catégorie est vide
         if (\Xmf\Request::hasVar('cid', 'POST')) {
             if (0 == \Xmf\Request::getInt('cid', 0, 'POST')) {
-                $erreur = true;
+                $erreur       = true;
                 $errorMessage .= _AM_TDMDOWNLOADS_ERREUR_NOCAT . '<br>';
             }
         }
@@ -596,7 +596,7 @@ switch ($op) {
         foreach (array_keys($downloads_field) as $i) {
             /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
             if (0 == $downloads_field[$i]->getVar('status_def')) {
-                $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
+                $fieldName          = 'champ' . $downloads_field[$i]->getVar('fid');
                 $donnee[$fieldName] = \Xmf\Request::getString($fieldName, '', 'POST');
             }
         }
@@ -613,156 +613,158 @@ switch ($op) {
             $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
             break;
         }
-            // Pour le fichier
-			$mediaSize = 0;
-            if (isset($_POST['xoops_upload_file'][0])) {
-                $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetypes'), $helper->getConfig('maxuploadsize'), null, null);
-                if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
-                    if ($helper->getConfig('newnamedownload')) {
-                        $uploader->setPrefix($helper->getConfig('prefixdownloads'));
-                    }
-                    $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
-                    if (!$uploader->upload()) {
-                        $errorMessage .= $uploader->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
-                        $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
-                        break;
-                    }
-					$mediaSize = $uploader->getMediaSize();
-                    $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
-                } else {
-                    if ($_FILES['attachedfile']['name'] > '') {
-                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
-                        $errorMessage .= $uploader->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
-                        $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
-                        break;
-                    }
-                    $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
+        // Pour le fichier
+        $mediaSize = 0;
+        if (isset($_POST['xoops_upload_file'][0])) {
+            $uploader = new \XoopsMediaUploader($uploaddir_downloads, $helper->getConfig('mimetypes'), $helper->getConfig('maxuploadsize'), null, null);
+            if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
+                if ($helper->getConfig('newnamedownload')) {
+                    $uploader->setPrefix($helper->getConfig('prefixdownloads'));
                 }
+                $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
+                if (!$uploader->upload()) {
+                    $errorMessage .= $uploader->getErrors() . '<br>';
+                    $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                    $form = $obj->getForm($donnee, true);
+                    $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                    break;
+                }
+                $mediaSize = $uploader->getMediaSize();
+                $obj->setVar('url', $uploadurl_downloads . $uploader->getSavedFileName());
             } else {
-				$obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
-			}
-            // Pour l'image
-            if (isset($_POST['xoops_upload_file'][1])) {
-                $uploader_2 = new \XoopsMediaUploader($uploaddir_shots, [
-                    'image/gif',
-                    'image/jpeg',
-                    'image/pjpeg',
-                    'image/x-png',
-                    'image/png',
-                ], $helper->getConfig('maxuploadsize'), null, null);
-                if ($uploader_2->fetchMedia($_POST['xoops_upload_file'][1])) {
-                    $uploader_2->setPrefix('downloads_');
-                    $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
-                    if (!$uploader_2->upload()) {
-                        $errorMessage .= $uploader_2->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
-                        $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
-                        break;
-                    }
-                    $obj->setVar('logourl', $uploader_2->getSavedFileName());
-                } else {
-                    if ($_FILES['attachedimage']['name'] > '') {
-                        // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
-                        $errorMessage .= $uploader_2->getErrors() . '<br>';
-                        $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
-                        $form = $obj->getForm($donnee, true);
-                        $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
-                        break;
-                    }
-                    $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
+                if ($_FILES['attachedfile']['name'] > '') {
+                    // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                    $errorMessage .= $uploader->getErrors() . '<br>';
+                    $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                    $form = $obj->getForm($donnee, true);
+                    $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                    break;
                 }
-            } else {
-				$obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
-			}
-			//Automatic file size
-			if (Xmf\Request::getString('sizeValue', '') == ''){
-				if ($mediaSize == 0) {
-					$obj->setVar('size', $utility::GetFileSize(Xmf\Request::getUrl('url', '')));
-				} else {
-					$obj->setVar('size', $utility::FileSizeConvert($mediaSize));
-				}
-			} else {
-				$obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
-			}
-			$timeToRedirect = 2;
-			if ($obj->getVar('size') == 0){
-				$obj->setVar('size', '');
-				$error_message = _AM_TDMDOWNLOADS_ERREUR_SIZE;
-				$timeToRedirect = 10;
-			}
-            // enregistrement
-            if ($downloadsHandler->insert($obj)) {
-                if (!\Xmf\Request::hasVar('downloads_modified')) {
-                    $lidDownloads = $obj->getNewEnreg($db);
-                } else {
-                    $lidDownloads = \Xmf\Request::getInt('lid');
-                }
-                //tags
-                if ((1 == $helper->getConfig('usetag')) && class_exists(TagHandler::class)) {
-                    /** @var \XoopsModules\Tag\TagHandler $tagHandler */
-                    $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
-                    $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
-                }
-                // Récupération des champs supplémentaires:
-                $criteria = new \CriteriaCompo();
-                $criteria->setSort('weight ASC, title');
-                $criteria->setOrder('ASC');
-                $downloads_field = $fieldHandler->getAll($criteria);
-                foreach (array_keys($downloads_field) as $i) {
-                    if (0 == $downloads_field[$i]->getVar('status_def')) {
-                        $iddata = 'iddata' . $downloads_field[$i]->getVar('fid');
-                        if (\Xmf\Request::hasVar($iddata, 'POST')) {
-                            if ('' === \Xmf\Request::getString($iddata, '')) {
-                                $objdata = $fielddataHandler->create();
-                            } else {
-                                $objdata = $fielddataHandler->get(\Xmf\Request::getString($iddata, '', 'POST'));
-                            }
-                        } else {
-                            $objdata = $fielddataHandler->create();
-                        }
-                        $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
-                        $objdata->setVar('data', \Xmf\Request::getString($fieldName, '', 'POST'));
-                        $objdata->setVar('lid', $lidDownloads);
-                        $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
-                        $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
-                    }
-                }
-                //permission pour télécharger
-                if (2 == $helper->getConfig('permission_download')) {
-                    /** @var \XoopsGroupPermHandler $grouppermHandler */
-                    $grouppermHandler = xoops_getHandler('groupperm');
-                    $criteria = new \CriteriaCompo();
-                    $criteria->add(new \Criteria('gperm_itemid', $lidDownloads, '='));
-                    $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
-                    $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download_item', '='));
-                    $grouppermHandler->deleteAll($criteria);
-                    if (\Xmf\Request::hasVar('item_download', 'POST')) {
-                        foreach ($_POST['item_download'] as $onegroup_id) {
-                            $grouppermHandler->addRight('tdmdownloads_download_item', $lidDownloads, $onegroup_id, $xoopsModule->getVar('mid'));
-                        }
-                    }
-                }
-                // pour les notifications uniquement lors d'un nouveau téléchargement
-                if (\Xmf\Request::hasVar('downloads_modified')) {
-                    $tags = [];
-                    $tags['FILE_NAME'] = \Xmf\Request::getString('title', '', 'POST');
-                    $tags['FILE_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . \Xmf\Request::getInt('cid', 0, 'POST') . '&amp;lid=' . $lidDownloads;
-                    $downloadscat_cat = $categoryHandler->get(\Xmf\Request::getInt('cid', 0, 'POST'));
-                    $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
-                    $tags['CATEGORY_URL'] = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . \Xmf\Request::getInt('cid', 0, 'POST');
-                    /** @var \XoopsNotificationHandler $notificationHandler */
-                    $notificationHandler = xoops_getHandler('notification');
-                    $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
-                    $notificationHandler->triggerEvent('category', \Xmf\Request::getInt('cid', 0, 'POST'), 'new_file', $tags);
-                }
-                redirect_header('downloads.php', $timeToRedirect, _AM_TDMDOWNLOADS_REDIRECT_SAVE . '<br><br>' . $error_message);
+                $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
             }
-            $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
+        } else {
+            $obj->setVar('url', \Xmf\Request::getUrl('url', '', 'POST'));
+        }
+        // Pour l'image
+        if (isset($_POST['xoops_upload_file'][1])) {
+            $uploader_2 = new \XoopsMediaUploader(
+                $uploaddir_shots, [
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/x-png',
+                'image/png',
+            ], $helper->getConfig('maxuploadsize'), null, null
+            );
+            if ($uploader_2->fetchMedia($_POST['xoops_upload_file'][1])) {
+                $uploader_2->setPrefix('downloads_');
+                $uploader_2->fetchMedia($_POST['xoops_upload_file'][1]);
+                if (!$uploader_2->upload()) {
+                    $errorMessage .= $uploader_2->getErrors() . '<br>';
+                    $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                    $form = $obj->getForm($donnee, true);
+                    $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                    break;
+                }
+                $obj->setVar('logourl', $uploader_2->getSavedFileName());
+            } else {
+                if ($_FILES['attachedimage']['name'] > '') {
+                    // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
+                    $errorMessage .= $uploader_2->getErrors() . '<br>';
+                    $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
+                    $form = $obj->getForm($donnee, true);
+                    $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
+                    break;
+                }
+                $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
+            }
+        } else {
+            $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'POST'));
+        }
+        //Automatic file size
+        if (Xmf\Request::getString('sizeValue', '') == '') {
+            if ($mediaSize == 0) {
+                $obj->setVar('size', $utility::getFileSize(Xmf\Request::getUrl('url', '')));
+            } else {
+                $obj->setVar('size', $utility::convertFileSize($mediaSize));
+            }
+        } else {
+            $obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
+        }
+        $timeToRedirect = 2;
+        if ($obj->getVar('size') == 0) {
+            $obj->setVar('size', '');
+            $error_message  = _AM_TDMDOWNLOADS_ERREUR_SIZE;
+            $timeToRedirect = 10;
+        }
+        // enregistrement
+        if ($downloadsHandler->insert($obj)) {
+            if (!\Xmf\Request::hasVar('downloads_modified')) {
+                $lidDownloads = $obj->getNewEnreg($db);
+            } else {
+                $lidDownloads = \Xmf\Request::getInt('lid');
+            }
+            //tags
+            if ((1 == $helper->getConfig('usetag')) && class_exists(TagHandler::class)) {
+                /** @var \XoopsModules\Tag\TagHandler $tagHandler */
+                $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
+                $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
+            }
+            // Récupération des champs supplémentaires:
+            $criteria = new \CriteriaCompo();
+            $criteria->setSort('weight ASC, title');
+            $criteria->setOrder('ASC');
+            $downloads_field = $fieldHandler->getAll($criteria);
+            foreach (array_keys($downloads_field) as $i) {
+                if (0 == $downloads_field[$i]->getVar('status_def')) {
+                    $iddata = 'iddata' . $downloads_field[$i]->getVar('fid');
+                    if (\Xmf\Request::hasVar($iddata, 'POST')) {
+                        if ('' === \Xmf\Request::getString($iddata, '')) {
+                            $objdata = $fielddataHandler->create();
+                        } else {
+                            $objdata = $fielddataHandler->get(\Xmf\Request::getString($iddata, '', 'POST'));
+                        }
+                    } else {
+                        $objdata = $fielddataHandler->create();
+                    }
+                    $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
+                    $objdata->setVar('data', \Xmf\Request::getString($fieldName, '', 'POST'));
+                    $objdata->setVar('lid', $lidDownloads);
+                    $objdata->setVar('fid', $downloads_field[$i]->getVar('fid'));
+                    $fielddataHandler->insert($objdata) || $objdata->getHtmlErrors();
+                }
+            }
+            //permission pour télécharger
+            if (2 == $helper->getConfig('permission_download')) {
+                /** @var \XoopsGroupPermHandler $grouppermHandler */
+                $grouppermHandler = xoops_getHandler('groupperm');
+                $criteria         = new \CriteriaCompo();
+                $criteria->add(new \Criteria('gperm_itemid', $lidDownloads, '='));
+                $criteria->add(new \Criteria('gperm_modid', $xoopsModule->getVar('mid'), '='));
+                $criteria->add(new \Criteria('gperm_name', 'tdmdownloads_download_item', '='));
+                $grouppermHandler->deleteAll($criteria);
+                if (\Xmf\Request::hasVar('item_download', 'POST')) {
+                    foreach ($_POST['item_download'] as $onegroup_id) {
+                        $grouppermHandler->addRight('tdmdownloads_download_item', $lidDownloads, $onegroup_id, $xoopsModule->getVar('mid'));
+                    }
+                }
+            }
+            // pour les notifications uniquement lors d'un nouveau téléchargement
+            if (\Xmf\Request::hasVar('downloads_modified')) {
+                $tags                  = [];
+                $tags['FILE_NAME']     = \Xmf\Request::getString('title', '', 'POST');
+                $tags['FILE_URL']      = XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?cid=' . \Xmf\Request::getInt('cid', 0, 'POST') . '&amp;lid=' . $lidDownloads;
+                $downloadscat_cat      = $categoryHandler->get(\Xmf\Request::getInt('cid', 0, 'POST'));
+                $tags['CATEGORY_NAME'] = $downloadscat_cat->getVar('cat_title');
+                $tags['CATEGORY_URL']  = XOOPS_URL . '/modules/' . $moduleDirName . '/viewcat.php?cid=' . \Xmf\Request::getInt('cid', 0, 'POST');
+                /** @var \XoopsNotificationHandler $notificationHandler */
+                $notificationHandler = xoops_getHandler('notification');
+                $notificationHandler->triggerEvent('global', 0, 'new_file', $tags);
+                $notificationHandler->triggerEvent('category', \Xmf\Request::getInt('cid', 0, 'POST'), 'new_file', $tags);
+            }
+            redirect_header('downloads.php', $timeToRedirect, _AM_TDMDOWNLOADS_REDIRECT_SAVE . '<br><br>' . $error_message);
+        }
+        $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
 
         $form = $obj->getForm($donnee, true);
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());

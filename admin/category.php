@@ -13,7 +13,7 @@ use XoopsModules\Tag\LinkHandler;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require __DIR__ . '/admin_header.php';
@@ -290,11 +290,15 @@ switch ($op) {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
-            xoops_confirm([
-                              'ok'               => 1,
-                              'downloadscat_cid' => $categoryId,
-                              'op'               => 'del_cat',
-                          ], $_SERVER['REQUEST_URI'], sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message);
+            xoops_confirm(
+                [
+                    'ok'               => 1,
+                    'downloadscat_cid' => $categoryId,
+                    'op'               => 'del_cat',
+                ],
+                $_SERVER['REQUEST_URI'],
+                sprintf(_AM_TDMDOWNLOADS_FORMSUREDEL, $obj->getVar('cat_title')) . '<br><br>' . $message
+            );
         }
 
         break;
@@ -304,24 +308,26 @@ switch ($op) {
             redirect_header('category.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
         }
         xoops_cp_header();
-		$cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
+        $cat_cid = \Xmf\Request::getInt('cat_cid', 0, 'POST');
         if (0 !== $cat_cid) {
             $obj = $categoryHandler->get($cat_cid);
         } else {
             $obj = $categoryHandler->create();
         }
-        $erreur         = false;
+        $erreur       = false;
         $errorMessage = '';
         // Récupération des variables:
         // Pour l'image
         require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-        $uploader = new \XoopsMediaUploader($uploaddir, [
+        $uploader = new \XoopsMediaUploader(
+            $uploaddir, [
             'image/gif',
             'image/jpeg',
             'image/pjpeg',
             'image/x-png',
             'image/png',
-        ], $helper->getConfig('maxuploadsize'), null, null);
+        ], $helper->getConfig('maxuploadsize'), null, null
+        );
         if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
             $uploader->setPrefix('downloads_');
             $uploader->fetchMedia($_POST['xoops_upload_file'][0]);
@@ -338,12 +344,11 @@ switch ($op) {
         $obj->setVar('cat_pid', \Xmf\Request::getInt('cat_pid', 0, 'POST')); //$_POST['cat_pid']);
         $obj->setVar('cat_title', \Xmf\Request::getString('cat_title', '', 'POST')); //$_POST['cat_title']);
         $obj->setVar('cat_description_main', \Xmf\Request::getString('cat_description_main', '', 'POST')); //$_POST['cat_description_main']);
-		$obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
-
+        $obj->setVar('cat_weight', \Xmf\Request::getInt('cat_weight', 0, 'POST'));
 
         if (\Xmf\Request::hasVar('cat_cid', 'REQUEST')) {
             if ($cat_cid === \Xmf\Request::getInt('cat_pid', 0, 'POST')) {
-                $erreur         = true;
+                $erreur       = true;
                 $errorMessage .= _AM_TDMDOWNLOADS_ERREUR_CAT;
             }
         }
@@ -352,7 +357,7 @@ switch ($op) {
         } else {
             if ($categoryHandler->insert($obj)) {
                 /** @var \XoopsModules\Tdmdownloads\Category $obj */
-                 $newcat_cid = $obj->getNewEnreg($db);
+                $newcat_cid = $obj->getNewEnreg($db);
                 //permission pour voir
                 $perm_id = \Xmf\Request::hasVar('cat_cid', 'POST') ? $cat_cid : $newcat_cid;
                 /** @var \XoopsGroupPermHandler $grouppermHandler */

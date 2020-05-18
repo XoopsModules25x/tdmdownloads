@@ -9,13 +9,13 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author      Gregory Mage (Aka Mage)
- *
  * @param $items
  *
  * @return bool|null
+ * @author      Gregory Mage (Aka Mage)
+ *
+ * @copyright   Gregory Mage (Aka Mage)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  */
 
 /**

@@ -15,11 +15,9 @@ use XoopsModules\Tag\FormTag;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
-
 /**
  * Class Downloads
  * @package XoopsModules\Tdmdownloads
@@ -95,10 +93,10 @@ class Downloads extends \XoopsObject
         if ($xoopsUser) {
             $perm_upload = true;
             if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
-                $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
+                $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'));
             }
         } else {
-            $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
+            $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'));
         }
         //nom du formulaire selon l'action (editer ou ajouter):
         $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
@@ -168,24 +166,24 @@ class Downloads extends \XoopsObject
                 }
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
-                    if (1 == $downloads_field[$i]->getVar('status')) {	
-						$size_value_arr = explode(' ', $this->getVar('size'));
-						$aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
-						$aff_size->addElement(new \XoopsFormText('', 'sizeValue', 13, 13, $size_value_arr[0]));
-						if (array_key_exists (1, $size_value_arr) == false){
-							$size_value_arr[1] = 'K';
-						}
-						$type     = new \XoopsFormSelect('', 'sizeType', $size_value_arr[1]);
-						$typeArray = [
-							'B' => _AM_TDMDOWNLOADS_BYTES,
-							'K' => _AM_TDMDOWNLOADS_KBYTES,
-							'M' => _AM_TDMDOWNLOADS_MBYTES,
-							'G' => _AM_TDMDOWNLOADS_GBYTES,
-							'T' => _AM_TDMDOWNLOADS_TBYTES
-						];
-						$type->addOptionArray($typeArray);
-						$aff_size->addElement($type);
-						$form->addElement($aff_size);
+                    if (1 == $downloads_field[$i]->getVar('status')) {
+                        $size_value_arr = explode(' ', $this->getVar('size'));
+                        $aff_size       = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
+                        $aff_size->addElement(new \XoopsFormText('', 'sizeValue', 13, 13, $size_value_arr[0]));
+                        if (array_key_exists(1, $size_value_arr) === false) {
+                            $size_value_arr[1] = 'K';
+                        }
+                        $type      = new \XoopsFormSelect('', 'sizeType', $size_value_arr[1]);
+                        $typeArray = [
+                            'B' => _AM_TDMDOWNLOADS_BYTES,
+                            'K' => _AM_TDMDOWNLOADS_KBYTES,
+                            'M' => _AM_TDMDOWNLOADS_MBYTES,
+                            'G' => _AM_TDMDOWNLOADS_GBYTES,
+                            'T' => _AM_TDMDOWNLOADS_TBYTES,
+                        ];
+                        $type->addOptionArray($typeArray);
+                        $aff_size->addElement($type);
+                        $form->addElement($aff_size);
                     } else {
                         $form->addElement(new \XoopsFormHidden('size', ''));
                         $form->addElement(new \XoopsFormHidden('type_size', ''));
@@ -195,7 +193,7 @@ class Downloads extends \XoopsObject
                     //plateforme
                     if (1 == $downloads_field[$i]->getVar('status')) {
                         $platformselect = new \XoopsFormSelect(_AM_TDMDOWNLOADS_FORMPLATFORM, 'platform', explode('|', $this->getVar('platform')), 5, true);
-                        $platformArray = explode('|', $helper->getConfig('platform'));
+                        $platformArray  = explode('|', $helper->getConfig('platform'));
                         foreach ($platformArray as $platform) {
                             $platformselect->addOption((string)$platform, $platform);
                         }
@@ -258,7 +256,7 @@ class Downloads extends \XoopsObject
 
         //image
         if ($helper->getConfig('useshots')) {
-            $uploaddir        = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $this->getVar('logourl');
+            $uploaddir     = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/shots/' . $this->getVar('logourl');
             $categoryImage = $this->getVar('logourl') ?: 'blank.gif';
             if (!is_file($uploaddir)) {
                 $categoryImage = 'blank.gif';

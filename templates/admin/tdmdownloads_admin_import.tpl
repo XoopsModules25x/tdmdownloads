@@ -11,7 +11,7 @@
         -webkit-border-radius: 4px;
         border-radius: 4px;
         line-height: 140%;
-        margin-top: 0px;
+        margin-top: 0;
         margin-bottom: 50px;
     }
 </style>

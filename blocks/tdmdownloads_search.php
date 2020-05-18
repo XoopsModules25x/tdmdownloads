@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 
@@ -65,14 +65,14 @@ function b_tdmdownloads_search_show()
     $criteria->setSort('weight ASC, title');
     $criteria->setOrder('ASC');
     $downloads_field = $fieldHandler->getAll($criteria);
-    $fieldNameBase = '';
+    $fieldNameBase   = '';
     foreach (array_keys($downloads_field) as $i) {
         /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
-        $title_sup                                          = '';
-        $contentArray                                        = [];
-        $lid_arr                                            = [];
-        $fieldName                                          = 'champ' . $downloads_field[$i]->getVar('fid');
-        $criteria                                           = new \CriteriaCompo();
+        $title_sup                                         = '';
+        $contentArray                                      = [];
+        $lid_arr                                           = [];
+        $fieldName                                         = 'champ' . $downloads_field[$i]->getVar('fid');
+        $criteria                                          = new \CriteriaCompo();
         $fieldContent[$downloads_field[$i]->getVar('fid')] = 999;
         if (1 == $downloads_field[$i]->getVar('status_def')) {
             $criteria->add(new \Criteria('status', 0, '!='));
@@ -96,7 +96,7 @@ function b_tdmdownloads_search_show()
             }
             if (4 == $downloads_field[$i]->getVar('fid')) {
                 //platform
-                $title_sup      = _AM_TDMDOWNLOADS_FORMPLATFORM;
+                $title_sup     = _AM_TDMDOWNLOADS_FORMPLATFORM;
                 $platformArray = explode('|', xoops_getModuleOption('platform', $moduleDirName));
                 foreach ($platformArray as $platform) {
                     $contentArray[$platform] = $platform;
@@ -104,7 +104,7 @@ function b_tdmdownloads_search_show()
             } else {
                 $criteria->setOrder('ASC');
                 /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
-                $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+                $downloadsHandler  = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
                 $tdmdownloadsArray = $downloadsHandler->getAll($criteria);
                 foreach (array_keys($tdmdownloadsArray) as $j) {
                     /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */
@@ -117,7 +117,7 @@ function b_tdmdownloads_search_show()
             $criteria->setSort('data');
             $criteria->setOrder('ASC');
             /** @var \XoopsModules\Tdmdownloads\FielddataHandler $fielddataHandler */
-            $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+            $fielddataHandler  = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
             $tdmdownloadsArray = $fielddataHandler->getAll($criteria);
             foreach (array_keys($tdmdownloadsArray) as $j) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $tdmdownloadsArray */

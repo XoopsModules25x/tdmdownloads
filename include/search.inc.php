@@ -9,15 +9,15 @@
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
- * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
- * @author      Gregory Mage (Aka Mage)
  * @param $queryarray
  * @param $andor
  * @param $limit
  * @param $offset
  * @param $userid
  * @return array
+ * @copyright   Gregory Mage (Aka Mage)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @author      Gregory Mage (Aka Mage)
  */
 
 //use XoopsModules\Tdmdownloads;
@@ -35,7 +35,7 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
 
     $utility    = new \XoopsModules\Tdmdownloads\Utility();
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
-//        if (is_array($categories) && count($categories) > 0) {
+    //        if (is_array($categories) && count($categories) > 0) {
     if ($categories && is_array($categories)) {
         $sql .= ' AND cid IN (' . implode(',', $categories) . ') ';
     } else {

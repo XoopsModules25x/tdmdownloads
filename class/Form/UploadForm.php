@@ -1,4 +1,6 @@
-<?php namespace XoopsModules\Tdmdownloads\Form;
+<?php
+
+namespace XoopsModules\Tdmdownloads\Form;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -50,12 +52,12 @@ class UploadForm extends \XoopsThemeForm
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        /** @var  \XoopsModules\Tdmdownloads\Helper $this->helper */
+        /** @var  \XoopsModules\Tdmdownloads\Helper $this ->helper */
         $this->helper       = $target->helper;
         $this->targetObject = $target;
 
         $title = $this->targetObject->isNew() ? sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_ADD')) : sprintf(constant('CO_' . $moduleDirNameUpper . '_' . 'FIELD_EDIT'));
-        parent::__construct('', 'form', xoops_getenv('PHP_SELF'), 'post', true);
+        parent::__construct('', 'form', xoops_getenv('SCRIPT_NAME'), 'post', true);
         $this->setExtra('enctype="multipart/form-data"');
 
         //include ID field, it's needed so the module knows if it is a new form or an edited form
@@ -64,9 +66,8 @@ class UploadForm extends \XoopsThemeForm
         $this->addElement($hidden);
         unset($hidden);
 
-
-        $categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
-        $start = Request::getInt('start', 0);
+        $categoryHandler    = new \XoopsModules\Tdmdownloads\CategoryHandler();
+        $start              = Request::getInt('start', 0);
         $catPaginationLimit = $this->helper->getConfig('userpager') ?: 10;
 
         $criteria = new \CriteriaCompo();
@@ -78,16 +79,16 @@ class UploadForm extends \XoopsThemeForm
         $catArray = $categoryHandler->getAll($criteria);
 
         // Form Select Category
-        $categoryIdSelect = new \XoopsFormSelect( constant('CO_' . $moduleDirNameUpper . '_' . 'SELECT'), 'cat_title', $this->targetObject->getVar('cat_cid'));
+        $categoryIdSelect = new \XoopsFormSelect(constant('CO_' . $moduleDirNameUpper . '_' . 'SELECT'), 'cat_title', $this->targetObject->getVar('cat_cid'));
         $categoryIdSelect->setExtra('onchange="submit()"');
-//        $categoryIdSelect->addOption(0, '&nbsp;');
+        //        $categoryIdSelect->addOption(0, '&nbsp;');
 
-        foreach(array_keys($catArray) as $i) {
+        foreach (array_keys($catArray) as $i) {
             $catName = $catArray[$i]->getVar('cat_title');
-            $catPid = $catArray[$i]->getVar('cat_pid');
-            if ( 0 < $catPid ) {
+            $catPid  = $catArray[$i]->getVar('cat_pid');
+            if (0 < $catPid) {
                 $categoryObj = $categoryHandler->get($catPid);
-                if (is_object( $categoryObj)) {
+                if (is_object($categoryObj)) {
                     $catName .= ' (' . $categoryObj->getVar('cat_title') . ')';
                 } else {
                     $catName .= ' (' . constant('CO_' . $moduleDirNameUpper . '_' . 'ERROR_CATPID') . ')';

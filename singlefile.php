@@ -13,7 +13,7 @@ use XoopsModules\Tag\Tag;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require_once __DIR__ . '/header.php';
@@ -135,6 +135,18 @@ if (true === $helper->getConfig('use_paypal') && '' !== $viewDownloads->getVar('
 }
 $xoopsTpl->assign('paypal', $paypal);
 
+/**
+ * @param $k
+ * @return string
+ */
+function xfield_key( $k ) {
+    return strtolower( str_replace(
+        ["Ü", "ü", "Ş", "ş", "I", "ı", "Ç", "ç", "Ğ", "ğ", "Ö", "ö"],
+        ["u", "u", "s", "s", "i", "i", "c", "c", "g", "g", "o", "o"],
+        $k
+    ) );
+}
+
 // pour les champs supplémentaires
 $criteria = new \CriteriaCompo();
 $criteria->setSort('weight ASC, title');
@@ -145,6 +157,7 @@ $downloads_field = $fieldHandler->getAll($criteria);
 $nb_champ        = count($downloads_field);
 $champ_sup       = '';
 $champ_sup_vide  = 0;
+$xfields = [];
 foreach (array_keys($downloads_field) as $i) {
     /** @var \XoopsModules\Tdmdownloads\Field[] $downloads_field */
     if (1 == $downloads_field[$i]->getVar('status_def')) {
@@ -153,6 +166,8 @@ foreach (array_keys($downloads_field) as $i) {
             if ('' != $viewDownloads->getVar('homepage')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMHOMEPAGE . ':&nbsp;<a href="' . $viewDownloads->getVar('homepage') . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_ICI . '</a>';
                 ++$champ_sup_vide;
+
+                $xfields['homepage'] = $champ_sup;
             }
         }
         if (2 == $downloads_field[$i]->getVar('fid')) {
@@ -160,14 +175,18 @@ foreach (array_keys($downloads_field) as $i) {
             if ('' != $viewDownloads->getVar('version')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMVERSION . ':&nbsp;' . $viewDownloads->getVar('version');
                 ++$champ_sup_vide;
+
+                $xfields['version'] = $champ_sup;
             }
         }
         if (3 == $downloads_field[$i]->getVar('fid')) {
             //taille du fichier
             $size_value_arr = explode(' ', $viewDownloads->getVar('size'));
             if ('' != $size_value_arr[0]) {
-                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $utility::SizeConvertString($viewDownloads->getVar('size'));
+                $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMSIZE . ':&nbsp;' . $utility::convertSizeToString($viewDownloads->getVar('size'));
                 ++$champ_sup_vide;
+
+                $xfields['size'] = $champ_sup;
             }
         }
         if (4 == $downloads_field[$i]->getVar('fid')) {
@@ -175,6 +194,8 @@ foreach (array_keys($downloads_field) as $i) {
             if ('' != $viewDownloads->getVar('platform')) {
                 $champ_sup = '&nbsp;' . _AM_TDMDOWNLOADS_FORMPLATFORM . $viewDownloads->getVar('platform');
                 ++$champ_sup_vide;
+
+                $xfields['platform'] = $champ_sup;
             }
         }
     } else {
@@ -191,16 +212,24 @@ foreach (array_keys($downloads_field) as $i) {
         if ('' != $contenu) {
             $champ_sup = '&nbsp;' . $downloads_field[$i]->getVar('title') . ':&nbsp;' . $contenu;
             ++$champ_sup_vide;
+
+            $xfield_key = xfield_key( $downloads_field[$i]->getVar('title') );
+            $xfields[ $xfield_key ] = $contenu;
         }
     }
     if ('' != $champ_sup) {
-        $xoopsTpl->append('champ_sup', [
-            'image' => $uploadurl_field . $downloads_field[$i]->getVar('img'),
-            'data'  => $champ_sup,
-        ]);
+        $xoopsTpl->append(
+            'champ_sup',
+            [
+                'image' => $uploadurl_field . $downloads_field[$i]->getVar('img'),
+                'data'  => $champ_sup,
+            ]
+        );
     }
     $champ_sup = '';
 }
+
+$xoopsTpl->assign('xfields', $xfields);
 if ($nb_champ > 0 && $champ_sup_vide > 0) {
     $xoopsTpl->assign('sup_aff', true);
 } else {
@@ -242,13 +271,9 @@ if ((1 == $helper->getConfig('usetellafriend')) && is_dir('../tellafriend')) {
     }
     $tellafriendText = '<a target="_top" href="' . XOOPS_URL . '/modules/tellafriend/index.php?target_uri=' . rawurlencode($targetUri) . '&amp;subject=' . rawurlencode($subject) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 } else {
-    $tellafriendText = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])
-                                                                                                                                                                                             . ':  '
-                                                                                                                                                                                             . XOOPS_URL
-                                                                                                                                                                                             . '/modules/'
-                                                                                                                                                                                             . $moduleDirName
-                                                                                                                                                                                             . '/singlefile.php?lid='
-                                                                                                                                                                                             . \Xmf\Request::getInt('lid', 0, 'REQUEST')) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
+    $tellafriendText = '<a target="_top" href="mailto:?subject=' . rawurlencode(sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename'])) . '&amp;body=' . rawurlencode(
+            sprintf(_MD_TDMDOWNLOADS_SINGLEFILE_INTFILEFOUND, $xoopsConfig['sitename']) . ':  ' . XOOPS_URL . '/modules/' . $moduleDirName . '/singlefile.php?lid=' . \Xmf\Request::getInt('lid', 0, 'REQUEST')
+        ) . '">' . _MD_TDMDOWNLOADS_SINGLEFILE_TELLAFRIEND . '</a>';
 }
 $xoopsTpl->assign('tellafriend_texte', $tellafriendText);
 

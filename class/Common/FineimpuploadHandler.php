@@ -103,7 +103,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     public function __construct(\stdClass $claims)
     {
         parent::__construct($claims);
-        $this->allowedMimeTypes = ['image/gif', 'image/jpeg', 'image/png', 'application/zip'];
+        $this->allowedMimeTypes  = ['image/gif', 'image/jpeg', 'image/png', 'application/zip'];
         $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png', 'zip'];
     }
 
@@ -117,24 +117,24 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     {
         $moduleDirName      = basename(dirname(dirname(__DIR__)));
         $moduleDirNameUpper = mb_strtoupper($moduleDirName);
-        include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/header.php';
+        require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
         $this->pathUpload = constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');
-        $utility = new \XoopsModules\Tdmdownloads\Utility();
+        $utility          = new \XoopsModules\Tdmdownloads\Utility();
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-//        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
-//            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
-//        } else {
-//            $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
-//        }
+        //        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
+        //            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
+        //        } else {
+        //            $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
+        //        }
 
         $this->permUseralbum = 1; //TODO: handle an option, whether images should be online immediately or not
 
         $pathParts = pathinfo($this->getName());
 
         $this->imageName      = uniqid('img', true) . '.' . strtolower($pathParts['extension']);
-        $this->imageNicename = str_replace(['_', '-'], ' ', $pathParts['filename']);
+        $this->imageNicename  = str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = uniqid('imgl', true) . '.' . strtolower($pathParts['extension']);
         $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
 
@@ -149,20 +149,24 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         $ret = $this->handleImageDB();
         if (false === $ret) {
             return [
-                'error' => sprintf(_FAILSAVEIMG, $this->imageNicename)
+                'error' => sprintf(_FAILSAVEIMG, $this->imageNicename),
             ];
         }
 
         // load watermark settings
-        $albumObj = $albumsHandler->get($this->claims->cat);
-        $wmId = $albumObj->getVar('alb_wmid');
+        $albumObj  = $albumsHandler->get($this->claims->cat);
+        $wmId      = $albumObj->getVar('alb_wmid');
         $wmTargetM = false;
         $wmTargetL = false;
-        if ( 0 < $wmId) {
+        if (0 < $wmId) {
             $watermarksObj = $watermarksHandler->get($wmId);
-            $wmTarget = $watermarksObj->getVar('wm_target');
-            if ( constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_M') === $wmTarget) {$wmTargetM = true;}
-            if ( constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_L') === $wmTarget) {$wmTargetL = true;}
+            $wmTarget      = $watermarksObj->getVar('wm_target');
+            if (constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_M') === $wmTarget) {
+                $wmTargetM = true;
+            }
+            if (constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_L') === $wmTarget) {
+                $wmTargetL = true;
+            }
         }
 
         // create medium image
@@ -186,18 +190,18 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         }
 
         // add watermark to large image
-        if ( true === $wmTargetL) {
+        if (true === $wmTargetL) {
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
-            $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
-            if ( true !== $resWm) {
+            $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
+            if (true !== $resWm) {
                 return ['error' => sprintf(constant($moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE'), $this->imageNicename, $resWm)];
+            }
         }
-    }
         // add watermark to medium image
-        if ( true === $wmTargetM) {
+        if (true === $wmTargetM) {
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
-            $resWm = $watermarksHandler->watermarkImage( $wmId, $imgWm, $imgWm );
-            if ( true !== $resWm) {
+            $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
+            if (true !== $resWm) {
                 return ['error' => sprintf(constant($moduleDirNameUpper . '_' . 'FAILSAVEWM_MEDIUM'), $this->imageNicename, $resWm)];
             }
         }
@@ -208,17 +212,18 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     /**
      * @return bool
      */
-    private function handleImageDB () {
-        $moduleDirName      = basename(dirname(dirname(__DIR__)));
-        include_once XOOPS_ROOT_PATH .'/modules/'. $moduleDirName .'/header.php';
+    private function handleImageDB()
+    {
+        $moduleDirName = basename(dirname(dirname(__DIR__)));
+        require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
         global $xoopsUser;
 
         $this->getImageDim();
 
         $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
-//      $imagesHandler = $helper->getHandler('Images');
+        //      $imagesHandler = $helper->getHandler('Images');
         $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
-        $imagesObj = $imagesHandler->create();
+        $imagesObj     = $imagesHandler->create();
         // Set Vars
         $imagesObj->setVar('img_title', $this->imageNicename);
         $imagesObj->setVar('img_desc', '');
@@ -245,8 +250,8 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     /**
      * @return bool|string
      */
-    private function getImageDim () {
-
+    private function getImageDim()
+    {
         switch ($this->imageMimetype) {
             case'image/png':
                 $img = imagecreatefrompng($this->imagePath);
@@ -259,7 +264,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
                 break;
 
             case'application/zip':
-                $this->imageWidth = 0;
+                $this->imageWidth  = 0;
                 $this->imageHeight = 0;
                 //                $img = imagecreatefromgif($this->imagePath);
                 break;
