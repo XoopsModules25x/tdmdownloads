@@ -306,9 +306,9 @@ class Utility extends Common\SysUtility
                 $mysize = $size_value_arr[0] * $gb;
             }
             return $mysize;
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
@@ -376,9 +376,9 @@ class Utility extends Common\SysUtility
             curl_close($curlHandle);
             if ($size <= 0) {
                 return 0;
-            } else {
-                return self::convertFileSize($size);
             }
+
+            return self::convertFileSize($size);
         } else {
             return 0;
         }
@@ -407,9 +407,9 @@ class Utility extends Common\SysUtility
             }
 
             return $mysize;
-        } else {
-            return '';
         }
+
+        return '';
     }
 
     /**
