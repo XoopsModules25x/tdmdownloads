@@ -10,7 +10,7 @@
 [![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/tdmdownloads.svg?style=flat)](https://github.com/XoopsModules25x/tdmdownloads/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/tdmdownloads.svg?style=flat)](https://github.com/XoopsModules25x/tdmdownloads/releases/)
 
-**TdmDownloads** module for [XOOPS CMS](https://xoops.org) creates a downloads section where users can download/submit/rate various files..
+**TdmDownloads** module for [XOOPS CMS](https://xoops.org) creates a Downloads section where users can download/submit/rate various files.
 
 [![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://xoops.gitbook.io/tdmdownloads-tutorial/) Tutorial: see [GitBook](https://xoops.gitbook.io/tdmdownloads-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/tdmdownloads-tutorial)
@@ -19,4 +19,4 @@ To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/
 
 Please visit us on https://xoops.org
 
-Current and upcoming "next generation" versions of XOOPS CMS are being crafted on GitHub at: https://github.com/XOOPS
+Current and upcoming "next generation" versions of XOOPS CMS are crafted on GitHub at: https://github.com/XOOPS
