@@ -205,8 +205,8 @@ if ($helper->getConfig('newdownloads') > 0) {
     $tblorder[6] = 'ASC';
     $tblorder[7] = 'DESC';
     $tblorder[8] = 'ASC';
-    $sort        = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
-    $order       = null !== $helper->getConfig('toporder') ? $helper->getConfig('toporder') : 1;
+    $sort        = $helper->getConfig('toporder') ?? 1;
+    $order       = $helper->getConfig('toporder') ?? 1;
     $criteria->setSort($tblsort[$sort]);
     $criteria->setOrder($tblorder[$order]);
     $downloadsArray = $downloadsHandler->getAll($criteria);
