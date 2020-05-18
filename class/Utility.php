@@ -379,9 +379,9 @@ class Utility extends Common\SysUtility
             }
 
             return self::convertFileSize($size);
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
