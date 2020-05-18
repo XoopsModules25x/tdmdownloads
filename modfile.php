@@ -214,8 +214,8 @@ switch ($op) {
                 $obj->setVar('logourl', \Xmf\Request::getString('logo_img', '', 'REQUEST'));
             }
             //Automatic file size
-            if (Xmf\Request::getString('sizeValue', '') == '') {
-                if ($mediaSize == 0) {
+            if ('' == Xmf\Request::getString('sizeValue', '')) {
+                if (0 == $mediaSize) {
                     $obj->setVar('size', $utility::getFileSize(Xmf\Request::getUrl('url', '')));
                 } else {
                     $obj->setVar('size', $utility::convertFileSize($mediaSize));
@@ -224,7 +224,7 @@ switch ($op) {
                 $obj->setVar('size', Xmf\Request::getFloat('sizeValue', 0) . ' ' . Xmf\Request::getString('sizeType', ''));
             }
             $timeToRedirect = 2;
-            if ($obj->getVar('size') == 0) {
+            if (0 == $obj->getVar('size')) {
                 $obj->setVar('size', '');
                 $error_message  = _AM_TDMDOWNLOADS_ERREUR_SIZE;
                 $timeToRedirect = 10;

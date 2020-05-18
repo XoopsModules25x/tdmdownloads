@@ -290,17 +290,17 @@ class Utility extends Common\SysUtility
      */
     public static function convertStringToSize($stringSize)
     {
-        if ($stringSize != '') {
+        if ('' != $stringSize) {
             $kb             = 1024;
             $mb             = 1024 * 1024;
             $gb             = 1024 * 1024 * 1024;
             $size_value_arr = \explode(' ', $stringSize);
 
-            if ($size_value_arr[1] == 'B') {
+            if ('B' == $size_value_arr[1]) {
                 $mysize = $size_value_arr[0];
-            } elseif ($size_value_arr[1] == 'K') {
+            } elseif ('K' == $size_value_arr[1]) {
                 $mysize = $size_value_arr[0] * $kb;
-            } elseif ($size_value_arr[1] == 'M') {
+            } elseif ('M' == $size_value_arr[1]) {
                 $mysize = $size_value_arr[0] * $mb;
             } else {
                 $mysize = $size_value_arr[0] * $gb;
@@ -320,10 +320,10 @@ class Utility extends Common\SysUtility
     public static function convertSizeToString($sizeString)
     {
         $mysizeString = '';
-        if ($sizeString != '') {
+        if ('' != $sizeString) {
             $size_value_arr = \explode(' ', $sizeString);
-            if (\array_key_exists(0, $size_value_arr) === true && \array_key_exists(1, $size_value_arr) === true) {
-                if ($size_value_arr[0] != '') {
+            if (true === \array_key_exists(0, $size_value_arr) && true === \array_key_exists(1, $size_value_arr)) {
+                if ('' != $size_value_arr[0]) {
                     $mysizeString = '';
                     switch ($size_value_arr[1]) {
                         case 'B':

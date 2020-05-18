@@ -170,7 +170,7 @@ class Downloads extends \XoopsObject
                         $size_value_arr = \explode(' ', $this->getVar('size'));
                         $aff_size       = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
                         $aff_size->addElement(new \XoopsFormText('', 'sizeValue', 13, 13, $size_value_arr[0]));
-                        if (\array_key_exists(1, $size_value_arr) === false) {
+                        if (false === \array_key_exists(1, $size_value_arr)) {
                             $size_value_arr[1] = 'K';
                         }
                         $type      = new \XoopsFormSelect('', 'sizeType', $size_value_arr[1]);
