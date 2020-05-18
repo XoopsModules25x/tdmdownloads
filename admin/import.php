@@ -75,7 +75,7 @@ function importMydownloads($path = '', $imgurl = '')
         while (false !== ($donnees = $xoopsDB->fetchArray($query_links))) {
             //On recupere la description
             $requete = $xoopsDB->queryF('SELECT description FROM ' . $xoopsDB->prefix('mydownloads_text') . " WHERE lid = '" . $donnees['lid'] . "'");
-            list($description) = $xoopsDB->fetchRow($requete);
+            [$description] = $xoopsDB->fetchRow($requete);
             $insert = $xoopsDB->queryF(
                 'INSERT INTO '
                 . $xoopsDB->prefix('tdmdownloads_downloads')
@@ -287,7 +287,7 @@ switch ($op) {
 
         global $xoopsDB;
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('mydownloads_downloads'));
-        list($count_downloads) = $xoopsDB->fetchRow($sql);
+        [$count_downloads] = $xoopsDB->fetchRow($sql);
         if ($count_downloads < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '</li>';
         } else {
@@ -295,7 +295,7 @@ switch ($op) {
             $counter++;
         }
         $sql = $xoopsDB->query('SELECT COUNT(cid) AS count FROM ' . $xoopsDB->prefix('mydownloads_cat'));
-        list($count_topic) = $xoopsDB->fetchRow($sql);
+        [$count_topic] = $xoopsDB->fetchRow($sql);
 
         if ($count_topic < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
@@ -339,7 +339,7 @@ switch ($op) {
         $check   = '<ul>';
 
         $sql = $xoopsDB->query('SELECT COUNT(lid) AS count FROM ' . $xoopsDB->prefix('wfdownloads_downloads'));
-        list($count_downloads) = $xoopsDB->fetchRow($sql);
+        [$count_downloads] = $xoopsDB->fetchRow($sql);
         if ($count_downloads < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_DOWNLOADS . '</li>';
         } else {
@@ -347,7 +347,7 @@ switch ($op) {
             $counter++;
         }
         $sql = $xoopsDB->query('SELECT COUNT(cid) AS count FROM ' . $xoopsDB->prefix('wfdownloads_cat'));
-        list($count_topic) = $xoopsDB->fetchRow($sql);
+        [$count_topic] = $xoopsDB->fetchRow($sql);
         if ($count_topic < 1) {
             $check .= '<li>' . _AM_TDMDOWNLOADS_IMPORT_DONT_TOPIC . '</li>';
         } else {

@@ -134,7 +134,7 @@ trait ImageResizer
         }
 
         // GET ORIGINAL IMAGE DIMENSIONS
-        list($original_w, $original_h) = getimagesize($src_url);
+        [$original_w, $original_h] = getimagesize($src_url);
 
         // RESIZE IMAGE AND PRESERVE PROPORTIONS
         $dest_w_resize = $dest_w;
