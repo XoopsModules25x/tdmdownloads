@@ -195,7 +195,7 @@ class ModuleConstants
 
     public function __construct()
     {
-        self::$mydirname2 = basename(dirname(__DIR__));
+        self::$mydirname2 = \basename(\dirname(__DIR__));
     }
 
     /**
@@ -204,7 +204,7 @@ class ModuleConstants
     public static function mydirname()
     {
         if (null === self::$moduleDirName) {
-            self::$moduleDirName = basename(dirname(__DIR__));
+            self::$moduleDirName = \basename(\dirname(__DIR__));
         }
 
         return self::$moduleDirName;

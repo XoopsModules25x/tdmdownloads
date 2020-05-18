@@ -41,13 +41,13 @@ class Utilities
     {
         global $xoopsUser;
         $permissions = [];
-        if (is_array($permissions) && array_key_exists($permtype, $permissions)) {
+        if (\is_array($permissions) && \array_key_exists($permtype, $permissions)) {
             return $permissions[$permtype];
         }
-        $moduleHandler    = xoops_getHandler('module');
+        $moduleHandler    = \xoops_getHandler('module');
         $tdmModule        = $moduleHandler->getByDirname($dirname);
-        $groups           = is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-        $grouppermHandler = xoops_getHandler('groupperm');
+        $groups           = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+        $grouppermHandler = \xoops_getHandler('groupperm');
         $categories       = $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
 
         return $categories;
@@ -67,13 +67,13 @@ class Utilities
     {
         $count     = 0;
         $child_arr = [];
-        if (in_array($cid, $categories)) {
+        if (\in_array($cid, $categories)) {
             $child = $mytree->getAllChild($cid);
-            foreach (array_keys($entries) as $i) {
+            foreach (\array_keys($entries) as $i) {
                 if ($entries[$i]->getVar('cid') === $cid) {
                     ++$count;
                 }
-                foreach (array_keys($child) as $j) {
+                foreach (\array_keys($child) as $j) {
                     if ($entries[$i]->getVar('cid') === $j) {
                         ++$count;
                     }
@@ -92,29 +92,29 @@ class Utilities
      */
     public static function getStatusImage($time, $status)
     {
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         /** @var Tdmdownloads\Helper $helper */
         $helper = Tdmdownloads\Helper::getInstance();
 
         $count     = 7;
         $new       = '';
-        $startdate = (time() - (86400 * $count));
+        $startdate = (\time() - (86400 * $count));
         if (1 == $helper->getConfig('showupdated')) {
             if ($startdate < $time) {
                 $language = $GLOBALS['xoopsConfig']['language'];
-                if (!is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
+                if (!\is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
                     $language = 'english';
                 }
                 $img_path = XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/';
                 $img_url  = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
                 if (1 == $status) {
-                    if (is_readable($img_path . 'new.png')) {
+                    if (\is_readable($img_path . 'new.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                     } else {
                         $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                     }
                 } elseif (2 == $status) {
-                    if (is_readable($img_path . 'updated.png')) {
+                    if (\is_readable($img_path . 'updated.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                     } else {
                         $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
@@ -136,16 +136,16 @@ class Utilities
         /** @var Tdmdownloads\Helper $helper */
         $helper = Tdmdownloads\Helper::getInstance();
 
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         $pop           = '';
         if ($hits >= $helper->getConfig('popular')) {
             $language = $GLOBALS['xoopsConfig']['language'];
-            if (!is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
+            if (!\is_dir(XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/')) {
                 $language = 'english';
             }
             $img_path = XOOPS_ROOT_PATH . "/modules/$moduleDirName/language/" . $language . '/';
             $img_url  = XOOPS_URL . "/modules/$moduleDirName/language/" . $language . '/';
-            if (is_readable($img_path . 'popular.png')) {
+            if (\is_readable($img_path . 'popular.png')) {
                 $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             } else {
                 $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
@@ -194,15 +194,15 @@ class Utilities
     {
         switch ($type) {
             case 'string':
-                if (defined('FILTER_SANITIZE_ADD_SLASHES')) {
-                    $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_ADD_SLASHES) : $default;
+                if (\defined('FILTER_SANITIZE_ADD_SLASHES')) {
+                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_ADD_SLASHES) : $default;
                 } else {
-                    $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_MAGIC_QUOTES) : $default;
+                    $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_MAGIC_QUOTES) : $default;
                 }
                 break;
             case 'int':
             default:
-                $ret = isset($global[$key]) ? filter_var($global[$key], FILTER_SANITIZE_NUMBER_INT) : $default;
+                $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_NUMBER_INT) : $default;
                 break;
         }
         if (false === $ret) {
@@ -224,13 +224,13 @@ class Utilities
     public static function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
         $category_parent = $mytree->getAllParent($key);
-        $category_parent = array_reverse($category_parent);
+        $category_parent = \array_reverse($category_parent);
         $Path            = '';
-        foreach (array_keys($category_parent) as $j) {
+        foreach (\array_keys($category_parent) as $j) {
             $Path .= $category_parent[$j]->getVar($title) . $prefix;
         }
         $first_category = '';
-        if (array_key_exists($key, $category_array)) {
+        if (\array_key_exists($key, $category_array)) {
             $first_category = $category_array[$key]->getVar($title);
         }
         $Path .= $first_category;
@@ -263,7 +263,7 @@ class Utilities
         global $xoopsModule;
         $category_parent = $mytree->getAllParent($key);
         if ('ASC' === $order) {
-            $category_parent = array_reverse($category_parent);
+            $category_parent = \array_reverse($category_parent);
             if (true === $link) {
                 $Path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
             } else {
@@ -271,12 +271,12 @@ class Utilities
             }
         } else {
             $first_category = '';
-            if (array_key_exists($key, $category_array)) {
+            if (\array_key_exists($key, $category_array)) {
                 $first_category = $category_array[$key]->getVar($title);
             }
             $Path = $first_category . $prefix;
         }
-        foreach (array_keys($category_parent) as $j) {
+        foreach (\array_keys($category_parent) as $j) {
             if (true === $link) {
                 $Path .= '<a href="viewcat.php?cid=' . $category_parent[$j]->getVar('cat_cid') . '">' . $category_parent[$j]->getVar($title) . '</a>' . $prefix;
             } else {
@@ -284,7 +284,7 @@ class Utilities
             }
         }
         if ('ASC' === $order) {
-            if (array_key_exists($key, $category_array)) {
+            if (\array_key_exists($key, $category_array)) {
                 if (true === $lasturl) {
                     $first_category = '<a href="viewcat.php?cid=' . $category_array[$key]->getVar('cat_cid') . '">' . $category_array[$key]->getVar($title) . '</a>';
                 } else {
@@ -314,16 +314,16 @@ class Utilities
      */
     public static function createFolder($path, $mode, $fileSource, $fileTarget = null)
     {
-        if (!@mkdir($path, $mode) && !is_dir($path)) {
-            throw new \RuntimeException(sprintf('Unable to create the %s directory', $path));
+        if (!@\mkdir($path, $mode) && !\is_dir($path)) {
+            throw new \RuntimeException(\sprintf('Unable to create the %s directory', $path));
         }
 
         file_put_contents($path . '/index.html', '<script>history.go(-1);</script>');
         if (!empty($fileSource) && !empty($fileTarget)) {
-            @copy($fileSource, $fileTarget);
+            @\copy($fileSource, $fileTarget);
         }
 
-        chmod($path, $mode);
+        \chmod($path, $mode);
     }
 
     /**
@@ -333,23 +333,23 @@ class Utilities
      */
     public static function cloneFolder($pathSource, $pathTarget)
     {
-        if (is_dir($pathSource)) {
+        if (\is_dir($pathSource)) {
             // Create new dir
-            if (!mkdir($pathTarget) && !is_dir($pathTarget)) {
-                throw new \RuntimeException(sprintf('Unable to create the %s directory', $pathTarget));
+            if (!\mkdir($pathTarget) && !\is_dir($pathTarget)) {
+                throw new \RuntimeException(\sprintf('Unable to create the %s directory', $pathTarget));
             }
             // check all files in dir, and process it
-            $handle = opendir($pathSource);
+            $handle = \opendir($pathSource);
             if ($handle) {
-                while ($file = readdir($handle)) {
+                while ($file = \readdir($handle)) {
                     if ('.' !== $file && '..' !== $file) {
                         self::cloneFolder("$pathSource/$file", "$pathTarget/$file");
                     }
                 }
-                closedir($handle);
+                \closedir($handle);
             }
         } else {
-            copy($pathSource, $pathTarget);
+            \copy($pathSource, $pathTarget);
         }
     }
 
@@ -362,8 +362,8 @@ class Utilities
      */
     public static function prepareFolder($folder)
     {
-        if (!@mkdir($folder) && !is_dir($folder)) {
-            throw new \RuntimeException(sprintf('Unable to create the %s directory', $folder));
+        if (!@\mkdir($folder) && !\is_dir($folder)) {
+            throw new \RuntimeException(\sprintf('Unable to create the %s directory', $folder));
         }
         file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
     }

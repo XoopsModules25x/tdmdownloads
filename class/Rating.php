@@ -25,12 +25,12 @@ class Rating extends \XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar('ratingid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('ratinguser', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('rating', XOBJ_DTYPE_OTHER, null, false, 3);
-        $this->initVar('ratinghostname', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('ratingtimestamp', XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar('ratingid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('ratinguser', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('rating', \XOBJ_DTYPE_OTHER, null, false, 3);
+        $this->initVar('ratinghostname', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('ratingtimestamp', \XOBJ_DTYPE_INT, null, false, 10);
     }
 
     /**

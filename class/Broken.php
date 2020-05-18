@@ -27,13 +27,13 @@ class Broken extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
-        $this->initVar('reportid', XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('sender', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('ip', XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('reportid', \XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('sender', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('ip', \XOBJ_DTYPE_TXTBOX, null, false);
         //pour les jointures:
-        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('cid', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('title', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('cid', \XOBJ_DTYPE_INT, null, false, 5);
     }
 
     /**

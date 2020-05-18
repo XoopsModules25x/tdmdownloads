@@ -25,10 +25,10 @@ class Fielddata extends \XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar('iddata', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('data', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
+        $this->initVar('iddata', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('fid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('data', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('dohtml', \XOBJ_DTYPE_INT, 1, false);
     }
 }

@@ -25,16 +25,16 @@ class Field extends \XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('title', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('img', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('weight', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('status', XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar('search', XOBJ_DTYPE_INT, null, false, 5);
-        $this->initVar('status_def', XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('fid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('title', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('img', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('weight', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('status', \XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('search', \XOBJ_DTYPE_INT, null, false, 5);
+        $this->initVar('status_def', \XOBJ_DTYPE_INT, null, false, 5);
 
         //pour les jointures
-        $this->initVar('data', XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('data', \XOBJ_DTYPE_TXTAREA, null, false);
     }
 
     /**
@@ -62,14 +62,14 @@ class Field extends \XoopsObject
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         if (false === $action) {
             $action = $_SERVER['REQUEST_URI'];
         }
         require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
         //nom du formulaire selon l'action (editer ou ajouter):
-        $title = $this->isNew() ? sprintf(_AM_TDMDOWNLOADS_FORMADD) : sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
+        $title = $this->isNew() ? \sprintf(_AM_TDMDOWNLOADS_FORMADD) : \sprintf(_AM_TDMDOWNLOADS_FORMEDIT);
 
         //création du formulaire
         $form = new \XoopsThemeForm($title, 'form', $action, 'post', true);
@@ -85,7 +85,7 @@ class Field extends \XoopsObject
         $downloadsfield_img = $this->getVar('img') ?: 'blank.gif';
         $uploadirectory     = '/uploads/' . $moduleDirName . '/images/field';
         $imgtray            = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMIMAGE, '<br>');
-        $imgpath            = sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
+        $imgpath            = \sprintf(_AM_TDMDOWNLOADS_FORMPATH, $uploadirectory);
         $imageselect        = new \XoopsFormSelect($imgpath, 'downloadsfield_img', $downloadsfield_img);
         $topics_array       = \XoopsLists:: getImgListAsArray(XOOPS_ROOT_PATH . $uploadirectory);
         foreach ($topics_array as $image) {
@@ -117,7 +117,7 @@ class Field extends \XoopsObject
         //pour enregistrer le formulaire
         $form->addElement(new \XoopsFormHidden('op', 'save_field'));
         //boutton d'envoi du formulaire
-        $form->addElement(new \XoopsFormButtonTray('', _SUBMIT, 'submit', 'submit', false));
+        $form->addElement(new \XoopsFormButtonTray('', \_SUBMIT, 'submit', 'submit', false));
 
         return $form;
     }

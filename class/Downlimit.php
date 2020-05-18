@@ -27,10 +27,10 @@ class Downlimit extends \XoopsObject
     public function __construct()
     {
         parent::__construct();
-        $this->initVar('downlimit_id', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('downlimit_lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('downlimit_uid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('downlimit_hostname', XOBJ_DTYPE_TXTBOX, null, false);
-        $this->initVar('downlimit_date', XOBJ_DTYPE_INT, null, false, 10);
+        $this->initVar('downlimit_id', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_lid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_uid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('downlimit_hostname', \XOBJ_DTYPE_TXTBOX, null, false);
+        $this->initVar('downlimit_date', \XOBJ_DTYPE_INT, null, false, 10);
     }
 }

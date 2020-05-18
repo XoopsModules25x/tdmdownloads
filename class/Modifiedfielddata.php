@@ -25,10 +25,10 @@ class Modifiedfielddata extends \XoopsObject
     // constructor
     public function __construct()
     {
-        $this->initVar('modiddata', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('moddata', XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
+        $this->initVar('modiddata', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('fid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+        $this->initVar('moddata', \XOBJ_DTYPE_TXTAREA, null, false);
+        $this->initVar('dohtml', \XOBJ_DTYPE_INT, 1, false);
     }
 }
