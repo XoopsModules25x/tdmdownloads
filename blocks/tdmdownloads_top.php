@@ -109,7 +109,7 @@ function b_tdmdownloads_top_show($options)
 
     $criteria->add(new \Criteria('cid', '(' . implode(',', $categories) . ')', 'IN'));
 
-    if (!0 == $options[0] && 1 === count($options)) {
+    if (is_array($options) && !empty($options) && !0 == $options[0] && 1 === count($options)) {
         $criteria->add(new \Criteria('cid', '(' . implode(',', $options) . ')', 'IN'));
     }
 
