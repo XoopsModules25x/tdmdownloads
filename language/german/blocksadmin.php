@@ -34,3 +34,6 @@ define('_AM_ADGS', 'Gruppen');
 define('_AM_ALLMODULEPAGES', 'Gruppen');
 define('_AM_SYSTEMLEVEL', '_AM_SYSTEMLEVEL');
 define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');
+define('_AM_BLOCKTAG1', '%s will print %s');
+define('_AM_ADDBLOCK', 'Add Block');
+define('_AM_NOTSELNG', 'Not Sel');
