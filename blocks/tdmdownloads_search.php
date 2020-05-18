@@ -212,7 +212,7 @@ function b_tdmdownloads_search_show()
                 }
             }
 
-            $form->addElement($select_sup);
+//            $form->addElement($select_sup);
         }
 
         $select_sup = new \XoopsFormSelect($title_sup, $fieldName, $fieldContent[$downloads_field[$i]->getVar('fid')]);
