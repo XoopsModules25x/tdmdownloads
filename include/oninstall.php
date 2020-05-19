@@ -25,7 +25,7 @@ function xoops_module_pre_install_tdmdownloads(\XoopsModule $module)
 {
     require_once dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
 
-    require_once __DIR__ . '/common.php';
+//    require_once __DIR__ . '/common.php';
 
     /** @var \XoopsModules\Tdmdownloads\Utility $utility */
 
