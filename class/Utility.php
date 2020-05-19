@@ -45,7 +45,6 @@ class Utility extends Common\SysUtility
         $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
         $grouppermHandler = \xoops_getHandler('groupperm');
 
         return $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));

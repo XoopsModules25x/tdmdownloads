@@ -26,11 +26,11 @@ $utility       = new \XoopsModules\Tdmdownloads\Utility();
 
 $modversion = [
     'name'                => _MI_TDMDOWNLOADS_NAME,
-    'version'             => '2.0',
-    'module_status'       => 'RC 2',
-    'release_date'        => '2020/05/17',
+    'version'             => '2.01',
+    'module_status'       => 'Alpha 1',
+    'release_date'        => '2020/05/18',
     'description'         => _MI_TDMDOWNLOADS_DESC,
-    'credits'             => 'Mage, Mamba, Goffy',
+    'credits'             => 'Mage, Mamba, Goffy, Heyula',
     'author'              => 'Mage',
     'nickname'            => 'Mage',
     'module_website_url'  => 'www.xoops.org',

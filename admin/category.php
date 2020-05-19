@@ -494,7 +494,6 @@ switch ($op) {
                 $perm_id = \Xmf\Request::hasVar('cat_cid', 'POST') ? $cat_cid : $newcat_cid;
 
                 /** @var \XoopsGroupPermHandler $grouppermHandler */
-
                 $grouppermHandler = xoops_getHandler('groupperm');
 
                 $criteria = new \CriteriaCompo();
@@ -540,7 +539,7 @@ switch ($op) {
 
                 if (1 == $helper->getConfig('permission_download')) {
                     $perm_id = \Xmf\Request::getInt('cat_cid', $newcat_cid, 'POST');
-
+                    /** @var \XoopsGroupPermHandler $grouppermHandler */
                     $grouppermHandler = xoops_getHandler('groupperm');
 
                     $criteria = new \CriteriaCompo();

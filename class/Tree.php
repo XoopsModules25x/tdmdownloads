@@ -79,7 +79,7 @@ class Tree extends \XoopsObjectTree
     }
 }
 /* xoops 2.5.8
-class Tree extends XoopsObjectTree {
+class Tree extends \XoopsObjectTree {
 
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {

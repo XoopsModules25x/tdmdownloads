@@ -316,7 +316,6 @@ switch ($op) {
 
                     if (1 == $helper->getConfig('permission_download')) {
                         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
                         $grouppermHandler = xoops_getHandler('groupperm');
 
                         $criteria = new \CriteriaCompo();

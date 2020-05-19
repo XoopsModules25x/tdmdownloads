@@ -99,7 +99,6 @@ class Modified extends \XoopsObject
         $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
         $grouppermHandler = \xoops_getHandler('groupperm');
 
         $perm_upload = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'));

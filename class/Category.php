@@ -195,7 +195,6 @@ class Category extends \XoopsObject
         $group_list = $memberHandler->getGroupList();
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
         $grouppermHandler = \xoops_getHandler('groupperm');
 
         $full_list = \array_keys($group_list);

@@ -82,7 +82,6 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
         $memberHandler = xoops_getHandler('member');
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
         $grouppermHandler = xoops_getHandler('groupperm');
 
         $groups = $memberHandler->getGroups();

@@ -36,8 +36,8 @@ $tab_perm   = [
 ];
 
 xoops_load('XoopsFormLoader');
-$permTableForm = new XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
-$formSelect    = new XoopsFormSelect('', 'permission', $permission);
+$permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
+$formSelect    = new \XoopsFormSelect('', 'permission', $permission);
 $formSelect->setExtra('onchange="document.fselperm.submit()"');
 foreach (array_keys($tab_perm) as $i) {
     $formSelect->addOption($i, $tab_perm[$i]);

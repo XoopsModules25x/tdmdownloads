@@ -122,7 +122,6 @@ class Downloads extends \XoopsObject
         //permission pour uploader
 
         /** @var \XoopsGroupPermHandler $grouppermHandler */
-
         $grouppermHandler = \xoops_getHandler('groupperm');
 
         $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;

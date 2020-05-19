@@ -37,7 +37,9 @@ namespace XoopsModules\Tdmdownloads\Common;
  * SOFTWARE.
  */
 
+
 //class FineImpUploadHandler extends \SystemFineUploadHandler
+
 
 /**
  * Class FineimpuploadHandler
@@ -275,9 +277,9 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
 
-        //      $imagesHandler = $helper->getHandler('Images');
+        $imagesHandler = $helper->getHandler('Images');
 
-        $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
+//        $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
 
         $imagesObj = $imagesHandler->create();
 
