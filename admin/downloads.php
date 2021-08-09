@@ -1,11 +1,17 @@
 <?php declare(strict_types=1);
 
 use Xmf\Module\Admin;
-use XoopsModules\Tag\Helper;
-use XoopsModules\Tag\LinkHandler;
-use XoopsModules\Tag\Tag;
-use XoopsModules\Tag\TagHandler;
-use XoopsModules\Tdmdownloads\Tree;
+use XoopsModules\Tag\{
+    Helper as TagHelper,
+    LinkHandler,
+    Tag,
+    TagHandler
+};
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree
+};
+
 
 /**
  * TDMDownload
@@ -27,7 +33,7 @@ require __DIR__ . '/admin_header.php';
 $templateMain = 'tdmdownloads_admin_downloads.tpl';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 
@@ -206,7 +212,7 @@ switch ($op) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $downloadsArray */
 
                 $download = [
-                    'category'       => $utility->getPathTree($mytree, $downloadsArray[$i]->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
+                    'category'       => $utility::getPathTree($mytree, $downloadsArray[$i]->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> '),
                     'cid'            => $downloadsArray[$i]->getVar('cid'),
                     'lid'            => $i,
                     'title'          => $downloadsArray[$i]->getVar('title'),
@@ -350,7 +356,7 @@ switch ($op) {
                 if (1 == $helper->getConfig('usetag') && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 
-                    $linkHandler = Helper::getInstance()->getHandler('Link');
+                    $linkHandler = TagHelper::getInstance()->getHandler('Link');
 
                     $criteria = new \CriteriaCompo();
 
@@ -428,7 +434,7 @@ switch ($op) {
         //permet d'enlever [pagebreak] du texte
         $downloads_description = str_replace('[pagebreak]', '', $downloads_description);
 
-        $category = $utility->getPathTree($mytree, $viewDownloads->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
+        $category = $utility::getPathTree($mytree, $viewDownloads->getVar('cid'), $categoryArray, 'cat_title', $prefix = ' <img src="../assets/images/deco/arrow.gif"> ');
         // affichages des informations du téléchargement
         $download = [
             'title'       => $downloads_title,
@@ -878,7 +884,7 @@ switch ($op) {
             if (1 == $helper->getConfig('usetag') && class_exists(TagHandler::class)) {
                 /** @var \XoopsModules\Tag\TagHandler $tagHandler */
 
-                $tagHandler = Helper::getInstance()->getHandler('Tag');
+                $tagHandler = TagHelper::getInstance()->getHandler('Tag');
 
                 $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
             }

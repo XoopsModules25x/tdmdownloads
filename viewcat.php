@@ -63,7 +63,7 @@ $downloadsArray = $downloadsHandler->getAll($criteria);
 $xoopsTpl->assign('lang_thereare', sprintf(_MD_TDMDOWNLOADS_INDEX_THEREARE, count($downloadsArray)));
 
 //navigation
-$navCategory = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
+$navCategory = $utility::getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC');
 $xoopsTpl->assign('category_path', $navCategory);
 
 // info catégorie
@@ -510,7 +510,7 @@ if ($helper->getConfig('perpage') > 0) {
 
 // référencement
 // titre de la page
-$pagetitle = $utility->getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC');
+$pagetitle = $utility::getPathTreeUrl($mytree, $cid, $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC');
 $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
 //description
 $xoTheme->addMeta('meta', 'description', strip_tags($downloadscatArray[$cid]->getVar('cat_description_main')));

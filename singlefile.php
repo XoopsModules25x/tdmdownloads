@@ -58,7 +58,7 @@ $downloadscatArray = $categoryHandler->getAll($criteria);
 $mytree            = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
 //navigation
-$navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
+$navigation = $utility::getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
 $navigation .= ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ' . $viewDownloads->getVar('title');
 $xoopsTpl->assign('navigation', $navigation);
 
@@ -333,7 +333,7 @@ if (1 == $helper->getConfig('usetag') && class_exists(Tag::class)) {
 
 // titre de la page
 $pagetitle = $viewDownloads->getVar('title') . ' - ';
-$pagetitle .= $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC', true);
+$pagetitle .= $utility::getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' - ', false, 'DESC', true);
 $xoopsTpl->assign('xoops_pagetitle', $pagetitle);
 //version for title
 $xoopsTpl->assign('version', $viewDownloads->getVar('version'));
