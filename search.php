@@ -15,13 +15,20 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\{
+    DownloadsHandler,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
 
 require_once __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper        = Tdmdownloads\Helper::getInstance();
 $moduleDirName = basename(__DIR__);
+$helper        = Helper::getInstance();
+$utility = new Utility();
+$downloadsHandler = $helper->getHandler('Downloads');
 
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_liste.tpl';
@@ -64,7 +71,7 @@ $mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'ca
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.
-//$fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+//$fieldHandler = Helper::getInstance()->getHandler('Field');
 $criteria = new \CriteriaCompo();
 $criteria->add(new \Criteria('search', 1));
 $criteria->add(new \Criteria('status', 1));

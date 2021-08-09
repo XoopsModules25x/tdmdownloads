@@ -14,6 +14,15 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
+
+
 require dirname(dirname(__DIR__)) . '/mainfile.php';
 
 $moduleDirName      = basename(__DIR__);
@@ -24,8 +33,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 //require_once XOOPS_ROOT_PATH . '/class/tree.php';
 //require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 $permHelper = new \Xmf\Module\Helper\Permission();
 
