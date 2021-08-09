@@ -156,18 +156,48 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 \define('CO_' . $moduleDirNameUpper . '_' . 'PERMNOTSET', 'The permission cannot be set');
 
 //FileChecker
-//\define('CO_' . $moduleDirNameUpper . '_' . 'AVAILABLE', "<span style='color: green;'>Available</span>");
-//\define('CO_' . $moduleDirNameUpper . '_' . 'NOTAVAILABLE', "<span style='color: red;'>Not available</span>");
-//\define('CO_' . $moduleDirNameUpper . '_' . 'NOTWRITABLE', "<span style='color: red;'>Should have permission ( %d ), but it has ( %d )</span>");
-//\define('CO_' . $moduleDirNameUpper . '_' . 'COPYTHEFILE', 'Copy it');
-//\define('CO_' . $moduleDirNameUpper . '_' . 'CREATETHEFILE', 'Create it');
-//\define('CO_' . $moduleDirNameUpper . '_' . 'SETMPERM', 'Set the permission');
-
+\define('CO_' . $moduleDirNameUpper . '_' . 'COPYTHEFILE', 'Copy it');
 \define('CO_' . $moduleDirNameUpper . '_' . 'FILECOPIED', 'The file has been copied');
 \define('CO_' . $moduleDirNameUpper . '_' . 'FILENOTCOPIED', 'The file cannot be copied');
 
-//\define('CO_' . $moduleDirNameUpper . '_' . 'PERMSET', 'The permission has been set');
-//\define('CO_' . $moduleDirNameUpper . '_' . 'PERMNOTSET', 'The permission cannot be set');
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'IMAGES_UPLOAD', 'Upload Files');
+
+// ---------------- Errors ----------------
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_THUMBS', 'Error when creating thumb image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEIMG_MEDIUM', 'Error when creating medium image: %s');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_MEDIUM', 'Error when adding watermark to medium image: %s (reason: %g)');
+define('CO_' . $moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE', 'Error when adding watermark to large image: %s (reason: %g)');
+
+// Album buttons
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_ADD', 'Add Category');
+define('CO_' . $moduleDirNameUpper . '_' . 'ALBUM_EDIT', 'Edit Category');
+
+//Uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_ADD', 'Add Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_EDIT', 'Edit Field');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_TITLE', 'Title');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_FID', 'ID');
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMIMAGE_PATH', 'File Path');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_IMG', 'File  Field');
+
+define('CO_' . $moduleDirNameUpper . '_' . 'FORMUPLOAD', 'Upload');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_WEIGHT', 'Weight');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS', 'Status');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_SEARCH', 'Search');
+define('CO_' . $moduleDirNameUpper . '_' . 'FIELD_STATUS_DEF', 'Status Defi');
+
+// fine uploader
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUBMIT', 'Submitting file: ');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUBMITTED', 'File successfully checked, please upload');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_UPLOAD', 'Upload file: ');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_FAILED', 'Errors occurred during uploading the file');
+define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUCCEEDED', 'Successfully uploaded all files');
+
+define('CO_' . $moduleDirNameUpper . '_' . 'SELECT', 'Select Category');
+define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_CATPID', 'Error: parent category not found');
+
+
 
 //image config
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH', 'Image Display Width');
