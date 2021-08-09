@@ -1,0 +1,115 @@
+-
+    gperm_groupid: '2'
+    gperm_itemid: '32'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '2'
+    gperm_itemid: '16'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '2'
+    gperm_itemid: '8'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '2'
+    gperm_itemid: '4'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '1'
+    gperm_itemid: '64'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '1'
+    gperm_itemid: '32'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '1'
+    gperm_itemid: '16'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '1'
+    gperm_itemid: '8'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '1'
+    gperm_itemid: '4'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_ac
+-
+    gperm_groupid: '2'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_download
+-
+    gperm_groupid: '2'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_download
+-
+    gperm_groupid: '1'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_download
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_download
+-
+    gperm_groupid: '2'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_submit
+-
+    gperm_groupid: '2'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_submit
+-
+    gperm_groupid: '1'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_submit
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_submit
+-
+    gperm_groupid: '3'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view
+-
+    gperm_groupid: '3'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view
+-
+    gperm_groupid: '2'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view
+-
+    gperm_groupid: '2'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view
+-
+    gperm_groupid: '1'
+    gperm_itemid: '2'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view
+-
+    gperm_groupid: '1'
+    gperm_itemid: '1'
+    gperm_modid: '1831'
+    gperm_name: tdmdownloads_view

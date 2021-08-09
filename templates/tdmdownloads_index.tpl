@@ -5,7 +5,7 @@
         <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
     </div>
 
-    <{if count($categories) gt 0}>
+    <{if is_array($categories|default:'') && count($categories) gt 0}>
         <!-- Start Show categories information -->
         <div class="tdmdownloads-categories">
             <table>
@@ -115,7 +115,7 @@
 
     <{if $show_latest_files}>
         <!-- check if Show new files in index -->
-        <{if $file != ""}>
+        <{if $file|default:'' != ""}>
             <!-- Start Show new files in index -->
             <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_LATESTLIST}></div>
             <table>

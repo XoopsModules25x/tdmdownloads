@@ -1,8 +1,8 @@
-<{if $show_breadcrumbs}>
+<{if $show_breadcrumbs|default:''}>
     <{include file='db:tdmdownloads_breadcrumbs.tpl'}>
 <{/if}>
 
-<{if $ads != ''}>
+<{if $ads|default:'' != ''}>
     <div class='center'>
 <{$ads}></div>
 <{/if}>
