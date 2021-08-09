@@ -15,6 +15,8 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads\Helper;
+
 /**
  * Prepares system prior to attempting to install module
  * @param \XoopsModule $module {@link XoopsModule}
@@ -67,7 +69,7 @@ function xoops_module_install_tdmdownloads()
         require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';
     }
 
-    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+    $fieldHandler = Helper::getInstance()->getHandler('Field');
 
     $obj = $fieldHandler->create();
 

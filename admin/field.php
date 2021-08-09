@@ -14,13 +14,17 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use Xmf\Module\Admin;
+use XoopsModules\Tdmdownloads\Helper;
+
 require __DIR__ . '/admin_header.php';
 require dirname(__DIR__) . '/include/common.php';
 // Template
 $templateMain = 'tdmdownloads_admin_field.tpl';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');
@@ -31,7 +35,7 @@ switch ($op) {
     case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -87,7 +91,7 @@ switch ($op) {
     case 'new_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -103,7 +107,7 @@ switch ($op) {
     case 'edit_field':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_NEW, 'field.php?op=new_field', 'add');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_FIELD_LIST, 'field.php?op=list', 'list');
@@ -177,7 +181,7 @@ switch ($op) {
 
             xoops_cp_header();
 
-            $adminObject = \Xmf\Module\Admin::getInstance();
+            $adminObject = Admin::getInstance();
 
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 

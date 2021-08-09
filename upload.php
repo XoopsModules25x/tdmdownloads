@@ -18,7 +18,13 @@
  * @author          Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
 
+use Xmf\Jwt\TokenFactory;
+use Xmf\Module\Admin;
 use Xmf\Request;
+use XoopsModules\Tdmdownloads\{
+    CategoryHandler,
+    Form\UploadForm
+};
 
 require_once __DIR__ . '/header.php';
 
@@ -32,10 +38,10 @@ $catId = Request::getInt('cat_cid', 0);
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
+$pathIcon16 = Admin::iconUrl('', 16);
 $GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
 
-$categoryHandler = new \XoopsModules\Tdmdownloads\CategoryHandler();
+$categoryHandler = new CategoryHandler();
 
 // Form Create
 if (isset($catId)) {
@@ -47,7 +53,7 @@ if (isset($catId)) {
 $catId = 1; //for testing, comment out later
 $xoopsTpl->assign('multiupload', true);
 
-$form = new \XoopsModules\Tdmdownloads\Form\UploadForm($categoryObj);
+$form = new UploadForm($categoryObj);
 $form->setExtra('enctype="multipart/form-data"');
 $GLOBALS['xoopsTpl']->assign('form', $form->render());
 
@@ -152,7 +158,7 @@ if ($permissionUpload) {
             'moddir'  => $moduleDirName,
         ];
 
-        $jwt = \Xmf\Jwt\TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
+        $jwt = TokenFactory::build('fineuploader', $payload, 60 * 30); // token good for 30 minutes
 
         $xoopsTpl->assign('jwt', $jwt);
 

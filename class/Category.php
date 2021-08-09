@@ -17,6 +17,7 @@ namespace XoopsModules\Tdmdownloads;
  * @author      Gregory Mage (Aka Mage)
  */
 
+use Xmf\Module\Helper\Permission;
 use XoopsModules\Tdmdownloads;
 
 /**
@@ -41,7 +42,7 @@ class Category extends \XoopsObject
 
         $this->helper = Tdmdownloads\Helper::getInstance();
 
-        $this->permHelper = new \Xmf\Module\Helper\Permission();
+        $this->permHelper = new Permission();
 
         $this->initVar('cat_cid', \XOBJ_DTYPE_INT, null, false, 5);
 

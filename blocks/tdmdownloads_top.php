@@ -17,6 +17,8 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  */
 
+use XoopsModules\Tdmdownloads\Helper;
+
 /**
  * @param $options
  * @return array
@@ -41,7 +43,7 @@ function b_tdmdownloads_top_show($options)
 
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
 
-    $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $downloadsHandler = Helper::getInstance()->getHandler('Downloads');
 
     $block = [];
 
@@ -239,7 +241,7 @@ function b_tdmdownloads_top_edit($options)
 
     $moduleDirName = basename(dirname(__DIR__));
 
-    $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+    $categoryHandler = Helper::getInstance()->getHandler('Category');
 
     $criteria = new \CriteriaCompo();
 

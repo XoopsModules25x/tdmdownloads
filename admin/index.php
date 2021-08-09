@@ -20,7 +20,6 @@ use Xmf\Request;
 use XoopsModules\Tdmdownloads\{
     Common\Configurator,
     Common\TestdataButtons,
-    Forms,
     Helper,
     Utility
 };

@@ -14,13 +14,16 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads\Helper;
+
 require __DIR__ . '/admin_header.php';
 
 // Template
 $templateMain = 'tdmdownloads_admin_modified.tpl';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');

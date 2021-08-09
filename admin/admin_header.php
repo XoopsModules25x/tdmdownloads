@@ -15,7 +15,10 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
-use XoopsModules\Tdmdownloads\Tree;
+use Xmf\Module\Admin;
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree};
 
 // Include xoops admin header
 require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
@@ -32,10 +35,10 @@ require dirname(__DIR__) . '/include/common.php';
 $moduleDirName = basename(dirname(__DIR__));
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 /** @var \Xmf\Module\Admin $adminObject */
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 
 $myts = \MyTextSanitizer::getInstance();
 

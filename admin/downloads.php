@@ -1,8 +1,11 @@
 <?php declare(strict_types=1);
 
+use Xmf\Module\Admin;
+use XoopsModules\Tag\Helper;
 use XoopsModules\Tag\LinkHandler;
 use XoopsModules\Tag\Tag;
 use XoopsModules\Tag\TagHandler;
+use XoopsModules\Tdmdownloads\Tree;
 
 /**
  * TDMDownload
@@ -44,7 +47,7 @@ switch ($op) {
     case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         if (1 == $statusMenu) {
             $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
@@ -193,7 +196,7 @@ switch ($op) {
 
             $GLOBALS['xoopsTpl']->assign('selectOrder', $selectOrder);
 
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
+            $mytree = new Tree($categoryArray, 'cat_cid', 'cat_pid');
 
             $class = 'odd';
 
@@ -224,7 +227,7 @@ switch ($op) {
     case 'new_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
@@ -245,7 +248,7 @@ switch ($op) {
     case 'edit_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
@@ -347,7 +350,7 @@ switch ($op) {
                 if (1 == $helper->getConfig('usetag') && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 
-                    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+                    $linkHandler = Helper::getInstance()->getHandler('Link');
 
                     $criteria = new \CriteriaCompo();
 
@@ -373,7 +376,7 @@ switch ($op) {
 
             xoops_cp_header();
 
-            $adminObject = \Xmf\Module\Admin::getInstance();
+            $adminObject = Admin::getInstance();
 
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 
@@ -400,7 +403,7 @@ switch ($op) {
     case 'view_downloads':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_LISTE, 'downloads.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_DOWNLOADS_NEW, 'downloads.php?op=new_downloads', 'add');
@@ -418,7 +421,7 @@ switch ($op) {
         //catégorie
         //$view_category = $categoryHandler->get($viewDownloads->getVar('cid'));
         $categoryArray = $categoryHandler->getAll();
-        $mytree        = new \XoopsModules\Tdmdownloads\Tree($categoryArray, 'cat_cid', 'cat_pid');
+        $mytree        = new Tree($categoryArray, 'cat_cid', 'cat_pid');
         // sortie des informations
         $downloads_title       = $viewDownloads->getVar('title');
         $downloads_description = $viewDownloads->getVar('description');
@@ -875,7 +878,7 @@ switch ($op) {
             if (1 == $helper->getConfig('usetag') && class_exists(TagHandler::class)) {
                 /** @var \XoopsModules\Tag\TagHandler $tagHandler */
 
-                $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
+                $tagHandler = Helper::getInstance()->getHandler('Tag');
 
                 $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
             }

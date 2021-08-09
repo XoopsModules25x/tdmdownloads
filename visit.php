@@ -14,11 +14,14 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads\Helper;
+
 error_reporting(0);
 require __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');
 $cid = \Xmf\Request::getInt('cid', 0, 'REQUEST');

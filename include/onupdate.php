@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+use XoopsModules\Tdmdownloads\Helper;
+
 /**
  * TDMDownload
  *
@@ -56,7 +58,7 @@ function update_tdmdownloads_v200(&$module)
 
     $result = $db->query($sql);
 
-    $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     $helper->loadLanguage('admin');
 

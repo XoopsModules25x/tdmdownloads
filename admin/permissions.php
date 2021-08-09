@@ -14,15 +14,19 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use Xmf\Module\Admin;
+use XoopsModules\Tdmdownloads\Helper;
+
 require __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 require_once $GLOBALS['xoops']->path('www/class/xoopsform/grouppermform.php');
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 
 $templateMain = 'tdmdownloads_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));

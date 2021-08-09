@@ -19,6 +19,8 @@ use XoopsModules\Tdmdownloads\{
     Helper,
     Utility
 };
+use Xmf\Module\Helper\Permission;
+
 /** @var Helper $helper */
 /** @var Utility $utility */
 
@@ -35,7 +37,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName);
 
 $helper = Helper::getInstance();
 
-$permHelper = new \Xmf\Module\Helper\Permission();
+$permHelper = new Permission();
 
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
 require __DIR__ . '/include/common.php';

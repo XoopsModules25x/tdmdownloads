@@ -1,7 +1,10 @@
 <?php declare(strict_types=1);
 
-use XoopsModules\Tag\Tag;
-use XoopsModules\Tag\TagHandler;
+use XoopsModules\Tag\{
+    Helper,
+    Tag,
+    TagHandler
+};
 
 /**
  * TDMDownload
@@ -279,7 +282,7 @@ switch ($op) {
             if (1 == $helper->getConfig('usetag') && class_exists(TagHandler::class)) {
                 /** @var \XoopsModules\Tag\TagHandler $tagHandler */
 
-                $tagHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Tag');
+                $tagHandler = Helper::getInstance()->getHandler('Tag');
 
                 $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
             }

@@ -1,6 +1,13 @@
 <?php declare(strict_types=1);
 
+use Xmf\Module\Admin;
+use XoopsModules\Tag\Helper as TagHelper;
 use XoopsModules\Tag\LinkHandler;
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree
+};
+
 
 /**
  * TDMDownload
@@ -20,8 +27,8 @@ require __DIR__ . '/admin_header.php';
 // Template
 $templateMain = 'tdmdownloads_admin_category.tpl';
 
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+/** @var \Helper $helper */
+$helper = Helper::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');
 
@@ -33,7 +40,7 @@ switch ($op) {
         xoops_cp_header();
 
         $moduleDirName = basename(dirname(__DIR__));
-        $adminObject   = \Xmf\Module\Admin::getInstance();
+        $adminObject   = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -49,7 +56,7 @@ switch ($op) {
         if (count($downloads_cat) > 0) {
             $GLOBALS['xoopsTpl']->assign('categories_count', count($downloads_cat));
 
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloads_cat, 'cat_cid', 'cat_pid');
+            $mytree = new Tree($downloads_cat, 'cat_cid', 'cat_pid');
 
             $category_ArrayTree = $mytree->makeArrayTree('cat_title', '<img src="../assets/images/deco/arrow.gif">');
 
@@ -78,7 +85,7 @@ switch ($op) {
     case 'new_cat':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
         $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
@@ -94,7 +101,7 @@ switch ($op) {
     case 'edit_cat':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_LIST, 'category.php?op=list', 'list');
         $adminObject->addItemButton(_AM_TDMDOWNLOADS_CAT_NEW, 'category.php?op=new_cat', 'add');
@@ -190,7 +197,7 @@ switch ($op) {
                 if (1 == $helper->getConfig('usetag') && class_exists(LinkHandler::class)) {
                     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 
-                    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+                    $linkHandler = TagHelper::getInstance()->getHandler('Link');
 
                     $criteria = new \CriteriaCompo();
 
@@ -236,7 +243,7 @@ switch ($op) {
 
             $downloadscatArray = $categoryHandler->getAll();
 
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+            $mytree = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
             $downloads_childcat = $mytree->getAllChild($categoryId);
 
@@ -311,7 +318,7 @@ switch ($op) {
                     if (1 == $helper->getConfig('usetag') && class_exists(LinkHandler::class)) {
                         /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 
-                        $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+                        $linkHandler = TagHelper::getInstance()->getHandler('Link');
 
                         $criteria = new \CriteriaCompo();
 
@@ -371,7 +378,7 @@ switch ($op) {
 
             $downloadscatArray = $categoryHandler->getAll();
 
-            $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+            $mytree = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
             $downloads_childcat = $mytree->getAllChild($categoryId);
 
@@ -405,7 +412,7 @@ switch ($op) {
 
             xoops_cp_header();
 
-            $adminObject = \Xmf\Module\Admin::getInstance();
+            $adminObject = Admin::getInstance();
 
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 

@@ -14,13 +14,18 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use Xmf\Database\TableLoad;
+use Xmf\Database\Tables;
+use Xmf\Module\Admin;
+
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 // Template
 $templateMain = 'tdmdownloads_admin_import.tpl';
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 
 //Action dans switch
 $op = 'index';
@@ -48,9 +53,9 @@ function importMydownloads($path = '', $imgurl = '')
 
         $myTables = ['tdmdownloads_broken', 'tdmdownloads_cat', 'tdmdownloads_downloads', 'tdmdownloads_fielddata', 'tdmdownloads_modfielddata', 'tdmdownloads_votedata'];
 
-        $table = new \Xmf\Database\TableLoad();
+        $table = new TableLoad();
 
-        $tables = new \Xmf\Database\Tables();
+        $tables = new Tables();
 
         foreach ($myTables as $myTable) {
             if ($tables->useTable($myTable)) { // if this returns false, there is no table
@@ -206,9 +211,9 @@ function importWfdownloads($shots = '', $catimg = '')
 
         $myTables = ['tdmdownloads_broken', 'tdmdownloads_cat', 'tdmdownloads_downloads', 'tdmdownloads_fielddata', 'tdmdownloads_modfielddata', 'tdmdownloads_votedata'];
 
-        $table = new \Xmf\Database\TableLoad();
+        $table = new TableLoad();
 
-        $tables = new \Xmf\Database\Tables();
+        $tables = new Tables();
 
         foreach ($myTables as $myTable) {
             if ($tables->useTable($myTable)) { // if this returns false, there is no table

@@ -15,6 +15,10 @@
  * @author      Gregory Mage (Aka Mage)
  */
 
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree};
+
 /**
  * @return array
  */
@@ -32,7 +36,7 @@ function b_tdmdownloads_search_show()
 
     /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 
-    $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+    $helper = Helper::getInstance();
 
     //appel des class
 
@@ -52,7 +56,7 @@ function b_tdmdownloads_search_show()
 
     /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
 
-    $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+    $categoryHandler = Helper::getInstance()->getHandler('Category');
 
     $block = [];
 
@@ -78,7 +82,7 @@ function b_tdmdownloads_search_show()
 
     $downloadscatArray = $categoryHandler->getAll($criteria);
 
-    $mytree = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+    $mytree = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
     $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', '', true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
@@ -86,7 +90,7 @@ function b_tdmdownloads_search_show()
 
     /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
 
-    $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+    $fieldHandler = Helper::getInstance()->getHandler('Field');
 
     $criteria = new \CriteriaCompo();
 
@@ -165,7 +169,7 @@ function b_tdmdownloads_search_show()
 
                 /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
 
-                $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+                $downloadsHandler = Helper::getInstance()->getHandler('Downloads');
 
                 $tdmdownloadsArray = $downloadsHandler->getAll($criteria);
 
@@ -186,7 +190,7 @@ function b_tdmdownloads_search_show()
 
             /** @var \XoopsModules\Tdmdownloads\FielddataHandler $fielddataHandler */
 
-            $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+            $fielddataHandler = Helper::getInstance()->getHandler('Fielddata');
 
             $tdmdownloadsArray = $fielddataHandler->getAll($criteria);
 

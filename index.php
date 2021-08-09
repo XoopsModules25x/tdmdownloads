@@ -14,10 +14,15 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree};
+
 require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 // template d'affichage
 $moduleDirName                           = basename(__DIR__);
@@ -41,7 +46,7 @@ $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree            = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
 //affichage des catégories
 $xoopsTpl->assign('nb_catcol', $helper->getConfig('nb_catcol'));

@@ -18,8 +18,8 @@
 use XoopsModules\Tdmdownloads\{
     DownloadsHandler,
     Helper,
-    Utility
-};
+    Tree,
+    Utility};
 /** @var Helper $helper */
 /** @var Utility $utility */
 
@@ -67,7 +67,7 @@ $cat_select->addOption(0,_MD_TDMDOWNLOADS_SEARCH_ALL2);
 $cat_select->addOptionArray($categoryHandler->getList($criteria ));
 $form->addElement($cat_select);*/
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree            = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 $form->addElement($mytree->makeSelectElement('cat', 'cat_title', '--', $cat, true, 0, '', _AM_TDMDOWNLOADS_FORMINCAT), true);
 
 //recherche champ sup.

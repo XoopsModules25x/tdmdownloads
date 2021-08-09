@@ -1,6 +1,10 @@
 <?php declare(strict_types=1);
 
+use Xmf\Metagen;
 use XoopsModules\Tag\Tag;
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Tree};
 
 /**
  * TDMDownload
@@ -19,7 +23,7 @@ use XoopsModules\Tag\Tag;
 require_once __DIR__ . '/header.php';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 $moduleDirName = basename(__DIR__);
 // template d'affichage
@@ -51,7 +55,7 @@ $criteria->setSort('cat_weight ASC, cat_title');
 $criteria->setOrder('ASC');
 $criteria->add(new \Criteria('cat_cid', '(' . implode(',', $categories) . ')', 'IN'));
 $downloadscatArray = $categoryHandler->getAll($criteria);
-$mytree            = new \XoopsModules\Tdmdownloads\Tree($downloadscatArray, 'cat_cid', 'cat_pid');
+$mytree            = new Tree($downloadscatArray, 'cat_cid', 'cat_pid');
 
 //navigation
 $navigation = $utility->getPathTreeUrl($mytree, $viewDownloads->getVar('cid'), $downloadscatArray, 'cat_title', $prefix = ' <img src="assets/images/deco/arrow.gif" alt="arrow"> ', true, 'ASC', true);
@@ -341,7 +345,7 @@ if (false === mb_strpos($description, '[pagebreak]')) {
 }
 $xoTheme->addMeta('meta', 'description', strip_tags($descriptionShort));
 //keywords
-$keywords = \Xmf\Metagen::generateKeywords($viewDownloads->getVar('description'), 10);
+$keywords = Metagen::generateKeywords($viewDownloads->getVar('description'), 10);
 $xoTheme->addMeta('meta', 'keywords', implode(', ', $keywords));
 /*$keywords = substr($keywords,0,-1);
 $xoTheme->addMeta( 'meta', 'keywords', $keywords);*/

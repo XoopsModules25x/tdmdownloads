@@ -31,7 +31,8 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
-use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\{
+    Common\Migrate};
 
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
@@ -58,7 +59,7 @@ EOF;
 $configurator = new Tdmdownloads\Common\Configurator();
 
 /** @var \XoopsModules\Tdmdownloads\Common\Migrate $migrator */
-$migrator = new \XoopsModules\Tdmdownloads\Common\Migrate($configurator);
+$migrator = new Migrate($configurator);
 
 $op        = Request::getCmd('op', 'default');
 $opShow    = Request::getCmd('show', null, 'POST');

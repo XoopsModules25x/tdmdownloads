@@ -2,6 +2,11 @@
 
 namespace XoopsModules\Tdmdownloads\Common;
 
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Utility
+};
+
 /**
  * SystemFineImUploadHandler class to work with ajaxfineupload.php endpoint
  * to facilitate uploads for the system image manager
@@ -137,11 +142,11 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $this->pathUpload = \constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');
 
-        $utility = new \XoopsModules\Tdmdownloads\Utility();
+        $utility = new Utility();
 
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         //        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
 
@@ -275,7 +280,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
 
         $this->getImageDim();
 
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $imagesHandler = $helper->getHandler('Images');
 

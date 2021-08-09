@@ -18,6 +18,8 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  */
 
+use XoopsModules\Tag\Helper;
+
 /**
  * @param $items
  * @return bool|null
@@ -77,7 +79,7 @@ function tdmdownloads_tag_synchronization($mid)
 
     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 
-    $linkHandler = \XoopsModules\Tag\Helper::getInstance()->getHandler('Link');
+    $linkHandler = Helper::getInstance()->getHandler('Link');
 
     /* clear tag-item links */
 

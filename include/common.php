@@ -18,7 +18,9 @@
  * @author       XOOPS Development Team
  */
 
+use Xmf\Module\Admin;
 use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\Helper;
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
@@ -30,7 +32,7 @@ $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
 /** @var \XoopsModules\Tdmdownloads\Utility $utility */
 $db      = \XoopsDatabaseFactory::getDatabaseConnection();
 $debug   = false;
-$helper  = \XoopsModules\Tdmdownloads\Helper::getInstance($debug);
+$helper  = Helper::getInstance($debug);
 $utility = new \XoopsModules\Tdmdownloads\Utility();
 //$configurator = new Tdmdownloads\Common\Configurator();
 
@@ -38,18 +40,18 @@ $helper->loadLanguage('common');
 
 //handlers
 //appel des class
-$categoryHandler     = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
-$downloadsHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
-$downlimitHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downlimit');
-$ratingHandler       = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Rating');
-$fieldHandler        = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
-$fielddataHandler    = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
-$brokenHandler       = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Broken');
-$modifiedHandler     = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modified');
-$modifieddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Modifiedfielddata');
+$categoryHandler     = Helper::getInstance()->getHandler('Category');
+$downloadsHandler    = Helper::getInstance()->getHandler('Downloads');
+$downlimitHandler    = Helper::getInstance()->getHandler('Downlimit');
+$ratingHandler       = Helper::getInstance()->getHandler('Rating');
+$fieldHandler        = Helper::getInstance()->getHandler('Field');
+$fielddataHandler    = Helper::getInstance()->getHandler('Fielddata');
+$brokenHandler       = Helper::getInstance()->getHandler('Broken');
+$modifiedHandler     = Helper::getInstance()->getHandler('Modified');
+$modifieddataHandler = Helper::getInstance()->getHandler('Modifiedfielddata');
 
-$pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
-$pathIcon32 = \Xmf\Module\Admin::iconUrl('', 32);
+$pathIcon16 = Admin::iconUrl('', 16);
+$pathIcon32 = Admin::iconUrl('', 32);
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));
