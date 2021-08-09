@@ -14,17 +14,20 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use Xmf\Module\Admin;
+
 require __DIR__ . '/admin_header.php';
 $templateMain = 'tdmdownloads_admin_about.tpl';
 
 xoops_cp_header();
 // pour file protection
 $xoopsUrl       = parse_url(XOOPS_URL);
-$xoopsUrl       = str_replace('www.', '', $xoopsUrl['host']);
+$xoopsUrl       = str_replace('www.', '', $xoopsUrl['host']??'');
 $fileProtection = _AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION_INFO1 . '<br><br>' . XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/downloads/' . '<br><br>' . _AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION_INFO2 . '<br><br>';
-$fileProtection .= 'RewriteEngine on' . '<br>' . 'RewriteCond %{HTTP_REFERER} !' . $xoopsUrl . "/.*$ [NC]<br>ReWriteRule \.*$ - [F]";
+$fileProtection .= 'RewriteEngine on' . '<br>' . 'RewriteCond %s{HTTP_REFERER} !' . $xoopsUrl . '/.*$ [NC]<br>ReWriteRule \.*$ - [F]';
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+$adminObject = Admin::getInstance();
 $adminObject->addInfoBox(_AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION);
 $adminObject->addInfoBoxLine(sprintf($fileProtection, '', '', 'information'), '');
 
