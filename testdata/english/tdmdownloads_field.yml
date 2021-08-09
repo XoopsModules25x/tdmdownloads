@@ -1,7 +1,7 @@
 -
     fid: '1'
     title: Platform
-    img: platform.png
+    img: list.png
     weight: '5'
     status: '1'
     search: '1'
@@ -9,32 +9,8 @@
 -
     fid: '3'
     title: Size
-    img: size.png
+    img: field.png
     weight: '1'
     status: '1'
     search: '1'
-    status_def: '0'
--
-    fid: '4'
-    title: picture
-    img: size.png
-    weight: '0'
-    status: '0'
-    search: '0'
-    status_def: '0'
--
-    fid: '5'
-    title: text
-    img: blank.gif
-    weight: '0'
-    status: '1'
-    search: '0'
-    status_def: '0'
--
-    fid: '6'
-    title: icon
-    img: platform.png
-    weight: '0'
-    status: '1'
-    search: '0'
     status_def: '0'

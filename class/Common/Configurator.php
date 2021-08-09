@@ -27,14 +27,16 @@ namespace XoopsModules\Tdmdownloads\Common;
 class Configurator
 {
     public $name;
-    public $paths = [];
-    public $uploadFolders = [];
-    public $copyBlankFiles = [];
+    public $paths           = [];
+    public $uploadFolders   = [];
+    public $copyBlankFiles  = [];
     public $copyTestFolders = [];
     public $templateFolders = [];
-    public $oldFiles = [];
-    public $oldFolders = [];
-    public $renameTables = [];
+    public $oldFiles        = [];
+    public $oldFolders      = [];
+    public $renameTables    = [];
+    public $renameColumns   = [];
+    public $moduleStats     = [];
     public $modCopyright;
     public $icons;
 
@@ -43,30 +45,24 @@ class Configurator
      */
     public function __construct()
     {
-        $config = include \dirname(\dirname(__DIR__)) . '/config/config.php';
 
-        $this->name = $config->name;
+        $config = require \dirname(__DIR__, 2) . '/config/config.php';
 
-        $this->paths = $config->paths;
-
-        $this->uploadFolders = $config->uploadFolders;
-
-        $this->copyBlankFiles = $config->copyBlankFiles;
-
+        $this->name            = $config->name;
+        $this->paths           = $config->paths;
+        $this->uploadFolders   = $config->uploadFolders;
+        $this->copyBlankFiles  = $config->copyBlankFiles;
         $this->copyTestFolders = $config->copyTestFolders;
-
         $this->templateFolders = $config->templateFolders;
+        $this->oldFiles        = $config->oldFiles;
+        $this->oldFolders      = $config->oldFolders;
+        $this->renameTables    = $config->renameTables;
+        $this->renameColumns   = $config->renameColumns;
+        $this->moduleStats     = $config->moduleStats;
+        $this->modCopyright    = $config->modCopyright;
 
-        $this->oldFiles = $config->oldFiles;
+        $this->icons = include \dirname(__DIR__, 2) . '/config/icons.php';
+        $this->paths = include \dirname(__DIR__, 2) . '/config/paths.php';
 
-        $this->oldFolders = $config->oldFolders;
-
-        $this->renameTables = $config->renameTables;
-
-        $this->modCopyright = $config->modCopyright;
-
-        $this->icons = include \dirname(\dirname(__DIR__)) . '/config/icons.php';
-
-        $this->paths = include \dirname(\dirname(__DIR__)) . '/config/paths.php';
     }
 }

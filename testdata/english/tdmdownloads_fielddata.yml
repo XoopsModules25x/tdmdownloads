@@ -7,54 +7,14 @@
     iddata: '2'
     fid: '1'
     lid: '1'
-    data: PDF
+    data: Any
 -
     iddata: '4'
     fid: '3'
     lid: '1'
-    data: '5'
+    data: ''
 -
     iddata: '5'
     fid: '3'
     lid: '2'
     data: '32'
--
-    iddata: '6'
-    fid: '4'
-    lid: '1'
-    data: ''
--
-    iddata: '7'
-    fid: '6'
-    lid: '1'
-    data: 'https://indir.top/uploads/images/img5d12568b43d9e.jpg'
--
-    iddata: '8'
-    fid: '5'
-    lid: '1'
-    data: 'This is just a text RESIM'
--
-    iddata: '9'
-    fid: '6'
-    lid: '2'
-    data: ''
--
-    iddata: '10'
-    fid: '4'
-    lid: '2'
-    data: ''
--
-    iddata: '11'
-    fid: '5'
-    lid: '2'
-    data: 'This is just a text RESIM'
--
-    iddata: '12'
-    fid: '3'
-    lid: '2'
-    data: '32'
--
-    iddata: '13'
-    fid: '1'
-    lid: '2'
-    data: Any
