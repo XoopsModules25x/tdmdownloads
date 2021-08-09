@@ -1,6 +1,6 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
-<{if $message_erreur}>
+<{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 <{if $form_select}>

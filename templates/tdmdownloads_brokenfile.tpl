@@ -16,7 +16,7 @@
         </ul>
     </div>
 
-    <{if $message_erreur}>
+    <{if $message_erreur|default:''}>
         <div class='errorMsg'><{$message_erreur}></div>
     <{/if}>
 

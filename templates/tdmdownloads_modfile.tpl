@@ -8,7 +8,7 @@
     <!-- Category path -->
     <div class="bold marg1 pad1"><{$navigation}></div>
 
-    <{if $message_erreur}>
+    <{if $message_erreur|default:''}>
         <div class='tdmdownloads-errorMsg errorMsg'><{$message_erreur}></div>
     <{/if}>
 

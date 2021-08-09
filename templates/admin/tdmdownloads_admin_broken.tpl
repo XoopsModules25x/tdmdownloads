@@ -1,6 +1,6 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
-<{if $message_erreur}>
+<{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 <{if $broken_list}>
@@ -31,13 +31,13 @@
         <{/if}>
     </table>
     <div class='clear'>&nbsp;</div>
-    <{if $pagenav}>
+    <{if $pagenav|default:''}>
         <div class='xo-pagenav floatright'><{$pagenav}></div>
         <div class='clear spacer'></div>
     <{/if}>
 <{/if}>
 
-<{if $themeForm}>
+<{if $themeForm|default:''}>
     <{$themeForm}>
 <{/if}>
 <br>
