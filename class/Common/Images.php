@@ -103,7 +103,7 @@ class Images extends \XoopsObject
      */
     public function getFormImages($action = false)
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
@@ -265,7 +265,7 @@ class Images extends \XoopsObject
      */
     public function getValuesImages($keys = null, $format = null, $maxDepth = null)
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 

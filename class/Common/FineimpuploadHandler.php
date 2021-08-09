@@ -134,7 +134,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      */
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
@@ -272,7 +272,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      */
     private function handleImageDB()
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
 
         require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
 

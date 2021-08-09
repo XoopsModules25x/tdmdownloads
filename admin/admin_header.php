@@ -21,7 +21,7 @@ use XoopsModules\Tdmdownloads\{
     Tree};
 
 // Include xoops admin header
-require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

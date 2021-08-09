@@ -17,7 +17,7 @@
 
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
-define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 // Description du module
 define('_MI_TDMDOWNLOADS_DESC', 'Creates a downloads section where users can download/submit/rate various files.');

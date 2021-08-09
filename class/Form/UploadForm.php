@@ -27,7 +27,7 @@ namespace XoopsModules\Tdmdownloads\Form;
 use Xmf\Request;
 use XoopsModules\Tdmdownloads;
 
-require_once \dirname(\dirname(__DIR__)) . '/include/common.php';
+require_once dirname(__DIR__, 2) . '/include/common.php';
 
 //$moduleDirName = basename(dirname(dirname(__DIR__)));
 //$helper = Tdmdownloads\Helper::getInstance();
@@ -50,7 +50,7 @@ class UploadForm extends \XoopsThemeForm
      */
     public function __construct($target)
     {
-        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 

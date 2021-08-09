@@ -22,7 +22,7 @@ function tdmdownloads_new($limit = 0, $offset = 0)
 {
     global $xoopsDB;
 
-    $moduleDirName = basename(dirname(dirname(dirname(dirname(__DIR__)))));
+    $moduleDirName = basename(dirname(__DIR__, 4));
 
     $myts = \MyTextSanitizer::getInstance();
 
@@ -101,7 +101,7 @@ function tdmdownloads_data($limit = 0, $offset = 0)
 {
     global $xoopsDB;
 
-    $moduleDirName = basename(dirname(dirname(__DIR__)));
+    $moduleDirName = basename(dirname(__DIR__, 2));
 
     $sql = 'SELECT lid, title, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
 
