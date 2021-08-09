@@ -1,3 +1,14 @@
+<h5>2.01 Beta 1        [2021-08-08]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.08
+<hr>
+- PHP 7.1 & PHP 8 (mamba)
+- various updates/cosmetics (mamba)
+- replace index.html with index.php (mamba)
+- PHP 8 Smarty defaults (mamba)
+- fix PHP8 Unknown format specifier "{" (mamba)
+- add TestdataButtons and testdata (mamba)
+- Language translations adjustments (mamba)
+
+
 <h5>2.01 Alpha 1        [2020-05-018]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.6
 <hr>
 - added hits and ratings and for output of download in index.php (goffy)
@@ -10,7 +21,6 @@
 - Fix xml (geekwright)
 - add extra fields visibility (heyula)
 - refactor Utility (mamba)
-- PHP 7.1 (mamba)
 
 
 <h5>2.0 RC 1         [2019-01-29]</h5>
