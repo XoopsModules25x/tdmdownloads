@@ -35,37 +35,38 @@ function tdmdownloads_new($limit = 0, $offset = 0)
     $i = 0;
 
     $ret = [];
+    if ($result instanceof \mysqli_result) {
+        while (false !== ($row = $xoopsDB->fetchArray($result))) {
+            $lid = $row['lid'];
 
-    while (false !== ($row = $xoopsDB->fetchArray($result))) {
-        $lid = $row['lid'];
+            $ret[$i]['link'] = $URL_MOD . '/singlefile.php?lid=' . $lid;
 
-        $ret[$i]['link'] = $URL_MOD . '/singlefile.php?lid=' . $lid;
+            $ret[$i]['cat_link'] = $URL_MOD . '/viewcat.php?cid=' . $row['cid'];
 
-        $ret[$i]['cat_link'] = $URL_MOD . '/viewcat.php?cid=' . $row['cid'];
+            $ret[$i]['title'] = $row['title'];
 
-        $ret[$i]['title'] = $row['title'];
+            $ret[$i]['time'] = $row['date'];
 
-        $ret[$i]['time'] = $row['date'];
+            // atom feed
 
-        // atom feed
+            $ret[$i]['id'] = $lid;
 
-        $ret[$i]['id'] = $lid;
+            $ret[$i]['description'] = $myts->displayTarea($row['description'], 0);    //no html
 
-        $ret[$i]['description'] = $myts->displayTarea($row['description'], 0);    //no html
+            // category
 
-        // category
+            //$ret[$i]['cat_name'] = $row['ctitle'];
 
-        //$ret[$i]['cat_name'] = $row['ctitle'];
+            // counter
 
-        // counter
+            $ret[$i]['hits'] = $row['hits'];
 
-        $ret[$i]['hits'] = $row['hits'];
+            // this module dont show user name
 
-        // this module dont show user name
+            $ret[$i]['uid'] = $row['submitter'];
 
-        $ret[$i]['uid'] = $row['submitter'];
-
-        ++$i;
+            ++$i;
+        }
     }
 
     return $ret;
@@ -110,20 +111,20 @@ function tdmdownloads_data($limit = 0, $offset = 0)
     $i = 0;
 
     $ret = [];
+    if ($result instanceof \mysqli_result) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
+            $id = $myrow['lid'];
 
-    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
-        $id = $myrow['lid'];
+            $ret[$i]['id'] = $id;
 
-        $ret[$i]['id'] = $id;
+            $ret[$i]['link'] = XOOPS_URL . "/modules/$moduleDirName/singlefile.php?lid=" . $id . '';
 
-        $ret[$i]['link'] = XOOPS_URL . "/modules/$moduleDirName/singlefile.php?lid=" . $id . '';
+            $ret[$i]['title'] = $myrow['title'];
 
-        $ret[$i]['title'] = $myrow['title'];
+            $ret[$i]['time'] = $myrow['date'];
 
-        $ret[$i]['time'] = $myrow['date'];
-
-        ++$i;
+            ++$i;
+        }
     }
-
     return $ret;
 }

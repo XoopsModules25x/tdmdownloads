@@ -61,39 +61,39 @@ function update_tdmdownloads_v200(&$module)
     $helper = Helper::getInstance();
 
     $helper->loadLanguage('admin');
+    if ($result instanceof \mysqli_result) {
+        while (false !== ($myrow = $db->fetchArray($result))) {
+            $size_value_arr = explode(' ', $myrow['size']);
 
-    while (false !== ($myrow = $db->fetchArray($result))) {
-        $size_value_arr = explode(' ', $myrow['size']);
-
-        switch ($size_value_arr[1]) {
-            case _AM_TDMDOWNLOADS_BYTES:
-            case 'Bytes':
-                $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' B\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
-                $db->query($sql);
-                break;
-            case _AM_TDMDOWNLOADS_KBYTES:
-            case 'kB':
-                $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' K\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
-                $db->query($sql);
-                break;
-            case _AM_TDMDOWNLOADS_MBYTES:
-            case 'MB':
-                $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' M\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
-                $db->query($sql);
-                break;
-            case _AM_TDMDOWNLOADS_GBYTES:
-            case 'GB':
-                $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' G\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
-                $db->query($sql);
-                break;
-            case _AM_TDMDOWNLOADS_TBYTES:
-            case 'TB':
-                $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' T\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
-                $db->query($sql);
-                break;
+            switch ($size_value_arr[1]) {
+                case _AM_TDMDOWNLOADS_BYTES:
+                case 'Bytes':
+                    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' B\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+                    $db->query($sql);
+                    break;
+                case _AM_TDMDOWNLOADS_KBYTES:
+                case 'kB':
+                    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' K\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+                    $db->query($sql);
+                    break;
+                case _AM_TDMDOWNLOADS_MBYTES:
+                case 'MB':
+                    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' M\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+                    $db->query($sql);
+                    break;
+                case _AM_TDMDOWNLOADS_GBYTES:
+                case 'GB':
+                    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' G\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+                    $db->query($sql);
+                    break;
+                case _AM_TDMDOWNLOADS_TBYTES:
+                case 'TB':
+                    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `size` = \'' . $size_value_arr[0] . ' T\'' . ' WHERE `lid` = ' . $myrow['lid'] . ';';
+                    $db->query($sql);
+                    break;
+            }
         }
     }
-
     // Update folder
 
     rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads');

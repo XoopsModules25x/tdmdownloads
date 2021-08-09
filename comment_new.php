@@ -35,7 +35,7 @@ if ($com_itemid > 0) {
 
     $result = $xoopsDB->query($sql);
 
-    if ($result) {
+    if ($result instanceof \mysqli_result) {
         $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
 
         $row = $xoopsDB->fetchArray($result);

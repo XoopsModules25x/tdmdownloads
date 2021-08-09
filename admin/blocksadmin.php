@@ -165,11 +165,11 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
             $result = $db->query($sql);
 
             $modules = [];
-
-            while (false !== ($row = $db->fetchArray($result))) {
-                $modules[] = (int)$row['module_id'];
+            if ($result instanceof \mysqli_result) {
+                while (false !== ($row = $db->fetchArray($result))) {
+                    $modules[] = (int)$row['module_id'];
+                }
             }
-
             $cachetime_options = '';
 
             foreach ($cachetimes as $cachetime => $cachetime_name) {
@@ -371,11 +371,11 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
         $result = $db->query($sql);
 
         $modules = [];
-
-        while (false !== ($row = $db->fetchArray($result))) {
-            $modules[] = (int)$row['module_id'];
+        if ($result instanceof \mysqli_result) {
+            while (false !== ($row = $db->fetchArray($result))) {
+                $modules[] = (int)$row['module_id'];
+            }
         }
-
         $is_custom = ('C' === $myblock->getVar('block_type') || 'E' === $myblock->getVar('block_type'));
 
         $block = [
@@ -590,11 +590,11 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
         $result = $db->query($sql);
 
         $modules = [];
-
-        while (false !== ($row = $db->fetchArray($result))) {
-            $modules[] = (int)$row['module_id'];
+        if ($result instanceof \mysqli_result) {
+            while (false !== ($row = $db->fetchArray($result))) {
+                $modules[] = (int)$row['module_id'];
+            }
         }
-
         $is_custom = ('C' === $myblock->getVar('block_type') || 'E' === $myblock->getVar('block_type'));
 
         $block = [

@@ -66,20 +66,20 @@ function tdmdownloads_search($queryarray, $andor, $limit, $offset, $userid)
     $ret = [];
 
     $i = 0;
+    if ($result instanceof \mysqli_result) {
+        while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
+            $ret[$i]['image'] = 'assets/images/deco/tdmdownloads_search.png';
 
-    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
-        $ret[$i]['image'] = 'assets/images/deco/tdmdownloads_search.png';
+            $ret[$i]['link'] = 'singlefile.php?cid=' . $myrow['cid'] . '&lid=' . $myrow['lid'] . '';
 
-        $ret[$i]['link'] = 'singlefile.php?cid=' . $myrow['cid'] . '&lid=' . $myrow['lid'] . '';
+            $ret[$i]['title'] = $myrow['title'];
 
-        $ret[$i]['title'] = $myrow['title'];
+            $ret[$i]['time'] = $myrow['date'];
 
-        $ret[$i]['time'] = $myrow['date'];
+            $ret[$i]['uid'] = $myrow['submitter'];
 
-        $ret[$i]['uid'] = $myrow['submitter'];
-
-        ++$i;
+            ++$i;
+        }
     }
-
     return $ret;
 }

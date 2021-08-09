@@ -73,8 +73,9 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $sql = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = ' . $item_id;
 
         $result = $xoopsDB->query($sql); // TODO: error check
-
-        $result_array = $xoopsDB->fetchArray($result);
+        if ($result instanceof \mysqli_result) {
+            $result_array = $xoopsDB->fetchArray($result);
+        }
 
         $item['name'] = $result_array['title'];
 
@@ -89,9 +90,9 @@ function tdmdownloads_notify_iteminfo($category, $item_id)
         $sql = 'SELECT cid,title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
 
         $result = $xoopsDB->query($sql); // TODO: error check
-
-        $result_array = $xoopsDB->fetchArray($result);
-
+        if ($result instanceof \mysqli_result) {
+            $result_array = $xoopsDB->fetchArray($result);
+        }
         $item['name'] = $result_array['title'];
 
         $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;

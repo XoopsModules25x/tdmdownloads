@@ -99,7 +99,7 @@ if (4 === $permission) {
 
         $result = $xoopsDB->query($sql);
 
-        if ($result) {
+        if ($result instanceof \mysqli_result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['lid'], $row['title']);
             }
@@ -109,7 +109,7 @@ if (4 === $permission) {
 
         $result = $xoopsDB->query($sql);
 
-        if ($result) {
+        if ($result instanceof \mysqli_result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['cat_cid'], $row['cat_title'], $row['cat_pid']);
             }
