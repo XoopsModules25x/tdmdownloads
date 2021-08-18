@@ -17,7 +17,8 @@
 
 use XoopsModules\Tdmdownloads\{
     Helper,
-    Tree};
+    Tree
+};
 
 require_once __DIR__ . '/header.php';
 

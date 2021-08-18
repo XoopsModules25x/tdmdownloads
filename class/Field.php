@@ -72,7 +72,7 @@ class Field extends \XoopsObject
     {
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $moduleDirName = \basename(\dirname(__DIR__));
 

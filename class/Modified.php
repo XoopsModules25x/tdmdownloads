@@ -88,7 +88,7 @@ class Modified extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $moduleDirName = \basename(\dirname(__DIR__));
 
@@ -107,9 +107,9 @@ class Modified extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $downloadsHandler */
 
-        $downloadsHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+        $downloadsHandler = Helper::getInstance()->getHandler('Downloads');
 
-        //        $categoryHandler  = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+        //        $categoryHandler  = Helper::getInstance()->getHandler('Category');
 
         $viewDownloads = $downloadsHandler->get($lid);
 
@@ -177,7 +177,7 @@ class Modified extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
 
-        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+        $categoryHandler = Helper::getInstance()->getHandler('Category');
 
         /** @var \XoopsModules\Tdmdownloads\Utility $utility */
 
@@ -211,7 +211,7 @@ class Modified extends \XoopsObject
 
         //affichage des champs
 
-        $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+        $fieldHandler = Helper::getInstance()->getHandler('Field');
 
         $criteria = new \CriteriaCompo();
 
@@ -304,7 +304,7 @@ class Modified extends \XoopsObject
 
                 $fieldName = 'champ' . $downloads_field[$i]->getVar('fid');
 
-                $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+                $fielddataHandler = Helper::getInstance()->getHandler('Fielddata');
 
                 $criteria = new \CriteriaCompo();
 

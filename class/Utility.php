@@ -95,6 +95,9 @@ class Utility extends Common\SysUtility
     {
         global $xoopsModuleConfig;
 
+        $moduleDirName = basename(dirname(__DIR__));
+        $helper = Helper::getInstance();
+
         $count = 7;
 
         $new = '';
@@ -105,25 +108,25 @@ class Utility extends Common\SysUtility
             if ($startdate < $time) {
                 $language = $GLOBALS['xoopsConfig']['language'];
 
-                if (!\is_dir(XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/')) {
+                if (!\is_dir(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/')) {
                     $language = 'english';
                 }
 
-                $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
+                $img_path = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/';
 
-                $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
+                $img_url = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
 
                 if (1 == $status) {
                     if (\is_readable($img_path . 'new.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                     } else {
-                        $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/tdmdownloads/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
+                        $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
                     }
                 } elseif (2 == $status) {
                     if (\is_readable($img_path . 'updated.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                     } else {
-                        $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/tdmdownloads/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
+                        $new = '&nbsp;<img src="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/updated.png" alt="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_UPTHISWEEK . '">';
                     }
                 }
             }
@@ -140,24 +143,25 @@ class Utility extends Common\SysUtility
     public function getPopularImage($hits)
     {
         global $xoopsModuleConfig;
+        $moduleDirName = basename(dirname(__DIR__));
 
         $pop = '';
 
         if ($hits >= $xoopsModuleConfig['popular']) {
             $language = $GLOBALS['xoopsConfig']['language'];
 
-            if (!\is_dir(XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/')) {
+            if (!\is_dir(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/')) {
                 $language = 'english';
             }
 
-            $img_path = XOOPS_ROOT_PATH . '/modules/tdmdownloads/language/' . $language . '/';
+            $img_path = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/';
 
-            $img_url = XOOPS_URL . '/modules/tdmdownloads/language/' . $language . '/';
+            $img_url = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
 
             if (\is_readable($img_path . 'popular.png')) {
                 $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             } else {
-                $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/tdmdownloads/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
+                $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             }
         }
 

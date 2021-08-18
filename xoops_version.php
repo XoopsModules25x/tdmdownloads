@@ -759,7 +759,7 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'textbox',
     'valuetype'   => 'text',
-    'default'     => '/modules/tdmdownloads/assets/images/mydl_slogo.png',
+    'default'     => '/modules/' . $moduleDirName . '/assets/images/mydl_slogo.png',
 ];
 
 $modversion['config'][] = [

@@ -16,11 +16,11 @@
  */
 
 use XoopsModules\Tdmdownloads\Helper;
+/** @var Helper $helper */
 
 error_reporting(0);
 require __DIR__ . '/header.php';
 
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 
 $lid = \Xmf\Request::getInt('lid', 0, 'REQUEST');

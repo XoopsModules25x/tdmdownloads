@@ -19,8 +19,9 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Tdmdownloads;
-use XoopsModules\Tdmdownloads\Helper;
+use XoopsModules\Tdmdownloads\{
+    Helper
+};
 
 require dirname(__DIR__) . '/preloads/autoloader.php';
 

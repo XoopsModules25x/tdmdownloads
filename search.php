@@ -16,12 +16,16 @@
  */
 
 use XoopsModules\Tdmdownloads\{
+    CategoryHandler,
+    Downloads,
     DownloadsHandler,
     Helper,
     Tree,
     Utility};
 /** @var Helper $helper */
 /** @var Utility $utility */
+/** @var CategoryHandler $categoryHandler */
+/** @var FieldHandler $fieldHandler */
 
 require_once __DIR__ . '/header.php';
 
@@ -29,6 +33,7 @@ $moduleDirName = basename(__DIR__);
 $helper        = Helper::getInstance();
 $utility = new Utility();
 $downloadsHandler = $helper->getHandler('Downloads');
+require __DIR__ . '/include/common.php';
 
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_liste.tpl';
@@ -153,6 +158,7 @@ foreach (array_keys($downloads_field) as $i) {
         } else {
             $criteria->setOrder('ASC');
 
+            /** @var Downloads $tdmdownloadsArray */
             $tdmdownloadsArray = $downloadsHandler->getAll($criteria);
 
             foreach (array_keys($tdmdownloadsArray) as $j) {
@@ -376,5 +382,6 @@ $xoTheme->addMeta('meta', 'description', strip_tags($xoopsModule->name()));
 //keywords
 $keywords = mb_substr($keywords, 0, -1);
 $xoTheme->addMeta('meta', 'keywords', strip_tags($keywords));
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
 
 require XOOPS_ROOT_PATH . '/footer.php';

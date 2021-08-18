@@ -209,19 +209,19 @@ function xoops_module_install_tdmdownloads()
 
     //Copy index.html
 
-    $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.html';
+    $indexFile = XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/include/index.php';
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/index.php');
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/index.php');
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/cats/index.php');
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/shots/index.php');
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/images/field/index.php');
 
-    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads/index.html');
+    copy($indexFile, XOOPS_ROOT_PATH . '/uploads/' . $namemodule . '/downloads/index.php');
 
     //Copy blank.gif
 

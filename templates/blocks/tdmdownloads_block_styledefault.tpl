@@ -1,7 +1,7 @@
         <div class="item tdmdownloads-blockitem">
             <div class="itemHead">
             <span class="itemTitle">
-                <h2><a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory"><{$downloads.title}></a></h2>
+                <h2><a title="<{$downloads.title}>" href="<{$mod_url}>/singlefile.php?lid=<{$downloads.lid}>" rel="directory"><{$downloads.title}></a></h2>
             </span>
             </div>
             <{if $downloads.inforation}>
@@ -15,13 +15,13 @@
             <{if $downloads.logourl || $downloads.description}>
                 <div class="itemBody">
                     <div class="itemText justify">
-                        <{if $downloads.logourl != ""}>
+                        <{if $downloads.logourl|default:'' != ''}>
                             <img class="<{$downloads.logourl_class}>" width="<{$downloads.logourl_width}>" src="<{$downloads.logourl}>" alt="<{$downloads.title}>">
                         <{/if}>
-                        <{if $downloads.description != ""}>
+                        <{if $downloads.description|default:'' != ''}>
                             <{$downloads.description}>
                             <span class="itemPermaLink">
-                                <a title="<{$downloads.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?lid=<{$downloads.lid}>" rel="directory">--></a>
+                                <a title="<{$downloads.title}>" href="<{$mod_url}>/singlefile.php?lid=<{$downloads.lid}>" rel="directory">--></a>
                             </span>
                         <{/if}>
                     </div>

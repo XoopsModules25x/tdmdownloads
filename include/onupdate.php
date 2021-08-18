@@ -1,6 +1,22 @@
 <?php declare(strict_types=1);
 
-use XoopsModules\Tdmdownloads\Helper;
+use Xmf\Database\Tables;
+use XoopsModules\Tdmdownloads\{
+    Common,
+    Common\Configurator,
+    Common\Migrate,
+    Helper,
+    Utility
+};
+/** @var Helper $helper */
+/** @var Utility $utility */
+/** @var Configurator $configurator */
+/** @var Migrate $migrator */
+
+if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
+    || !$GLOBALS['xoopsUser']->IsAdmin()) {
+    exit('Restricted access' . PHP_EOL);
+}
 
 /**
  * TDMDownload
@@ -19,9 +35,50 @@ use XoopsModules\Tdmdownloads\Helper;
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+/**
+ * Prepares system prior to attempting to install module
+ * @param \XoopsModule $module {@link XoopsModule}
+ * @return bool true if ready to install, false if not
+ */
+function xoops_module_pre_update_tdmdownloads(\XoopsModule $module)
+{
+    $moduleDirName = \basename(\dirname(__DIR__));
+    $helper = Helper::getInstance();
+    $utility = new Utility();
+
+    $xoopsSuccess = $utility::checkVerXoops($module);
+    $phpSuccess = $utility::checkVerPhp($module);
+
+    /** @var Configurator $configurator */
+    $configurator = new Configurator();
+
+    //create upload folders
+    $uploadFolders = $configurator->uploadFolders;
+    foreach ($uploadFolders as $value) {
+        $utility::prepareFolder($value);
+    }
+
+    $migrator = new Migrate();
+    $migrator->synchronizeSchema();
+
+    return $xoopsSuccess && $phpSuccess;
+}
+
+
+
 function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
 {
     $ret = null;
+
+    $moduleDirName = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+    $helper = Helper::getInstance();
+    $utility = new Utility();
+    $configurator = new Configurator();
+
+    $helper->loadLanguage('common');
 
     if ($prev_version < 163) {
         $ret = update_tdmdownloads_v163($module);
@@ -35,6 +92,10 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
         $ret = update_tdmdownloads_v200($module);
     }
 
+    if ($prev_version < 201) {
+        $ret = update_tdmdownloads_v201($module);
+    }
+
     $errors = $module->getErrors();
 
     if (!empty($errors)) {
@@ -42,6 +103,105 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
     }
 
     return $ret;
+}
+
+
+/**
+ * @param $module
+ * @return bool
+ */
+function update_tdmdownloads_v201(&$module)
+{
+    $moduleDirName = \basename(\dirname(__DIR__));
+    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+    $helper = Helper::getInstance();
+    $utility = new Utility();
+    $configurator = new Configurator();
+
+    $helper->loadLanguage('common');
+
+    //delete old HTML templates
+    if (count($configurator->templateFolders) > 0) {
+        foreach ($configurator->templateFolders as $folder) {
+            $templateFolder = $GLOBALS['xoops']->path('modules/' . $moduleDirName . $folder);
+            if (is_dir($templateFolder)) {
+                $templateList = array_diff(scandir($templateFolder, SCANDIR_SORT_NONE), ['..', '.']);
+                foreach ($templateList as $k => $v) {
+                    $fileInfo = new SplFileInfo($templateFolder . $v);
+                    if ('html' === $fileInfo->getExtension() && 'index.html' !== $fileInfo->getFilename()) {
+                        if (file_exists($templateFolder . $v)) {
+                            unlink($templateFolder . $v);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //  ---  DELETE OLD FILES ---------------
+    if (count($configurator->oldFiles) > 0) {
+        //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
+        foreach (array_keys($configurator->oldFiles) as $i) {
+            $tempFile = $GLOBALS['xoops']->path('modules/' . $moduleDirName . $configurator->oldFiles[$i]);
+            if (is_file($tempFile)) {
+                unlink($tempFile);
+            }
+        }
+    }
+
+    //  ---  DELETE OLD FOLDERS ---------------
+    xoops_load('XoopsFile');
+    if (count($configurator->oldFolders) > 0) {
+        //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
+        foreach (array_keys($configurator->oldFolders) as $i) {
+            $tempFolder = $GLOBALS['xoops']->path('modules/' . $moduleDirName . $configurator->oldFolders[$i]);
+            /** @var XoopsObjectHandler $folderHandler */
+            $folderHandler = \XoopsFile::getHandler('folder', $tempFolder);
+            $folderHandler->delete($tempFolder);
+        }
+    }
+
+    //  ---  CREATE UPLOAD FOLDERS ---------------
+    if (count($configurator->uploadFolders) > 0) {
+        //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
+        foreach (array_keys($configurator->uploadFolders) as $i) {
+            $utility::createFolder($configurator->uploadFolders[$i]);
+        }
+    }
+
+    //  ---  COPY blank.png FILES ---------------
+    if (count($configurator->copyBlankFiles) > 0) {
+        $file = dirname(__DIR__) . '/assets/images/blank.png';
+        foreach (array_keys($configurator->copyBlankFiles) as $i) {
+            $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
+            $utility::copyFile($file, $dest);
+        }
+    }
+
+    //delete .html entries from the tpl table
+    $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
+    $GLOBALS['xoopsDB']->queryF($sql);
+
+    //delete .tpl entries from the tpl table
+    $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.tpl%'";
+    $GLOBALS['xoopsDB']->queryF($sql);
+
+    //delete tdmdownloads entries from the tpl_source table
+    $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplsource') . " WHERE `tpl_source` LIKE '%tdmdownloads%'";
+    $GLOBALS['xoopsDB']->queryF($sql);
+
+    $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('tdmdownloads_downlimit') . "` (downlimit_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT, downlimit_lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
+           downlimit_uid INT(11) NOT NULL DEFAULT '0', downlimit_hostname VARCHAR(60) NOT NULL DEFAULT '', downlimit_date INT(10) NOT NULL DEFAULT '0', PRIMARY KEY  (downlimit_id)
+           ) ENGINE=MyISAM";
+
+    $GLOBALS['xoopsDB']->query($sql);
+
+    /** @var XoopsGroupPermHandler $gpermHandler */
+    $gpermHandler = xoops_getHandler('groupperm');
+
+    return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
+
 }
 
 /**
@@ -52,6 +212,7 @@ function update_tdmdownloads_v200(&$module)
 {
     // Update size
 
+    $moduleDirName = basename(dirname(__DIR__));
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
     $sql = 'SELECT lid, size FROM ' . $db->prefix('tdmdownloads_downloads');
@@ -61,6 +222,7 @@ function update_tdmdownloads_v200(&$module)
     $helper = Helper::getInstance();
 
     $helper->loadLanguage('admin');
+
     if ($result instanceof \mysqli_result) {
         while (false !== ($myrow = $db->fetchArray($result))) {
             $size_value_arr = explode(' ', $myrow['size']);
@@ -96,11 +258,11 @@ function update_tdmdownloads_v200(&$module)
     }
     // Update folder
 
-    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads');
+    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName );
 
     // Change TDMDownloads with tdmdownloads
 
-    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `url` = REPLACE(`url`, \'TDMDownloads\', \'tdmdownloads\') WHERE `url` LIKE \'%TDMDownloads%\'';
+    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `url` = REPLACE(`url`, \'TDMDownloads\', \''. $moduleDirName.'\') WHERE `url` LIKE \'%TDMDownloads%\'';
 
     $result = $db->query($sql);
 
@@ -113,59 +275,46 @@ function update_tdmdownloads_v200(&$module)
  */
 function update_tdmdownloads_v167(&$module)
 {
+    $moduleDirName = basename(dirname(__DIR__));
     // rename module dir from upper case to lower case
 
-    rename(XOOPS_ROOT_PATH . '/modules/TDMDownloads', XOOPS_ROOT_PATH . '/modules/tdmdownloads');
+    rename(XOOPS_ROOT_PATH . '/modules/TDMDownloads', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName);
 
     // rename upload dir from upper case to lower case
 
-    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/tdmdownloads');
+    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName);
 
     // files have been moved to assets-folder
 
-    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/css/';
+    $src = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/css/';
 
     rrmdir($src);
 
-    $src = XOOPS_ROOT_PATH . '/modules/tdmdownloads/images/';
+    $src = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/images/';
 
     rrmdir($src);
 
     // delete unneeded/replacfiles
 
-    // unlink( XOOPS_ROOT_PATH.'/modules/tdmdownloads/admin/admin_header.php' );
+    // unlink( XOOPS_ROOT_PATH.'/modules/' . $moduleDirName . '/admin/admin_header.php' );
 
     // clean template directory
 
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_brokenfile.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_download.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_index.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_modfile.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_ratefile.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_singlefile.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_submit.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_viewcat.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_liste.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/tdmdownloads_rss.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_new.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_random.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_rating.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_search.html');
-
-    @unlink(XOOPS_ROOT_PATH . '/modules/tdmdownloads/templates/blocks/tdmdownloads_block_top.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_brokenfile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_download.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_index.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_modfile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_ratefile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_singlefile.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_submit.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_viewcat.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_liste.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_rss.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_new.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_random.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_rating.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_search.html');
+    @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_top.html');
 
     return true;
 }

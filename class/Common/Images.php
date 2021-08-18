@@ -19,7 +19,9 @@ namespace XoopsModules\Tdmdownloads\Common;
  * @author         Wedega - Email:<webmaster@wedega.com> - Website:<https://wedega.com>
  */
 
-use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\{
+    Helper
+};
 
 /**
  * Class Object Images
@@ -107,7 +109,7 @@ class Images extends \XoopsObject
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
-        $helper = Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -269,7 +271,7 @@ class Images extends \XoopsObject
 
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
-        $helper = Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $ret = $this->getValues($keys, $format, $maxDepth);
 

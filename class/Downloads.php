@@ -4,6 +4,7 @@ namespace XoopsModules\Tdmdownloads;
 
 use XoopsModules\Tag\FormTag;
 
+
 /**
  * TDMDownload
  *
@@ -107,7 +108,7 @@ class Downloads extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         /** @var \XoopsModules\Tdmdownloads\Utility $utility */
 
@@ -170,7 +171,7 @@ class Downloads extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
 
-        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+        $categoryHandler = Helper::getInstance()->getHandler('Category');
 
         $categories = $utility->getItemIds('tdmdownloads_submit', $moduleDirName);
 
@@ -202,7 +203,7 @@ class Downloads extends \XoopsObject
 
         /** @var \XoopsModules\Tdmdownloads\FieldHandler $fieldHandler */
 
-        $fieldHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Field');
+        $fieldHandler = Helper::getInstance()->getHandler('Field');
 
         $criteria = new \CriteriaCompo();
 
@@ -300,7 +301,7 @@ class Downloads extends \XoopsObject
 
                 /** @var \XoopsModules\Tdmdownloads\FielddataHandler $fielddataHandler */
 
-                $fielddataHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Fielddata');
+                $fielddataHandler = Helper::getInstance()->getHandler('Fielddata');
 
                 $criteria = new \CriteriaCompo();
 

@@ -109,7 +109,7 @@ class Utilities
 
         /** @var Tdmdownloads\Helper $helper */
 
-        $helper = Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $count = 7;
 
@@ -157,7 +157,7 @@ class Utilities
     {
         /** @var Tdmdownloads\Helper $helper */
 
-        $helper = Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         $moduleDirName = \basename(\dirname(__DIR__));
 

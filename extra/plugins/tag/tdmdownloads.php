@@ -18,7 +18,11 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  */
 
-use XoopsModules\Tag\Helper;
+use XoopsModules\Tag\Helper as TagHelper;
+use XoopsModules\Tdmdownloads\{
+    Helper
+};
+
 
 /**
  * @param $items
@@ -40,7 +44,7 @@ function tdmdownloads_tag_iteminfo(&$items)
 
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
 
-    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $itemHandler = Helper::getInstance()->getHandler('Downloads');
 
     /** @var \XoopsModules\Tdmdownloads\Downloads $item_obj */
 
@@ -75,7 +79,7 @@ function tdmdownloads_tag_synchronization($mid)
 {
     /** @var \XoopsModules\Tdmdownloads\DownloadsHandler $itemHandler */
 
-    $itemHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Downloads');
+    $itemHandler = Helper::getInstance()->getHandler('Downloads');
 
     /** @var \XoopsModules\Tag\LinkHandler $linkHandler */
 

@@ -1,9 +1,12 @@
 <?php declare(strict_types=1);
 
 use XoopsModules\Tag\{
-    Helper,
+    Helper as TagHelper,
     Tag,
     TagHandler
+};
+use XoopsModules\Tdmdownloads\{
+    Helper
 };
 
 /**
@@ -24,7 +27,7 @@ require_once __DIR__ . '/header.php';
 $moduleDirName = basename(__DIR__);
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_submit.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
@@ -282,7 +285,7 @@ switch ($op) {
             if (1 == $helper->getConfig('usetag') && class_exists(TagHandler::class)) {
                 /** @var \XoopsModules\Tag\TagHandler $tagHandler */
 
-                $tagHandler = Helper::getInstance()->getHandler('Tag');
+                $tagHandler = TagHelper::getInstance()->getHandler('Tag');
 
                 $tagHandler->updateByItem($_POST['tag'], $lidDownloads, $moduleDirName, 0);
             }
@@ -382,4 +385,7 @@ switch ($op) {
         $xoopsTpl->assign('themeForm', $form->render());
         break;
 }
+
+$GLOBALS['xoopsTpl']->assign('mod_url', XOOPS_URL . '/modules/' . $moduleDirName);
+
 require XOOPS_ROOT_PATH . '/footer.php';

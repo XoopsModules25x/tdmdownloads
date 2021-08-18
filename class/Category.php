@@ -18,7 +18,10 @@ namespace XoopsModules\Tdmdownloads;
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Tdmdownloads;
+use XoopsModules\Tdmdownloads\{
+    Helper
+};
+/** @var Helper $helper */
 
 /**
  * Class Category
@@ -38,9 +41,7 @@ class Category extends \XoopsObject
     {
         parent::__construct();
 
-        /** @var Tdmdownloads\Helper $helper */
-
-        $this->helper = Tdmdownloads\Helper::getInstance();
+        $this->helper = Helper::getInstance();
 
         $this->permHelper = new Permission();
 
@@ -85,9 +86,7 @@ class Category extends \XoopsObject
      */
     public function getForm($action = false)
     {
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-
-        $helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+        $helper = Helper::getInstance();
 
         if (!$action) {
             $action = $_SERVER['REQUEST_URI'];
@@ -167,9 +166,7 @@ class Category extends \XoopsObject
 
         // Pour faire une sous-catégorie
 
-        /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
-
-        $categoryHandler = \XoopsModules\Tdmdownloads\Helper::getInstance()->getHandler('Category');
+        $categoryHandler = Helper::getInstance()->getHandler('Category');
 
         $criteria = new \CriteriaCompo();
 
