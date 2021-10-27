@@ -245,7 +245,7 @@ class Downloads extends \XoopsObject
                     if (1 == $downloads_field[$i]->getVar('status')) {
                         $size_value_arr = \explode(' ', $this->getVar('size'));
 
-                        $aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE, '');
+                        $aff_size = new \XoopsFormElementTray(_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT, '');
 
                         $aff_size->addElement(new \XoopsFormText('', 'sizeValue', 13, 13, $size_value_arr[0]));
 

@@ -124,8 +124,8 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Wählen Sie die Gruppen, die diese 
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plattform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Eingesendet von ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Bewertung');
-//define('_AM_TDMDOWNLOADS_FORMSIZE', 'Dateigröße');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "Dateigröße<br><span style='font-size: small;'>Um das automatische System zur Berechnung der Dateigröße zu verwenden, lassen Sie dieses Feld leer.</span>");
+define('_AM_TDMDOWNLOADS_FORMSIZE', 'Dateigröße');
+define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "Dateigröße<br><span style='font-size: small;'>Um das automatische System zur Berechnung der Dateigröße zu verwenden, lassen Sie dieses Feld leer.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Bestätigt');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Eingesendet von');

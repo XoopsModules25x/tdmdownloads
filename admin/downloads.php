@@ -475,7 +475,7 @@ switch ($op) {
                     //taille du fichier
 
                     if ('' !== $viewDownloads->getVar('size')) {
-                        $fieldsList[] = ['name' => _AM_TDMDOWNLOADS_FORMSIZE, 'value' => $viewDownloads->getVar('size')];
+                        $fieldsList[] = ['name' => _AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT, 'value' => $viewDownloads->getVar('size')];
                     }
                 }
 
