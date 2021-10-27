@@ -39,6 +39,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');
+$catId = \Xmf\Request::getInt('cat_cid', 0);
 
 // compte le nombre de téléchargement non validé
 $criteria = new \CriteriaCompo();
@@ -653,7 +654,7 @@ switch ($op) {
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST'));
         $obj->setVar('paypal', \Xmf\Request::getString('paypal', '', 'POST'));
         if (\Xmf\Request::hasVar('platform', 'POST')) {
-            $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST')));
+            $obj->setVar('platform', implode('|', \Xmf\Request::getArray('platform', [], 'POST')));
         }
         $obj->setVar('description', \Xmf\Request::getString('description', '', 'POST'));
 
