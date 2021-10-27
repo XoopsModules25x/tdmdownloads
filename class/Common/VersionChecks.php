@@ -97,7 +97,7 @@ trait VersionChecks
     }
 
     /**
-     * compares current module version with latest GitHub release
+     * compares current module version with the latest GitHub release
      * @static
      * @param \Xmf\Module\Helper $helper
      * @param string|null        $source
@@ -105,7 +105,7 @@ trait VersionChecks
      *
      * @return string|array info about the latest module version, if newer
      */
-    public static function checkVerModule($helper, $source = 'github', $default = 'master')
+    public static function checkVerModule(\Xmf\Module\Helper $helper, ?string $source = 'github', ?string $default = 'master'): ?array
     {
         $moduleDirName = \basename(dirname(__DIR__, 2));
 

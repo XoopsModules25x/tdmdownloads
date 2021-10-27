@@ -150,7 +150,7 @@ $xoopsTpl->assign('paypal', $paypal);
  */
 function getXfieldKey($k)
 {
-    return mb_strtolower(
+    return \mb_strtolower(
         str_replace(
             ['Ü', 'ü', 'Ş', 'ş', 'I', 'ı', 'Ç', 'ç', 'Ğ', 'ğ', 'Ö', 'ö'],
             ['u', 'u', 's', 's', 'i', 'i', 'c', 'c', 'g', 'g', 'o', 'o'],

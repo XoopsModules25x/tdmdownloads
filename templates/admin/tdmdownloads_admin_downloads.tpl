@@ -7,12 +7,12 @@
 
 <div align="right">
     <form id="form_document_tri" name="form_document_tri" method="get" action="document.php">
-        <{$selectDocument}> <{$selectOrder}>
+        <{$selectDocument|default:''}> <{$selectOrder|default:''}>
     </form>
 </div>
 
 <!-- show default list -->
-<{if $downloads_list}>
+<{if $downloads_list|default:''}>
     <table class='table table-bordered'>
         <thead>
         <tr class='head'>

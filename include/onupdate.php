@@ -72,7 +72,7 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
     $ret = null;
 
     $moduleDirName = \basename(\dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
     $helper = Helper::getInstance();
     $utility = new Utility();
@@ -113,7 +113,7 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
 function update_tdmdownloads_v201(&$module)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
-    $moduleDirNameUpper = mb_strtoupper($moduleDirName);
+    $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
     $helper = Helper::getInstance();
     $utility = new Utility();

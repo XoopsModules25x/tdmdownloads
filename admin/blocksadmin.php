@@ -19,7 +19,7 @@ use Xmf\Request;
 require __DIR__ . '/admin_header.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
 if (!is_object($xoopsModule) || !is_object($GLOBALS['xoopsUser'])
     || !$GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
@@ -61,7 +61,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
 
         $moduleDirName = basename(dirname(__DIR__));
 
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
         /** @var \XoopsMySQLDatabase $db */
 
@@ -350,7 +350,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
 
         $moduleDirName = basename(dirname(__DIR__));
 
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
         xoops_loadLanguage('admin', 'system');
 
@@ -569,7 +569,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
 
         $moduleDirName = basename(dirname(__DIR__));
 
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
         xoops_loadLanguage('admin', 'system');
 
@@ -647,7 +647,7 @@ if ($GLOBALS['xoopsUser']->isAdmin($xoopsModule->mid())) {
     {
         $moduleDirName = basename(dirname(__DIR__));
 
-        $moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+        $moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
         $myblock = new \XoopsBlock($bid);
 

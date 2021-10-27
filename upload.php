@@ -25,11 +25,12 @@ use XoopsModules\Tdmdownloads\{
     CategoryHandler,
     Form\UploadForm
 };
+/** @var \Xmf\Module\Helper\Permission $permHelper */
 
 require_once __DIR__ . '/header.php';
 
 $moduleDirName      = basename(__DIR__);
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // It recovered the value of argument op in URL$
 $op    = Request::getString('op', 'form');
@@ -38,7 +39,7 @@ $catId = Request::getInt('cat_cid', 0);
 $GLOBALS['xoopsOption']['template_main'] = $moduleDirName . '_upload.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
-$pathIcon16 = Admin::iconUrl('', 16);
+$pathIcon16 = Admin::iconUrl('', '16');
 $GLOBALS['xoopsTpl']->assign('pathIcon16', $pathIcon16);
 
 $categoryHandler = new CategoryHandler();
