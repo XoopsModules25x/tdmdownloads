@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -10,19 +11,23 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
+use Xmf\Module\Admin;
+use XoopsModules\Tdmdownloads\Helper;
+
 require __DIR__ . '/admin_header.php';
 
 // Template
 $templateMain = 'tdmdownloads_admin_broken.tpl';
 
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
-$op = \Xmf\Request::getString('op', 'list');
+$op = \Xmf\Request::getCmd('op', 'list');
 
 //Les valeurs de op qui vont permettre d'aller dans les differentes parties de la page
 switch ($op) {
@@ -30,22 +35,26 @@ switch ($op) {
     case 'list':
         //Affichage de la partie haute de l'administration de Xoops
         xoops_cp_header();
-        $adminObject = \Xmf\Module\Admin::getInstance();
+        $adminObject = Admin::getInstance();
         $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
 
         $criteria = new \CriteriaCompo();
         if (\Xmf\Request::hasVar('limit', 'REQUEST')) {
             $criteria->setLimit(\Xmf\Request::getInt('limit', 0, 'REQUEST'));
+
             $limit = \Xmf\Request::getInt('limit', 0, 'REQUEST');
         } else {
             $criteria->setLimit($helper->getConfig('perpageadmin'));
+
             $limit = $helper->getConfig('perpageadmin');
         }
         if (\Xmf\Request::hasVar('start', 'REQUEST')) {
             $criteria->setStart(\Xmf\Request::getInt('start', 0, 'REQUEST'));
+
             $start = \Xmf\Request::getInt('start', 0, 'REQUEST');
         } else {
             $criteria->setStart(0);
+
             $start = 0;
         }
         $criteria->setSort('reportid');
@@ -54,19 +63,23 @@ switch ($op) {
         $brokenHandler->table_link   = $brokenHandler->db->prefix('tdmdownloads_downloads'); // Nom de la table en jointure
         $brokenHandler->field_link   = 'lid'; // champ de la table en jointure
         $brokenHandler->field_object = 'lid'; // champ de la table courante
-        $brokenArray         = $brokenHandler->getByLink($criteria);
+        $brokenArray                 = $brokenHandler->getByLink($criteria);
         $numrows                     = $brokenHandler->getCount($criteria);
         $pagenav                     = '';
         if ($numrows > $limit) {
             $pagenav = new \XoopsPageNav($numrows, $limit, $start, 'start', 'op=list&limit=' . $limit);
+
             $pagenav = $pagenav->renderNav(4);
         }
         //Affichage du tableau des téléchargements brisés
         if ($numrows > 0) {
             $GLOBALS['xoopsTpl']->assign('broken_count', $numrows);
+
             $broken = [];
+
             foreach (array_keys($brokenArray) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Broken[] $brokenArray */
+
                 $broken = [
                     'lid'      => $brokenArray[$i]->getVar('lid'),
                     'reportid' => $brokenArray[$i]->getVar('reportid'),
@@ -75,7 +88,9 @@ switch ($op) {
                     'sender'   => \XoopsUser::getUnameFromId($brokenArray[$i]->getVar('sender')),
                     'ip'       => $brokenArray[$i]->getVar('ip'),
                 ];
+
                 $GLOBALS['xoopsTpl']->append('broken_list', $broken);
+
                 unset($broken);
             }
         } else {
@@ -89,17 +104,25 @@ switch ($op) {
             if (!$GLOBALS['xoopsSecurity']->check()) {
                 redirect_header('downloads.php', 3, implode(',', $GLOBALS['xoopsSecurity']->getErrors()));
             }
+
             if ($brokenHandler->delete($obj)) {
                 redirect_header('broken.php', 1, _AM_TDMDOWNLOADS_REDIRECT_DELOK);
             }
+
             $GLOBALS['xoopsTpl']->assign('message_erreur', $obj->getHtmlErrors());
         } else {
             //Affichage de la partie haute de l'administration de Xoops
+
             xoops_cp_header();
-            $adminObject = \Xmf\Module\Admin::getInstance();
+
+            $adminObject = Admin::getInstance();
+
             $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('broken.php'));
+
             $adminObject->addItemButton(_MI_TDMDOWNLOADS_ADMENU4, 'broken.php?op=list', 'list');
+
             $GLOBALS['xoopsTpl']->assign('buttons', $adminObject->displayButton('left'));
+
             xoops_confirm(['ok' => 1, 'broken_id' => \Xmf\Request::getInt('broken_id', 0, 'REQUEST'), 'op' => 'del_brokendownloads'], $_SERVER['REQUEST_URI'], _AM_TDMDOWNLOADS_BROKEN_SURDEL . '<br>');
         }
         break;
@@ -107,9 +130,11 @@ switch ($op) {
 // Local icons path
 if (is_object($helper->getModule())) {
     $pathModIcon16 = $helper->getModule()->getInfo('modicons16');
+
     $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
     $GLOBALS['xoopsTpl']->assign('pathModIcon16', XOOPS_URL . '/modules/' . $moduleDirName . '/' . $pathModIcon16);
+
     $GLOBALS['xoopsTpl']->assign('pathModIcon32', $pathModIcon32);
 }
 //Affichage de la partie basse de l'administration de Xoops

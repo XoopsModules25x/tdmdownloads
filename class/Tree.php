@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -13,7 +13,7 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 require_once $GLOBALS['xoops']->path('www/class/tree.php');
@@ -33,7 +33,7 @@ class Tree extends \XoopsObjectTree
      * @param      $parentId
      * @param null $rootId
      */
-    public function __construct(&$objectArr, $myId, $parentId, $rootId = null)
+    public function __construct($objectArr, $myId, $parentId, $rootId = null)
     {
         parent::__construct($objectArr, $myId, $parentId, $rootId);
     }
@@ -48,10 +48,13 @@ class Tree extends \XoopsObjectTree
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
         if ($key > 0) {
-            $value       = $this->tree[$key]['obj']->getVar($this->myId);
+            $value = $this->tree[$key]['obj']->getVar($this->myId);
+
             $ret[$value] = $prefix_curr . $this->tree[$key]['obj']->getVar($fieldName);
+
             $prefix_curr .= $prefix_orig;
         }
+
         if (isset($this->tree[$key]['child']) && !empty($this->tree[$key]['child'])) {
             foreach ($this->tree[$key]['child'] as $childKey) {
                 $this->makeArrayTreeOptions($fieldName, $childKey, $ret, $prefix_orig, $prefix_curr);
@@ -69,13 +72,14 @@ class Tree extends \XoopsObjectTree
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0)
     {
         $ret = [];
+
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;
     }
 }
 /* xoops 2.5.8
-class Tree extends XoopsObjectTree {
+class Tree extends \XoopsObjectTree {
 
     protected function makeArrayTreeOptions($fieldName, $key, &$ret, $prefix_orig, $prefix_curr = '')
     {
@@ -92,7 +96,7 @@ class Tree extends XoopsObjectTree {
     }
 
     public function makeArrayTree($fieldName, $prefix = '-', $key = 0) {
-        $ret = array();
+        $ret = [];
         $this->makeArrayTreeOptions($fieldName, $key, $ret, $prefix);
 
         return $ret;

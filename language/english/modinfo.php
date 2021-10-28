@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -10,12 +11,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
-define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 // Description du module
 define('_MI_TDMDOWNLOADS_DESC', 'Creates a downloads section where users can download/submit/rate various files.');
@@ -228,4 +230,3 @@ define('_MI_TDMDOWNLOADS_CONFCAT_SEARCH', '<span style="color: #FF0000; font-siz
 define('_MI_TDMDOWNLOADS_CONFCAT_SEARCH_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
 
 //define('_MI_TDMDOWNLOADS_ADMENU5', 'Blocks Admin');
-

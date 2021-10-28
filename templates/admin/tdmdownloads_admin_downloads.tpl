@@ -1,18 +1,18 @@
 <!-- Header -->
 <{include file='db:tdmdownloads_admin_header.tpl'}>
 
-<{if $message_erreur}>
+<{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 
 <div align="right">
     <form id="form_document_tri" name="form_document_tri" method="get" action="document.php">
-        <{$selectDocument}> <{$selectOrder}>
+        <{$selectDocument|default:''}> <{$selectOrder|default:''}>
     </form>
 </div>
 
 <!-- show default list -->
-<{if $downloads_list}>
+<{if $downloads_list|default:''}>
     <table class='table table-bordered'>
         <thead>
         <tr class='head'>
@@ -53,14 +53,14 @@
         <{/if}>
     </table>
     <div class='clear'>&nbsp;</div>
-    <{if $pagenav}>
+    <{if $pagenav|default:''}>
         <div class='xo-pagenav floatright'><{$pagenav}></div>
         <div class='clear spacer'></div>
     <{/if}>
 <{/if}>
 
 <!-- show details of a download -->
-<{if $download_detail}>
+<{if $download_detail|default:''}>
     <table width="100%" cellspacing="1" class="outer">
         <tr>
             <th align="center" colspan="2"><{$download.title}></th>
@@ -184,7 +184,7 @@
     </table>
 <{/if}>
 
-<{if $themeForm}>
+<{if $themeForm|default:''}>
     <{$themeForm}>
 <{/if}>
 

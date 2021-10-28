@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -10,12 +11,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
-define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
+define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));
 define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
 // Description du module
 define('_MI_TDMDOWNLOADS_DESC', 'Crée une section de téléchargements où les utilisateurs peuvent télécharger, soumettre et noter différents fichiers.');
@@ -89,7 +91,7 @@ define('_MI_TDMDOWNLOADS_SOCIAL_DSC', 'Afficher/masquer les icônes de réseau s
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT', 'Page de téléchargement flottante');
 define(
     '_MI_TDMDOWNLOADS_DOWNLOADFLOAT_DSC',
-       "<ul> <li>De gauche à droite : Montrez la description des téléchargements du côté gauche et la colonne d'informations du côté droit </li> <li> De droite à gauche : Montrez la description des téléchargements du côté droit et la colonne d'informations du côté gauche </li> </ul>"
+    "<ul> <li>De gauche à droite : Montrez la description des téléchargements du côté gauche et la colonne d'informations du côté droit </li> <li> De droite à gauche : Montrez la description des téléchargements du côté droit et la colonne d'informations du côté gauche </li> </ul>"
 );
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_LTR', 'De gauche à droite');
 define('_MI_TDMDOWNLOADS_DOWNLOADFLOAT_RTL', 'De droite à gauche');
@@ -104,7 +106,10 @@ define('_MI_TDMDOWNLOADS_DOWNLOAD_NAMEDSC', "Si l'option est non et que vous ave
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX', 'Préfixe des fichiers téléchargés');
 define('_MI_TDMDOWNLOADS_DOWNLOAD_PREFIXDSC', "Valide uniquement si l'option pour renommer les fichiers téléchargés est oui");
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE', 'Taille maximum des fichiers de téléchargement');
-define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_DESC', "La sélection est limitée par les valeurs de 'post_max_size' et 'upload_max_filesize' dans les paramètres php.ini<br>Si vous voulez augmenter les valeurs, vous devez d'abord augmenter ces paramètres dans php.ini et ensuite metre à jour le module pour faire apparaître les nouveaux choix.");
+define(
+    '_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_DESC',
+    "La sélection est limitée par les valeurs de 'post_max_size' et 'upload_max_filesize' dans les paramètres php.ini<br>Si vous voulez augmenter les valeurs, vous devez d'abord augmenter ces paramètres dans php.ini et ensuite metre à jour le module pour faire apparaître les nouveaux choix."
+);
 define('_MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB', 'Mo');
 define('_MI_TDMDOWNLOADS_MIMETYPE', 'Types mime autorisés ');
 define('_MI_TDMDOWNLOADS_MIMETYPE_DSC', 'Entrer les types mime autorisés');

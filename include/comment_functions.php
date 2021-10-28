@@ -1,8 +1,9 @@
-<?php
+<?php declare(strict_types=1);
+
 //
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
-//                  Copyright (c) 2000-2019 XOOPS.org                        //
+//                  Copyright (c) 2000-2020 XOOPS.org                        //
 //                       <https://xoops.org>                             //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
@@ -34,8 +35,11 @@
 function tdmdownloads_com_update($downloadId, $totalNumber)
 {
     /** @var \XoopsMySQLDatabase $db */
-    $db  = \XoopsDatabaseFactory::getDatabaseConnection();
+
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
+
     $sql = 'UPDATE ' . $db->prefix('tdmdownloads_downloads') . ' SET comments = ' . $totalNumber . ' WHERE lid = ' . $downloadId;
+
     $db->query($sql);
 }
 

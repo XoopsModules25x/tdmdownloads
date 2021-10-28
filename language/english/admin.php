@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -10,9 +11,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'There are %s broken files reports');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'There are %s categories');
@@ -85,7 +87,7 @@ define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Import successfully done!');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', "VOTES: '%s' imported;");
 define(
     '_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied."
+    "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br> Import will delete all data in TDMDownloads. It's highly recommended that you make a backup of all your data first, as well as of your website.<br><br>TDM is not responsible if you lose your data. Unfortunately, the screen shots cannot be copied."
 );
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Import from WF Downloads (only for V3.23 RC5)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', 'Select Upload Directory (the path) for categories images of WF-Downloads');
@@ -122,7 +124,8 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Select groups that can download thi
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Platform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posted by ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "File Size<br><span style='font-size: small;'>To use the automatic system for calculating the file size, leave this field empty.</span>");
+define('_AM_TDMDOWNLOADS_FORMSIZE', "File Size");
+define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "File Size<br><span style='font-size: small;'>To use the automatic system for calculating the file size, leave this field empty.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approved');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Posted by');
@@ -185,3 +188,5 @@ define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Could not delete %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Could not load plugin');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s bytes');
+//multi-upload
+define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD', 'New Multi-upload');

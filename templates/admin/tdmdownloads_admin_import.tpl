@@ -11,21 +11,21 @@
         -webkit-border-radius: 4px;
         border-radius: 4px;
         line-height: 140%;
-        margin-top: 0px;
+        margin-top: 0;
         margin-bottom: 50px;
     }
 </style>
 <{include file='db:tdmdownloads_admin_header.tpl'}>
-<{if $message_erreur}>
+<{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
 
-<{if $successes}>
+<{if $successes|default:''}>
     <{foreach item=success from=$successes}>
 
     <{/foreach}>
 <{/if}>
-<{if $errors}>
+<{if $errors|default:''}>
     <{foreach item=error from=$errors}>
         <span style="color: #ff0000; "><{$error.title}>: </span><{$error.info}>
         <br>
@@ -37,7 +37,7 @@
     <div class='intro'><{$smarty.const._AM_TDMDOWNLOADS_IMPORT_WARNING}></div>
 <{/if}>
 
-<{if $themeForm}>
+<{if $themeForm|default:''}>
     <{$themeForm}>
 <{/if}>
 

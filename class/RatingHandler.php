@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -13,10 +13,9 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class RatingHandler
@@ -28,7 +27,7 @@ class RatingHandler extends \XoopsPersistableObjectHandler
      * RatingHandler constructor.
      * @param \XoopsDatabase|null $db
      */
-    public function __construct(\XoopsDatabase $db = null)
+    public function __construct(?\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'tdmdownloads_votedata', Rating::class, 'ratingid', 'lid');
     }

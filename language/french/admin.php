@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -10,9 +11,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'Il y a %s rapports de fichiers brisés');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'Il existe %s catégories');
@@ -85,7 +87,7 @@ define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Importation effectuée avec succès !');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', '« %s » votes importés ;');
 define(
     '_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées."
+    "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Attention !</span><br><br>l'importation supprimera toutes les données de TDMDownloads. Il est fortement recommandé de faire une sauvegarde de toutes vos données d'abord, ainsi que de votre site internet.<br><br>TDM n'est pas responsable si vous perdez vos données. Malheureusement, les captures d'écran ne peuvent pas être copiées."
 );
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Importation de WF Downloads (Version 3.23 RC5 uniquement)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', "Sélectionnez le répertoire Upload (le chemin d'accès) pour les images des catégories de WF-Downloads");
@@ -122,7 +124,8 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Sélectionnez les groupes qui peuve
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plateforme :');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posté par ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "Taille du fichier<br><span style='font-size: small;'>Pour utiliser le système automatique de calcul de la taille du fichier, laissez ce champ vide.</span>");
+define('_AM_TDMDOWNLOADS_FORMSIZE', "Taille du fichier");
+define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "Taille du fichier<br><span style='font-size: small;'>Pour utiliser le système automatique de calcul de la taille du fichier, laissez ce champ vide.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'État du téléchargement');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approuvé');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Posté par');
@@ -185,4 +188,3 @@ define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Impossible de supprimer le réper
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Impossible de supprimer %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Impossible de charger le plug-in');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');
-

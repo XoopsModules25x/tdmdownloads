@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -10,14 +11,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 function b_sitemap_tdmdownloads()
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-    $block   = sitemap_get_categories_map($xoopsDB->prefix('tdmdownloads_cat'), 'cid', 'pid', 'title', 'viewcat.php?cid=', 'title');
 
-    return $block;
+    return sitemap_get_categories_map($xoopsDB->prefix('tdmdownloads_cat'), 'cid', 'pid', 'title', 'viewcat.php?cid=', 'title');
 }

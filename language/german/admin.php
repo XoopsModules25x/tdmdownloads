@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -10,9 +11,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'Es gibt %s Meldungen über fehlerhafte Downloads');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'Es gibt %s Kategorien');
@@ -85,7 +87,7 @@ define('_AM_TDMDOWNLOADS_IMPORT_OK', 'Import erfolgreich beendet!');
 define('_AM_TDMDOWNLOADS_IMPORT_VOTE_IMP', "Abstimmungen: '%s' importiert;");
 define(
     '_AM_TDMDOWNLOADS_IMPORT_WARNING',
-       "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Achtung !</span><br><br>Durch den Import werden alle Daten in TDMDownloads gelöscht. Es wird dringend empfohlen, zuerst ein Backup der Daten, wenn möglich der gesamten Webseite, zu erstellen.<br><br>TDM übernimmt keinerlei Haftung für verloren gegangene Daten."
+    "<span style='color:#FF0000; font-size:16px; font-weight:bold'>Achtung !</span><br><br>Durch den Import werden alle Daten in TDMDownloads gelöscht. Es wird dringend empfohlen, zuerst ein Backup der Daten, wenn möglich der gesamten Webseite, zu erstellen.<br><br>TDM übernimmt keinerlei Haftung für verloren gegangene Daten."
 );
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS', 'Import von WF Downloads(nur V3.2 RC2)');
 define('_AM_TDMDOWNLOADS_IMPORT_WFDOWNLOADS_CATIMG', 'Upload-Verzeichnis (Pfad) für Kategoriebilder von WF-Downloads angeben');
@@ -123,7 +125,7 @@ define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plattform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Eingesendet von ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Bewertung');
 define('_AM_TDMDOWNLOADS_FORMSIZE', 'Dateigröße');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "Dateigröße<br><span style='font-size: small;'>Um das automatische System zur Berechnung der Dateigröße zu verwenden, lassen Sie dieses Feld leer.</span>");
+define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "Dateigröße<br><span style='font-size: small;'>Um das automatische System zur Berechnung der Dateigröße zu verwenden, lassen Sie dieses Feld leer.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Bestätigt');
 define('_AM_TDMDOWNLOADS_FORMSUBMITTER', 'Eingesendet von');

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -11,7 +12,7 @@
 
 /**
  * @copyright    XOOPS Project https://xoops.org/
- * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @license      GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @package
  * @since
  * @author       XOOPS Development Team
@@ -34,3 +35,6 @@ define('_AM_ADGS', 'Gruppen');
 define('_AM_ALLMODULEPAGES', 'Gruppen');
 define('_AM_SYSTEMLEVEL', '_AM_SYSTEMLEVEL');
 define('_AM_ADMINBLOCK', '_AM_ADMINBLOCK');
+define('_AM_BLOCKTAG1', '%s will print %s');
+define('_AM_ADDBLOCK', 'Add Block');
+define('_AM_NOTSELNG', 'Not Sel');

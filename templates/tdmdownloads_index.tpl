@@ -2,10 +2,10 @@
 
     <!-- Download logo-->
     <div class="tdmdownloads-logo center marg10">
-        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$xoops_url}>/modules/tdmdownloads/index.php"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
+        <a title="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>" href="<{$mod_url}>/index.php"><img src="<{$mod_url}>/assets/images/logo-en.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_DOWNLOAD}>"></a>
     </div>
 
-    <{if count($categories) gt 0}>
+    <{if is_array($categories|default:'') && count($categories) gt 0}>
         <!-- Start Show categories information -->
         <div class="tdmdownloads-categories">
             <table>
@@ -15,21 +15,21 @@
                         <div class="tdmdownloads-data">
                             <div class="tdmdownloads-title">
                                 <div class="floatleft title"><h2>
-                                        <a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.title}></a>
+                                        <a title="<{$category.title}>" href="<{$mod_url}>/viewcat.php?cid=<{$category.id}>"><{$category.title}></a>
                                     </h2></div>
                                 <div class="floatright total xo-pagact">
-                                    <a title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a>
+                                    <a title="<{$category.title}>" href="<{$mod_url}>/viewcat.php?cid=<{$category.id}>"><{$category.totaldownloads}></a>
                                 </div>
                                 <div class="endline"></div>
                             </div>
                             <div class="tdmdownloads-body justify">
-                                <{if $category.image != ""}>
-                                    <a class="marg1 pad1" title="<{$category.title}>" href="<{$xoops_url}>/modules/tdmdownloads/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
+                                <{if $category.image|default:'' != ''}>
+                                    <a class="marg1 pad1" title="<{$category.title}>" href="<{$mod_url}>/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
                                 <{/if}>
                                 <{$category.description_main}>
                                 <div class="endline"></div>
                             </div>
-                            <{if $category.subcategories != ""}>
+                            <{if $category.subcategories|default:'' != ''}>
                                 <div class="tdmdownloads-subtitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SCAT}>
                                     <ul><{$category.subcategories}></ul>
                                 </div>
@@ -48,23 +48,23 @@
 
         <!-- RSS logo -->
         <div class="tdmdownloads-rss">
-            <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$xoops_url}>/modules/tdmdownloads/rss.php?cid=0"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
+            <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$mod_url}>/rss.php?cid=0"><img src="<{$mod_url}>/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
         </div>
         <{if $bl_affichage==1}>
             <!-- Start Summary informations -->
             <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLNAME}></div>
             <table class="mrag2 pad2 tdmdownloads-summary">
                 <tr>
-                    <{if $bl_date != ""}>
+                    <{if $bl_date|default:'' != ''}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/date.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>
+                                <img src="<{$mod_url}>/assets/images/icons/16/date.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLDATE}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
                                     <{foreach item=bl_date from=$bl_date}>
                                         <li>
-                                            <a title="<{$bl_date.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
+                                            <a title="<{$bl_date.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
                                             (<{$bl_date.date}>)
                                         </li>
                                     <{/foreach}>
@@ -72,16 +72,16 @@
                             </div>
                         </td>
                     <{/if}>
-                    <{if $bl_pop != ""}>
+                    <{if $bl_pop|default:'' != ''}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/hits.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>
+                                <img src="<{$mod_url}>/assets/images/icons/16/hits.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLPOP}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
                                     <{foreach item=bl_pop from=$bl_pop}>
                                         <li>
-                                            <a title="<{$bl_pop.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
+                                            <a title="<{$bl_pop.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
                                             (<{$bl_pop.hits}>)
                                         </li>
                                     <{/foreach}>
@@ -89,16 +89,16 @@
                             </div>
                         </td>
                     <{/if}>
-                    <{if $bl_rating != ""}>
+                    <{if $bl_rating|default:'' != ''}>
                         <td class="width33 top">
                             <div class="bold mrag2 pad2">
-                                <img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/votes.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>
+                                <img src="<{$mod_url}>/assets/images/icons/16/votes.png" alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLRATING}>
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
                                     <{foreach item=bl_rating from=$bl_rating}>
                                         <li>
-                                            <a title="<{$bl_rating.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
+                                            <a title="<{$bl_rating.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
                                             (<{$bl_rating.rating}>)
                                         </li>
                                     <{/foreach}>
@@ -115,7 +115,7 @@
 
     <{if $show_latest_files}>
         <!-- check if Show new files in index -->
-        <{if $file != ""}>
+        <{if $file|default:'' != ''}>
             <!-- Start Show new files in index -->
             <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_LATESTLIST}></div>
             <table>

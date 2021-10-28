@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownloads
  *
@@ -10,9 +11,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // index.php
 define('_MD_TDMDOWNLOADS_INDEX_BLDATE', 'Recent Downloads:');
 define('_MD_TDMDOWNLOADS_INDEX_BLNAME', 'Summary');
@@ -114,7 +116,7 @@ define('_MD_TDMDOWNLOADS_RSS', 'RSS Feed');
 //visit.php
 define(
     '_MD_TDMDOWNLOADS_NOPERMISETOLINK',
-       'This file does not belong to the website from where you are coming.<br><br>thanks for writing an email to the webmaster of the website from where you are coming and tell him: <br><strong>NO OWNERSHIP OF LINKS FROM OTHER SITES! (LEECH)</strong><br><br><strong>Leecher definition: </strong>Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <strong>registered</strong>.'
+    'This file does not belong to the website from where you are coming.<br><br>thanks for writing an email to the webmaster of the website from where you are coming and tell him: <br><strong>NO OWNERSHIP OF LINKS FROM OTHER SITES! (LEECH)</strong><br><br><strong>Leecher definition: </strong>Someone who is lazy to link to its own server or steals the hard work done by other people <br><br>You are already <strong>registered</strong>.'
 );
 //Message d'erreur
 define('_MD_TDMDOWNLOADS_ERREUR_NOCAT', 'You have to choose a category!');
@@ -145,3 +147,6 @@ define('_MD_TDMDOWNLOADS_DISPLAYMORE', 'Show more downloads');
 define('_MD_TDMDOWNLOADS_ADDNEW', 'Add new download');
 define('_MD_TDMDOWNLOADS_COUNTDL', 'Available downloads');
 define('_MD_TDMDOWNLOADS_COUNTSUBS', 'Subcategories');
+
+//module admin
+define('_MD_TDMDOWNLOADS_ADMIN', 'Module Admin');

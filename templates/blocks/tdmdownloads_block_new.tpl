@@ -10,7 +10,7 @@
                 <div class='col-xs-12 col-sm-12 tdmdownloads-blockpanel'>
             <{/if}>
                 <div class='tdmdownloads-blockcard-add center'>
-                    <a class="" href="<{$xoops_url}>/modules/tdmdownloads/submit.php" title='<{$smarty.const._ADD}>' target='_self'>+</a>
+                    <a class="" href="<{$mod_url}>/submit.php" title='<{$smarty.const._ADD}>' target='_self'>+</a>
                 </div>
             </div>
         <{/if}>

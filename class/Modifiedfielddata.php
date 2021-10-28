@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -13,10 +13,9 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Modifiedfielddata
@@ -25,12 +24,17 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 class Modifiedfielddata extends \XoopsObject
 {
     // constructor
+
     public function __construct()
     {
-        $this->initVar('modiddata', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('fid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('lid', XOBJ_DTYPE_INT, null, false, 11);
-        $this->initVar('moddata', XOBJ_DTYPE_TXTAREA, null, false);
-        $this->initVar('dohtml', XOBJ_DTYPE_INT, 1, false);
+        $this->initVar('modiddata', \XOBJ_DTYPE_INT, null, false, 11);
+
+        $this->initVar('fid', \XOBJ_DTYPE_INT, null, false, 11);
+
+        $this->initVar('lid', \XOBJ_DTYPE_INT, null, false, 11);
+
+        $this->initVar('moddata', \XOBJ_DTYPE_TXTAREA, null, false);
+
+        $this->initVar('dohtml', \XOBJ_DTYPE_INT, 1, false);
     }
 }

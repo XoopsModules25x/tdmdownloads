@@ -1,8 +1,27 @@
-<h5></h5>
+<h5>2.01 Beta 1        [2021-08-08]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.08
+<hr>
+- PHP 7.1 & PHP 8 (mamba)
+- various updates/cosmetics (mamba)
+- replace index.html with index.php (mamba)
+- PHP 8 Smarty defaults (mamba)
+- fix PHP8 Unknown format specifier "{" (mamba)
+- add TestdataButtons and testdata (mamba)
+- Language translations adjustments (mamba)
+
+
+<h5>2.01 Alpha 1        [2020-05-018]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.6
 <hr>
 - added hits and ratings and for output of download in index.php (goffy)
 - added number of subcategories for output of category in index.php (goffy)
 - added new lang vars (goffy)
+- Undefined variable $select_sup (geekwright)
+- Class 'XoopsPageNav' not found error (geekwright)
+- Add some category detail for theme use  (geekwright)
+- Turn off logger (geekwright)
+- Fix xml (geekwright)
+- add extra fields visibility (heyula)
+- refactor Utility (mamba)
+
 
 <h5>2.0 RC 1         [2019-01-29]</h5>
 <hr>
@@ -64,6 +83,11 @@
 - added Server stats (mamba)
 - added Blocks admin (mamba)
 - switch admin sites to template based (goffy)
+
+TODO:
+- add test data
+- do more testing
+- update "update.php" file
 
 
 <h5>1.65 Final [2017/02/02]</h5>
@@ -139,7 +163,7 @@ List of improvements:
 
 Informations
 
- - See the file "lang_diff.txt" for changes in language.
+ - See the file "lang_diff.txt" for changes in language. 
 
 Installation:
 
@@ -187,7 +211,7 @@ List of improvements:
 Informations:
 
  - Adding the suffix "cat_" in all fields of the table "tdmdownloads_cat.
- - See the file "lang_diff.txt" for changes in language.
+ - See the file "lang_diff.txt" for changes in language. 
 
 
 <h5>1.10                [11.11.2009]</h5>

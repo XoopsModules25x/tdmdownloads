@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -13,10 +13,9 @@ namespace XoopsModules\Tdmdownloads;
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class CategoryHandler
@@ -26,9 +25,9 @@ class CategoryHandler extends \XoopsPersistableObjectHandler
 {
     /**
      * CategoryHandler constructor.
-     * @param \XoopsDatabase $db
+     * @param \XoopsDatabase|null $db
      */
-    public function __construct(\XoopsDatabase $db = null)
+    public function __construct(?\XoopsDatabase $db = null)
     {
         parent::__construct($db, 'tdmdownloads_cat', Category::class, 'cat_cid', 'cat_title');
     }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -28,19 +28,18 @@ namespace XoopsModules\Tdmdownloads\Common;
  * $breadcrumb->addLink( 'bread 3', 'index3.php' );
  * echo $breadcrumb->render();
  */
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * Class Breadcrumb
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public $dirname;
     private $bread = [];
 
     public function __construct()
     {
-        $this->dirname = basename(dirname(dirname(__DIR__)));
+        $this->dirname = \basename(dirname(__DIR__, 2));
     }
 
     /**
@@ -62,15 +61,20 @@ class Breadcrumb
      */
     public function render()
     {
-        if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
+        if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
             require_once $GLOBALS['xoops']->path('class/theme.php');
+
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
 
         require_once $GLOBALS['xoops']->path('class/template.php');
+
         $breadcrumbTpl = new \XoopsTpl();
+
         $breadcrumbTpl->assign('breadcrumb', $this->bread);
+
         $html = $breadcrumbTpl->fetch('db:' . $this->dirname . '_common_breadcrumb.tpl');
+
         unset($breadcrumbTpl);
 
         return $html;

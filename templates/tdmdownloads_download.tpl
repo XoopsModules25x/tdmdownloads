@@ -1,7 +1,7 @@
 <div class="item tdmdownloads-item">
     <div class="itemHead">
         <span class="itemTitle">
-            <strong><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
+            <strong><a title="<{$down.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$down.title}></a></strong>
         </span>
         <br>
     </div>
@@ -15,8 +15,8 @@
         <{if $down.pop}>
             <span class="itemPop"><{$down.pop}></span>
         <{/if}>
-        <{if $down.perm_download != ""}>
-            <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$xoops_url}>/modules/tdmdownloads/assets/images/icons/16/download-now.png"
+        <{if $down.perm_download|default:'' != ''}>
+            <span class="itemDownload"><a title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>" href="visit.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory external"><img src="<{$mod_url}>/assets/images/icons/16/download-now.png"
                                                                                                                                                                                        alt="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"></a></span>
         <{/if}>
         <span class="itemPoster"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_SUBMITDATE}><{$down.updated}></span>
@@ -24,7 +24,7 @@
         <{$down.description_short}>
         <div class="itemText justify">
             <{if $show_screenshot === true}>
-                <{if $down.logourl != ''}>
+                <{if $down.logourl|default:'' != ''}>
                     <img class="<{$img_float}>" width="<{$shotwidth}>" src="<{$down.logourl}>" alt="<{$down.title}>">
                 <{/if}>
             <{/if}>
@@ -33,7 +33,7 @@
     </div>
     <div class="itemFoot">
         <span class="itemAdminLink"><{$down.adminlink}></span>
-        <span class="itemPermaLink"><a title="<{$down.title}>" href="<{$xoops_url}>/modules/tdmdownloads/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$smarty.const._MD_TDMDOWNLOADS_MOREDETAILS}></a></span>
+        <span class="itemPermaLink"><a title="<{$down.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$down.cid}>&amp;lid=<{$down.id}>" rel="directory"><{$smarty.const._MD_TDMDOWNLOADS_MOREDETAILS}></a></span>
 
         <div class="tdmdownloads-linetitle"></div>
     </div>

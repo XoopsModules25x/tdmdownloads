@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 /**
  * TDMDownload
  *
@@ -10,21 +11,32 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright   Gregory Mage (Aka Mage)
- * @license     GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
 
-require dirname(dirname(__DIR__)) . '/mainfile.php';
+use XoopsModules\Tdmdownloads\{
+    Helper,
+    Utility
+};
+use Xmf\Module\Helper\Permission;
+/** @var \Xmf\Module\Helper\Permission $permHelper */
+/** @var Helper $helper */
+/** @var Utility $utility */
 
-$moduleDirName = basename(__DIR__);
+require dirname(__DIR__, 2) . '/mainfile.php';
+
+$moduleDirName      = basename(__DIR__);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 //require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //require_once XOOPS_ROOT_PATH . '/class/tree.php';
 //require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = \XoopsModules\Tdmdownloads\Helper::getInstance();
+$helper = Helper::getInstance();
+
+$permHelper = new Permission();
 
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
 require __DIR__ . '/include/common.php';
@@ -46,14 +58,15 @@ $helper->loadLanguage('admin');
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+
+    $xoopsTpl = new \XoopsTpl();
 }
 
-$perm_submit      = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid')) ? true : false;
-$perm_modif       = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid')) ? true : false;
-$perm_vote        = $grouppermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid')) ? true : false;
-$perm_upload      = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid')) ? true : false;
-$perm_autoapprove = $grouppermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid')) ? true : false;
+$perm_submit      = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'));
+$perm_modif       = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'));
+$perm_vote        = $grouppermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid'));
+$perm_upload      = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'));
+$perm_autoapprove = $grouppermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid'));
 
 //paramètres:
 // pour les images des catégories:

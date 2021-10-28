@@ -7,10 +7,10 @@
         font-weight: bold;
     }
 </style>
-<{if $message_erreur}>
+<{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
-<{if $modified_list}>
+<{if $modified_list|default:''}>
     <table class='table table-bordered'>
         <thead>
         <tr class='head'>
@@ -35,13 +35,13 @@
         <{/if}>
     </table>
     <div class='clear'>&nbsp;</div>
-    <{if $pagenav}>
+    <{if $pagenav|default:''}>
         <div class='xo-pagenav floatright'><{$pagenav}></div>
         <div class='clear spacer'></div>
     <{/if}>
 <{/if}>
 
-<{if $compare_list}>
+<{if $compare_list|default:''}>
     <table class='table table-bordered'>
         <thead>
         <tr class='head'>
@@ -89,7 +89,7 @@
 <{/if}>
 
 
-<{if $themeForm}>
+<{if $themeForm|default:''}>
     <{$themeForm}>
 <{/if}>
 
