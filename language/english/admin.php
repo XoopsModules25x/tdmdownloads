@@ -124,7 +124,7 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Select groups that can download thi
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Platform: ');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posted by ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "File Size");
+define('_AM_TDMDOWNLOADS_FORMSIZE', 'File Size');
 define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "File Size<br><span style='font-size: small;'>To use the automatic system for calculating the file size, leave this field empty.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'Download Status');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approved');
