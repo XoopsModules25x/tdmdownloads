@@ -25,6 +25,7 @@ namespace XoopsModules\Tdmdownloads;
  */
 class DownloadsHandler extends \XoopsPersistableObjectHandler
 {
+    public $table_link;
     /**
      * DownloadsHandler constructor.
      * @param \XoopsDatabase|null $db

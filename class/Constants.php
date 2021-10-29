@@ -46,6 +46,21 @@ class Constants
     //    const UPLOADS_URL = XOOPS_URL . '/uploads/' . self::MODULE_DIRNAME;
     //    const MODULE_PATH = XOOPS_ROOT_PATH . '/modules/' . self::MODULE_DIRNAME;
     //    const UPLOADS_PATH = XOOPS_ROOT_PATH . '/uploads/' . self::MODULE_DIRNAME;
+
+    // common constants
+    // constants for state
+    const STATE_OFFLINE_VAL = 0;
+    const STATE_ONLINE_VAL = 1;
+    const STATE_APPROVAL_VAL = 2;
+
+    // constants for rating
+    const RATING_NONE = 0;
+    const RATING_5STARS = 1;
+    const RATING_10STARS = 2;
+    const RATING_LIKES = 3;
+    const RATING_10NUM = 4;
+
+
     //Application Folders (from xHelp module)
     /*
     define('BASE_PATH', XOOPS_ROOT_PATH.'/modules/'. XHELP_DIR_NAME);

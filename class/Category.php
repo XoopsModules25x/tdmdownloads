@@ -20,9 +20,6 @@ namespace XoopsModules\Tdmdownloads;
  */
 
 use Xmf\Module\Helper\Permission;
-use XoopsModules\Tdmdownloads\{
-    Helper
-};
 
 /** @var Helper $helper */
 

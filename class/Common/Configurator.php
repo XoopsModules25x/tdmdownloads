@@ -19,8 +19,6 @@ namespace XoopsModules\Tdmdownloads\Common;
  * @copyright   XOOPS Project (https://xoops.org)
  * @license     http://www.fsf.org/copyleft/gpl.html GNU public license
  * @author      XOOPS Development Team
- * @package     Publisher
- * @since       1.05
  */
 
 /**
@@ -49,7 +47,7 @@ class Configurator
     {
         $config                = require \dirname(__DIR__, 2) . '/config/config.php';
         $this->name            = $config->name;
-        $this->paths           = $config->paths;
+//        $this->paths           = $config->paths;
         $this->uploadFolders   = $config->uploadFolders;
         $this->copyBlankFiles  = $config->copyBlankFiles;
         $this->copyTestFolders = $config->copyTestFolders;

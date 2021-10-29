@@ -48,7 +48,7 @@ class Modified extends \XoopsObject
 
     /**
      * @param null $db
-     * @return int
+     * @return int|string
      */
     public function getNewEnreg($db = null)
     {
