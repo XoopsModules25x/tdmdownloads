@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -28,7 +30,6 @@ use XoopsModules\Tdmdownloads\{
     Helper
 };
 
-
 /**
  * Class SysUtility
  */
@@ -52,7 +53,6 @@ class SysUtility
         if (null === $instance) {
             $instance = new static();
         }
-
         return $instance;
     }
 
@@ -64,15 +64,12 @@ class SysUtility
     public static function selectSorting($text, $form_sort): string
     {
         global $start, $order, $sort;
-
         $select_view   = '';
         $moduleDirName = \basename(\dirname(__DIR__));
-        $helper = Helper::getInstance();
-
+        $helper        = Helper::getInstance();
         //$pathModIcon16 = XOOPS_URL . '/modules/' . $moduleDirName . '/' . $helper->getConfig('modicons16');
         $pathModIcon16 = $helper->url($helper->getModule()->getInfo('modicons16'));
-
-        $select_view = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
+        $select_view   = '<form name="form_switch" id="form_switch" action="' . Request::getString('REQUEST_URI', '', 'SERVER') . '" method="post"><span style="font-weight: bold;">' . $text . '</span>';
         //$sorts =  $sort ==  'asc' ? 'desc' : 'asc';
         if ($form_sort == $sort) {
             $sel1 = 'asc' === $order ? 'selasc.png' : 'asc.png';
@@ -84,7 +81,6 @@ class SysUtility
         $select_view .= '  <a href="' . Request::getString('SCRIPT_NAME', '', 'SERVER') . '?start=' . $start . '&sort=' . $form_sort . '&order=asc"><img src="' . $pathModIcon16 . '/' . $sel1 . '" title="ASC" alt="ASC"></a>';
         $select_view .= '<a href="' . Request::getString('SCRIPT_NAME', '', 'SERVER') . '?start=' . $start . '&sort=' . $form_sort . '&order=desc"><img src="' . $pathModIcon16 . '/' . $sel2 . '" title="DESC" alt="DESC"></a>';
         $select_view .= '</form>';
-
         return $select_view;
     }
 
@@ -104,7 +100,6 @@ class SysUtility
             }
             $cat_sql .= ')';
         }
-
         return $cat_sql;
     }
 
@@ -147,25 +142,21 @@ class SysUtility
     public static function enumerate(string $tableName, string $columnName)
     {
         $table = $GLOBALS['xoopsDB']->prefix($tableName);
-
         //    $result = $GLOBALS['xoopsDB']->query("SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS
         //        WHERE TABLE_NAME = '" . $table . "' AND COLUMN_NAME = '" . $columnName . "'")
         //    || exit ($GLOBALS['xoopsDB']->error());
-
         $sql    = 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "' . $table . '" AND COLUMN_NAME = "' . $columnName . '"';
         $result = $GLOBALS['xoopsDB']->query($sql);
         if (!$result) {
             //            trigger_error($GLOBALS['xoopsDB']->error());
-            $logger     = \XoopsLogger::getInstance();
+            $logger = \XoopsLogger::getInstance();
             $logger->handleError(\E_USER_WARNING, $sql, __FILE__, __LINE__);
             return false;
         }
-
         $row      = $GLOBALS['xoopsDB']->fetchBoth($result);
-        $enumList = \explode(',', \str_replace("'", '', \mb_substr($row['COLUMN_TYPE'], 5, - 6)));
+        $enumList = \explode(',', \str_replace("'", '', \mb_substr($row['COLUMN_TYPE'], 5, -6)));
         return $enumList;
     }
-
 
     /**
      * Clone a record in a dB
@@ -181,12 +172,12 @@ class SysUtility
     public static function cloneRecord(string $tableName, string $idField, int $id)
     {
         $newId = false;
-        $table  = $GLOBALS['xoopsDB']->prefix($tableName);
+        $table = $GLOBALS['xoopsDB']->prefix($tableName);
         // copy content of the record you wish to clone
-        $sql       = "SELECT * FROM $table WHERE $idField='" . (int)$id . "' ";
+        $sql       = "SELECT * FROM $table WHERE $idField='" . $id . "' ";
         $tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query($sql), \MYSQLI_ASSOC);
         if (!$tempTable) {
-            trigger_error($GLOBALS['xoopsDB']->error());
+            \trigger_error($GLOBALS['xoopsDB']->error());
         }
         // set the auto-incremented id's value to blank.
         unset($tempTable[$idField]);
@@ -194,7 +185,7 @@ class SysUtility
         $sql    = "INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", \array_values($tempTable)) . "')";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         if (!$result) {
-            trigger_error($GLOBALS['xoopsDB']->error());
+            \trigger_error($GLOBALS['xoopsDB']->error());
         }
         // Return the new id
         return $GLOBALS['xoopsDB']->getInsertId();
@@ -208,11 +199,11 @@ class SysUtility
      * @TODO: Refactor to consider HTML5 & void (self-closing) elements
      * @TODO: Consider using https://github.com/jlgrall/truncateHTML/blob/master/truncateHTML.php
      *
-     * @param string $text         String to truncate.
-     * @param int    $length       Length of returned string, including ellipsis.
-     * @param string $ending       Ending to be appended to the trimmed string.
-     * @param bool   $exact        If false, $text will not be cut mid-word
-     * @param bool   $considerHtml If true, HTML tags would be handled correctly
+     * @param string      $text         String to truncate.
+     * @param int|null    $length       Length of returned string, including ellipsis.
+     * @param string|null $ending       Ending to be appended to the trimmed string.
+     * @param bool        $exact        If false, $text will not be cut mid-word
+     * @param bool        $considerHtml If true, HTML tags would be handled correctly
      *
      * @return string Trimmed string.
      */
@@ -280,7 +271,6 @@ class SysUtility
                 }
                 $truncate     .= $line_matchings[2];
                 $total_length += $content_length;
-
                 // if the maximum length is reached, get off the loop
                 if ($total_length >= $length) {
                     break;
@@ -309,15 +299,14 @@ class SysUtility
                 $truncate .= '</' . $tag . '>';
             }
         }
-
         return $truncate;
     }
 
     /**
      * Get correct text editor based on user rights
      *
-     * @param \Xmf\Module\Helper $helper
-     * @param array|null         $options
+     * @param \Xmf\Module\Helper|null $helper
+     * @param array|null              $options
      *
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */
@@ -333,13 +322,10 @@ class SysUtility
             $options['width']  = '100%';
             $options['height'] = '400px';
         }
-
         if (null === $helper) {
             $helper = Helper::getInstance();
         }
-
         $isAdmin = $helper->isUserAdmin();
-
         if (\class_exists('XoopsFormEditor')) {
             if ($isAdmin) {
                 $descEditor = new XoopsFormEditor(\ucfirst($options['name']), $helper->getConfig('editorAdmin'), $options, $nohtml = false, $onfailure = 'textarea');
@@ -349,9 +335,7 @@ class SysUtility
         } else {
             $descEditor = new \XoopsFormDhtmlTextArea(\ucfirst($options['name']), $options['name'], $options['value'], '100%', '100%');
         }
-
         //        $form->addElement($descEditor);
-
         return $descEditor;
     }
 
@@ -368,11 +352,9 @@ class SysUtility
     {
         $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 1);
         \trigger_error(__METHOD__ . " is deprecated, use Xmf\Database\Tables instead - instantiated from {$trace[0]['file']} line {$trace[0]['line']},");
-
         $result = $GLOBALS['xoopsDB']->queryF("SHOW COLUMNS FROM   $table LIKE '$fieldname'");
         return ($GLOBALS['xoopsDB']->getRowsNum($result) > 0);
     }
-
 
     /**
      * Function responsible for checking if a directory exists, we can also write in and create an index.html file
@@ -405,8 +387,7 @@ class SysUtility
             \basename(\dirname(__DIR__, 2)) . ' Module: ' . __FUNCTION__ . ' function is deprecated, please use Xmf\Database\Tables method(s) instead.' . " Called from {$trace[0]['file']}line {$trace[0]['line']}"
         );
         $result = $GLOBALS['xoopsDB']->queryF("SHOW TABLES LIKE '$tablename'");
-
-        return $GLOBALS['xoopsDB']->getRowsNum($result) > 0    ;
+        return $GLOBALS['xoopsDB']->getRowsNum($result) > 0;
     }
 
     /**

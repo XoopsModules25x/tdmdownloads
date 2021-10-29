@@ -1,5 +1,4 @@
--
-  lid: '1'
+- lid: '1'
   cid: '1'
   title: 'Sample Document'
   url: 'http://gahp.net/wp-content/uploads/2017/09/sample.pdf'
@@ -18,8 +17,7 @@
   comments: '0'
   top: '0'
   paypal: ''
--
-  lid: '2'
+- lid: '2'
   cid: '2'
   title: 'Free Music File'
   url: 'https://sample-videos.com/audio/mp3/crowd-cheering.mp3'

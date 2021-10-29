@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Xmf\Database\Tables;
 use XoopsModules\Tdmdownloads\{
@@ -8,16 +10,15 @@ use XoopsModules\Tdmdownloads\{
     Helper,
     Utility
 };
+
 /** @var Helper $helper */
 /** @var Utility $utility */
 /** @var Configurator $configurator */
 /** @var Migrate $migrator */
-
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-    || !$GLOBALS['xoopsUser']->IsAdmin()) {
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
-
 /**
  * TDMDownload
  *
@@ -35,7 +36,6 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUse
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 /**
  * Prepares system prior to attempting to install module
  * @param \XoopsModule $module {@link XoopsModule}
@@ -44,83 +44,61 @@ if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUse
 function xoops_module_pre_update_tdmdownloads(\XoopsModule $module)
 {
     $moduleDirName = \basename(\dirname(__DIR__));
-    $helper = Helper::getInstance();
-    $utility = new Utility();
-
-    $xoopsSuccess = $utility::checkVerXoops($module);
-    $phpSuccess = $utility::checkVerPhp($module);
-
-    /** @var Configurator $configurator */
+    $helper        = Helper::getInstance();
+    $utility       = new Utility();
+    $xoopsSuccess  = $utility::checkVerXoops($module);
+    $phpSuccess    = $utility::checkVerPhp($module);
     $configurator = new Configurator();
-
     //create upload folders
     $uploadFolders = $configurator->uploadFolders;
     foreach ($uploadFolders as $value) {
         $utility::prepareFolder($value);
     }
-
     $migrator = new Migrate();
     $migrator->synchronizeSchema();
-
     return $xoopsSuccess && $phpSuccess;
 }
 
-
-
 function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
 {
-    $ret = null;
-
-    $moduleDirName = \basename(\dirname(__DIR__));
+    $ret                = null;
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
-    $helper = Helper::getInstance();
-    $utility = new Utility();
-    $configurator = new Configurator();
-
+    $helper             = Helper::getInstance();
+    $utility            = new Utility();
+    $configurator       = new Configurator();
     $helper->loadLanguage('common');
-
     if ($prev_version < 163) {
         $ret = update_tdmdownloads_v163($module);
     }
-
     if ($prev_version < 167) {
         $ret = update_tdmdownloads_v167($module);
     }
-
     if ($prev_version < 200) {
         $ret = update_tdmdownloads_v200($module);
     }
-
     if ($prev_version < 201) {
         $ret = update_tdmdownloads_v201($module);
     }
-
     $errors = $module->getErrors();
-
     if (!empty($errors)) {
         //        print_r($errors);
     }
-
     return $ret;
 }
-
 
 /**
  * @param $module
  * @return bool
  */
-function update_tdmdownloads_v201(&$module)
+function update_tdmdownloads_v201($module)
 {
-    $moduleDirName = \basename(\dirname(__DIR__));
+    $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
-    $helper = Helper::getInstance();
-    $utility = new Utility();
-    $configurator = new Configurator();
-
+    $helper             = Helper::getInstance();
+    $utility            = new Utility();
+    $configurator       = new Configurator();
     $helper->loadLanguage('common');
-
     //delete old HTML templates
     if (count($configurator->templateFolders) > 0) {
         foreach ($configurator->templateFolders as $folder) {
@@ -130,7 +108,7 @@ function update_tdmdownloads_v201(&$module)
                 foreach ($templateList as $k => $v) {
                     $fileInfo = new SplFileInfo($templateFolder . $v);
                     if ('html' === $fileInfo->getExtension() && 'index.html' !== $fileInfo->getFilename()) {
-                        if (file_exists($templateFolder . $v)) {
+                        if (is_file($templateFolder . $v)) {
                             unlink($templateFolder . $v);
                         }
                     }
@@ -138,7 +116,6 @@ function update_tdmdownloads_v201(&$module)
             }
         }
     }
-
     //  ---  DELETE OLD FILES ---------------
     if (count($configurator->oldFiles) > 0) {
         //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
@@ -149,7 +126,6 @@ function update_tdmdownloads_v201(&$module)
             }
         }
     }
-
     //  ---  DELETE OLD FOLDERS ---------------
     xoops_load('XoopsFile');
     if (count($configurator->oldFolders) > 0) {
@@ -161,7 +137,6 @@ function update_tdmdownloads_v201(&$module)
             $folderHandler->delete($tempFolder);
         }
     }
-
     //  ---  CREATE UPLOAD FOLDERS ---------------
     if (count($configurator->uploadFolders) > 0) {
         //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
@@ -169,7 +144,6 @@ function update_tdmdownloads_v201(&$module)
             $utility::createFolder($configurator->uploadFolders[$i]);
         }
     }
-
     //  ---  COPY blank.png FILES ---------------
     if (count($configurator->copyBlankFiles) > 0) {
         $file = dirname(__DIR__) . '/assets/images/blank.png';
@@ -178,30 +152,22 @@ function update_tdmdownloads_v201(&$module)
             $utility::copyFile($file, $dest);
         }
     }
-
     //delete .html entries from the tpl table
     $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.html%'";
     $GLOBALS['xoopsDB']->queryF($sql);
-
     //delete .tpl entries from the tpl table
     $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplfile') . " WHERE `tpl_module` = '" . $module->getVar('dirname', 'n') . "' AND `tpl_file` LIKE '%.tpl%'";
     $GLOBALS['xoopsDB']->queryF($sql);
-
     //delete tdmdownloads entries from the tpl_source table
     $sql = 'DELETE FROM ' . $GLOBALS['xoopsDB']->prefix('tplsource') . " WHERE `tpl_source` LIKE '%tdmdownloads%'";
     $GLOBALS['xoopsDB']->queryF($sql);
-
     $sql = 'CREATE TABLE `' . $GLOBALS['xoopsDB']->prefix('tdmdownloads_downlimit') . "` (downlimit_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT, downlimit_lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
            downlimit_uid INT(11) NOT NULL DEFAULT '0', downlimit_hostname VARCHAR(60) NOT NULL DEFAULT '', downlimit_date INT(10) NOT NULL DEFAULT '0', PRIMARY KEY  (downlimit_id)
            ) ENGINE=MyISAM";
-
     $GLOBALS['xoopsDB']->query($sql);
-
     /** @var XoopsGroupPermHandler $gpermHandler */
     $gpermHandler = xoops_getHandler('groupperm');
-
     return $gpermHandler->deleteByModule($module->getVar('mid'), 'item_read');
-
 }
 
 /**
@@ -211,22 +177,15 @@ function update_tdmdownloads_v201(&$module)
 function update_tdmdownloads_v200(&$module)
 {
     // Update size
-
     $moduleDirName = basename(dirname(__DIR__));
-    $db = \XoopsDatabaseFactory::getDatabaseConnection();
-
-    $sql = 'SELECT lid, size FROM ' . $db->prefix('tdmdownloads_downloads');
-
-    $result = $db->query($sql);
-
-    $helper = Helper::getInstance();
-
+    $db            = \XoopsDatabaseFactory::getDatabaseConnection();
+    $sql           = 'SELECT lid, size FROM ' . $db->prefix('tdmdownloads_downloads');
+    $result        = $db->query($sql);
+    $helper        = Helper::getInstance();
     $helper->loadLanguage('admin');
-
     if ($result instanceof \mysqli_result) {
         while (false !== ($myrow = $db->fetchArray($result))) {
             $size_value_arr = explode(' ', $myrow['size']);
-
             switch ($size_value_arr[1]) {
                 case _AM_TDMDOWNLOADS_BYTES:
                 case 'Bytes':
@@ -257,15 +216,10 @@ function update_tdmdownloads_v200(&$module)
         }
     }
     // Update folder
-
-    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName );
-
+    rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName);
     // Change TDMDownloads with tdmdownloads
-
-    $sql = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `url` = REPLACE(`url`, \'TDMDownloads\', \''. $moduleDirName.'\') WHERE `url` LIKE \'%TDMDownloads%\'';
-
+    $sql    = 'UPDATE `' . $db->prefix('tdmdownloads_downloads') . '` SET `url` = REPLACE(`url`, \'TDMDownloads\', \'' . $moduleDirName . '\') WHERE `url` LIKE \'%TDMDownloads%\'';
     $result = $db->query($sql);
-
     return true;
 }
 
@@ -277,29 +231,17 @@ function update_tdmdownloads_v167(&$module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     // rename module dir from upper case to lower case
-
     rename(XOOPS_ROOT_PATH . '/modules/TDMDownloads', XOOPS_ROOT_PATH . '/modules/' . $moduleDirName);
-
     // rename upload dir from upper case to lower case
-
     rename(XOOPS_ROOT_PATH . '/uploads/TDMDownloads', XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName);
-
     // files have been moved to assets-folder
-
     $src = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/css/';
-
     rrmdir($src);
-
     $src = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/images/';
-
     rrmdir($src);
-
     // delete unneeded/replacfiles
-
     // unlink( XOOPS_ROOT_PATH.'/modules/' . $moduleDirName . '/admin/admin_header.php' );
-
     // clean template directory
-
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_brokenfile.html');
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_download.html');
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/tdmdownloads_index.html');
@@ -315,7 +257,6 @@ function update_tdmdownloads_v167(&$module)
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_rating.html');
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_search.html');
     @unlink(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/templates/blocks/tdmdownloads_block_top.html');
-
     return true;
 }
 
@@ -326,11 +267,9 @@ function rrmdir($src)
 {
     if (is_dir($src)) {
         $dir = opendir($src);
-
         while (false !== ($file = readdir($dir))) {
             if (('.' !== $file) && ('..' !== $file)) {
                 $full = $src . '/' . $file;
-
                 if (is_dir($full)) {
                     rrmdir($full);
                 } else {
@@ -338,9 +277,7 @@ function rrmdir($src)
                 }
             }
         }
-
         closedir($dir);
-
         rmdir($src);
     }
 }
@@ -351,50 +288,28 @@ function rrmdir($src)
 function update_tdmdownloads_v163()
 {
     /** @var \XoopsMySQLDatabase $db */
-
-    $db = \XoopsDatabaseFactory::getDatabaseConnection();
-
+    $db  = \XoopsDatabaseFactory::getDatabaseConnection();
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . '` CHANGE `cid` `cat_cid` INT( 5 ) UNSIGNED NOT NULL AUTO_INCREMENT ;';
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . "` CHANGE `pid` `cat_pid` INT( 5 ) UNSIGNED NOT NULL DEFAULT '0' ;";
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . '` CHANGE `title` `cat_title` VARCHAR( 255 ) NOT NULL ;';
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . '` CHANGE `imgurl` `cat_imgurl` VARCHAR( 255 ) NOT NULL ;';
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . '` CHANGE `description_main` `cat_description_main` TEXT NOT NULL ;';
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_cat') . "` CHANGE `weight` `cat_weight` INT( 11 ) NOT NULL DEFAULT '0' ;";
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_downloads') . '` ADD `paypal` VARCHAR( 255 ) NOT NULL;';
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_downloads') . "` CHANGE `size` `size` VARCHAR( 15 ) NOT NULL DEFAULT '';";
-
     $db->query($sql);
-
     $sql = 'ALTER TABLE `' . $db->prefix('tdmdownloads_mod') . "` CHANGE `size` `size` VARCHAR( 15 ) NOT NULL DEFAULT '';";
-
     $db->query($sql);
-
     $sql = 'CREATE TABLE `' . $db->prefix('tdmdownloads_downlimit') . "` (downlimit_id INT(11) UNSIGNED NOT NULL AUTO_INCREMENT, downlimit_lid INT(11) UNSIGNED NOT NULL DEFAULT '0',
            downlimit_uid INT(11) NOT NULL DEFAULT '0', downlimit_hostname VARCHAR(60) NOT NULL DEFAULT '', downlimit_date INT(10) NOT NULL DEFAULT '0', PRIMARY KEY  (downlimit_id)
            ) ENGINE=MyISAM";
-
     $db->query($sql);
-
     return true;
 }

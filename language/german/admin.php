@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownload
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'Es gibt %s Meldungen über fehlerhafte Downloads');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'Es gibt %s Kategorien');

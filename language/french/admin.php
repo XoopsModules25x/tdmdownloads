@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownloads
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // index.php
 define('_AM_TDMDOWNLOADS_INDEX_BROKEN', 'Il y a %s rapports de fichiers brisés');
 define('_AM_TDMDOWNLOADS_INDEX_CATEGORIES', 'Il existe %s catégories');
@@ -124,7 +124,7 @@ define('_AM_TDMDOWNLOADS_FORMPERMDOWNLOAD', 'Sélectionnez les groupes qui peuve
 define('_AM_TDMDOWNLOADS_FORMPLATFORM', 'Plateforme :');
 define('_AM_TDMDOWNLOADS_FORMPOSTER', 'Posté par ');
 define('_AM_TDMDOWNLOADS_FORMRATING', 'Note');
-define('_AM_TDMDOWNLOADS_FORMSIZE', "Taille du fichier");
+define('_AM_TDMDOWNLOADS_FORMSIZE', 'Taille du fichier');
 define('_AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT', "Taille du fichier<br><span style='font-size: small;'>Pour utiliser le système automatique de calcul de la taille du fichier, laissez ce champ vide.</span>");
 define('_AM_TDMDOWNLOADS_FORMSTATUS', 'État du téléchargement');
 define('_AM_TDMDOWNLOADS_FORMSTATUS_OK', 'Approuvé');

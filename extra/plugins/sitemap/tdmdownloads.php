@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownload
  *
@@ -17,6 +18,5 @@
 function b_sitemap_tdmdownloads()
 {
     $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
-
     return sitemap_get_categories_map($xoopsDB->prefix('tdmdownloads_cat'), 'cid', 'pid', 'title', 'viewcat.php?cid=', 'title');
 }

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownload
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // The name of this module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
 define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));

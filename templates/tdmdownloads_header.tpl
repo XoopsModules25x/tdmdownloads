@@ -4,5 +4,5 @@
 
 <{if $ads|default:'' != ''}>
     <div class='center'>
-<{$ads}></div>
+        <{$ads}></div>
 <{/if}>

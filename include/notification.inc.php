@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 //
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -25,80 +26,54 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-
 /**
  * @param $category
  * @param $item_id
- * @return mixed
+ * @return array|null
  */
 function tdmdownloads_notify_iteminfo($category, $item_id)
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsConfig;
-
     $moduleDirName = basename(dirname(__DIR__));
-
-    $item_id = (int)$item_id;
-
+    $item_id       = (int)$item_id;
     if (empty($xoopsModule) || $xoopsModule->getVar('dirname') !== $moduleDirName) {
         /** @var \XoopsModuleHandler $moduleHandler */
-
         $moduleHandler = xoops_getHandler('module');
-
-        $module = $moduleHandler->getByDirname($moduleDirName);
-
+        $module        = $moduleHandler->getByDirname($moduleDirName);
         /** @var \XoopsConfigHandler $configHandler */
-
         $configHandler = xoops_getHandler('config');
-
-        $config = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
+        $config        = $configHandler->getConfigsByCat(0, $module->getVar('mid'));
     } else {
         $module = $xoopsModule;
-
         $config = $xoopsModuleConfig;
     }
-
     if ('global' === $category) {
         $item['name'] = '';
-
-        $item['url'] = '';
-
+        $item['url']  = '';
         return $item;
     }
-
     global $xoopsDB;
-
     if ('category' === $category) {
         // Assume we have a valid category id
-
-        $sql = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = ' . $item_id;
-
+        $sql    = 'SELECT title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' WHERE cid = ' . $item_id;
         $result = $xoopsDB->query($sql); // TODO: error check
         if ($result instanceof \mysqli_result) {
             $result_array = $xoopsDB->fetchArray($result);
         }
-
         $item['name'] = $result_array['title'];
-
-        $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/viewcat.php?cid=' . $item_id;
-
+        $item['url']  = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/viewcat.php?cid=' . $item_id;
         return $item;
     }
-
     if ('file' === $category) {
         // Assume we have a valid file id
-
-        $sql = 'SELECT cid,title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
-
+        $sql    = 'SELECT cid,title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE lid = ' . $item_id;
         $result = $xoopsDB->query($sql); // TODO: error check
         if ($result instanceof \mysqli_result) {
             $result_array = $xoopsDB->fetchArray($result);
         }
         $item['name'] = $result_array['title'];
-
-        $item['url'] = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;
-
+        $item['url']  = XOOPS_URL . '/modules/' . $module->getVar('dirname') . '/singlefile.php?cid=' . $result_array['cid'] . '&amp;lid=' . $item_id;
         return $item;
     }
-
     return null;
 }

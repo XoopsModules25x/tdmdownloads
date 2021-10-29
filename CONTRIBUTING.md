@@ -1,5 +1,7 @@
 ![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
+
 # Contributing to [XOOPS CMS](https://xoops.org)
+
 [![XOOPS CMS Module](https://img.shields.io/badge/XOOPS%20CMS-Module-blue.svg)](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
 

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownloads
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // index.php
 define('_MD_TDMDOWNLOADS_INDEX_BLDATE', 'Recent Downloads:');
 define('_MD_TDMDOWNLOADS_INDEX_BLNAME', 'Summary');
@@ -147,6 +147,5 @@ define('_MD_TDMDOWNLOADS_DISPLAYMORE', 'Show more downloads');
 define('_MD_TDMDOWNLOADS_ADDNEW', 'Add new download');
 define('_MD_TDMDOWNLOADS_COUNTDL', 'Available downloads');
 define('_MD_TDMDOWNLOADS_COUNTSUBS', 'Subcategories');
-
 //module admin
 define('_MD_TDMDOWNLOADS_ADMIN', 'Module Admin');

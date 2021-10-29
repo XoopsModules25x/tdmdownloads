@@ -30,7 +30,7 @@
                     <div class='tdmdownloads-blockbtns center'>
                         <p class="center">
                             <a class="btn btn-default" href="<{$mod_url}>/visit.php?lid=<{$downloads.lid}>" title='<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>' target='_blank'><i class="glyphicon glyphicon-cloud-download tdmdownloads-blockbtn1"
-                                                                                                                                                                                                             title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"></i></a>
+                                                                                                                                                                                      title="<{$smarty.const._MD_TDMDOWNLOADS_INDEX_DLNOW}>"></i></a>
                             <{if $perm_submit}>
                                 <a class="btn btn-default" href="<{$mod_url}>/modfile.php?lid=<{$downloads.lid}>" title='<{$smarty.const._EDIT}>' target='_blank'><i class="glyphicon glyphicon-edit tdmdownloads-blockbtn2" title="<{$smarty.const._EDIT}>"></i></a>
                             <{/if}>

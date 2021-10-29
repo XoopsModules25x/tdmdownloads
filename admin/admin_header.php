@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -18,46 +20,35 @@
 use Xmf\Module\Admin;
 use XoopsModules\Tdmdownloads\{
     Helper,
-    Tree};
+    Tree
+};
 
 // Include xoops admin header
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
-
 require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //require_once XOOPS_ROOT_PATH . '/class/tree.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
-
 require dirname(__DIR__) . '/include/common.php';
-
 $moduleDirName = basename(dirname(__DIR__));
-
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
-
 /** @var \Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();
-
-$myts = \MyTextSanitizer::getInstance();
-
+$myts        = \MyTextSanitizer::getInstance();
 if ($xoopsUser) {
     $xoopsModule = \XoopsModule::getByDirname($moduleDirName);
-
     if (!$xoopsUser->isAdmin($xoopsModule->mid())) {
         redirect_header(XOOPS_URL . '/', 3, _NOPERM);
     }
 } else {
     redirect_header(XOOPS_URL . '/', 3, _NOPERM);
 }
-
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-
     $xoopsTpl = new \XoopsTpl();
 }
-
 // Include language file
 xoops_loadLanguage('admin', 'system');
 // Load language files
@@ -65,13 +56,10 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 $helper->loadLanguage('common');
-
 if (!isset($GLOBALS['xoTheme']) || !is_object($GLOBALS['xoTheme'])) {
     require_once $GLOBALS['xoops']->path('class/theme.php');
-
     $GLOBALS['xoTheme'] = new \xos_opal_Theme();
 }
-
 //paramétres:
 // pour les images des catégories:
 $uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/';
@@ -85,7 +73,6 @@ $uploadurl_shots = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/shots/';
 // pour les images des champs:
 $uploaddir_field = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/field/';
 $uploadurl_field = XOOPS_URL . '/uploads/' . $moduleDirName . '/images/field/';
-
 //permission
 /** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');

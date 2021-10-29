@@ -5,7 +5,7 @@
 <{/if}>
 
 <{if $multiupload}>
-        <div class="clear">&nbsp;</div>
+    <div class="clear">&nbsp;</div>
     <{include file="db:tdmdownloads_trigger_uploads.tpl"}>
     <h2><{$categoryname}></h2>
     <div id="fine-uploader-manual-trigger"></div>
@@ -63,37 +63,37 @@
             },
             autoUpload: false,
             callbacks: {
-            onError: function(id, name, errorReason, xhrOrXdr) {
-                 console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
+                onError: function (id, name, errorReason, xhrOrXdr) {
+                    console.log(qq.format("Error uploading {}.  Reason: {}", name, errorReason));
                 },
-                onStatusChange: function(id, oldStatus, newStatus) {
+                onStatusChange: function (id, oldStatus, newStatus) {
                     document.getElementById("qq-uploader-status").classList.remove("qq-hide");
-                    if ( newStatus == "submitting" ) {
-                        filesTotal=id;
+                    if (newStatus == "submitting") {
+                        filesTotal = id;
                     }
                 },
-                onSubmitted: function(id, name) {
+                onSubmitted: function (id, name) {
                     if (id == filesTotal) {
                         document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_SUBMITTED}>';
                     } else {
                         document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_SUBMIT}>' + (id + 1);
                     }
                 },
-                onUpload: function(id, name) {
-                   document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_UPLOAD}>' + id;
+                onUpload: function (id, name) {
+                    document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_UPLOAD}>' + id;
                 },
-                onAllComplete: function(succeeded, failed) {
-                    if ( failed.length > 0 ) {
+                onAllComplete: function (succeeded, failed) {
+                    if (failed.length > 0) {
                         document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_FAILED}>';
                     } else {
                         document.getElementById('qq-uploader-status-text').innerHTML = '<{$smarty.const.CO_TDMDOWNLOADS_FU_SUCCEEDED}>';
                     }
-             }
-         },
-        debug: <{$fineup_debug}>
+                }
+            },
+            debug: <{$fineup_debug}>
         });
 
-        qq(document.getElementById("trigger-upload")).attach("click", function() {
+        qq(document.getElementById("trigger-upload")).attach("click", function () {
             manualUploader.uploadStoredFiles();
         });
     </script>
@@ -103,7 +103,7 @@
     <{if $catId}>
         <div class='col-xs-12 col-sm-12 right'>
             <a class='btn btn-default wgg-btn' href='admin/category.php?op=edit_cat&amp;downloadscat_cid=<{$catId}>' title='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>'>
-                <span class = "wgg-btn-icon"><img class='' src='<{$pathIcon16}>/edit.png' alt='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>' ></span><{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>
+                <span class="wgg-btn-icon"><img class='' src='<{$pathIcon16}>/edit.png' alt='<{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>'></span><{$smarty.const.CO_TDMDOWNLOADS_ALBUM_EDIT}>
             </a>
         </div>
     <{/if}>

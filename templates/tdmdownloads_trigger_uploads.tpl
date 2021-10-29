@@ -4,10 +4,10 @@
     <div class="qq-uploader-selector qq-uploader" qq-drop-area-text="<{$smarty.const._DROPFILESHERE}>">
         <div class="qq-total-progress-bar-container">
             <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
-            <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
+                <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar"></div>
             </div>
             <div id='qq-uploader-status' class='qq-uploader-status'>
-                <span id="qq-uploader-status-text" ></span>
+                <span id="qq-uploader-status-text"></span>
             </div>
         </div>
         <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>

@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownload
  *
@@ -21,54 +22,32 @@
 function tdmdownloads_new($limit = 0, $offset = 0)
 {
     global $xoopsDB;
-
     $moduleDirName = basename(dirname(__DIR__, 4));
-
-    $myts = \MyTextSanitizer::getInstance();
-
-    $URL_MOD = XOOPS_URL . "/modules/$moduleDirName ";
-
-    $sql = 'SELECT lid, title, date, cid, submitter, hits, description FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY date';
-
-    $result = $xoopsDB->query($sql, $limit, $offset);
-
-    $i = 0;
-
-    $ret = [];
+    $myts          = \MyTextSanitizer::getInstance();
+    $URL_MOD       = XOOPS_URL . "/modules/$moduleDirName ";
+    $sql           = 'SELECT lid, title, date, cid, submitter, hits, description FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY date';
+    $result        = $xoopsDB->query($sql, $limit, $offset);
+    $i             = 0;
+    $ret           = [];
     if ($result instanceof \mysqli_result) {
         while (false !== ($row = $xoopsDB->fetchArray($result))) {
-            $lid = $row['lid'];
-
-            $ret[$i]['link'] = $URL_MOD . '/singlefile.php?lid=' . $lid;
-
+            $lid                 = $row['lid'];
+            $ret[$i]['link']     = $URL_MOD . '/singlefile.php?lid=' . $lid;
             $ret[$i]['cat_link'] = $URL_MOD . '/viewcat.php?cid=' . $row['cid'];
-
-            $ret[$i]['title'] = $row['title'];
-
-            $ret[$i]['time'] = $row['date'];
-
+            $ret[$i]['title']    = $row['title'];
+            $ret[$i]['time']     = $row['date'];
             // atom feed
-
-            $ret[$i]['id'] = $lid;
-
+            $ret[$i]['id']          = $lid;
             $ret[$i]['description'] = $myts->displayTarea($row['description'], 0);    //no html
-
             // category
-
             //$ret[$i]['cat_name'] = $row['ctitle'];
-
             // counter
-
             $ret[$i]['hits'] = $row['hits'];
-
             // this module dont show user name
-
             $ret[$i]['uid'] = $row['submitter'];
-
             ++$i;
         }
     }
-
     return $ret;
 }
 
@@ -78,17 +57,12 @@ function tdmdownloads_new($limit = 0, $offset = 0)
 function tdmdownloads_num()
 {
     global $xoopsDB;
-
-    $sql = 'SELECT count(*) FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
-
+    $sql   = 'SELECT count(*) FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
     $array = $xoopsDB->fetchRow($xoopsDB->query($sql));
-
-    $num = $array[0];
-
+    $num   = $array[0];
     if (empty($num)) {
         $num = 0;
     }
-
     return $num;
 }
 
@@ -101,28 +75,18 @@ function tdmdownloads_num()
 function tdmdownloads_data($limit = 0, $offset = 0)
 {
     global $xoopsDB;
-
     $moduleDirName = basename(dirname(__DIR__, 2));
-
-    $sql = 'SELECT lid, title, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
-
-    $result = $xoopsDB->query($sql, $limit, $offset);
-
-    $i = 0;
-
-    $ret = [];
+    $sql           = 'SELECT lid, title, date FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' WHERE status>0 ORDER BY lid';
+    $result        = $xoopsDB->query($sql, $limit, $offset);
+    $i             = 0;
+    $ret           = [];
     if ($result instanceof \mysqli_result) {
         while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
-            $id = $myrow['lid'];
-
-            $ret[$i]['id'] = $id;
-
-            $ret[$i]['link'] = XOOPS_URL . "/modules/$moduleDirName/singlefile.php?lid=" . $id . '';
-
+            $id               = $myrow['lid'];
+            $ret[$i]['id']    = $id;
+            $ret[$i]['link']  = XOOPS_URL . "/modules/$moduleDirName/singlefile.php?lid=" . $id . '';
             $ret[$i]['title'] = $myrow['title'];
-
-            $ret[$i]['time'] = $myrow['date'];
-
+            $ret[$i]['time']  = $myrow['date'];
             ++$i;
         }
     }

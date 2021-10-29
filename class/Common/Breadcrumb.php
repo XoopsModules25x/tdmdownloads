@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -34,12 +36,12 @@ namespace XoopsModules\Tdmdownloads\Common;
  */
 class Breadcrumb
 {
-    public $dirname;
+    public  $dirname;
     private $bread = [];
 
     public function __construct()
     {
-        $this->dirname = \basename(dirname(__DIR__, 2));
+        $this->dirname = \basename(\dirname(__DIR__, 2));
     }
 
     /**
@@ -63,20 +65,13 @@ class Breadcrumb
     {
         if (!isset($GLOBALS['xoTheme']) || !\is_object($GLOBALS['xoTheme'])) {
             require_once $GLOBALS['xoops']->path('class/theme.php');
-
             $GLOBALS['xoTheme'] = new \xos_opal_Theme();
         }
-
         require_once $GLOBALS['xoops']->path('class/template.php');
-
         $breadcrumbTpl = new \XoopsTpl();
-
         $breadcrumbTpl->assign('breadcrumb', $this->bread);
-
         $html = $breadcrumbTpl->fetch('db:' . $this->dirname . '_common_breadcrumb.tpl');
-
         unset($breadcrumbTpl);
-
         return $html;
     }
 }

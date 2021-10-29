@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 //
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
@@ -29,8 +30,6 @@
 // URL: http://www.myweb.ne.jp/, https://xoops.org/, http://jp.xoops.org/ //
 // Project: XOOPS Project                                                    //
 // ------------------------------------------------------------------------- //
-
-
 use Xmf\Request;
 use Xmf\Module\Admin;
 use XoopsModules\Tdmdownloads\{
@@ -42,12 +41,9 @@ use XoopsModules\Tdmdownloads\{
 /** @var Admin $adminObject */
 /** @var Configurator $configurator */
 /** @var Migrate $migrator */
-
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
-
 $adminObject->displayNavigation(basename(__FILE__));
-
 echo <<<EOF
 <form method="post" class="form-inline">
 <div class="form-group">
@@ -61,23 +57,17 @@ echo <<<EOF
 </div>
 </form>
 EOF;
-
 //XoopsLoad::load('migrate', 'newbb');
-
 $configurator = new Configurator();
-
-$migrator = new Migrate($configurator);
-
-$op = Request::getCmd('op', 'show');
-$opShow = Request::getCmd('show', null, 'POST');
-$opMigrate = Request::getCmd('migrate', null, 'POST');
-$opSchema = Request::getCmd('schema', null, 'POST');
-$op = !empty($opShow) ? 'show' : $op;
-$op = !empty($opMigrate) ? 'migrate' : $op;
-$op = !empty($opSchema) ? 'schema' : $op;
-
-$message = '';
-
+$migrator     = new Migrate($configurator);
+$op           = Request::getCmd('op', 'show');
+$opShow       = Request::getCmd('show', null, 'POST');
+$opMigrate    = Request::getCmd('migrate', null, 'POST');
+$opSchema     = Request::getCmd('schema', null, 'POST');
+$op           = !empty($opShow) ? 'show' : $op;
+$op           = !empty($opMigrate) ? 'migrate' : $op;
+$op           = !empty($opSchema) ? 'schema' : $op;
+$message      = '';
 switch ($op) {
     case 'show':
     default:
@@ -100,12 +90,9 @@ switch ($op) {
     case 'confirmwrite':
         if ($GLOBALS['xoopsSecurity']->check()) {
             $migrator->saveCurrentSchema();
-
             $message = constant('CO_' . $moduleDirNameUpper . '_' . 'MIGRATE_SCHEMA_OK');
         }
         break;
 }
-
 echo "<div>$message</div>";
-
 require_once __DIR__ . '/admin_footer.php';

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -11,7 +13,6 @@ namespace XoopsModules\Tdmdownloads\Common;
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 */
-
 /**
  * @copyright      2020 XOOPS Project (https://xoops.org)
  * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
@@ -36,13 +37,13 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     /**
      * retrieve a field
      *
-     * @param int        $i field id
+     * @param int        $id field id
      * @param null|mixed $fields
-     * @return mixed reference to the {@link Get} object
+     * @return \XoopsObject|null reference to the {@link Get} object
      */
-    public function get($i = null, $fields = null)
+    public function get($id = null, $fields = null)
     {
-        return parent::get($i, $fields);
+        return parent::get($id, $fields);
     }
 
     /**
@@ -68,9 +69,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function getCountImages($albId = 0, $start = 0, $limit = 0, $sort = 'img_id ASC, img_name', $order = 'ASC')
     {
         $crCountImages = new \CriteriaCompo();
-
         $crCountImages = $this->getImagesCriteria($crCountImages, $albId, $start, $limit, $sort, $order);
-
         return parent::getCount($crCountImages);
     }
 
@@ -85,9 +84,7 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function getAllImages($start = 0, $limit = 0, $sort = 'img_id ASC, img_name', $order = 'ASC')
     {
         $crAllImages = new \CriteriaCompo();
-
         $crAllImages = $this->getImagesCriteria($crAllImages, 0, $start, $limit, $sort, $order);
-
         return parent::getAll($crAllImages);
     }
 
@@ -106,15 +103,10 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
         if ($albId > 0) {
             $crImages->add(new \Criteria('img_albid', $albId));
         }
-
         $crImages->setStart($start);
-
         $crImages->setLimit($limit);
-
         $crImages->setSort($sort);
-
         $crImages->setOrder($order);
-
         return $crImages;
     }
 
@@ -126,23 +118,17 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function unlinkImages($imageName)
     {
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName);
-
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName)) {
             return false;
         }
-
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName);
-
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName)) {
             return false;
         }
-
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName);
-
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName)) {
             return false;
         }
-
         return true;
     }
 }
