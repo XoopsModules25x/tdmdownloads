@@ -1,4 +1,5 @@
-- reportid: '1'
-  lid: '1'
-  sender: '1'
-  ip: '::1'
+-
+    reportid: '1'
+    lid: '1'
+    sender: '1'
+    ip: '::1'
