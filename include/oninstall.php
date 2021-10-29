@@ -51,7 +51,7 @@ function xoops_module_install_tdmdownloads()
     global $xoopsModule, $xoopsConfig, $xoopsDB;
     $moduleDirName = basename(dirname(__DIR__));
     $namemodule    = $moduleDirName;
-    if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
+    if (is_file(XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
         require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/' . $xoopsConfig['language'] . '/admin.php';
     } else {
         require_once XOOPS_ROOT_PATH . '/modules/' . $namemodule . '/language/english/admin.php';

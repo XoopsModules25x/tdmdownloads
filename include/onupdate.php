@@ -108,7 +108,7 @@ function update_tdmdownloads_v201($module)
                 foreach ($templateList as $k => $v) {
                     $fileInfo = new SplFileInfo($templateFolder . $v);
                     if ('html' === $fileInfo->getExtension() && 'index.html' !== $fileInfo->getFilename()) {
-                        if (file_exists($templateFolder . $v)) {
+                        if (is_file($templateFolder . $v)) {
                             unlink($templateFolder . $v);
                         }
                     }

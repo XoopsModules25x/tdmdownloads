@@ -118,15 +118,15 @@ class ImagesHandler extends \XoopsPersistableObjectHandler
     public function unlinkImages($imageName)
     {
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName);
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/large/' . $imageName)) {
             return false;
         }
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName);
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/medium/' . $imageName)) {
             return false;
         }
         \unlink(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName);
-        if (\file_exists(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName)) {
+        if (\is_file(\constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH') . '/thumbs/' . $imageName)) {
             return false;
         }
         return true;
