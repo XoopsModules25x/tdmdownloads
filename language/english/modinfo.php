@@ -15,6 +15,7 @@ declare(strict_types=1);
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
+
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
 define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));
@@ -187,14 +188,43 @@ define('_MI_TDMDOWNLOADS_BLOCKS_ADMIN', 'Blocks');
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
 define('_MI_TDMDOWNLOADS_MENU_HISTORY', 'History');
+
+
+//Preferences Group Styling
+define('_MI_TDMDOWNLOADS_CONFIG_STYLING_START', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">:: ');
+define('_MI_TDMDOWNLOADS_CONFIG_STYLING_END', ' ::</span> ');
+define('_MI_TDMDOWNLOADS_CONFIG_STYLING_DESC_START', '<span style="color: #FF0000; font-size: Small;">');
+define('_MI_TDMDOWNLOADS_CONFIG_STYLING_DESC_END', '</span> ');
+
 //Categories:
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- User ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Administration ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Downloads ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Paypal ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- RSS ---</span> ');
-define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Comments and notifications ---</span> ');
+define('_MI_TDMDOWNLOADS_GENERAL', 'General');
+define('_MI_TDMDOWNLOADS_USER', 'User');
+define('_MI_TDMDOWNLOADS_ADMIN', 'Administration');
+define('_MI_TDMDOWNLOADS_DOWNLOADS', 'Downloads');
+define('_MI_TDMDOWNLOADS_PAYPAL', 'Paypal');
+define('_MI_TDMDOWNLOADS_RSS', 'RSS');
+define('_MI_TDMDOWNLOADS_COMNOTI', 'Comments and notifications');
+define('_MI_TDMDOWNLOADS_OTHERS', 'Others');
+
+//Categories Styled
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_GENERAL . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_USER . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_ADMIN . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_DOWNLOADS . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_PAYPAL . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_RSS . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_COMNOTI . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS', _MI_TDMDOWNLOADS_CONFIG_STYLING_START . _MI_TDMDOWNLOADS_OTHERS . _MI_TDMDOWNLOADS_CONFIG_STYLING_END);
+
+
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- General ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- User ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Administration ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Downloads ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Paypal ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- RSS ---</span> ');
+//define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Comments and notifications ---</span> ');
+
 define('_MI_TDMDOWNLOADS_CONFCAT_SEO_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Preferences for rewriting methods, meta data, etc ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Index and category pages ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
@@ -206,7 +236,7 @@ define('_MI_TDMDOWNLOADS_CONFCAT_FORMAT', '<span style="color: #FF0000; font-siz
 define('_MI_TDMDOWNLOADS_CONFCAT_FORMAT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PRINT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Print page ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PRINT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
-define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Others ---</span> ');
+//define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Others ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Permissions ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');

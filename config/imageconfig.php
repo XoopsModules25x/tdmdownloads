@@ -9,13 +9,15 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 $helper = Helper::getInstance();
 $helper->loadLanguage('common');
 // extra module configs
+
 $modversion['config'][] = [
     'name'        => 'imageConfigs',
-    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG',
+    'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'PREFERENCE_BREAK_CONFIG_IMAGE',
     'description' => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'imageWidth',

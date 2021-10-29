@@ -169,13 +169,20 @@ define('CO_' . $moduleDirNameUpper . '_' . 'FU_FAILED', 'Errors occurred during 
 define('CO_' . $moduleDirNameUpper . '_' . 'FU_SUCCEEDED', 'Successfully uploaded all files');
 define('CO_' . $moduleDirNameUpper . '_' . 'SELECT', 'Select Category');
 define('CO_' . $moduleDirNameUpper . '_' . 'ERROR_CATPID', 'Error: parent category not found');
+
 //image config
+define('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_EXT_IMAGE', 'EXTERNAL Image configuration');
+
+\define('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_START', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">:: ');
+\define('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_END', ' ::</span> ');
+\define('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_DESC_START', '<span style="color: #FF0000; font-size: Small;">');
+\define('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_DESC_END', '</span> ');
+
+\define('CO_' . $moduleDirNameUpper . '_' . 'PREFERENCE_BREAK_CONFIG_IMAGE', constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_START') . constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_EXT_IMAGE') . constant('CO_' . $moduleDirNameUpper . '_' . 'CONFIG_STYLING_END'));
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH', 'Image Display Width');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH_DSC', 'Display width for image');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT', 'Image Display Height');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT_DSC', 'Display height for image');
-\define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- EXTERNAL Image configuration ---</span> ');
-\define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_CONFIG_DSC', '');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH', 'Image Upload path');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH_DSC', 'Path for uploading images');
 \define('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_FILE_SIZE', 'Image File Size (in Bytes)');
