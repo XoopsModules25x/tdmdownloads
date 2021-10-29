@@ -165,7 +165,7 @@ switch ($op) {
                 if (3 == $downloads_field[$i]->getVar('fid')) {
                     //taille du fichier
 
-                    $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMSIZE, 'current' => $downloads_size, 'modified' => $moddownloads_size];
+                    $compare['cfields'][] = ['info' => _AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT, 'current' => $downloads_size, 'modified' => $moddownloads_size];
                 }
 
                 if (4 == $downloads_field[$i]->getVar('fid')) {

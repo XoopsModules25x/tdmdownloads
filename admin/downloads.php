@@ -475,7 +475,7 @@ switch ($op) {
                     //taille du fichier
 
                     if ('' !== $viewDownloads->getVar('size')) {
-                        $fieldsList[] = ['name' => _AM_TDMDOWNLOADS_FORMSIZE, 'value' => $viewDownloads->getVar('size')];
+                        $fieldsList[] = ['name' => _AM_TDMDOWNLOADS_FORMSIZE_WHEN_SUBMIT, 'value' => $viewDownloads->getVar('size')];
                     }
                 }
 
@@ -654,7 +654,7 @@ switch ($op) {
         $obj->setVar('version', \Xmf\Request::getString('version', '', 'POST'));
         $obj->setVar('paypal', \Xmf\Request::getString('paypal', '', 'POST'));
         if (\Xmf\Request::hasVar('platform', 'POST')) {
-            $obj->setVar('platform', implode('|', \Xmf\Request::getString('platform', '', 'POST')));
+            $obj->setVar('platform', implode('|', \Xmf\Request::getArray('platform', [], 'POST')));
         }
         $obj->setVar('description', \Xmf\Request::getString('description', '', 'POST'));
 
