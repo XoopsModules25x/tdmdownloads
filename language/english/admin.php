@@ -54,7 +54,7 @@ define('_AM_TDMDOWNLOADS_ABOUT_FILEPROTECTION_INFO2', 'With the following conten
 //permissions.php
 define('_AM_TDMDOWNLOADS_PERMISSIONS_4', 'Submit a download');
 define('_AM_TDMDOWNLOADS_PERMISSIONS_8', 'Submit a modification');
-define('_AM_TDMDOWNLOADS_PERMISSIONS_16', 'note a download');
+define('_AM_TDMDOWNLOADS_PERMISSIONS_16', 'Rate a download');
 define('_AM_TDMDOWNLOADS_PERMISSIONS_32', 'Upload files');
 define('_AM_TDMDOWNLOADS_PERMISSIONS_64', 'Auto approve submitted files');
 define('_AM_TDMDOWNLOADS_PERM_AUTRES', 'Other permissions');
