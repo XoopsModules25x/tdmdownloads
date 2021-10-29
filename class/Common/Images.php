@@ -87,7 +87,7 @@ class Images extends \XoopsObject
      */
     public function getFormImages($action = false)
     {
-        $moduleDirName      = \basename(dirname(__DIR__, 2));
+        $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         $helper             = Helper::getInstance();
         if (!$action) {
@@ -175,7 +175,7 @@ class Images extends \XoopsObject
      */
     public function getValuesImages($keys = null, $format = null, $maxDepth = null)
     {
-        $moduleDirName      = \basename(dirname(__DIR__, 2));
+        $moduleDirName      = \basename(\dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         $helper             = Helper::getInstance();
         $ret                = $this->getValues($keys, $format, $maxDepth);

@@ -82,7 +82,7 @@ class Utility extends Common\SysUtility
     public function getStatusImage($time, $status)
     {
         global $xoopsModuleConfig;
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         $helper        = Helper::getInstance();
         $count         = 7;
         $new           = '';
@@ -121,7 +121,7 @@ class Utility extends Common\SysUtility
     public function getPopularImage($hits)
     {
         global $xoopsModuleConfig;
-        $moduleDirName = basename(dirname(__DIR__));
+        $moduleDirName = \basename(\dirname(__DIR__));
         $pop           = '';
         if ($hits >= $xoopsModuleConfig['popular']) {
             $language = $GLOBALS['xoopsConfig']['language'];
