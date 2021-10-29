@@ -23,7 +23,6 @@ use XoopsModules\Tdmdownloads\{
 };
 
 require_once __DIR__ . '/header.php';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 // template d'affichage
 $moduleDirName                           = basename(__DIR__);

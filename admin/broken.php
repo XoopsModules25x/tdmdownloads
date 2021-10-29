@@ -23,7 +23,6 @@ use XoopsModules\Tdmdownloads\Helper;
 require __DIR__ . '/admin_header.php';
 // Template
 $templateMain = 'tdmdownloads_admin_broken.tpl';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');

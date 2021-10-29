@@ -90,7 +90,6 @@ class Utilities
     public static function getStatusImage($time, $status)
     {
         $moduleDirName = \basename(\dirname(__DIR__));
-        /** @var Tdmdownloads\Helper $helper */
         $helper    = Helper::getInstance();
         $count     = 7;
         $new       = '';
@@ -128,7 +127,6 @@ class Utilities
      */
     public static function getPopularImage($hits)
     {
-        /** @var Tdmdownloads\Helper $helper */
         $helper        = Helper::getInstance();
         $moduleDirName = \basename(\dirname(__DIR__));
         $pop           = '';

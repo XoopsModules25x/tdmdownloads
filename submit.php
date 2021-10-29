@@ -25,7 +25,6 @@ use XoopsModules\Tdmdownloads\{
  */
 require_once __DIR__ . '/header.php';
 $moduleDirName = basename(__DIR__);
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_submit.tpl';
@@ -60,7 +59,6 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj = $downloadsHandler->create();
-        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($donnee = [], false);
         $xoopsTpl->assign('themeForm', $form->render());
         break;

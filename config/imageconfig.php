@@ -6,7 +6,6 @@ use XoopsModules\Tdmdownloads\Helper;
 
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 $helper->loadLanguage('common');
 // extra module configs

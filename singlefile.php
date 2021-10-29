@@ -24,7 +24,6 @@ use XoopsModules\Tdmdownloads\{
  * @author      Gregory Mage (Aka Mage)
  */
 require_once __DIR__ . '/header.php';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper        = Helper::getInstance();
 $moduleDirName = basename(__DIR__);
 // template d'affichage

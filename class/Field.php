@@ -60,7 +60,6 @@ class Field extends \XoopsObject
      */
     public function getForm($action = false)
     {
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper        = Helper::getInstance();
         $moduleDirName = \basename(\dirname(__DIR__));
         if (!$action) {

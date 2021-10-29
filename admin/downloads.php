@@ -31,7 +31,6 @@ use XoopsModules\Tdmdownloads\{
 require __DIR__ . '/admin_header.php';
 // Template
 $templateMain = 'tdmdownloads_admin_downloads.tpl';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 $myts   = \MyTextSanitizer::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
@@ -200,7 +199,6 @@ switch ($op) {
         //Affichage du formulaire de création des téléchargements
         /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
         $obj = $downloadsHandler->create();
-        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($donnee = [], false);
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;

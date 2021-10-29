@@ -124,7 +124,6 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
         $this->pathUpload = \constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');
         $utility          = new Utility();
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper = Helper::getInstance();
         //        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
         //            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;

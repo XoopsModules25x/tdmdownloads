@@ -33,7 +33,6 @@ require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 require_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
 require dirname(__DIR__) . '/include/common.php';
 $moduleDirName = basename(dirname(__DIR__));
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 /** @var \Xmf\Module\Admin $adminObject */
 $adminObject = Admin::getInstance();

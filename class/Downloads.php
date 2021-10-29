@@ -79,9 +79,7 @@ class Downloads extends \XoopsObject
     public function getForm($donnee = [], $erreur = false, $action = false)
     {
         global $xoopsModule, $xoopsUser;
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper = Helper::getInstance();
-        /** @var \XoopsModules\Tdmdownloads\Utility $utility */
         $utility       = new \XoopsModules\Tdmdownloads\Utility();
         $moduleDirName = \basename(\dirname(__DIR__));
         if (!$action) {

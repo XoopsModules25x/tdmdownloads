@@ -24,7 +24,6 @@ require __DIR__ . '/admin_header.php';
 require dirname(__DIR__) . '/include/common.php';
 // Template
 $templateMain = 'tdmdownloads_admin_field.tpl';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');

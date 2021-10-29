@@ -70,7 +70,6 @@ class Modified extends \XoopsObject
     public function getForm($lid, $erreur, $donnee = [], $action = false)
     {
         global $xoopsDB, $xoopsModule, $xoopsUser;
-        /** @var \XoopsModules\Tdmdownloads\Helper $helper */
         $helper        = Helper::getInstance();
         $moduleDirName = \basename(\dirname(__DIR__));
         if (!$action) {
@@ -121,7 +120,6 @@ class Modified extends \XoopsObject
         //catégorie
         /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */
         $categoryHandler = Helper::getInstance()->getHandler('Category');
-        /** @var \XoopsModules\Tdmdownloads\Utility $utility */
         $utility    = new \XoopsModules\Tdmdownloads\Utility();
         $categories = $utility->getItemIds('tdmdownloads_submit', $moduleDirName);
         $criteria   = new \CriteriaCompo();

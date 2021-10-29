@@ -32,14 +32,12 @@ function b_tdmdownloads_search_show()
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
     $db = null;
-    /** @var \XoopsModules\Tdmdownloads\Helper $helper */
     $helper = Helper::getInstance();
     //appel des class
     //appel des fichiers de langues
     $helper->loadLanguage('admin');
     $helper->loadLanguage('main');
     $helper->loadLanguage('common');
-    /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility    = new \XoopsModules\Tdmdownloads\Utility();
     $categories = $utility->getItemIds('tdmdownloads_view', $moduleDirName);
     /** @var \XoopsModules\Tdmdownloads\CategoryHandler $categoryHandler */

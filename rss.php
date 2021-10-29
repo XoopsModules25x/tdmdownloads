@@ -23,7 +23,6 @@ require_once __DIR__ . '/header.php';
 $xoopsLogger->activated = false;
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 global $xoopsModuleConfig;
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper     = Helper::getInstance();
 $itemsCount = $helper->getConfig('perpagerss');
 $cid        = \Xmf\Request::getInt('cid', 0, 'GET');

@@ -69,7 +69,6 @@ switch ($op) {
         //Affichage du formulaire de fichier brisé*/
         /** @var \XoopsModules\Tdmdownloads\Broken $obj */
         $obj = $brokenHandler->create();
-        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
         break;

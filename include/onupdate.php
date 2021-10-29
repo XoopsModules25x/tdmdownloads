@@ -48,7 +48,6 @@ function xoops_module_pre_update_tdmdownloads(\XoopsModule $module)
     $utility       = new Utility();
     $xoopsSuccess  = $utility::checkVerXoops($module);
     $phpSuccess    = $utility::checkVerPhp($module);
-    /** @var Configurator $configurator */
     $configurator = new Configurator();
     //create upload folders
     $uploadFolders = $configurator->uploadFolders;

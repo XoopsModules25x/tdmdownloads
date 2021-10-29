@@ -69,7 +69,6 @@ switch ($op) {
         //Affichage du formulaire de notation des téléchargements
         /** @var \XoopsModules\Tdmdownloads\Rating $obj */
         $obj = $ratingHandler->create();
-        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm($lid);
         $xoopsTpl->assign('themeForm', $form->render());
         break;

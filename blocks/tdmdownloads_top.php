@@ -63,7 +63,6 @@ function b_tdmdownloads_top_show($options)
     $db = null;
     /** @var \xos_opal_Theme $xoTheme */
     $xoTheme->addStylesheet(XOOPS_URL . '/modules/' . $moduleDirName . '/assets/css/blocks.css', null);
-    /** @var \XoopsModules\Tdmdownloads\Utility $utility */
     $utility = new \XoopsModules\Tdmdownloads\Utility();
     /** @var \XoopsModules\Tdmdownloads\Helper $helper */
     $helper->loadLanguage('main');

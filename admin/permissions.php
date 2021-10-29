@@ -23,7 +23,6 @@ use XoopsModules\Tdmdownloads\Helper;
 require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 require_once $GLOBALS['xoops']->path('www/class/xoopsform/grouppermform.php');
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper       = Helper::getInstance();
 $adminObject  = Admin::getInstance();
 $templateMain = 'tdmdownloads_admin_permissions.tpl';

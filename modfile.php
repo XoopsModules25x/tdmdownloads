@@ -23,7 +23,6 @@ use XoopsModules\Tdmdownloads\{
 };
 
 require_once __DIR__ . '/header.php';
-/** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 // template d'affichage
 $GLOBALS['xoopsOption']['template_main'] = 'tdmdownloads_modfile.tpl';
@@ -77,7 +76,6 @@ switch ($op) {
         if ($perm_autoapprove) {
             /** @var \XoopsModules\Tdmdownloads\Downloads $obj */
             $obj = $downloadsHandler->get($lid);
-            /** @var \XoopsThemeForm $form */
             $form = $obj->getForm($donnee = [], false, 'submit.php');
         } else {
             /** @var \XoopsModules\Tdmdownloads\Modified $obj */
@@ -166,7 +164,6 @@ switch ($op) {
                         // file name was given, but fetchMedia failed - show error when e.g. file size exceed maxuploadsize
                         $errorMessage .= $uploader->getErrors() . '<br>';
                         $GLOBALS['xoopsTpl']->assign('message_erreur', $errorMessage);
-                        /** @var \XoopsThemeForm $form */
                         $form = $obj->getForm($donnee, true);
                         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
                         break;

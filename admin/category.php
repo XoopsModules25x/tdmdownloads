@@ -80,7 +80,6 @@ switch ($op) {
         //Affichage du formulaire de création des catégories
         /** @var \XoopsModules\Tdmdownloads\Category $obj */
         $obj = $categoryHandler->create();
-        /** @var \XoopsThemeForm $form */
         $form = $obj->getForm();
         $GLOBALS['xoopsTpl']->assign('themeForm', $form->render());
         break;
