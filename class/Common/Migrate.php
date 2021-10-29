@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -34,20 +36,14 @@ class Migrate extends \Xmf\Database\Migrate
     public function __construct()
     {
         $class = __NAMESPACE__ . '\\' . 'Configurator';
-
         if (!\class_exists($class)) {
             throw new \RuntimeException("Class '$class' not found");
         }
-
-        $configurator = new $class();
-
+        $configurator       = new $class();
         $this->renameTables = $configurator->renameTables;
-
-        $moduleDirName = \basename(dirname(__DIR__, 2));
-
+        $moduleDirName      = \basename(dirname(__DIR__, 2));
         parent::__construct($moduleDirName);
     }
-
 
     /**
      * rename table if needed
@@ -68,8 +64,8 @@ class Migrate extends \Xmf\Database\Migrate
     {
         foreach ($this->renameColumns as $tableName) {
             if ($this->tableHandler->useTable($tableName)) {
-                $oldName = $tableName['from'];
-                $newName = $tableName['to'];
+                $oldName    = $tableName['from'];
+                $newName    = $tableName['to'];
                 $attributes = $this->tableHandler->getColumnAttributes($tableName, $oldName);
                 if (false !== \strpos($attributes, ' int(')) {
                     $this->tableHandler->alterColumn($tableName, $oldName, $attributes, $newName);

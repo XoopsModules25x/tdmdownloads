@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /*
  * You may not change or alter any portion of this comment or credits
  * of supporting developers from this source code or any supporting source code
@@ -17,14 +18,14 @@
  * @since
  * @author       XOOPS Development Team
  */
+
 use Xmf\Module\Admin;
 
 $moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
 return (object)[
-    'name'           => $moduleDirNameUpper . ' Module Configurator',
-    'paths'          => [
+    'name'            => $moduleDirNameUpper . ' Module Configurator',
+    'paths'           => [
         'dirname'    => $moduleDirName,
         'admin'      => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/admin',
         'modPath'    => XOOPS_ROOT_PATH . '/modules/' . $moduleDirName,
@@ -32,7 +33,7 @@ return (object)[
         'uploadPath' => XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         'uploadUrl'  => XOOPS_UPLOAD_URL . '/' . $moduleDirName,
     ],
-    'uploadFolders'  => [
+    'uploadFolders'   => [
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/downloads',
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
@@ -41,7 +42,7 @@ return (object)[
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/shots',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
-    'copyBlankFiles' => [
+    'copyBlankFiles'  => [
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/downloads',
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images',
@@ -50,14 +51,12 @@ return (object)[
         XOOPS_UPLOAD_PATH . '/' . $moduleDirName . '/images/shots',
         //XOOPS_UPLOAD_PATH . '/flags'
     ],
-
     'copyTestFolders' => [
         [
             XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/testdata/uploads',
             XOOPS_UPLOAD_PATH . '/' . $moduleDirName,
         ],
     ],
-
     'templateFolders' => [
         '/templates/',
         //            '/templates/blocks/',
@@ -77,16 +76,15 @@ return (object)[
         '/css',
         '/js',
     ],
-
-    'renameTables' => [//         'XX_archive'     => 'ZZZZ_archive',
+    'renameTables'    => [//         'XX_archive'     => 'ZZZZ_archive',
     ],
-    'renameColumns' => [//        'extcal_event' => ['from' => 'event_etablissement', 'to' => 'event_location'],
+    'renameColumns'   => [//        'extcal_event' => ['from' => 'event_etablissement', 'to' => 'event_location'],
     ],
-    'moduleStats'  => [
+    'moduleStats'     => [
         //            'totalcategories' => $helper->getHandler('Category')->getCategoriesCount(-1),
         //            'totalitems'      => $helper->getHandler('Item')->getItemsCount(),
         //            'totalsubmitted'  => $helper->getHandler('Item')->getItemsCount(-1, [Constants::PUBLISHER_STATUS_SUBMITTED]),
     ],
-    'modCopyright' => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
+    'modCopyright'    => "<a href='https://xoops.org' title='XOOPS Project' target='_blank'>
                      <img src='" . Admin::iconUrl('xoopsmicrobutton.gif') . "' alt='XOOPS Project'></a>",
 ];

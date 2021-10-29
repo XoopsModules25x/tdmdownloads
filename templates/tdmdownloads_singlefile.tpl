@@ -129,38 +129,38 @@
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DELICIOUS}>" href="http://del.icio.us/post?url=<{$mod_url}>/singlefile.php?lid=<{$lid}>&title=<{$downloads.title}>"><img
                             alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DELICIOUS}>" src="<{$mod_url}>/assets/images/bookmarks/delicious.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DIGG}>" href="http://digg.com/submit?phase=2&url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DIGG}>"
-                                                                                                                                                                                                                      src="<{$mod_url}>/assets/images/bookmarks/diggman.gif"></a>
+                                                                                                                                                                                               src="<{$mod_url}>/assets/images/bookmarks/diggman.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FARK}>"
                    href="http://cgi.fark.com/cgi/fark/edit.pl?new_url=<{$mod_url}>/singlefile.php?lid=<{$lid}>&new_comment=<{$downloads.title}>&new_link_other=<{$downloads.title}>&linktype=Misc"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FARK}>"
-                                                                                                                                                                                                                               src="<{$mod_url}>/assets/images/bookmarks/fark.gif"></a>
+                                                                                                                                                                                                        src="<{$mod_url}>/assets/images/bookmarks/fark.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FURL}>" href="http://www.furl.net/storeIt.jsp?t=<{$downloads.title}>&u=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FURL}>"
-                                                                                                                                                                                                                                            src="<{$mod_url}>/assets/images/bookmarks/furl.gif"></a>
+                                                                                                                                                                                                                     src="<{$mod_url}>/assets/images/bookmarks/furl.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_NEWSVINE}>" href="http://www.nwvine.com/_tools/seed&save?u=<{$mod_url}>/singlefile.php?lid=<{$lid}>&h=<{$downloads.title}>"><img
                             alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_NEWSVINE}>" src="<{$mod_url}>/assets/images/bookmarks/newsvine.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_REDDIT}>" href="http://reddit.com/submit?url=<{$mod_url}>/singlefile.php?lid=<{$lid}>&title=<{$downloads.title}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_REDDIT}>"
-                                                                                                                                                                                                                                             src="<{$mod_url}>/assets/images/bookmarks/reddit.gif"></a>
+                                                                                                                                                                                                                      src="<{$mod_url}>/assets/images/bookmarks/reddit.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_YAHOO}>" href="http://myweb2.search.yahoo.com/myresults/bookmarklet?t=<{$downloads.title}>&u=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img
                             alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_YAHOO}>" src="<{$mod_url}>/assets/images/bookmarks/yahoomyweb.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_BALATARIN}>" href="http://balatarin.com/links/submit?phase=2&amp;url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_BALATARIN}>"
-                                                                                                                                                                                                                                          src="<{$mod_url}>/assets/images/bookmarks/balatarin.png"></a>
+                                                                                                                                                                                                                   src="<{$mod_url}>/assets/images/bookmarks/balatarin.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FACEBOOK}>" href="http://www.facebook.com/share.php?u=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_FACEBOOK}>"
-                                                                                                                                                                                                                           src="<{$mod_url}>/assets/images/bookmarks/facebook_share_icon.gif"></a>
+                                                                                                                                                                                                    src="<{$mod_url}>/assets/images/bookmarks/facebook_share_icon.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_TWITTER}>" href="http://twitter.com/home?status=Browsing:%20<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_TWITTER}>"
-                                                                                                                                                                                                                                 src="<{$mod_url}>/assets/images/bookmarks/twitter_share_icon.gif"></a>
+                                                                                                                                                                                                          src="<{$mod_url}>/assets/images/bookmarks/twitter_share_icon.gif"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_SCRIPSTYLE}>" href="http://scriptandstyle.com/submit?url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_SCRIPSTYLE}>"
-                                                                                                                                                                                                                              src="<{$mod_url}>/assets/images/bookmarks/scriptandstyle.png"></a>
+                                                                                                                                                                                                       src="<{$mod_url}>/assets/images/bookmarks/scriptandstyle.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_STUMBLE}>" href="http://www.stumbleupon.com/submit?url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_STUMBLE}>"
-                                                                                                                                                                                                                            src="<{$mod_url}>/assets/images/bookmarks/stumbleupon.png"></a>
+                                                                                                                                                                                                     src="<{$mod_url}>/assets/images/bookmarks/stumbleupon.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_TECHNORATI}>" href="http://technorati.com/faves?add=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_TECHNORATI}>"
-                                                                                                                                                                                                                         src="<{$mod_url}>/assets/images/bookmarks/technorati.png"></a>
+                                                                                                                                                                                                  src="<{$mod_url}>/assets/images/bookmarks/technorati.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_MIXX}>" href="http://www.mixx.com/submit?page_url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_MIXX}>"
-                                                                                                                                                                                                                       src="<{$mod_url}>/assets/images/bookmarks/mixx.png"></a>
+                                                                                                                                                                                                src="<{$mod_url}>/assets/images/bookmarks/mixx.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_MYSPACE}>" href="http://www.myspace.com/Modules/PostTo/Pages/?u=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_MYSPACE}>"
-                                                                                                                                                                                                                                     src="<{$mod_url}>/assets/images/bookmarks/myspace.jpg"></a>
+                                                                                                                                                                                                              src="<{$mod_url}>/assets/images/bookmarks/myspace.jpg"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DESIGNFLOAT}>" href="http://www.designfloat.com/submit.php?url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_DESIGNFLOAT}>"
-                                                                                                                                                                                                                                    src="<{$mod_url}>/assets/images/bookmarks/designfloat.png"></a>
+                                                                                                                                                                                                             src="<{$mod_url}>/assets/images/bookmarks/designfloat.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEPLUS}>" href="https://plusone.google.com/_/+1/confirm?hl=en&url=<{$mod_url}>/singlefile.php?lid=<{$lid}>"><img alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEPLUS}>"
-                                                                                                                                                                                                                                           src="<{$mod_url}>/assets/images/bookmarks/google_plus_icon.png"></a>
+                                                                                                                                                                                                                    src="<{$mod_url}>/assets/images/bookmarks/google_plus_icon.png"></a>
                 <a rel="nofollow external" title="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEBOOKMARKS}>" href="https://www.google.com/bookmarks/mark?op=add&amp;bkmk=<{$mod_url}>/singlefile.php?lid=<{$lid}>&amp;title=<{$downloads.title}>"><img
                             alt="<{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_TO_GOOGLEBOOKMARKS}>" src="<{$mod_url}>/assets/images/bookmarks/google-icon.png"></a>
             </div>
@@ -172,11 +172,11 @@
         <{$lang_notice}>
     </div>
     <div style="margin:3px; padding: 3px;">
-    <{if $comment_mode|default:'' == "flat"}>
-        <{include file="db:system_comments_flat.tpl"}>
-    <{elseif $comment_mode|default:'' == "thread"}>
-        <{include file="db:system_comments_thread.tpl"}>
-    <{elseif $comment_mode|default:'' == "nest"}>
+        <{if $comment_mode|default:'' == "flat"}>
+            <{include file="db:system_comments_flat.tpl"}>
+        <{elseif $comment_mode|default:'' == "thread"}>
+            <{include file="db:system_comments_thread.tpl"}>
+        <{elseif $comment_mode|default:'' == "nest"}>
             <{include file="db:system_comments_nest.tpl"}>
         <{/if}>
     </div>

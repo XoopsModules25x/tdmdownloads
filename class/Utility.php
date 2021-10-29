@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads;
 
@@ -29,24 +31,16 @@ class Utility extends Common\SysUtility
     public function getItemIds($permtype, $dirname)
     {
         global $xoopsUser;
-
         static $permissions = [];
-
         if (\is_array($permissions) && \array_key_exists($permtype, $permissions)) {
             return $permissions[$permtype];
         }
-
         /** @var \XoopsModuleHandler $moduleHandler */
-
         $moduleHandler = \xoops_getHandler('module');
-
-        $tdmModule = $moduleHandler->getByDirname($dirname);
-
-        $groups = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-
+        $tdmModule     = $moduleHandler->getByDirname($dirname);
+        $groups        = \is_object($xoopsUser) ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
         /** @var \XoopsGroupPermHandler $grouppermHandler */
         $grouppermHandler = \xoops_getHandler('groupperm');
-
         return $grouppermHandler->getItemIds($permtype, $groups, $tdmModule->getVar('mid'));
     }
 
@@ -60,20 +54,15 @@ class Utility extends Common\SysUtility
      */
     public function getNumbersOfEntries($mytree, $categories, $entries, $cid)
     {
-        $count = 0;
-
+        $count     = 0;
         $child_arr = [];
-
         if (\in_array($cid, $categories)) {
             $child = $mytree->getAllChild($cid);
-
             foreach (\array_keys($entries) as $i) {
                 /** @var \XoopsModules\Tdmdownloads\Downloads[] $entries */
-
                 if ($entries[$i]->getVar('cid') == $cid) {
                     $count++;
                 }
-
                 foreach (\array_keys($child) as $j) {
                     if ($entries[$i]->getVar('cid') == $j) {
                         $count++;
@@ -81,7 +70,6 @@ class Utility extends Common\SysUtility
                 }
             }
         }
-
         return $count;
     }
 
@@ -94,28 +82,19 @@ class Utility extends Common\SysUtility
     public function getStatusImage($time, $status)
     {
         global $xoopsModuleConfig;
-
         $moduleDirName = basename(dirname(__DIR__));
-        $helper = Helper::getInstance();
-
-        $count = 7;
-
-        $new = '';
-
-        $startdate = \time() - (86400 * $count);
-
+        $helper        = Helper::getInstance();
+        $count         = 7;
+        $new           = '';
+        $startdate     = \time() - (86400 * $count);
         if (1 == $xoopsModuleConfig['showupdated']) {
             if ($startdate < $time) {
                 $language = $GLOBALS['xoopsConfig']['language'];
-
                 if (!\is_dir(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/')) {
                     $language = 'english';
                 }
-
                 $img_path = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/';
-
-                $img_url = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
-
+                $img_url  = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
                 if (1 == $status) {
                     if (\is_readable($img_path . 'new.png')) {
                         $new = '&nbsp;<img src="' . $img_url . 'new.png" alt="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '" title="' . _MD_TDMDOWNLOADS_INDEX_NEWTHISWEEK . '">';
@@ -131,7 +110,6 @@ class Utility extends Common\SysUtility
                 }
             }
         }
-
         return $new;
     }
 
@@ -144,27 +122,20 @@ class Utility extends Common\SysUtility
     {
         global $xoopsModuleConfig;
         $moduleDirName = basename(dirname(__DIR__));
-
-        $pop = '';
-
+        $pop           = '';
         if ($hits >= $xoopsModuleConfig['popular']) {
             $language = $GLOBALS['xoopsConfig']['language'];
-
             if (!\is_dir(XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/')) {
                 $language = 'english';
             }
-
             $img_path = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/language/' . $language . '/';
-
-            $img_url = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
-
+            $img_url  = XOOPS_URL . '/modules/' . $moduleDirName . '/language/' . $language . '/';
             if (\is_readable($img_path . 'popular.png')) {
                 $pop = '&nbsp;<img src="' . $img_url . 'popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             } else {
                 $pop = '&nbsp;<img src ="' . XOOPS_URL . '/modules/' . $moduleDirName . '/language/english/popular.png" alt="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '" title="' . _MD_TDMDOWNLOADS_INDEX_POPULAR . '">';
             }
         }
-
         return $pop;
     }
 
@@ -176,7 +147,6 @@ class Utility extends Common\SysUtility
     {
         if ($size > 0) {
             $mb = 1024 * 1024;
-
             if ($size > $mb) {
                 $mysize = \sprintf('%01.2f', $size / $mb) . ' MB';
             } elseif ($size >= 1024) {
@@ -184,10 +154,8 @@ class Utility extends Common\SysUtility
             } else {
                 $mysize = \sprintf(_AM_TDMDOWNLOADS_NUMBYTES, $size);
             }
-
             return $mysize;
         }
-
         return '';
     }
 
@@ -209,11 +177,9 @@ class Utility extends Common\SysUtility
                 $ret = isset($global[$key]) ? \filter_var($global[$key], \FILTER_SANITIZE_NUMBER_INT) : $default;
                 break;
         }
-
         if (false === $ret) {
             return $default;
         }
-
         return $ret;
     }
 
@@ -228,29 +194,20 @@ class Utility extends Common\SysUtility
     public static function getPathTree($mytree, $key, $category_array, $title, $prefix = '')
     {
         /** @var \XoopsObjectTree $mytree */
-
         $categoryParent = $mytree->getAllParent($key);
-
         $categoryParent = \array_reverse($categoryParent);
-
-        $path = '';
-
+        $path           = '';
         foreach (\array_keys($categoryParent) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
-
             $path .= $categoryParent[$j]->getVar($title) . $prefix;
         }
-
         if (\array_key_exists($key, $category_array)) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $category_array */
-
             $firstCategory = $category_array[$key]->getVar($title);
         } else {
             $firstCategory = '';
         }
-
         $path .= $firstCategory;
-
         return $path;
     }
 
@@ -268,12 +225,9 @@ class Utility extends Common\SysUtility
     public static function getPathTreeUrl($mytree, $key, $category_array, $title, $prefix = '', $link = false, $order = 'ASC', $lasturl = false)
     {
         global $xoopsModule;
-
         $categoryParent = $mytree->getAllParent($key);
-
         if ('ASC' === $order) {
             $categoryParent = \array_reverse($categoryParent);
-
             if ($link) {
                 $path = '<a href="index.php">' . $xoopsModule->name() . '</a>' . $prefix;
             } else {
@@ -282,25 +236,20 @@ class Utility extends Common\SysUtility
         } else {
             if (\array_key_exists($key, $category_array)) {
                 /** @var \XoopsModules\Tdmdownloads\Category[] $category_array */
-
                 $firstCategory = $category_array[$key]->getVar($title);
             } else {
                 $firstCategory = '';
             }
-
             $path = $firstCategory . $prefix;
         }
-
         foreach (\array_keys($categoryParent) as $j) {
             /** @var \XoopsModules\Tdmdownloads\Category[] $categoryParent */
-
             if ($link) {
                 $path .= '<a href="viewcat.php?cid=' . $categoryParent[$j]->getVar('cat_cid') . '">' . $categoryParent[$j]->getVar($title) . '</a>' . $prefix;
             } else {
                 $path .= $categoryParent[$j]->getVar($title) . $prefix;
             }
         }
-
         if ('ASC' === $order) {
             if (\array_key_exists($key, $category_array)) {
                 if ($lasturl) {
@@ -311,7 +260,6 @@ class Utility extends Common\SysUtility
             } else {
                 $firstCategory = '';
             }
-
             $path .= $firstCategory;
         } else {
             if ($link) {
@@ -320,7 +268,6 @@ class Utility extends Common\SysUtility
                 $path .= $xoopsModule->name();
             }
         }
-
         return $path;
     }
 
@@ -333,14 +280,10 @@ class Utility extends Common\SysUtility
     public static function convertStringToSize($stringSize)
     {
         if ('' != $stringSize) {
-            $kb = 1024;
-
-            $mb = 1024 * 1024;
-
-            $gb = 1024 * 1024 * 1024;
-
+            $kb             = 1024;
+            $mb             = 1024 * 1024;
+            $gb             = 1024 * 1024 * 1024;
             $size_value_arr = \explode(' ', $stringSize);
-
             if ('B' == $size_value_arr[1]) {
                 $mysize = $size_value_arr[0];
             } elseif ('K' == $size_value_arr[1]) {
@@ -350,10 +293,8 @@ class Utility extends Common\SysUtility
             } else {
                 $mysize = $size_value_arr[0] * $gb;
             }
-
             return $mysize;
         }
-
         return 0;
     }
 
@@ -366,14 +307,11 @@ class Utility extends Common\SysUtility
     public static function convertSizeToString($sizeString)
     {
         $mysizeString = '';
-
         if ('' != $sizeString) {
             $size_value_arr = \explode(' ', $sizeString);
-
             if (\array_key_exists(0, $size_value_arr) && \array_key_exists(1, $size_value_arr)) {
                 if ('' != $size_value_arr[0]) {
                     $mysizeString = '';
-
                     switch ($size_value_arr[1]) {
                         case 'B':
                             $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_BYTES;
@@ -391,12 +329,10 @@ class Utility extends Common\SysUtility
                             $mysizeString = $size_value_arr[0] . ' ' . _AM_TDMDOWNLOADS_TBYTES;
                             break;
                     }
-
                     return $mysizeString;
                 }
             }
         }
-
         return $mysizeString;
     }
 
@@ -410,32 +346,22 @@ class Utility extends Common\SysUtility
     {
         if (\function_exists('curl_init') && false !== ($curlHandle = \curl_init($url))) {
             \curl_setopt($curlHandle, \CURLOPT_RETURNTRANSFER, true);
-
             \curl_setopt($curlHandle, \CURLOPT_HEADER, true);
-
             \curl_setopt($curlHandle, \CURLOPT_NOBODY, true);
-
             \curl_setopt($curlHandle, \CURLOPT_SSL_VERIFYPEER, true); //TODO: how to avoid an error when 'Peer's Certificate issuer is not recognized'
-
             $curlReturn = \curl_exec($curlHandle);
-
             if (false === $curlReturn) {
                 \trigger_error(\curl_error($curlHandle));
-
                 $size = 0;
             } else {
                 $size = \curl_getinfo($curlHandle, \CURLINFO_CONTENT_LENGTH_DOWNLOAD);
             }
-
             \curl_close($curlHandle);
-
             if ($size <= 0) {
                 return 0;
             }
-
             return self::convertFileSize($size);
         }
-
         return 0;
     }
 
@@ -449,11 +375,8 @@ class Utility extends Common\SysUtility
     {
         if ($size > 0) {
             $kb = 1024;
-
             $mb = 1024 * 1024;
-
             $gb = 1024 * 1024 * 1024;
-
             if ($size >= $gb) {
                 $mysize = \sprintf('%01.2f', $size / $gb) . ' ' . 'G';
             } elseif ($size >= $mb) {
@@ -463,10 +386,8 @@ class Utility extends Common\SysUtility
             } else {
                 $mysize = \sprintf('%01.2f', $size) . ' ' . 'B';
             }
-
             return $mysize;
         }
-
         return '';
     }
 

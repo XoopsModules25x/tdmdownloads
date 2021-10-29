@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -41,10 +43,7 @@ use XoopsModules\Tdmdownloads\{
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-
 //class FineImpUploadHandler extends \SystemFineUploadHandler
-
 
 /**
  * Class FineimpuploadHandler
@@ -55,62 +54,50 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     /**
      * @var int
      */
-
     private $permUseralbum = 0;
     /**
      * @var int
      */
-
     private $imageId = 0;
     /**
      * @var string
      */
-
     private $imageName = null;
     /**
      * @var string
      */
-
     private $imageNameLarge = null;
     /**
      * @var string
      */
-
     private $imageNicename = null;
     /**
      * @var string
      */
-
     private $imagePath = null;
     /**
      * @var string
      */
-
     private $imageNameOrig = null;
     /**
      * @var string
      */
-
     private $imageMimetype = null;
     /**
      * @var int
      */
-
     private $imageSize = 0;
     /**
      * @var int
      */
-
     private $imageWidth = 0;
     /**
      * @var int
      */
-
     private $imageHeight = 0;
     /**
      * @var string
      */
-
     private $pathUpload = null;
 
     /**
@@ -120,9 +107,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     public function __construct(\stdClass $claims)
     {
         parent::__construct($claims);
-
-        $this->allowedMimeTypes = ['image/gif', 'image/jpeg', 'image/png', 'application/zip'];
-
+        $this->allowedMimeTypes  = ['image/gif', 'image/jpeg', 'image/png', 'application/zip'];
         $this->allowedExtensions = ['gif', 'jpeg', 'jpg', 'png', 'zip'];
     }
 
@@ -134,136 +119,85 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
      */
     protected function storeUploadedFile($target, $mimeType, $uid)
     {
-        $moduleDirName = \basename(dirname(__DIR__, 2));
-
+        $moduleDirName      = \basename(dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
         require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
-
         $this->pathUpload = \constant($moduleDirNameUpper . '_' . 'UPLOAD_IMAGE_PATH');
-
-        $utility = new Utility();
-
+        $utility          = new Utility();
         /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-
         $helper = Helper::getInstance();
-
         //        if ( WGGALLERY_PERM_SUBMITAPPR === $permissionsHandler->permGlobalSubmit()) {
-
         //            $this->permUseralbum = WGGALLERY_STATE_APPROVAL_VAL;
-
         //        } else {
-
         //            $this->permUseralbum = WGGALLERY_STATE_ONLINE_VAL;
-
         //        }
-
-        $this->permUseralbum = 1; //TODO: handle an option, whether images should be online immediately or not
-
-        $pathParts = \pathinfo($this->getName());
-
-        $this->imageName = \uniqid('img', true) . '.' . \mb_strtolower($pathParts['extension']);
-
-        $this->imageNicename = \str_replace(['_', '-'], ' ', $pathParts['filename']);
-
+        $this->permUseralbum  = 1; //TODO: handle an option, whether images should be online immediately or not
+        $pathParts            = \pathinfo($this->getName());
+        $this->imageName      = \uniqid('img', true) . '.' . \mb_strtolower($pathParts['extension']);
+        $this->imageNicename  = \str_replace(['_', '-'], ' ', $pathParts['filename']);
         $this->imageNameLarge = \uniqid('imgl', true) . '.' . \mb_strtolower($pathParts['extension']);
-
-        $this->imagePath = $this->pathUpload . '/large/' . $this->imageNameLarge;
-
+        $this->imagePath      = $this->pathUpload . '/large/' . $this->imageNameLarge;
         if (!\move_uploaded_file($_FILES[$this->inputName]['tmp_name'], $this->imagePath)) {
             return false;
         }
-
         $this->imageNameOrig = $_FILES[$this->inputName]['name'];
-
         $this->imageMimetype = $_FILES[$this->inputName]['type'];
-
-        $this->imageSize = $_FILES[$this->inputName]['size'];
-
-        $ret = $this->handleImageDB();
-
+        $this->imageSize     = $_FILES[$this->inputName]['size'];
+        $ret                 = $this->handleImageDB();
         if (!$ret) {
             return [
                 'error' => \sprintf(\_FAILSAVEIMG, $this->imageNicename),
             ];
         }
-
         // load watermark settings
-
-        $albumObj = $albumsHandler->get($this->claims->cat);
-
-        $wmId = $albumObj->getVar('alb_wmid');
-
+        $albumObj  = $albumsHandler->get($this->claims->cat);
+        $wmId      = $albumObj->getVar('alb_wmid');
         $wmTargetM = false;
-
         $wmTargetL = false;
-
         if ($wmId > 0) {
             $watermarksObj = $watermarksHandler->get($wmId);
-
-            $wmTarget = $watermarksObj->getVar('wm_target');
-
+            $wmTarget      = $watermarksObj->getVar('wm_target');
             if (\constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || \constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_M') === $wmTarget) {
                 $wmTargetM = true;
             }
-
             if (\constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_A') === $wmTarget || \constant($moduleDirNameUpper . '_' . 'WATERMARK_TARGET_L') === $wmTarget) {
                 $wmTargetL = true;
             }
         }
-
         // create medium image
-
         // $ret = $this->resizeImage($this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'));
-
         $ret = $utility->resizeImage($this->imagePath, $this->pathUpload . '/medium/' . $this->imageName, $helper->getConfig('maxwidth_medium'), $helper->getConfig('maxheight_medium'), $this->imageMimetype);
-
         if (false === $ret) {
             return ['error' => \sprintf(\constant($moduleDirNameUpper . '_' . 'FAILSAVEIMG_MEDIUM'), $this->imageNicename)];
         }
-
         if ('copy' === $ret) {
             \copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/medium/' . $this->imageName);
         }
-
         // create thumb
-
         // $ret = $this->resizeImage($this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'));
-
         $ret = $utility->resizeImage($this->imagePath, $this->pathUpload . '/thumbs/' . $this->imageName, $helper->getConfig('maxwidth_thumbs'), $helper->getConfig('maxheight_thumbs'), $this->imageMimetype);
-
         if (false === $ret) {
             return ['error' => \sprintf(\constant($moduleDirNameUpper . '_' . 'FAILSAVEIMG_THUMBS'), $this->imageNicename)];
         }
-
         if ('copy' === $ret) {
             \copy($this->pathUpload . '/large/' . $this->imageNameLarge, $this->pathUpload . '/thumbs/' . $this->imageName);
         }
-
         // add watermark to large image
-
         if ($wmTargetL) {
             $imgWm = $this->pathUpload . '/large/' . $this->imageNameLarge;
-
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
-
             if (true !== $resWm) {
                 return ['error' => \sprintf(\constant($moduleDirNameUpper . '_' . 'FAILSAVEWM_LARGE'), $this->imageNicename, $resWm)];
             }
         }
-
         // add watermark to medium image
-
         if ($wmTargetM) {
             $imgWm = $this->pathUpload . '/medium/' . $this->imageName;
-
             $resWm = $watermarksHandler->watermarkImage($wmId, $imgWm, $imgWm);
-
             if (true !== $resWm) {
                 return ['error' => \sprintf(\constant($moduleDirNameUpper . '_' . 'FAILSAVEWM_MEDIUM'), $this->imageNicename, $resWm)];
             }
         }
-
         return ['success' => true, 'uuid' => $uuid];
     }
 
@@ -273,59 +207,33 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
     private function handleImageDB()
     {
         $moduleDirName = \basename(dirname(__DIR__, 2));
-
         require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/header.php';
-
         global $xoopsUser;
-
         $this->getImageDim();
-
-        $helper = Helper::getInstance();
-
+        $helper        = Helper::getInstance();
         $imagesHandler = $helper->getHandler('Images');
-
-//        $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
-
+        //        $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
         $imagesObj = $imagesHandler->create();
-
         // Set Vars
-
         $imagesObj->setVar('img_title', $this->imageNicename);
-
         $imagesObj->setVar('img_desc', '');
-
         $imagesObj->setVar('img_name', $this->imageName);
-
         $imagesObj->setVar('img_namelarge', $this->imageNameLarge);
-
         $imagesObj->setVar('img_nameorig', $this->imageNameOrig);
-
         $imagesObj->setVar('img_mimetype', $this->imageMimetype);
-
         $imagesObj->setVar('img_size', $this->imageSize);
-
         $imagesObj->setVar('img_resx', $this->imageWidth);
-
         $imagesObj->setVar('img_resy', $this->imageHeight);
-
         $imagesObj->setVar('img_albid', $this->claims->cat);
-
         $imagesObj->setVar('img_state', $this->permUseralbum);
-
         $imagesObj->setVar('img_date', \time());
-
         $imagesObj->setVar('img_submitter', $xoopsUser->id());
-
         $imagesObj->setVar('img_ip', $_SERVER['REMOTE_ADDR']);
-
         // Insert Data
-
         if ($imagesHandler->insert($imagesObj)) {
             $this->imageId = $imagesHandler->getInsertId();
-
             return true;
         }
-
         return false;
     }
 
@@ -352,16 +260,11 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
             default:
                 $this->imageWidth  = 0;
                 $this->imageHeight = 0;
-
                 return 'Unsupported format';
         }
-
-        $this->imageWidth = \imagesx($img);
-
+        $this->imageWidth  = \imagesx($img);
         $this->imageHeight = \imagesy($img);
-
         \imagedestroy($img);
-
         return true;
     }
 }

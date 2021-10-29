@@ -1,14 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use XoopsModules\Tdmdownloads\Helper;
 
 $moduleDirName      = basename(dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
 $helper = Helper::getInstance();
 $helper->loadLanguage('common');
-
 // extra module configs
 $modversion['config'][] = [
     'name'        => 'imageConfigs',
@@ -18,7 +18,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'imageWidth',
     'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WIDTH',
@@ -27,7 +26,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1200,
 ]; // =1024/16
-
 $modversion['config'][] = [
     'name'        => 'imageHeight',
     'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_HEIGHT',
@@ -36,7 +34,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 800,
 ]; // =768/16
-
 $modversion['config'][] = [
     'name'        => 'imageUploadPath',
     'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'IMAGE_UPLOAD_PATH',

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -19,18 +21,13 @@ use Xmf\Module\Admin;
 use XoopsModules\Tdmdownloads\Helper;
 
 require __DIR__ . '/admin_header.php';
-
 xoops_cp_header();
 require_once $GLOBALS['xoops']->path('www/class/xoopsform/grouppermform.php');
-
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
-$helper = Helper::getInstance();
-
-$adminObject = Admin::getInstance();
-
+$helper       = Helper::getInstance();
+$adminObject  = Admin::getInstance();
 $templateMain = 'tdmdownloads_admin_permissions.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation(basename(__FILE__)));
-
 $permission = \Xmf\Request::getInt('permission', 1, 'POST');
 $tab_perm   = [
     1 => _AM_TDMDOWNLOADS_PERM_VIEW,
@@ -38,7 +35,6 @@ $tab_perm   = [
     3 => _AM_TDMDOWNLOADS_PERM_DOWNLOAD,
     4 => _AM_TDMDOWNLOADS_PERM_AUTRES,
 ];
-
 xoops_load('XoopsFormLoader');
 $permTableForm = new \XoopsSimpleForm('', 'fselperm', 'permissions.php', 'post');
 $formSelect    = new \XoopsFormSelect('', 'permission', $permission);
@@ -48,9 +44,7 @@ foreach (array_keys($tab_perm) as $i) {
 }
 $permTableForm->addElement($formSelect);
 $GLOBALS['xoopsTpl']->assign('form_select', $permTableForm->render());
-
 $moduleId = $xoopsModule->getVar('mid');
-
 switch ($permission) {
     case 1:    // View permission
         $formTitle             = _AM_TDMDOWNLOADS_PERM_VIEW;
@@ -66,12 +60,10 @@ switch ($permission) {
         $formTitle = _AM_TDMDOWNLOADS_PERM_DOWNLOAD;
         if (1 == $helper->getConfig('permission_download')) {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC;
-
-            $permissionName = 'tdmdownloads_download';
+            $permissionName        = 'tdmdownloads_download';
         } else {
             $permissionDescription = _AM_TDMDOWNLOADS_PERM_DOWNLOAD_DSC2;
-
-            $permissionName = 'tdmdownloads_download_item';
+            $permissionName        = 'tdmdownloads_download_item';
         }
         break;
     case 4:
@@ -87,7 +79,6 @@ switch ($permission) {
         ];
         break;
 }
-
 $permissionsForm = new \XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/permissions.php');
 if (4 === $permission) {
     foreach ($global_perms_array as $perm_id => $permissionName) {
@@ -95,20 +86,16 @@ if (4 === $permission) {
     }
 } else {
     if (3 === $permission && 2 === $helper->getConfig('permission_download')) {
-        $sql = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
-
+        $sql    = 'SELECT lid, cid, title FROM ' . $xoopsDB->prefix('tdmdownloads_downloads') . ' ORDER BY title';
         $result = $xoopsDB->query($sql);
-
         if ($result instanceof \mysqli_result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['lid'], $row['title']);
             }
         }
     } else {
-        $sql = 'SELECT cat_cid, cat_pid, cat_title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' ORDER BY cat_title';
-
+        $sql    = 'SELECT cat_cid, cat_pid, cat_title FROM ' . $xoopsDB->prefix('tdmdownloads_cat') . ' ORDER BY cat_title';
         $result = $xoopsDB->query($sql);
-
         if ($result instanceof \mysqli_result) {
             while (false !== ($row = $xoopsDB->fetchArray($result))) {
                 $permissionsForm->addItem($row['cat_cid'], $row['cat_title'], $row['cat_pid']);
@@ -116,14 +103,11 @@ if (4 === $permission) {
         }
     }
 }
-
 if ($categoryHandler->getCount()) {
     $GLOBALS['xoopsTpl']->assign('form_permissions', $permissionsForm->render());
 } else {
     redirect_header('category.php', 2, _AM_TDMDOWNLOADS_NOPERMSSET, false);
 }
-
 echo "<br><br><br><br>\n";
 unset($permissionsForm);
-
 require __DIR__ . '/admin_footer.php';

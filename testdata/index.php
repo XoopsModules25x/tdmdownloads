@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * You may not change or alter any portion of this comment or credits
@@ -23,22 +25,18 @@ use XoopsModules\Tdmdownloads\{
     Common\Configurator,
     Utility
 };
+
 /** @var Helper $helper */
 /** @var Utility $utility */
 /** @var Configurator $configurator */
-
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
-
-$op = Request::getCmd('op', '');
-
-$moduleDirName = \basename(\dirname(__DIR__));
+$op                 = Request::getCmd('op', '');
+$moduleDirName      = \basename(\dirname(__DIR__));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
-$helper = Helper::getInstance();
+$helper             = Helper::getInstance();
 // Load language files
 $helper->loadLanguage('common');
-
 switch ($op) {
     case 'load':
         if (Request::hasVar('ok', 'REQUEST') && 1 === Request::getInt('ok', 0)) {
@@ -59,38 +57,30 @@ switch ($op) {
         clearSampleData();
         break;
 }
-
 // XMF TableLoad for SAMPLE data
-
 function loadSampleData()
 {
     global $xoopsConfig;
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
-    $utility      = new Utility();
-    $configurator = new Configurator();
-
-    $tables = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
-
-    $language = 'english/';
+    $utility            = new Utility();
+    $configurator       = new Configurator();
+    $tables             = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
+    $language           = 'english/';
     if (\is_dir(__DIR__ . '/' . $xoopsConfig['language'])) {
         $language = $xoopsConfig['language'] . '/';
     }
-
     // load module tables
     foreach ($tables as $table) {
         $tabledata = Yaml::readWrapped($language . $table . '.yml');
         TableLoad::truncateTable($table);
         TableLoad::loadTableFromArray($table, $tabledata);
     }
-
     // load permissions
     $table     = 'group_permission';
     $tabledata = Yaml::readWrapped($language . $table . '.yml');
     $mid       = \Xmf\Module\Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
-
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
         //        $file =  dirname(__DIR__) . '/testdata/images/';
@@ -110,26 +100,22 @@ function saveSampleData()
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
     $helper             = Helper::getInstance();
     $tables             = $helper->getModule()->getInfo('tables');
-
-    $languageFolder = __DIR__ . '/' . $xoopsConfig['language'];
+    $languageFolder     = __DIR__ . '/' . $xoopsConfig['language'];
     if (!\file_exists($languageFolder . '/')) {
         Utility::createFolder($languageFolder . '/');
     }
     $exportFolder = $languageFolder . '/Exports-' . date('Y-m-d-H-i-s') . '/';
     Utility::createFolder($exportFolder);
-
     // save module tables
     foreach ($tables as $table) {
         TableLoad::saveTableToYamlFile($table, $exportFolder . $table . '.yml');
     }
-
     // save permissions
     $criteria = new \CriteriaCompo();
     $criteria->add(new \Criteria('gperm_modid', $helper->getModule()->getVar('mid')));
     $skipColumns[] = 'gperm_id';
     TableLoad::saveTableToYamlFile('group_permission', $exportFolder . 'group_permission.yml', $criteria, $skipColumns);
     unset($criteria);
-
     \redirect_header('../admin/index.php', 1, \constant('CO_' . $moduleDirNameUpper . '_' . 'SAVE_SAMPLEDATA_SUCCESS'));
 }
 
@@ -137,7 +123,6 @@ function exportSchema()
 {
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
     try {
         // TODO set exportSchema
         //        $migrate = new Migrate($moduleDirName);
@@ -164,15 +149,11 @@ function exportSchema()
 function loadTableFromArrayWithReplace($table, $data, $search, $replace)
 {
     /** @var \XoopsMySQLDatabase $db */
-    $db = \XoopsDatabaseFactory::getDatabaseConnection();
-
+    $db            = \XoopsDatabaseFactory::getDatabaseConnection();
     $prefixedTable = $db->prefix($table);
     $count         = 0;
-
-    $sql = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);
-
-    $result = $db->queryF($sql);
-
+    $sql           = 'DELETE FROM ' . $prefixedTable . ' WHERE `' . $search . '`=' . $db->quote($replace);
+    $result        = $db->queryF($sql);
     if ($result) {
         foreach ($data as $row) {
             $insertInto  = 'INSERT INTO ' . $prefixedTable . ' (';
@@ -185,7 +166,6 @@ function loadTableFromArrayWithReplace($table, $data, $search, $replace)
                     $insertInto  .= ', ';
                     $valueClause .= ', ';
                 }
-
                 $insertInto .= $column;
                 if ($search === $column) {
                     $valueClause .= $db->quote($replace);
@@ -193,9 +173,7 @@ function loadTableFromArrayWithReplace($table, $data, $search, $replace)
                     $valueClause .= $db->quote($value);
                 }
             }
-
-            $sql = $insertInto . ') ' . $valueClause . ')';
-
+            $sql    = $insertInto . ') ' . $valueClause . ')';
             $result = $db->queryF($sql);
             if (false !== $result) {
                 ++$count;

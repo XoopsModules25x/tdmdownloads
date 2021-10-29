@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * TDMDownload
@@ -20,30 +22,23 @@ use XoopsModules\Tdmdownloads\{
     Utility
 };
 use Xmf\Module\Helper\Permission;
+
 /** @var \Xmf\Module\Helper\Permission $permHelper */
 /** @var Helper $helper */
 /** @var Utility $utility */
-
 require dirname(__DIR__, 2) . '/mainfile.php';
-
 $moduleDirName      = basename(__DIR__);
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-
 //require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 //require_once XOOPS_ROOT_PATH . '/class/tree.php';
 //require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
-
-$helper = Helper::getInstance();
-
+$helper     = Helper::getInstance();
 $permHelper = new Permission();
-
 $modulePath = XOOPS_ROOT_PATH . '/modules/' . $moduleDirName;
 require __DIR__ . '/include/common.php';
 $myts = \MyTextSanitizer::getInstance();
-
 //require_once XOOPS_ROOT_PATH . '/modules/' . $moduleDirName . '/include/functions.php';
-
 //permission
 /** @var \XoopsGroupPermHandler $grouppermHandler */
 $grouppermHandler = xoops_getHandler('groupperm');
@@ -51,23 +46,18 @@ $groups           = XOOPS_GROUP_ANONYMOUS;
 if (is_object($xoopsUser)) {
     $groups = $xoopsUser->getGroups();
 }
-
 // Load language files
 $helper->loadLanguage('main');
 $helper->loadLanguage('admin');
-
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require $GLOBALS['xoops']->path('class/template.php');
-
     $xoopsTpl = new \XoopsTpl();
 }
-
 $perm_submit      = $grouppermHandler->checkRight('tdmdownloads_ac', 4, $groups, $xoopsModule->getVar('mid'));
 $perm_modif       = $grouppermHandler->checkRight('tdmdownloads_ac', 8, $groups, $xoopsModule->getVar('mid'));
 $perm_vote        = $grouppermHandler->checkRight('tdmdownloads_ac', 16, $groups, $xoopsModule->getVar('mid'));
 $perm_upload      = $grouppermHandler->checkRight('tdmdownloads_ac', 32, $groups, $xoopsModule->getVar('mid'));
 $perm_autoapprove = $grouppermHandler->checkRight('tdmdownloads_ac', 64, $groups, $xoopsModule->getVar('mid'));
-
 //paramètres:
 // pour les images des catégories:
 $uploaddir = XOOPS_ROOT_PATH . '/uploads/' . $moduleDirName . '/images/cats/';

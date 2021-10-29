@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownloads
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // index.php
 define('_MD_TDMDOWNLOADS_INDEX_BLDATE', 'Téléchargements récents :');
 define('_MD_TDMDOWNLOADS_INDEX_BLNAME', 'Résumé');

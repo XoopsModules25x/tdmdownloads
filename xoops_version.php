@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownload
  *
@@ -15,16 +16,13 @@
  * @author      Gregory Mage (Aka Mage)
  */
 defined('XOOPS_ROOT_PATH') || exit('Restricted access');
-
 require_once __DIR__ . '/preloads/autoloader.php';
-
 $moduleDirName = basename(__DIR__);
 xoops_load('xoopseditorhandler');
 $editorHandler = \XoopsEditorHandler::getInstance();
 $xoopsUrl      = parse_url(XOOPS_URL);
 $utility       = new \XoopsModules\Tdmdownloads\Utility();
-
-$modversion = [
+$modversion    = [
     'name'                => _MI_TDMDOWNLOADS_NAME,
     'version'             => '2.1.0',
     'module_status'       => 'Beta 1',
@@ -59,7 +57,6 @@ $modversion = [
     'adminmenu'           => 'admin/menu.php',
     // ------------------- Mysql -------------------
     'sqlfile'             => ['mysql' => 'sql/mysql.sql'],
-
     // ------------------- Tables -------------------
     'tables'              => [
         $moduleDirName . '_broken',
@@ -72,7 +69,6 @@ $modversion = [
         $moduleDirName . '_modfielddata',
         $moduleDirName . '_downlimit',
     ],
-
     // ------------------- Menu -------------------
     'hasMain'             => 1,
     'sub'                 => [
@@ -86,16 +82,13 @@ $modversion = [
         ],
     ],
     // ------------------- Search -------------------
-
-    'hasSearch' => 1,
-    'search'    => [
+    'hasSearch'           => 1,
+    'search'              => [
         'file' => 'include/search.inc.php',
         'func' => 'tdmdownloads_search',
     ],
 ];
-
 // Pour les blocs
-
 $modversion['blocks'][] = [
     'file'        => 'tdmdownloads_top.php',
     'name'        => _MI_TDMDOWNLOADS_BNAME1,
@@ -105,7 +98,6 @@ $modversion['blocks'][] = [
     'options'     => 'date|10|19|1|1|1|left|90|400|0',
     'template'    => $moduleDirName . '_block_new.tpl',
 ];
-
 $modversion['blocks'][] = [
     'file'        => 'tdmdownloads_top.php',
     'name'        => _MI_TDMDOWNLOADS_BNAME2,
@@ -115,7 +107,6 @@ $modversion['blocks'][] = [
     'options'     => 'hits|10|19|1|1|1|left|90|400|0',
     'template'    => $moduleDirName . '_block_top.tpl',
 ];
-
 $modversion['blocks'][] = [
     'file'        => 'tdmdownloads_top.php',
     'name'        => _MI_TDMDOWNLOADS_BNAME3,
@@ -125,7 +116,6 @@ $modversion['blocks'][] = [
     'options'     => 'rating|10|19|1|1|1|left|90|400|0',
     'template'    => $moduleDirName . '_block_rating.tpl',
 ];
-
 $modversion['blocks'][] = [
     'file'        => 'tdmdownloads_top.php',
     'name'        => _MI_TDMDOWNLOADS_BNAME4,
@@ -135,7 +125,6 @@ $modversion['blocks'][] = [
     'options'     => 'random|10|19|1|1|1|left|90|400|0',
     'template'    => $moduleDirName . '_block_random.tpl',
 ];
-
 $modversion['blocks'][] = [
     'file'        => 'tdmdownloads_search.php',
     'name'        => _MI_TDMDOWNLOADS_BNAME5,
@@ -145,7 +134,6 @@ $modversion['blocks'][] = [
     'options'     => '',
     'template'    => $moduleDirName . '_block_search.tpl',
 ];
-
 // Commentaires
 $modversion['hasComments']                     = 1;
 $modversion['comments']['itemName']            = 'lid';
@@ -154,7 +142,6 @@ $modversion['comments']['extraParams']         = ['cid'];
 $modversion['comments']['callbackFile']        = 'include/comment_functions.php';
 $modversion['comments']['callback']['approve'] = 'tdmdownloads_com_approve';
 $modversion['comments']['callback']['update']  = 'tdmdownloads_com_update';
-
 // Templates
 $modversion['templates'] = [
     // Admin
@@ -190,7 +177,6 @@ $modversion['templates'] = [
     ['file' => $moduleDirName . '_footer.tpl', 'description' => ''],
     ['file' => $moduleDirName . '_breadcrumbs.tpl', 'description' => ''],
 ];
-
 // ------------------- Help files ------------------- //
 $modversion['helpsection'] = [
     ['name' => _MI_TDMDOWNLOADS_OVERVIEW, 'link' => 'page=help'],
@@ -198,7 +184,6 @@ $modversion['helpsection'] = [
     ['name' => _MI_TDMDOWNLOADS_LICENSE, 'link' => 'page=license'],
     ['name' => _MI_TDMDOWNLOADS_SUPPORT, 'link' => 'page=support'],
 ];
-
 // Préférences
 $modversion['config'][] = [
     'name'        => 'break',
@@ -208,7 +193,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'popular',
     'title'       => '_MI_TDMDOWNLOADS_POPULAR',
@@ -217,7 +201,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 100,
 ];
-
 $modversion['config'][] = [
     'name'        => 'autosummary',
     'title'       => '_MI_TDMDOWNLOADS_AUTO_SUMMARY',
@@ -226,7 +209,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 $modversion['config'][] = [
     'name'        => 'showupdated',
     'title'       => '_MI_TDMDOWNLOADS_SHOW_UPDATED',
@@ -235,7 +217,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'useshots',
     'title'       => '_MI_TDMDOWNLOADS_USESHOTS',
@@ -244,7 +225,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'shotwidth',
     'title'       => '_MI_TDMDOWNLOADS_SHOTWIDTH',
@@ -253,7 +233,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 90,
 ];
-
 $modversion['config'][] = [
     'name'        => 'img_float',
     'title'       => '_MI_TDMDOWNLOADS_IMGFLOAT',
@@ -263,7 +242,6 @@ $modversion['config'][] = [
     'default'     => 'left',
     'options'     => [_MI_TDMDOWNLOADS_IMGFLOAT_LEFT => 'left', _MI_TDMDOWNLOADS_IMGFLOAT_RIGHT => 'Aaright'],
 ];
-
 $modversion['config'][] = [
     'name'        => 'platform',
     'title'       => '_MI_TDMDOWNLOADS_PLATEFORM',
@@ -272,7 +250,6 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => 'None|XOOPS 2.0.x|XOOPS 2.2.x|XOOPS 2.3.x|XOOPS 2.4.x|XOOPS 2.5.x|XOOPS 2.6.x|Other',
 ];
-
 $modversion['config'][] = [
     'name'        => 'usetellafriend',
     'title'       => '_MI_TDMDOWNLOADS_USETELLAFRIEND',
@@ -281,7 +258,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 $modversion['config'][] = [
     'name'        => 'usetag',
     'title'       => '_MI_TDMDOWNLOADS_USETAG',
@@ -290,10 +266,8 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 //xoops_load('xoopseditorhandler');
 //$editorHandler = \XoopsEditorHandler::getInstance();
-
 $modversion['config'][] = [
     'name'        => 'editor',
     'title'       => '_MI_TDMDOWNLOADS_FORM_OPTIONS',
@@ -303,7 +277,6 @@ $modversion['config'][] = [
     'default'     => 'dhtmltextarea',
     'options'     => array_flip($editorHandler->getList()),
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER',
@@ -312,7 +285,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'perpage',
     'title'       => '_MI_TDMDOWNLOADS_PERPAGE',
@@ -321,7 +293,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 10,
 ];
-
 $modversion['config'][] = [
     'name'        => 'nb_dowcol',
     'title'       => '_MI_TDMDOWNLOADS_NBDOWCOL',
@@ -331,7 +302,6 @@ $modversion['config'][] = [
     'default'     => 1,
     'options'     => ['1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5],
 ];
-
 $modversion['config'][] = [
     'name'        => 'newdownloads',
     'title'       => '_MI_TDMDOWNLOADS_NEWDLS',
@@ -340,7 +310,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 10,
 ];
-
 $modversion['config'][] = [
     'name'        => 'toporder',
     'title'       => '_MI_TDMDOWNLOADS_TOPORDER',
@@ -359,7 +328,6 @@ $modversion['config'][] = [
         '_MI_TDMDOWNLOADS_TOPORDER8' => 8,
     ],
 ];
-
 $modversion['config'][] = [
     'name'        => 'perpageliste',
     'title'       => '_MI_TDMDOWNLOADS_PERPAGELISTE',
@@ -368,7 +336,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 15,
 ];
-
 $modversion['config'][] = [
     'name'        => 'searchorder',
     'title'       => '_MI_TDMDOWNLOADS_SEARCHORDER',
@@ -387,7 +354,6 @@ $modversion['config'][] = [
         '_MI_TDMDOWNLOADS_TOPORDER8' => 8,
     ],
 ];
-
 $modversion['config'][] = [
     'name'        => 'nbsouscat',
     'title'       => '_MI_TDMDOWNLOADS_SUBCATPARENT',
@@ -396,7 +362,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 5,
 ];
-
 $modversion['config'][] = [
     'name'        => 'nb_catcol',
     'title'       => '_MI_TDMDOWNLOADS_NBCATCOL',
@@ -406,7 +371,6 @@ $modversion['config'][] = [
     'default'     => 3,
     'options'     => ['1' => 1, '2' => 2, '3' => 3, '4' => 4, '5' => 5],
 ];
-
 $modversion['config'][] = [
     'name'        => 'bldate',
     'title'       => '_MI_TDMDOWNLOADS_BLDATE',
@@ -415,7 +379,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'blpop',
     'title'       => '_MI_TDMDOWNLOADS_BLPOP',
@@ -424,7 +387,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'blrating',
     'title'       => '_MI_TDMDOWNLOADS_BLRATING',
@@ -433,7 +395,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'nbbl',
     'title'       => '_MI_TDMDOWNLOADS_NBBL',
@@ -442,7 +403,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 5,
 ];
-
 $modversion['config'][] = [
     'name'        => 'longbl',
     'title'       => '_MI_TDMDOWNLOADS_LONGBL',
@@ -451,7 +411,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 20,
 ];
-
 $modversion['config'][] = [
     'name'        => 'show_bookmark',
     'title'       => '_MI_TDMDOWNLOADS_BOOKMARK',
@@ -460,7 +419,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'show_social',
     'title'       => '_MI_TDMDOWNLOADS_SOCIAL',
@@ -469,7 +427,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'download_float',
     'title'       => '_MI_TDMDOWNLOADS_DOWNLOADFLOAT',
@@ -479,7 +436,6 @@ $modversion['config'][] = [
     'default'     => 'ltr',
     'options'     => [_MI_TDMDOWNLOADS_DOWNLOADFLOAT_LTR => 'ltr', _MI_TDMDOWNLOADS_DOWNLOADFLOAT_RTL => 'rtl'],
 ];
-
 $modversion['config'][] = [
     'name'        => 'show_latest_files',
     'title'       => '_MI_TDMDOWNLOADS_SHOW_LATEST_FILES',
@@ -488,7 +444,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN',
@@ -497,7 +452,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'perpageadmin',
     'title'       => '_MI_TDMDOWNLOADS_PERPAGEADMIN',
@@ -506,7 +460,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 15,
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS',
@@ -515,7 +468,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'permission_download',
     'title'       => '_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD',
@@ -525,7 +477,6 @@ $modversion['config'][] = [
     'default'     => 1,
     'options'     => ['_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD1' => 1, '_MI_TDMDOWNLOADS_PERMISSIONDOWNLOAD2' => 2],
 ];
-
 $modversion['config'][] = [
     'name'        => 'newnamedownload',
     'title'       => '_MI_TDMDOWNLOADS_DOWNLOAD_NAME',
@@ -534,7 +485,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 $modversion['config'][] = [
     'name'        => 'prefixdownloads',
     'title'       => '_MI_TDMDOWNLOADS_DOWNLOAD_PREFIX',
@@ -543,10 +493,9 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => 'downloads_',
 ];
-
-$iniPostMaxSize       = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('post_max_size'));
-$iniUploadMaxFileSize = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('upload_max_filesize'));
-$maxSize              = min($iniPostMaxSize, $iniUploadMaxFileSize);
+$iniPostMaxSize         = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('post_max_size'));
+$iniUploadMaxFileSize   = \XoopsModules\Tdmdownloads\Utility::returnBytes(ini_get('upload_max_filesize'));
+$maxSize                = min($iniPostMaxSize, $iniUploadMaxFileSize);
 if ($maxSize > 10000 * 1048576) {
     $increment = 500;
 }
@@ -578,8 +527,7 @@ $optionMaxsize = [];
 $i             = $increment;
 while ($i * 1048576 <= $maxSize) {
     $optionMaxsize[$i . ' ' . _MI_TDMDOWNLOADS_MAXUPLOAD_SIZE_MB] = $i * 1048576;
-
-    $i += $increment;
+    $i                                                            += $increment;
 }
 $modversion['config'][] = [
     'name'        => 'maxuploadsize',
@@ -590,7 +538,6 @@ $modversion['config'][] = [
     'default'     => 1048576,
     'options'     => $optionMaxsize,
 ];
-
 $modversion['config'][] = [
     'name'        => 'mimetypes',
     'title'       => '_MI_TDMDOWNLOADS_MIMETYPE',
@@ -615,11 +562,9 @@ $modversion['config'][] = [
     ],
     'options'     => require $GLOBALS['xoops']->path('include/mimetypes.inc.php'),
 ];
-
 //---------------- picture -------------------------
 require_once __DIR__ . '/config/imageconfig.php';
 //---------------- picture -------------------------
-
 $modversion['config'][] = [
     'name'        => 'check_host',
     'title'       => '_MI_TDMDOWNLOADS_CHECKHOST',
@@ -628,7 +573,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 $xoopsUrl               = parse_url(XOOPS_URL);
 $modversion['config'][] = [
     'name'        => 'referers',
@@ -638,7 +582,6 @@ $modversion['config'][] = [
     'valuetype'   => 'array',
     'default'     => [$xoopsUrl['host']],
 ];
-
 $modversion['config'][] = [
     'name'        => 'downlimit',
     'title'       => '_MI_TDMDOWNLOADS_DOWNLIMIT',
@@ -647,7 +590,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 $modversion['config'][] = [
     'name'        => 'limitglobal',
     'title'       => '_MI_TDMDOWNLOADS_LIMITGLOBAL',
@@ -656,7 +598,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 10,
 ];
-
 $modversion['config'][] = [
     'name'        => 'limitlid',
     'title'       => '_MI_TDMDOWNLOADS_LIMITLID',
@@ -665,7 +606,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 2,
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL',
@@ -674,7 +614,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'use_paypal',
     'title'       => '_MI_TDMDOWNLOADS_USEPAYPAL',
@@ -683,7 +622,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 $modversion['config'][] = [
     'name'        => 'currency_paypal',
     'title'       => '_MI_TDMDOWNLOADS_CURRENCYPAYPAL',
@@ -716,7 +654,6 @@ $modversion['config'][] = [
         'USD' => 'USD',
     ],
 ];
-
 $modversion['config'][] = [
     'name'        => 'image_paypal',
     'title'       => '_MI_TDMDOWNLOADS_IMAGEPAYPAL',
@@ -725,7 +662,6 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => 'https://www.paypal.com/fr_FR/FR/i/btn/btn_donateCC_LG.gif',
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS',
@@ -734,7 +670,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 $modversion['config'][] = [
     'name'        => 'perpagerss',
     'title'       => '_MI_TDMDOWNLOADS_PERPAGERSS',
@@ -743,7 +678,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 10,
 ];
-
 $modversion['config'][] = [
     'name'        => 'timecacherss',
     'title'       => '_MI_TDMDOWNLOADS_TIMECACHERSS',
@@ -752,7 +686,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 60,
 ];
-
 $modversion['config'][] = [
     'name'        => 'logorss',
     'title'       => '_MI_TDMDOWNLOADS_LOGORSS',
@@ -761,7 +694,6 @@ $modversion['config'][] = [
     'valuetype'   => 'text',
     'default'     => '/modules/' . $moduleDirName . '/assets/images/mydl_slogo.png',
 ];
-
 $modversion['config'][] = [
     'name'        => 'break',
     'title'       => '_MI_TDMDOWNLOADS_CONFCAT_OTHERS',
@@ -770,7 +702,6 @@ $modversion['config'][] = [
     'valuetype'   => 'textbox',
     'default'     => 'head',
 ];
-
 /**
  * Make Sample button visible?
  */
@@ -782,7 +713,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 1,
 ];
-
 /**
  * Show Developer Tools?
  */
@@ -794,7 +724,6 @@ $modversion['config'][] = [
     'valuetype'   => 'int',
     'default'     => 0,
 ];
-
 // ------------------- Notifications -------------------
 $modversion['config'][]                    = [
     'name'        => 'break',
@@ -807,15 +736,13 @@ $modversion['config'][]                    = [
 $modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';
 $modversion['notification']['lookup_func'] = 'tdmdownloads_notify_iteminfo';
-
-$modversion['notification']['category'][] = [
+$modversion['notification']['category'][]  = [
     'name'           => 'global',
     'title'          => _MI_TDMDOWNLOADS_GLOBAL_NOTIFY,
     'description'    => _MI_TDMDOWNLOADS_GLOBAL_NOTIFYDSC,
     'subscribe_from' => ['index.php', 'viewcat.php', 'singlefile.php'],
 ];
-
-$modversion['notification']['category'][] = [
+$modversion['notification']['category'][]  = [
     'name'           => 'category',
     'title'          => _MI_TDMDOWNLOADS_CATEGORY_NOTIFY,
     'description'    => _MI_TDMDOWNLOADS_CATEGORY_NOTIFYDSC,
@@ -823,8 +750,7 @@ $modversion['notification']['category'][] = [
     'item_name'      => 'cid',
     'allow_bookmark' => 1,
 ];
-
-$modversion['notification']['category'][] = [
+$modversion['notification']['category'][]  = [
     'name'           => 'file',
     'title'          => _MI_TDMDOWNLOADS_FILE_NOTIFY,
     'description'    => _MI_TDMDOWNLOADS_FILE_NOTIFYDSC,
@@ -832,8 +758,7 @@ $modversion['notification']['category'][] = [
     'item_name'      => 'lid',
     'allow_bookmark' => 1,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'new_category',
     'category'      => 'global',
     'title'         => _MI_TDMDOWNLOADS_GLOBAL_NEWCATEGORY_NOTIFY,
@@ -842,8 +767,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_newcategory_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_GLOBAL_NEWCATEGORY_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'file_modify',
     'category'      => 'global',
     'admin_only'    => 1,
@@ -853,8 +777,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_filemodify_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_GLOBAL_FILEMODIFY_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'file_submit',
     'category'      => 'global',
     'admin_only'    => 1,
@@ -864,8 +787,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_filesubmit_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_GLOBAL_FILESUBMIT_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'file_broken',
     'category'      => 'global',
     'admin_only'    => 1,
@@ -875,8 +797,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_filebroken_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_GLOBAL_FILEBROKEN_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'new_file',
     'category'      => 'global',
     'title'         => _MI_TDMDOWNLOADS_GLOBAL_NEWFILE_NOTIFY,
@@ -885,8 +806,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'global_newfile_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_GLOBAL_NEWFILE_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'file_submit',
     'category'      => 'category',
     'admin_only'    => 1,
@@ -896,8 +816,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'category_filesubmit_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_CATEGORY_FILESUBMIT_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'new_file',
     'category'      => 'category',
     'title'         => _MI_TDMDOWNLOADS_CATEGORY_NEWFILE_NOTIFY,
@@ -906,8 +825,7 @@ $modversion['notification']['event'][] = [
     'mail_template' => 'category_newfile_notify',
     'mail_subject'  => _MI_TDMDOWNLOADS_CATEGORY_NEWFILE_NOTIFYSBJ,
 ];
-
-$modversion['notification']['event'][] = [
+$modversion['notification']['event'][]     = [
     'name'          => 'approve',
     'category'      => 'file',
     'invisible'     => 1,

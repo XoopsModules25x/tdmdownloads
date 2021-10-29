@@ -1,20 +1,16 @@
--
-    iddata: '1'
-    fid: '1'
-    lid: '2'
-    data: Any
--
-    iddata: '2'
-    fid: '1'
-    lid: '1'
-    data: Any
--
-    iddata: '4'
-    fid: '3'
-    lid: '1'
-    data: ''
--
-    iddata: '5'
-    fid: '3'
-    lid: '2'
-    data: '32'
+- iddata: '1'
+  fid: '1'
+  lid: '2'
+  data: Any
+- iddata: '2'
+  fid: '1'
+  lid: '1'
+  data: Any
+- iddata: '4'
+  fid: '3'
+  lid: '1'
+  data: ''
+- iddata: '5'
+  fid: '3'
+  lid: '2'
+  data: '32'

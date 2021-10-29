@@ -1,5 +1,6 @@
-<?php declare(strict_types=1);
+<?php
 
+declare(strict_types=1);
 /**
  * TDMDownloads
  *
@@ -14,7 +15,6 @@
  * @license     GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author      Gregory Mage (Aka Mage)
  */
-
 // Nom du module
 define('_MI_TDMDOWNLOADS_NAME', 'TDMDownloads');
 define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(__DIR__, 2)));
@@ -175,43 +175,32 @@ define('_MI_TDMDOWNLOADS_FILE_APPROVE_NOTIFYSBJ', '[{X_SITENAME}] {X_MODULE} not
 //1.62
 define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES', 'Afficher les derniers fichiers');
 define('_MI_TDMDOWNLOADS_SHOW_LATEST_FILES_DSC', 'Cela affichera les derniers fichiers côté utilisateur');
-
 //2.00
 //Help
 //define('_MI_TDMDOWNLOADS_DIRNAME', basename(dirname(dirname(__DIR__))));
 //define('_MI_TDMDOWNLOADS_HELP_HEADER', __DIR__.'/help/helpheader.tpl');
 define('_MI_TDMDOWNLOADS_BACK_2_ADMIN', 'Retour à l\'administration de ');
 define('_MI_TDMDOWNLOADS_OVERVIEW', 'Vue d\'ensemble');
-
 //define('_MI_TDMDOWNLOADS_HELP_DIR', __DIR__);
-
 //help multi-page
 define('_MI_TDMDOWNLOADS_DISCLAIMER', 'Avertissement');
 define('_MI_TDMDOWNLOADS_LICENSE', 'Licence');
 define('_MI_TDMDOWNLOADS_SUPPORT', 'Soutien');
-
 define('_MI_TDMDOWNLOADS_ADMENU_MIGRATE', 'Migratation');
 define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS', 'Afficher les boutons de développement?');
 define('_MI_TDMDOWNLOADS_SHOW_DEV_TOOLS_DESC', 'Si oui, l\'onglet "Migration" et d\'autres outils de développement seront visibles par l\'administrateur.');
-
 define('_MI_TDMDOWNLOADS_BLOCKS_ADMIN', 'Blocs');
-
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON', 'Afficher le bouton d\'échantillon??');
 define('_MI_TDMDOWNLOADS_SHOW_SAMPLE_BUTTON_DESC', 'Si c\'est le cas, le bouton "Ajouter des données d\'échantillon" sera visible par l\'administrateur. C\'est Oui par défaut pour la première installation.');
-
 define('_MI_TDMDOWNLOADS_MENU_HISTORY', 'Historique');
-
 //Categories:
-
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_GENERAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Général ---</span> ');
-
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_USER', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Utilisateur ---</span> ');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_ADMIN', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Administration ---</span> ');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_DOWNLOADS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Téléchargements ---</span> ');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_PAYPAL', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Paypal ---</span> ');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_RSS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- RSS ---</span> ');
 define('_MI_TDMDOWNLOADS_PREFERENCE_BREAK_COMNOTI', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- Commentaires et notifications ---</span> ');
-
 define('_MI_TDMDOWNLOADS_CONFCAT_SEO_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Préférences pour les méthodes de réécriture, les métadonnées, etc. ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Index et pages de catégories ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEXCAT_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
@@ -227,7 +216,6 @@ define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS', '<span style="color: #FF0000; font-siz
 define('_MI_TDMDOWNLOADS_CONFCAT_OTHERS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Permissions ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_PERMISSIONS_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
-
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEX', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Page d\'index ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_INDEX_DSC', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">--- ---</span> ');
 define('_MI_TDMDOWNLOADS_CONFCAT_SUBMIT', '<span style="color: #FF0000; font-size: Small;  font-weight: bold;">---Soumettre un article ---</span> ');

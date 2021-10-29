@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace XoopsModules\Tdmdownloads\Common;
 
@@ -45,9 +47,7 @@ class Configurator
      */
     public function __construct()
     {
-
-        $config = require \dirname(__DIR__, 2) . '/config/config.php';
-
+        $config                = require \dirname(__DIR__, 2) . '/config/config.php';
         $this->name            = $config->name;
         $this->paths           = $config->paths;
         $this->uploadFolders   = $config->uploadFolders;
@@ -60,9 +60,7 @@ class Configurator
         $this->renameColumns   = $config->renameColumns;
         $this->moduleStats     = $config->moduleStats;
         $this->modCopyright    = $config->modCopyright;
-
-        $this->icons = require \dirname(__DIR__, 2) . '/config/icons.php';
-        $this->paths = require \dirname(__DIR__, 2) . '/config/paths.php';
-
+        $this->icons           = require \dirname(__DIR__, 2) . '/config/icons.php';
+        $this->paths           = require \dirname(__DIR__, 2) . '/config/paths.php';
     }
 }
