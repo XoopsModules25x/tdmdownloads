@@ -20,15 +20,14 @@ use XoopsModules\Tdmdownloads\{
     Utility
 };
 use Xmf\Module\Helper\Permission;
-
+/** @var \Xmf\Module\Helper\Permission $permHelper */
 /** @var Helper $helper */
 /** @var Utility $utility */
-
 
 require dirname(__DIR__, 2) . '/mainfile.php';
 
 $moduleDirName      = basename(__DIR__);
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 //require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
 //require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';

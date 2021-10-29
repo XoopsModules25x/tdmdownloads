@@ -39,6 +39,7 @@ $myts = \MyTextSanitizer::getInstance();
 
 //On recupere la valeur de l'argument op dans l'URL$
 $op = \Xmf\Request::getCmd('op', 'list');
+$catId = \Xmf\Request::getInt('cat_cid', 0);
 
 // compte le nombre de téléchargement non validé
 $criteria = new \CriteriaCompo();

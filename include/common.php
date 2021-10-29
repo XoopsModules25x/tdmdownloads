@@ -26,7 +26,7 @@ use XoopsModules\Tdmdownloads\{
 require dirname(__DIR__) . '/preloads/autoloader.php';
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName); //$capsDirName
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName); //$capsDirName
 
 /** @var \XoopsDatabase $db */
 /** @var \XoopsModules\Tdmdownloads\Helper $helper */
@@ -51,8 +51,8 @@ $brokenHandler       = Helper::getInstance()->getHandler('Broken');
 $modifiedHandler     = Helper::getInstance()->getHandler('Modified');
 $modifieddataHandler = Helper::getInstance()->getHandler('Modifiedfielddata');
 
-$pathIcon16 = Admin::iconUrl('', 16);
-$pathIcon32 = Admin::iconUrl('', 32);
+$pathIcon16 = Admin::iconUrl('', '16');
+$pathIcon32 = Admin::iconUrl('', '32');
 
 if (!defined($moduleDirNameUpper . '_CONSTANTS_DEFINED')) {
     define($moduleDirNameUpper . '_DIRNAME', basename(dirname(__DIR__)));

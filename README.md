@@ -6,7 +6,6 @@
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/XoopsModules25x/tdmdownloads.svg?style=flat)](https://scrutinizer-ci.com/g/XoopsModules25x/tdmdownloads/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/95b12220e0ac4056b9af52af708379c9)](https://www.codacy.com/app/mambax7/tdmdownloads_2)
 [![Code Climate](https://img.shields.io/codeclimate/github/XoopsModules25x/tdmdownloads.svg?style=flat)](https://codeclimate.com/github/mambax7/tdmdownloads)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/68207475-07ff-4567-a282-6e2f119077d2/mini.png)](https://insight.sensiolabs.com/projects/68207475-07ff-4567-a282-6e2f119077d2)
 [![Latest Pre-Release](https://img.shields.io/github/tag/XoopsModules25x/tdmdownloads.svg?style=flat)](https://github.com/XoopsModules25x/tdmdownloads/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/tdmdownloads.svg?style=flat)](https://github.com/XoopsModules25x/tdmdownloads/releases/)
 

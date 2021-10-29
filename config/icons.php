@@ -2,11 +2,11 @@
 
 use Xmf\Module\Admin;
 
-$pathIcon16    = Admin::iconUrl('', 16);
+$pathIcon16    = Admin::iconUrl('', '16');
 $moduleDirName = basename(dirname(__DIR__));
 
 return (object)[
-    'name'  => mb_strtoupper($moduleDirName) . ' IconConfigurator',
+    'name'  => \mb_strtoupper($moduleDirName) . ' IconConfigurator',
     'icons' => [
         'edit'    => "<img src='" . $pathIcon16 . "/edit.png'  alt=" . _EDIT . "' align='middle'>",
         'delete'  => "<img src='" . $pathIcon16 . "/delete.png' alt='" . _DELETE . "' align='middle'>",

@@ -155,7 +155,7 @@ class SysUtility
         $sql    = 'SELECT COLUMN_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = "' . $table . '" AND COLUMN_NAME = "' . $columnName . '"';
         $result = $GLOBALS['xoopsDB']->query($sql);
         if (!$result) {
-            //            exit($GLOBALS['xoopsDB']->error());
+            //            trigger_error($GLOBALS['xoopsDB']->error());
             $logger     = \XoopsLogger::getInstance();
             $logger->handleError(\E_USER_WARNING, $sql, __FILE__, __LINE__);
             return false;
@@ -186,7 +186,7 @@ class SysUtility
         $sql       = "SELECT * FROM $table WHERE $idField='" . (int)$id . "' ";
         $tempTable = $GLOBALS['xoopsDB']->fetchArray($GLOBALS['xoopsDB']->query($sql), \MYSQLI_ASSOC);
         if (!$tempTable) {
-            exit($GLOBALS['xoopsDB']->error());
+            trigger_error($GLOBALS['xoopsDB']->error());
         }
         // set the auto-incremented id's value to blank.
         unset($tempTable[$idField]);
@@ -194,7 +194,7 @@ class SysUtility
         $sql    = "INSERT INTO $table (" . \implode(', ', \array_keys($tempTable)) . ") VALUES ('" . \implode("', '", \array_values($tempTable)) . "')";
         $result = $GLOBALS['xoopsDB']->queryF($sql);
         if (!$result) {
-            exit($GLOBALS['xoopsDB']->error());
+            trigger_error($GLOBALS['xoopsDB']->error());
         }
         // Return the new id
         return $GLOBALS['xoopsDB']->getInsertId();

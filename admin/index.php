@@ -32,7 +32,7 @@ require __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $moduleDirName      = basename(dirname(__DIR__));
-$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
 // Template Index
 $templateMain = 'tdmdownloads_admin_index.tpl';
@@ -105,7 +105,7 @@ $adminObject->displayNavigation(basename(__FILE__));
 
 //check for latest release
 //$newRelease = $utility->checkVerModule($helper);
-//if (!empty($newRelease)) {
+//if (null !== $newRelease) {
 //    $adminObject->addItemButton($newRelease[0], $newRelease[1], 'download', 'style="color : Red"');
 //}
 
