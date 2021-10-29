@@ -26,7 +26,7 @@ $utility       = new \XoopsModules\Tdmdownloads\Utility();
 
 $modversion = [
     'name'                => _MI_TDMDOWNLOADS_NAME,
-    'version'             => '2.01',
+    'version'             => '2.1.0',
     'module_status'       => 'Beta 1',
     'release_date'        => '2021/08/08',
     'description'         => _MI_TDMDOWNLOADS_DESC,
