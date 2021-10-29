@@ -16,7 +16,7 @@ use XoopsModules\Tdmdownloads\{
 /** @var Configurator $configurator */
 /** @var Migrate $migrator */
 if ((!defined('XOOPS_ROOT_PATH')) || !($GLOBALS['xoopsUser'] instanceof XoopsUser)
-    || !$GLOBALS['xoopsUser']->IsAdmin()) {
+    || !$GLOBALS['xoopsUser']->isAdmin()) {
     exit('Restricted access' . PHP_EOL);
 }
 /**
