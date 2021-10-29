@@ -90,21 +90,21 @@ class Helper extends \Xmf\Module\Helper
      * @param string $state
      * @return string text for state
      */
-    public function getStateText($state)
-    {
-        switch ($state) {
-            case Constants::STATE_ONLINE_VAL:
-                return _CO_WGGALLERY_STATE_ONLINE;
-                break;
-            case Constants::STATE_APPROVAL_VAL:
-                return _CO_WGGALLERY_STATE_APPROVAL;
-                break;
-            case Constants::STATE_OFFLINE_VAL:
-                return _CO_WGGALLERY_STATE_OFFLINE;
-                break;
-            default:
-                return 'invalid state in getStateText in Class/Helper.php'; //should never happen
-                break;
-        }
-    }
+//    public function getStateText($state)
+//    {
+//        switch ($state) {
+//            case Constants::STATE_ONLINE_VAL:
+//                return _CO_WGGALLERY_STATE_ONLINE;
+//                break;
+//            case Constants::STATE_APPROVAL_VAL:
+//                return _CO_WGGALLERY_STATE_APPROVAL;
+//                break;
+//            case Constants::STATE_OFFLINE_VAL:
+//                return _CO_WGGALLERY_STATE_OFFLINE;
+//                break;
+//            default:
+//                return 'invalid state in getStateText in Class/Helper.php'; //should never happen
+//                break;
+//        }
+//    }
 }
