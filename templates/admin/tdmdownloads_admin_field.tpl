@@ -3,7 +3,7 @@
 <{if $message_erreur|default:''}>
     <div class='errorMsg'><{$message_erreur}></div>
 <{/if}>
-<{if $fields_list}>
+<{if $fields_list|default:''}>
     <table class='table table-bordered'>
         <thead>
         <tr class='head'>
