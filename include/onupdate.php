@@ -92,7 +92,7 @@ function xoops_module_update_tdmdownloads(&$module, $prev_version = null)
  * @param $module
  * @return bool
  */
-function update_tdmdownloads_v201(&$module)
+function update_tdmdownloads_v201($module)
 {
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
