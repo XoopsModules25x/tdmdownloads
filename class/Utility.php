@@ -302,7 +302,7 @@ class Utility extends Common\SysUtility
      * Utility::convertSizeToString()
      *
      * @param mixed $sizeString
-     * @return mixed|string
+     * @return string
      */
     public static function convertSizeToString($sizeString)
     {
@@ -369,7 +369,7 @@ class Utility extends Common\SysUtility
      * Utility::convertFileSize()
      *
      * @param mixed $size
-     * @return mixed|string
+     * @return string
      */
     public static function convertFileSize($size)
     {

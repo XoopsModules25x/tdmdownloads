@@ -199,11 +199,11 @@ class SysUtility
      * @TODO: Refactor to consider HTML5 & void (self-closing) elements
      * @TODO: Consider using https://github.com/jlgrall/truncateHTML/blob/master/truncateHTML.php
      *
-     * @param string $text         String to truncate.
-     * @param int    $length       Length of returned string, including ellipsis.
-     * @param string $ending       Ending to be appended to the trimmed string.
-     * @param bool   $exact        If false, $text will not be cut mid-word
-     * @param bool   $considerHtml If true, HTML tags would be handled correctly
+     * @param string      $text         String to truncate.
+     * @param int|null    $length       Length of returned string, including ellipsis.
+     * @param string|null $ending       Ending to be appended to the trimmed string.
+     * @param bool        $exact        If false, $text will not be cut mid-word
+     * @param bool        $considerHtml If true, HTML tags would be handled correctly
      *
      * @return string Trimmed string.
      */
@@ -305,8 +305,8 @@ class SysUtility
     /**
      * Get correct text editor based on user rights
      *
-     * @param \Xmf\Module\Helper $helper
-     * @param array|null         $options
+     * @param \Xmf\Module\Helper|null $helper
+     * @param array|null              $options
      *
      * @return \XoopsFormDhtmlTextArea|\XoopsFormEditor
      */

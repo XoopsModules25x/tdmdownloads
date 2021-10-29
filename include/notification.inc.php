@@ -29,7 +29,7 @@ declare(strict_types=1);
 /**
  * @param $category
  * @param $item_id
- * @return mixed
+ * @return array|null
  */
 function tdmdownloads_notify_iteminfo($category, $item_id)
 {
