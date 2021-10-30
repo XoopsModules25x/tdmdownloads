@@ -1,3 +1,27 @@
+<h5>2.1.0 beta.2        [NOT RELEASED]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.25, PHP 8.12, PHP 8.1.0 Beta 5
+<hr>
+- PHP 8 Smarty defaults (mamba)
+- Fully qualified name replaced with import (mamba)
+- Static methods invocation via '->' (mamba)
+- Cascading dirname(...) calls (mamba)
+- check for mysqli_result (mamba)
+- $icons as arrays (mamba)
+- fix XoopsBlock (mamba)
+- trigger_error() for database (mamba)
+- fix implode() requires an array (mamba)
+- fix for File Size admin message showing up for users (mamba)
+- semantic versioning (mamba)
+- Unnecessary pass-by-ref (mamba)
+- Case mismatch in method call or class usage (mamba)
+- Low performing filesystem operations (mamba)
+- fix for count() on object without Countable interface (mamba)
+- add images to downloads (mamba)
+- update SysUtility (mamba)
+- add credits for Goffy (mamba)
+- add xbootstrap templates to /extra (mamba)
+- changed styling for Categories in Preferences (mamba)
+
+
 <h5>2.01 Beta 1        [2021-08-08]</h5>  Dev: XOOPS 2.5.11, PHP 7.4.22, PHP 8.08
 <hr>
 - PHP 7.1 & PHP 8 (mamba)

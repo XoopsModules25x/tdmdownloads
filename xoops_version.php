@@ -191,7 +191,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'popular',
@@ -283,7 +284,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'perpage',
@@ -450,7 +452,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'perpageadmin',
@@ -466,7 +469,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'permission_download',
@@ -612,7 +616,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'use_paypal',
@@ -668,7 +673,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['config'][] = [
     'name'        => 'perpagerss',
@@ -700,7 +706,8 @@ $modversion['config'][] = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 /**
  * Make Sample button visible?
@@ -731,7 +738,8 @@ $modversion['config'][]                    = [
     'description' => '',
     'formtype'    => 'line_break',
     'valuetype'   => 'textbox',
-    'default'     => 'head',
+    'default'     => 'odd',
+    'category'    => 'group_header',
 ];
 $modversion['hasNotification']             = 1;
 $modversion['notification']['lookup_file'] = 'include/notification.inc.php';

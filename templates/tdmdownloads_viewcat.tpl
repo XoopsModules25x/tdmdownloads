@@ -17,7 +17,7 @@
     <div class="tdmdownloads-categories">
         <table>
             <tr>
-                <{foreach item=category from=$subcategories}>
+                <{foreach item=category from=$subcategories|default:null}>
                 <td>
                     <div class="tdmdownloads-data">
                         <div class="tdmdownloads-title">
@@ -127,7 +127,7 @@
 
     <div class="tdmdownloads-thereare"><{$lang_thereare}></div>
 
-    <{if $navigation === true}>
+    <{if $navigation|default:false == true}>
         <!-- Start navigation -->
         <div class="tdmdownloads-navigation">
             <div class="tdmdownloads-navigation-items">

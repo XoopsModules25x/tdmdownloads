@@ -210,6 +210,7 @@ class FineimpuploadHandler extends \SystemFineUploadHandler
         global $xoopsUser;
         $this->getImageDim();
         $helper        = Helper::getInstance();
+        /** @var \XoopsModules\Tdmdownloads\Common\ImagesHandler $imagesHandler */
         $imagesHandler = $helper->getHandler('Images');
         //        $imagesHandler = new \XoopsModules\Tdmdownloads\Common\ImagesHandler();
         $imagesObj = $imagesHandler->create();

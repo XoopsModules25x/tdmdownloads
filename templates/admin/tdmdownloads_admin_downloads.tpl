@@ -73,7 +73,7 @@
             <td width="30%"><{$smarty.const._AM_TDMDOWNLOADS_FORMCAT}></td>
             <td><{$download.category}></td>
         </tr>
-        <{foreach item=field from=$downloads.fields_list}>
+        <{foreach item=field from=$downloads.fields_list|default:null}>
             <tr class="<{cycle values='odd, even'}>">
                 <td width="30%"><{$field.name}></td>
                 <td><{$field.value}></td>
@@ -84,7 +84,7 @@
             <td><{$download.description}></td>
         </tr>
         <!-- tags -->
-        <{if $download.tags}>
+        <{if $download.tags|default:''}>
             <tr class="<{cycle values='odd, even'}>">
                 <td width="30%"><{$tags.title}></td>
                 <td><{$tags.value}></td>
@@ -112,7 +112,7 @@
             <td width="30%"><{$smarty.const._AM_TDMDOWNLOADS_FORMRATING}></td>
             <td><{$download.rating}> (<{$download.votes}> <{$smarty.const._AM_TDMDOWNLOADS_FORMVOTE}>)</td>
         </tr>
-        <{if $download.paypal}>
+        <{if $download.paypal|default:''}>
             <tr class="<{cycle values='odd, even'}>">
                 <td width="30%"><{$smarty.const._AM_TDMDOWNLOADS_FORMPAYPAL}></td>
                 <td><{$download.paypal}></td>
@@ -125,7 +125,7 @@
         <tr class="<{cycle values='odd, even'}>">
             <td width="30%"><{$smarty.const._AM_TDMDOWNLOADS_FORMACTION}></td>
             <td>
-                <{if $downloadstatus > 0 }><a href="downloads.php?op=update_status&downloads_lid=<{$download.lid}>"><img src="<{$pathModIcon16}>/off.png" border="0" alt="<{$smarty.const._AM_TDMDOWNLOADS_FORMVALID}>" title="<{$smarty.const._AM_TDMDOWNLOADS_FORMVALID}>"></a><{/if}>
+                <{if $downloadstatus|default:0 > 0 }><a href="downloads.php?op=update_status&downloads_lid=<{$download.lid}>"><img src="<{$pathModIcon16}>/off.png" border="0" alt="<{$smarty.const._AM_TDMDOWNLOADS_FORMVALID}>" title="<{$smarty.const._AM_TDMDOWNLOADS_FORMVALID}>"></a><{/if}>
                 <a href="downloads.php?op=edit_downloads&downloads_lid=<{$download.lid}>"><img src="<{$pathModIcon16}>/edit.png" alt="<{$smarty.const._AM_TDMDOWNLOADS_FORMEDIT}>" title="<{$smarty.const._AM_TDMDOWNLOADS_FORMEDIT}>"></a>
                 <a href="downloads.php?op=del_downloads&downloads_lid=<{$download.lid}>">
                     <img src="<{$pathModIcon16}>/delete.png" alt="<{$smarty.const._AM_TDMDOWNLOADS_FORMDEL}>" title="<{$smarty.const._AM_TDMDOWNLOADS_FORMDEL}>">

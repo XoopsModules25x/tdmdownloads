@@ -142,6 +142,7 @@ class Images extends \XoopsObject
         $imgWeight = $this->isNew() ? '0' : $this->getVar('img_weight');
         $form->addElement(new \XoopsFormText(\constant('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_WEIGHT'), 'img_weight', 20, 150, $imgWeight));
         // Form Table albums
+        /** @var \XoopsModules\Tdmdownloads\Common\ImagesHandler $albumsHandler */
         $albumsHandler  = $helper->getHandler('Albums');
         $imgAlbidSelect = new \XoopsFormSelect(\constant('CO_' . $moduleDirNameUpper . '_' . 'IMAGE_ALBID'), 'img_albid', $this->getVar('img_albid'));
         $imgAlbidSelect->addOptionArray($albumsHandler->getList());
