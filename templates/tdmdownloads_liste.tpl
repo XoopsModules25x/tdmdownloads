@@ -12,8 +12,8 @@
         <tr>
             <td class="head" align="left" style="vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_TITLE}></td>
             <td class="head" align="left" style="min-width: 150px; vertical-align: middle;" colspan="2"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_CATEGORIES}></td>
-            <{foreach item=field from=$field}>
-                <td class="head" align="left" style="vertical-align: middle;"><{$field}></td>
+            <{foreach item=field_itm from=$field}>
+                <td class="head" align="left" style="vertical-align: middle;"><{$field_itm}></td>
             <{/foreach}>
             <td class="head" align="center" style="min-width: 100px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DATE}></td>
             <td class="head" align="center" style="min-width: 80px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_NOTE}></td>
