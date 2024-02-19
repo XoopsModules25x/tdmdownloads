@@ -62,10 +62,10 @@
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
-                                    <{foreach item=bl_date from=$bl_date}>
+                                    <{foreach item=bl_date_itm from=$bl_date}>
                                         <li>
-                                            <a title="<{$bl_date.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_date.cid}>&amp;lid=<{$bl_date.id}>"><{$bl_date.title}></a>
-                                            (<{$bl_date.date}>)
+                                            <a title="<{$bl_date_itm.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_date_itm.cid}>&amp;lid=<{$bl_date_itm.id}>"><{$bl_date_itm.title}></a>
+                                            (<{$bl_date_itm.date}>)
                                         </li>
                                     <{/foreach}>
                                 </ul>
@@ -79,10 +79,10 @@
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
-                                    <{foreach item=bl_pop from=$bl_pop}>
+                                    <{foreach item=bl_pop_itm from=$bl_pop}>
                                         <li>
-                                            <a title="<{$bl_pop.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_pop.cid}>&amp;lid=<{$bl_pop.id}>"><{$bl_pop.title}></a>
-                                            (<{$bl_pop.hits}>)
+                                            <a title="<{$bl_pop_itm.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_pop_itm.cid}>&amp;lid=<{$bl_pop_itm.id}>"><{$bl_pop_itm.title}></a>
+                                            (<{$bl_pop_itm.hits}>)
                                         </li>
                                     <{/foreach}>
                                 </ul>
@@ -96,10 +96,10 @@
                             </div>
                             <div class="mrag2 pad2">
                                 <ul>
-                                    <{foreach item=bl_rating from=$bl_rating}>
+                                    <{foreach item=bl_rating_itm from=$bl_rating}>
                                         <li>
-                                            <a title="<{$bl_rating.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_rating.cid}>&amp;lid=<{$bl_rating.id}>"><{$bl_rating.title}></a>
-                                            (<{$bl_rating.rating}>)
+                                            <a title="<{$bl_rating_itm.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_rating_itm.cid}>&amp;lid=<{$bl_rating_itm.id}>"><{$bl_rating_itm.title}></a>
+                                            (<{$bl_rating_itm.rating}>)
                                         </li>
                                     <{/foreach}>
                                 </ul>
