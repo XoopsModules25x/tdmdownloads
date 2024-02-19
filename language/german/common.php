@@ -46,8 +46,6 @@ define('CO_' . $moduleDirNameUpper . '_ERROR_BAD_XOOPS', 'Dieses Modul benötigt
 define('CO_' . $moduleDirNameUpper . '_ERROR_BAD_PHP', 'Dieses Modul benötigt PHP Version %s+ (%s installiert)');
 define('CO_' . $moduleDirNameUpper . '_ERROR_TAG_REMOVAL', 'Konnte Tags vom Tag-Modul nicht entfernen');
 define('CO_' . $moduleDirNameUpper . '_FOLDERS_DELETED_OK', 'Upload-Verzeichnisse wurden gelöscht');
-\define('CO_' . $moduleDirNameUpper . '_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
-\define('CO_' . $moduleDirNameUpper . '_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
 // Error Msgs
 define('CO_' . $moduleDirNameUpper . '_ERROR_BAD_DEL_PATH', 'Konnte Verzeichnis %s nicht löschen');
 define('CO_' . $moduleDirNameUpper . '_ERROR_BAD_REMOVE', 'Konnte %s nicht löschen');
@@ -71,11 +69,6 @@ define('CO_' . $moduleDirNameUpper . '_SHOW_SAMPLE_BUTTON_DESC', 'Wenn ja, dann 
 define('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA', 'Export DB Schema für YAML');
 define('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA_SUCCESS', 'Export DB Schema zu YAML erfolgreich');
 define('CO_' . $moduleDirNameUpper . '_EXPORT_SCHEMA_ERROR', 'ERROR: Export des DB Schema zu YAML fehlgeschlagen');
-\define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA', 'Export DB Schema to YAML');
-\define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_SUCCESS', 'Export DB Schema to YAML was a success');
-\define('CO_' . $moduleDirNameUpper . '_' . 'EXPORT_SCHEMA_ERROR', 'ERROR: Export of DB Schema to YAML failed');
-\define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON', 'Show Sample Button?');
-\define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC', 'If yes, the "Add Sample Data" button will be visible to the Admin. It is Yes as a default for first installation.');
 \define('CO_' . $moduleDirNameUpper . '_' . 'HIDE_SAMPLEDATA_BUTTONS', 'Hide the Import buttons)');
 \define('CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLEDATA_BUTTONS', 'Show the Import buttons)');
 \define('CO_' . $moduleDirNameUpper . '_' . 'CONFIRM', 'Confirm');
@@ -106,8 +99,6 @@ define('CO_' . $moduleDirNameUpper . '_BLOCKS_MANAGMENT', 'Manage');
 define('CO_' . $moduleDirNameUpper . '_BLOCKS_ADDBLOCK', 'Add a new block');
 define('CO_' . $moduleDirNameUpper . '_BLOCKS_EDITBLOCK', 'Edit a block');
 define('CO_' . $moduleDirNameUpper . '_BLOCKS_CLONEBLOCK', 'Clone a block');
-\define('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS_EDITBLOCK', 'Edit a block');
-\define('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS_CLONEBLOCK', 'Clone a block');
 //myblocksadmin
 define('CO_' . $moduleDirNameUpper . '_' . 'AGDS', 'Admin Groups');
 define('CO_' . $moduleDirNameUpper . '_' . 'BCACHETIME', 'Cache Time');
