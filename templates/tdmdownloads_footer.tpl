@@ -2,7 +2,7 @@
     <div class='errorMsg'><strong><{$error}></strong></div>
 <{/if}>
 <br>
-<{if $xoops_isadmin}>
+<{if $xoops_isadmin|default:false}>
     <div class="text-center bold"><a href="<{$admin|default:''}>"><{$smarty.const._MD_TDMDOWNLOADS_ADMIN}></a></div>
     <br>
 <{/if}>

@@ -25,8 +25,8 @@ $utility       = new \XoopsModules\Tdmdownloads\Utility();
 $modversion    = [
     'name'                => _MI_TDMDOWNLOADS_NAME,
     'version'             => '2.1.0',
-    'module_status'       => 'Beta 1',
-    'release_date'        => '2022/02/20',
+    'module_status'       => 'RC 1',
+    'release_date'        => '2026/02/08',
     'description'         => _MI_TDMDOWNLOADS_DESC,
     'credits'             => 'Mage, Mamba, Goffy, Heyula',
     'author'              => 'Mage',
@@ -46,8 +46,8 @@ $modversion    = [
     'onInstall'           => 'include/oninstall.php',
     'onUpdate'            => 'include/onupdate.php',
     // ------------------- Min Requirements -------------------
-    'min_php'             => '7.1',
-    'min_xoops'           => '2.5.10',
+    'min_php'             => '7.4',
+    'min_xoops'           => '2.5.11',
     'min_admin'           => '1.2',
     'min_db'              => ['mysql' => '5.5'],
     // ------------------- Admin Menu -------------------

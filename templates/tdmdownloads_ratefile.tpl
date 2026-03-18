@@ -6,7 +6,7 @@
     </div>
 
     <!-- Category path -->
-    <div class="bold marg1 pad1"><{$navigation}></div>
+    <div class="bold marg1 pad1"><{$navigation|default:false}></div>
 
     <!-- Submit helps -->
     <div class="tdmdownloads-tips">
@@ -23,6 +23,6 @@
     <{/if}>
 
     <!-- Submit form -->
-    <div class="tdmdownloads-submitform"><{$themeForm}></div>
+    <div class="tdmdownloads-submitform"><{$themeForm|default:false}></div>
 
 </div>

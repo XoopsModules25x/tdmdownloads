@@ -6,13 +6,13 @@
     </div>
 
     <!-- Category path -->
-    <div class="bold marg1 pad1"><{$navigation}></div>
+    <div class="bold marg1 pad1"><{$navigation|default:false}></div>
 
     <{if $message_erreur|default:''}>
         <div class='tdmdownloads-errorMsg errorMsg'><{$message_erreur}></div>
     <{/if}>
 
     <!-- Submit form -->
-    <div class="tdmdownloads-submitform"><{$themeForm}></div>
+    <div class="tdmdownloads-submitform"><{$themeForm|default:false}></div>
 
 </div>

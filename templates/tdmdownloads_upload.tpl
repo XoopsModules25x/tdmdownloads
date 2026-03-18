@@ -1,13 +1,13 @@
 <{include file='db:tdmdownloads_header.tpl'}>
 
-<{if $form}>
+<{if $form|default:false}>
     <{$form}>
 <{/if}>
 
-<{if $multiupload}>
+<{if $multiupload|default:false}>
     <div class="clear">&nbsp;</div>
     <{include file="db:tdmdownloads_trigger_uploads.tpl"}>
-    <h2><{$categoryname}></h2>
+    <h2><{$categoryname|default:''}></h2>
     <div id="fine-uploader-manual-trigger"></div>
     <div><{$smarty.const._IMGMAXSIZE}> <{$file_maxsize}></div>
     <div><{$smarty.const._IMGMAXWIDTH}> <{$img_maxwidth}></div>

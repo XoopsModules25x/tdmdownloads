@@ -12,7 +12,7 @@
         <tr>
             <td class="head" align="left" style="vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_TITLE}></td>
             <td class="head" align="left" style="min-width: 150px; vertical-align: middle;" colspan="2"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_CATEGORIES}></td>
-            <{foreach item=field_itm from=$field}>
+            <{foreach item=field_itm from=$field|default:[]}>
                 <td class="head" align="left" style="vertical-align: middle;"><{$field_itm}></td>
             <{/foreach}>
             <td class="head" align="center" style="min-width: 100px; vertical-align: middle;"><{$smarty.const._MD_TDMDOWNLOADS_SEARCH_DATE}></td>
@@ -31,7 +31,7 @@
                 <td align="left" style="vertical-align: middle;">
                     <a href="<{$mod_url}>/viewcat.php?cid=<{$download.cid}>" target="_blank" title="<{$download.cat}>"><{$download.cat}></a>
                 </td>
-                <{foreach item=fielddata from=$download.fielddata}>
+                <{foreach item=fielddata from=$download.fielddata|default:[]}>
                     <td align="left" style="vertical-align: middle;"><{$fielddata}></td>
                 <{/foreach}>
                 <td align="center" style="vertical-align: middle;"><{$download.date}></td>

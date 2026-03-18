@@ -9,7 +9,7 @@
 # Table structure for table `tdmdownloads_broken`
 #
 
-CREATE TABLE tdmdownloads_broken (
+CREATE TABLE `tdmdownloads_broken` (
     reportid INT(5)      NOT NULL AUTO_INCREMENT,
     lid      INT(11)     NOT NULL DEFAULT '0',
     sender   INT(11)     NOT NULL DEFAULT '0',
@@ -26,7 +26,7 @@ CREATE TABLE tdmdownloads_broken (
 # Table structure for table `tdmdownloads_cat`
 #
 
-CREATE TABLE tdmdownloads_cat (
+CREATE TABLE `tdmdownloads_cat` (
     cat_cid              INT(5) UNSIGNED NOT NULL AUTO_INCREMENT,
     cat_pid              INT(5) UNSIGNED NOT NULL DEFAULT '0',
     cat_title            VARCHAR(255)    NOT NULL DEFAULT '',
@@ -43,7 +43,7 @@ CREATE TABLE tdmdownloads_cat (
 # Table structure for table `tdmdownloads_downloads`
 #
 
-CREATE TABLE tdmdownloads_downloads (
+CREATE TABLE `tdmdownloads_downloads` (
     lid         INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     cid         INT(5) UNSIGNED  NOT NULL DEFAULT '0',
     title       VARCHAR(255)     NOT NULL DEFAULT '',
@@ -75,7 +75,7 @@ CREATE TABLE tdmdownloads_downloads (
 # Table structure for table `tdmdownloads_mod`
 #
 
-CREATE TABLE tdmdownloads_mod (
+CREATE TABLE `tdmdownloads_mod` (
     requestid       INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     lid             INT(11) UNSIGNED NOT NULL DEFAULT '0',
     cid             INT(5) UNSIGNED  NOT NULL DEFAULT '0',
@@ -97,7 +97,7 @@ CREATE TABLE tdmdownloads_mod (
 # Table structure for table `tdmdownloads_votedata`
 #
 
-CREATE TABLE tdmdownloads_votedata (
+CREATE TABLE `tdmdownloads_votedata` (
     ratingid        INT(11) UNSIGNED    NOT NULL AUTO_INCREMENT,
     lid             INT(11) UNSIGNED    NOT NULL DEFAULT '0',
     ratinguser      INT(11)             NOT NULL DEFAULT '0',
@@ -116,7 +116,7 @@ CREATE TABLE tdmdownloads_votedata (
 # Table structure for table `tdmdownloads_field`
 #
 
-CREATE TABLE tdmdownloads_field (
+CREATE TABLE `tdmdownloads_field` (
     fid        INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     title      VARCHAR(255)     NOT NULL DEFAULT '',
     img        VARCHAR(255)     NOT NULL DEFAULT '',
@@ -133,7 +133,7 @@ CREATE TABLE tdmdownloads_field (
 # Table structure for table `tdmdownloads_fielddata`
 #
 
-CREATE TABLE tdmdownloads_fielddata (
+CREATE TABLE `tdmdownloads_fielddata` (
     iddata INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     fid    INT(11) UNSIGNED NOT NULL DEFAULT '0',
     lid    INT(11) UNSIGNED NOT NULL DEFAULT '0',
@@ -147,7 +147,7 @@ CREATE TABLE tdmdownloads_fielddata (
 # Table structure for table `tdmdownloads_modfielddata`
 #
 
-CREATE TABLE tdmdownloads_modfielddata (
+CREATE TABLE `tdmdownloads_modfielddata` (
     modiddata INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     fid       INT(11) UNSIGNED NOT NULL DEFAULT '0',
     lid       INT(11) UNSIGNED NOT NULL DEFAULT '0',
@@ -161,7 +161,7 @@ CREATE TABLE tdmdownloads_modfielddata (
 # Table structure for table `tdmdownloads_downlimit`
 #
 
-CREATE TABLE tdmdownloads_downlimit (
+CREATE TABLE `tdmdownloads_downlimit` (
     downlimit_id       INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     downlimit_lid      INT(11) UNSIGNED NOT NULL DEFAULT '0',
     downlimit_uid      INT(11)          NOT NULL DEFAULT '0',

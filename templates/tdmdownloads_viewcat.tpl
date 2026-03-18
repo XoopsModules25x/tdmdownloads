@@ -6,11 +6,11 @@
     </div>
 
     <!-- Category path -->
-    <div class="bold marg1 pad1"><{$category_path}></div>
+    <div class="bold marg1 pad1"><{$category_path|default:''}></div>
 
     <{if $cat_description|default:'' != ''}>
         <!-- Category description -->
-        <div class="marg5 pad5"><{$cat_description}></div>
+        <div class="marg5 pad5"><{$cat_description|default:''}></div>
     <{/if}>
 
     <!-- Start Show categories information -->
@@ -29,7 +29,7 @@
                             <{if $category.image|default:'' != ''}>
                                 <a class="marg1 pad1" title="<{$category.title}>" href="<{$mod_url}>/viewcat.php?cid=<{$category.id}>"><img class="<{$img_float}>" src="<{$category.image}>" alt="<{$category.title}>"></a>
                             <{/if}>
-                            <{$category.description_main}>
+                            <{$category.description_main|default:''}>
                             <div class="endline"></div>
                         </div>
                         <{if $category.subcategories|default:'' != ''}>
@@ -39,7 +39,7 @@
                         <{/if}>
                     </div>
                 </td>
-                <{if $category.count is div by $nb_catcol}>
+                <{if $category.count|default:0 is div by $nb_catcol}>
             </tr>
             <tr>
                 <{/if}>
@@ -54,7 +54,7 @@
         <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$mod_url}>/rss.php?cid=<{$category_id}>"><img src="<{$mod_url}>/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
     </div>
 
-    <{if $bl_affichage==1}>
+    <{if $bl_affichage|default:0 == 1}>
         <!-- Start Summary informations -->
         <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLNAME}></div>
         <table class="mrag2 pad2 tdmdownloads-summary">
@@ -66,7 +66,7 @@
                         </div>
                         <div class="mrag2 pad2">
                             <ul>
-                                <{foreach item=bl_date_itm from=$bl_date}>
+                                <{foreach item=bl_date_itm from=$bl_date|default:[]}>
                                     <li><a title="<{$bl_date_itm.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_date_itm.cid}>&amp;lid=<{$bl_date_itm.id}>"><{$bl_date_itm.title}></a> (<{$bl_date_itm.date}>)</li>
                                 <{/foreach}>
                             </ul>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="mrag2 pad2">
                             <ul>
-                                <{foreach item=bl_pop_itm from=$bl_pop}>
+                                <{foreach item=bl_pop_itm from=$bl_pop|default:[]}>
                                     <li><a title="<{$bl_pop_itm.title}>" href="<{$mod_url}>/singlefile.php?cid=<{$bl_pop_itm.cid}>&amp;lid=<{$bl_pop_itm.id}>"><{$bl_pop_itm.title}></a> (<{$bl_pop_itm.hits}>)</li>
                                 <{/foreach}>
                             </ul>
@@ -106,15 +106,15 @@
         <!-- End Summary informations -->
     <{/if}>
 
-    <{if $aff_summary}>
+    <{if $aff_summary|default:false}>
         <!-- Start Automatic Summary -->
         <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_CAT_SUMMARY}></div>
         <div class="tdmdownloads-summary">
             <table>
                 <tr>
-                    <{foreach item=summary_itm from=$summary}>
+                    <{foreach item=summary_itm from=$summary|default:[]}>
                     <td><{$summary_itm.title}></td>
-                    <{if $summary.count is div by 3}>
+                    <{if $summary.count|default:0 is div by 3}>
                 </tr>
                 <tr>
                     <{/if}>
@@ -125,7 +125,7 @@
         <!-- End Automatic Summary -->
     <{/if}>
 
-    <div class="tdmdownloads-thereare"><{$lang_thereare}></div>
+    <div class="tdmdownloads-thereare"><{$lang_thereare|default:''}></div>
 
     <{if $navigation|default:false == true}>
         <!-- Start navigation -->
@@ -169,7 +169,7 @@
                 </a>)
             </span>
             </div>
-            <div class="mrag1 pad1 bold"><{$affichage_tri}></div>
+            <div class="mrag1 pad1 bold"><{$affichage_tri|default:''}></div>
         </div>
         <!-- End navigation -->
     <{/if}>

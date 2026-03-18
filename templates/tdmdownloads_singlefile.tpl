@@ -119,7 +119,7 @@
         </div>
     <{/if}>
 
-    <{if $show_bookmark}>
+    <{if $show_bookmark|default:false}>
         <!-- Bookmarks -->
         <div class="tdmdownloads-bookmarkme">
             <div class="head tdmdownloads-bookmarkmetitle"><{$smarty.const._MD_TDMDOWNLOADS_BOOKMARK_ME}></div>
@@ -166,11 +166,12 @@
             </div>
         </div>
     <{/if}>
-
-    <div style="text-align: center; padding: 3px; margin:3px;">
-        <{$commentsnav}>
-        <{$lang_notice}>
-    </div>
+	<{if $commentsnav|default:'' || $lang_notice|default:''}>
+		<div style="text-align: center; padding: 3px; margin:3px;">
+			<{$commentsnav|default:''}>
+			<{$lang_notice|default:''}>
+		</div>
+	<{/if}>
     <div style="margin:3px; padding: 3px;">
         <{if $comment_mode|default:'' == "flat"}>
             <{include file="db:system_comments_flat.tpl"}>

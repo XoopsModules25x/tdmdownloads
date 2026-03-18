@@ -50,7 +50,7 @@
         <div class="tdmdownloads-rss">
             <a title="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>" href="<{$mod_url}>/rss.php?cid=0"><img src="<{$mod_url}>/assets/images/rss.gif" alt="<{$smarty.const._MD_TDMDOWNLOADS_RSS}>"></a>
         </div>
-        <{if $bl_affichage==1}>
+        <{if $bl_affichage|default:0 == 1}>
             <!-- Start Summary informations -->
             <div class="tdmdownloads-linetitle"><{$smarty.const._MD_TDMDOWNLOADS_INDEX_BLNAME}></div>
             <table class="mrag2 pad2 tdmdownloads-summary">
@@ -113,7 +113,7 @@
         <div class="tdmdownloads-thereare"><{$lang_thereare}></div>
     <{/if}>
 
-    <{if $show_latest_files}>
+    <{if $show_latest_files|default:false}>
         <!-- check if Show new files in index -->
         <{if $file|default:'' != ''}>
             <!-- Start Show new files in index -->
