@@ -284,14 +284,16 @@ class Utility extends Common\SysUtility
             $mb             = 1024 * 1024;
             $gb             = 1024 * 1024 * 1024;
             $size_value_arr = \explode(' ', $stringSize);
-            if ('B' == $size_value_arr[1]) {
-                $mysize = $size_value_arr[0];
-            } elseif ('K' == $size_value_arr[1]) {
-                $mysize = $size_value_arr[0] * $kb;
-            } elseif ('M' == $size_value_arr[1]) {
-                $mysize = $size_value_arr[0] * $mb;
+            $sizeType       = substr(strtoupper($size_value_arr[1]), 1);
+            $sizeValue      = (int)$size_value_arr[0];
+            if ('B' == $sizeType) {
+                $mysize = $sizeValue;
+            } elseif ('K' == $sizeType) {
+                $mysize = $sizeValue * $kb;
+            } elseif ('M' == $sizeType) {
+                $mysize = $sizeValue * $mb;
             } else {
-                $mysize = $size_value_arr[0] * $gb;
+                $mysize = $sizeValue * $gb;
             }
             return $mysize;
         }
