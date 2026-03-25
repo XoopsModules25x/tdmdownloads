@@ -188,3 +188,5 @@ define('_AM_TDMDOWNLOADS_ERROR_BAD_DEL_PATH', 'Impossible de supprimer le réper
 define('_AM_TDMDOWNLOADS_ERROR_BAD_REMOVE', 'Impossible de supprimer %s');
 define('_AM_TDMDOWNLOADS_ERROR_NO_PLUGIN', 'Impossible de charger le plug-in');
 define('_AM_TDMDOWNLOADS_NUMBYTES', '%s octets');
+//multi-upload
+define('_AM_TDMDOWNLOADS_DOWNLOADS_NEW_MULTIUPLOAD', 'Nouveau Multi-upload');
